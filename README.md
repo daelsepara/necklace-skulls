@@ -1,0 +1,2 @@
+# necklace-skulls
+This is a ZIL Implementation of Necklace of Skulls game book (Virtual Reality Adventures) by Dave Morris.
