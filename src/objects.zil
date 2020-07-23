@@ -44,3 +44,8 @@
     (DESC "rope")
     (SYNONYM ROPE)
     (FLAGS TAKEBIT)>
+
+<OBJECT WATERSKIN
+    (DESC "waterskin")
+    (SYNONYM WATERSKIN)
+    (FLAGS TAKEBIT)>

@@ -3,8 +3,8 @@
 <GLOBAL CHARACTERS-ENABLED T>
 <GLOBAL STARTING-POINT PROLOGUE>
 
-<CONSTANT BAD-ENDING "You adventure ends here.">
-<CONSTANT GOOD-ENDING "You found your brother. Now your journey home begins!">
+<CONSTANT BAD-ENDING "Your adventure ends here.">
+<CONSTANT GOOD-ENDING "You have found your brother! Now your journey home begins!">
 
 <OBJECT CURRENCY (DESC "cacao")>
 <OBJECT VEHICLE (DESC "none")>
@@ -19,6 +19,7 @@
 	<RESET-TEMP-LIST>
 	<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY275>
 	<PUTP ,STORY004 ,P?DEATH T>
+	<PUTP ,STORY013 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -200,175 +201,128 @@
 <ROUTINE STORY010-PRECHOICE ()
 	<COND (<CHECK-ITEM ,JADE-BEAD> <STORY-JUMP ,STORY056>)>>
 
+<CONSTANT TEXT011 "As the sun sets, the pitcher on the woman's shoulder tilts, falling to reveal that our guess was right -- there is a second head protruding from her neck!||The nightcrawler's eyes snap open and fix on you, and its mouth drops open in a gurgling snarl. Long strands of black hair shoot out from it like tentacles, some of them up to two metres long. These form into thin matted stalks resembling an insect's legs, which probe the ground, preparing to support the creature's weight- There is a grisly sucking sound as the nightcrawler pulls itself free of the sleeping woman's neck.||It comes scuttling forward eagerly on its limbs of twined hair and leaps up towards your neck, intending to make you its new host, but you are ready for it. It blunders straight into the net which your magic has woven out of moonbeams and river mist. It struggles and gnashes its long teeth, but it cannot break free of the net. Taking it to the river bank, you cast it into the water. \"And good riddance,\" you say as it sinks to a final resting place on the river bed.">
+
 <ROOM STORY011
 	(DESC "011")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT011)
+	(CONTINUE STORY398)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT012 "Cleverness is not so much a question of intelligence. It has a lot to do with just having a smart attitude. Where others look for the obvious answer to any problem, you have a habit of being contrary -- of always trying the unexpected first. You find it usually works.||Like now: the average person would climb to the top of the steps and probably have to tackle some devious puzzle or demonic monster in the shrine above. You check out the opposite approach, and discover that the steps not only lead up but also descend beneath the water. It's a near certainty that this is the route you must take.">
 
 <ROOM STORY012
 	(DESC "012")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT012)
+	(CONTINUE STORY105)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT013 "A peasant shows up at last, emerging on the adjacent ledge beside the river. Time passes in a dream-like way here; you cannot tell if hours or days have gone by while you were waiting. You keenly feel the urgency of your quest.||The noble gets to his feet. \"Since I was here first, I shall travel on with this man,\" he says to you once he has explained the situation to the peasant. \"No doubt another poor man will arrive eventually. I'll throw back the poles once I'm across, so that you will be able to use them.\"||Despite the fact that he was here first, you have to insist that you go across at once. He reacts with indignation, and a struggle ensues. A life of luxury has left him no match for you, with your ardency and youthful vigour. You subdue him and take the pole for yourself.">
+<CONSTANT TEXT013-CONTINUED "Hooking your pole with the peasant's, the two of you are able to cross the obsidian beams by setting your feet against the flat sloping sides of the beams and using your weight to counterbalance each other. When you reach the far side, you throw the poles back to the noble, but he is so enraged that he allows them to fall into the river. \"May all the gods curse you!\" he cries, shaking his fist. \"You are without honour!\"||You shrug and turn away. Though you regret what you had to do, it was necessary if you are to save your brother.">
 
 <ROOM STORY013
 	(DESC "013")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT013)
+	(PRECHOICE STORY013-PRECHOICE)
+	(CONTINUE STORY036)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY013-PRECHOICE ()
+	<COND (<NOT <OR <CHECK-SKILL ,SKILL-SWORDPLAY> <CHECK-SKILL ,SKILL-UNARMED-COMBAT>>>
+		<LOSE-LIFE 1 DIED-IN-COMBAT ,STORY013>
+	)>
+	<IF-ALIVE TEXT013-CONTINUED>>
+
+<CONSTANT TEXT014 "You address the sentinel by what you think is his name, only to realize your mistake at once. He gives a high howl of immortal outrage and lashes out with his bone sceptre. It slices through the air like a falling star, giving you no chance to react. You hear yourself cry out in agony at the blow, but the curious thing is that you never discover where you have been hurt. By the time you look down, you are already dead.">
 
 <ROOM STORY014
 	(DESC "014")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT014)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT015 "The warrior stands looking at the hydra's body for a few moments in frank astonishment, then turns and nods to you. \"Well done,\" he says. \"Few men could have equalled that feat.\"||\"My name is Evening Star,\" you tell him. \"I am from the city of Koba, and I have travelled the breadth of the world in search of my brother.\"||\"I am Stooping Eagle, until recently a lord of the Great City. I had been on a voyage, and returned to discover my home had been ransacked by werewolves and night demons. All my people are either slain or fled, and the Great City is now a sad empty ruin. Thus I have come to wreak vengeance on the one responsible: a sorcerer known as Necklace of Skulls.\"||\"Then we are partners in the same quest, for I too desire the sorcerer's death.\"||\"I had heard he was already dead, but none the less active for that,\" says Stooping Eagle. He turns and surveys the moonlit dunes. \"But the desert is wide, and I have been searching for his palace since the morning star last rose.\"||You smile at the unconscious aptness of his remark. \"It is close,\" you assure him. \"I feel sure of it.\"||You walk through the night, sheltering by day in the shade of a crag before heading on a sunset. After several hours Stooping Eagle unstoppers his waterskin and rations out a few sips. It is barely enough to moisten his lips, but he looks like a man who is used to austerity.">
 
 <ROOM STORY015
 	(DESC "015")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT015)
+	(PRECHOICE STORY015-PRECHOICE)
+	(CONTINUE STORY246)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY015-PRECHOICE ()
+	<COND (<CHECK-ITEM ,WATERSKIN>
+		<STORY-JUMP ,STORY220>
+	)(<CHECK-SKILL ,SKILL-ETIQUETTE>
+		<STORY-JUMP ,STORY223>
+	)>>
+
+<CONSTANT TEXT016 "You clear the pit with one athletic bound. Looking back at the watching courtiers, you see their expectant grins turn to hang-dog expressions of disappointment. Your cocksure mood is deflated a moment later, though, when they come bounding across the pit themselves. There is not a single one of them who is less agile than you.||You manage to muster a confident smile as you say, \"Well, I've passed your first test.\"||\"That little thing?\2 says the chief courtier with a scornful glance at the pit of coals. \"That wasn't a test -- more a sort of joke to welcome you. The real tests are still to come.\"">
 
 <ROOM STORY016
 	(DESC "016")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT016)
+	(CONTINUE STORY431)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT017 "Your eyes can make out nothing in the inky darkness that engulfs you. As you squat down on the guano-crusted floor, there comes a flapping of leathery wings and the first of the bats comes swooping down towards you. You throw up your arm, fending it off with a sob of horror.||Although you try to stay alert throughout the night, fatigue finally overcomes you and you sink into a fitful sleep.">
+<CONSTANT TEXT017-CONTINUED "You awaken hours later to discover that the bats have been gorging on your blood. You are covered with tiny sores where they have chewed into your veins. You huddle miserable against the wall to wait for dawn.">
 
 <ROOM STORY017
 	(DESC "017")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT017)
+	(PRECHOICE STORY017-PRECHOICE)
+	(CONTINUE STORY041)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY017-PRECHOICE ()
+	<LOSE-LIFE 1 DIED-GREW-WEAKER ,STORY017>
+	<IF-ALIVE TEXT017-CONTINUED>>
+
+<CONSTANT TEXT018 "You set the skull gently on the dusty ground and take a few paces back, raising your wand.||Necklace of Skulls sees what you are planning and speaks in protest from the inner recesses of his shrine: \"You cannot resurrect him. You do not have that power.\"||\"Raw determination is the basis of all magic,\" you counter. \"My love for my brother will bring him back.\"||This is the hardest spell you will ever cast. For almost an hour you continue the chant. The wolfish courtiers do not intervene, fearing your power. For his part, Necklace of Skulls is happy to indulge you. He wants to see you fail. You are determined to disappoint him.||Searingly bright light envelops the skull like a phosphoric bubble from which long green sparks go crawling out along the ground. The wand grows hoot in your hand as it channels more magical force than it was ever intended to contain. At last you know you can do no more. Hoarsely uttering the last syllables of the spell, you slump to your knees.||There is a gasp from the watching courtiers, a howl of spite from the sorcerer. You look up. An hour of staring into the heart of the spell-glare has left a flickering after-image across your vision, but you are sure you can see something stirring. It looks like a man. He rises to his feet and steps towards you. You rub your eyes, then a familiar voice brings tears of joy to them. \"Evening Star,\" he says. Your brother is alive once more!||You have used up all your sorcery in working this miracle.">
 
 <ROOM STORY018
 	(DESC "018")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT018)
+	(PRECHOICE STORY018-PRECHOICE)
+	(CONTINUE STORY042)
+	(CODEWORD CODEWORD-VENUS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY018-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-ANGEL> <REMOVE ,CODEWORD-ANGEL>)>
+	<EMPHASIZE "You have lost the SPELLS skill.">
+	<REMOVE ,SKILL-SPELLS>>
+
+<CONSTANT TEXT019 "You have time to take a single step towards the black pyramid, then a howl rings out from the shrine -- a howl of such gruesome fury that your sweat runs icy on your brow. The courtiers abandon any semblance of human form and, transforming into wild dogs, scatter with yelps of fear.||The shadow men dissolve as Necklace of Skulls draws all his power back into himself. There is a rumbling from deep within the pyramid. The roof of the shrine trembles, then splits apart as something rises up through it. The pillars topple; masonry blocks crack open. Necklace of Skulls stands revealed atop the pyramid.||He is twice the height of a man -- a parody of human form with dead grey features and grotesquely long limbs with too many joints. The eyes are deep sockets under a caul of shrivelled flesh. His robe is sewn from ragged strips of blood-drenched skin; you realize with a shudder they are the flayed skins of men. Around his neck hangs a long chain of gore-spattered skulls, each with living eyes filled with eternal torment.||Necklace of Skulls stands in the rubble of his shrine like a loathsome insect just emerged from a chrysalis. He points a thin finger at you. \"Evening Star,\" he hisses. \"Now you will know the taste of death.\"">
+<CONSTANT CHOICES019 <LTABLE "use a blowgun" "a wand" "close in for a melee -- either by charging straight at him" "zigzagging as you run">>
 
 <ROOM STORY019
 	(DESC "019")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT019)
+	(CHOICES CHOICES019)
+	(DESTINATIONS <LTABLE STORY204 STORY227 STORY250 STORY273>)
+	(REQUIREMENTS <LTABLE SKILL-TARGETING SKILL-SPELLS NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT020 "There is a raft moored beside the jetty. It starts to move of its own accord once you have climbed aboard and cast off. You are conveyed across the lake. You are shivering because of the deep chill in the air here. The waters stirs sluggishly in the raft's wake, as though on the point of freezing.||Green light seeps into the sky, which you now see resembles the roof of an unimaginably vast cavern. Perhaps you are gazing up the bedrock on which the living world rests. The notion sends a shudder through your whole body.||Your journey seems to take hours. Other than the faint sloshing of water past the sides of the raft, there is dead silence. At last you catch sight of something ahead. It is a steep pyramid built in the middle of the lake, with steps leading right up from the water to a shrine at the top.||The raft drifts to a halt beside the steps. You are puzzled. Is this the journey's end? Here, surrounded by leagues of water in all directions?">
 
 <ROOM STORY020
 	(DESC "020")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT020)
+	(PRECHOICE STORY020-PRECHOICE)
+	(CONTINUE STORY058)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY020-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-CUNNING>
+		<STORY-JUMP ,STORY012>
+	)(<CHECK-SKILL ,SKILL-CHARMS>
+		<STORY-JUMP ,STORY035>
+	)>>
 
 <ROOM STORY021
 	(DESC "021")
