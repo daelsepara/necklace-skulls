@@ -20,6 +20,8 @@
 	<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY275>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
+	<PUTP ,STORY022 ,P?DEATH T>
+	<PUTP ,STORY028 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -324,175 +326,146 @@
 		<STORY-JUMP ,STORY035>
 	)>>
 
+<CONSTANT TEXT021 "You soon discover that it is possible to dig a tunnel throughout the sand underneath the barrier of flame. It is the work of just a few minutes to return Jade Thunder's wand to him.||\"I wonder why I never thought of that,\" he muses.\"When you have matchless magical power, why bother with ingenuity?\" you suggest.||He sucks his teeth and gives you a narrow look. \"Oh yes.\"">
+
 <ROOM STORY021
 	(DESC "021")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT021)
+	(CONTINUE STORY091)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT022 "Blistering waves of heat rise form the rocks. Dazzled and soaked in sweat, you stumble on under the harsh sun. The ground is cracked and dry. Pinnacles of wind-blasted rock poke up like gnarled fingers into the sky. High above, the vultures circle in a long lazy sweep. They are content to wait until you are too weak to go on. Days and nights become a blur of torment.">
 
 <ROOM STORY022
 	(DESC "022")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT022)
+	(PRECHOICE STORY022-PRECHOICE)
+	(CONTINUE STORY069)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY022-PRECHOICE ()
+	<COND (<CHECK-ITEM ,WATERSKIN>
+		<LOSE-LIFE 2 DIED-OF-THIRST ,STORY022>
+		<COND (<IS-ALIVE>
+			<EMPHASIZE "You waterskin has been emptied.">
+			<LOSE-ITEM ,WATERSKIN>
+		)>
+	)(ELSE
+		<PUTP ,STORY022 ,P?DEATH F>
+		<STORY-JUMP ,STORY322>
+	)>>
+
+<CONSTANT TEXT023 "\"Why were you counting the stars anyway?\" you ask him.||Brows like stone lintels tilt in a weighty frown. \"I can't remember,\" he admits at last.||\"But it must have been important?\"||\"I suppose so...\" he murmurs distractedly, still puzzling over the problem.||\"So I ought to get a reward?\"||His lips tighten like cooling lava. \"Ah, I see. You want payment for your service. Well, I suppose so. What will you take: health, wealth or sound advice?\"||You ponder the choice for a few moments, prompting him to a grunt of irritation: \"Decide quickly, since I now have another problem to occupy my time!\"">
+<CONSTANT CHOICES023 <LTABLE "choose health" "wealth" "advice">>
 
 <ROOM STORY023
 	(DESC "023")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT023)
+	(CHOICES CHOICES023)
+	(DESTINATIONS <LTABLE STORY044 STORY067 STORY090>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT024 "Convinced though you are by the strength of this argument, the Matriarch seems unimpressed. \"I wonder what you will find?\" she muses. \"The truth as to Morning Star's fate, perhaps. But also you may discover a deeper truth.\"||She turns aside to gaze up at the shimmering sunbeams slanting through the windows, showing her profile in an expression of disdain. \"You are useless to the clan until you learn wisdom, Evening Star. Depart whenever you wish.\"||She says nothing more. Awkwardly, you get to your feet and retreat from the room with a hesitant bow.">
 
 <ROOM STORY024
 	(DESC "024")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT024)
+	(CONTINUE STORY093)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT025 "The causeway to Yashuna is an arrow-straight road of packed limestone raised on stone blocks above the level of the countryside. As you walk, you scan the swaying fields of maize, the orchards and ranks of cotton plants that stretch off as far as the eye can see. Low stone walls mark the irrigation channels that ensure as much water as possible reaches the crops at this arid time of year. Peasant dwellings are scattered here and there across the countryside: oval single-storey buildings with sharply peaked roofs of dry thatch. It makes you thirsty just to watch the peasants at their back-breaking work, gathering cotton in long sacks under the sweltering sun.||A dusty grove of papaya trees overhangs the causeway. Your mouth waters as you look at them. Surely on one would mind if you took just one papaya? As you reach up to pick one of the fruits, there is a sudden flurry of movement from the bole of the tree. You go rigid, and a thrill of clammy fear chills you despite the heat of the day. Poised atop the fruit is a tarantula! Its huge black forelimbs are resting on your fingers, and you can see the wet coating of venom on its fangs.">
+<CONSTANT CHOICES025 <LTABLE "jerk your hand away quickly" "slowly reach around with your other hand to seize the tarantula from behind">>
 
 <ROOM STORY025
 	(DESC "025")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT025)
+	(PRECHOICE STORY025-PRECHOICE)
+	(CHOICES CHOICES025)
+	(DESTINATIONS <LTABLE STORY071 STORY094>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY025-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE> <STORY-JUMP ,STORY048>)>>
+
+<CONSTANT TEXT026 "With infinite care you delve into the gloomy hole and deftly remove the gold diadem. Clinging to the side of the tree, you clean off the moss and muck and examine your prize. It is a circlet such as a king or high priest might wear upon his row, patterned with holy sigils and bearing the cruciform symbol of the World Tree in inlaid plaques of jade. Such an item could fetch you a fortune in any market in the world.||Climbing back down to the ground, you sense the stabai hovering close beside you, bending heir elongated skulls closer as they admire your find. \"It is a great treasure, as we promised,\" says one with a trace of envy in her voice. \"Now return our shawl.\"||\"When I'm safely out of these woods, then I'll consider it,\" you snap back. \"Not before.\"">
 
 <ROOM STORY026
 	(DESC "026")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT026)
+	(CONTINUE STORY390)
+	(ITEM GOLD-DIADEM)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT027 "Seeing your look of horror, one of the men prods the fire with a stick and says, \"We're roasting a monkey. Looks pretty gruesome, doesn't it? Tastes delicious, though.\"||Filled with relief to discover that they are not cannibals after all, you join the jungle people in their meal. You soon learn that you have them to thank for the herbs that cured your fever.">
+<CONSTANT TEXT027-CONTINUED "When you are ready, you leave the jungle people and resume your journey">
 
 <ROOM STORY027
 	(DESC "027")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT027)
+	(PRECHOICE STORY027-PRECHOICE)
+	(CONTINUE STORY118)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY027-PRECHOICE ()
+	<COND (<CHECK-ITEM ,SHAWL>
+		<STORY-JUMP ,STORY436>
+	)(ELSE
+		<CRLF>
+		<TELL TEXT027-CONTINUED>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT028 "The sun casts its dusty gold light across the treetops to the west, awakening glints in your ceremonial regalia. Summoning up all your courage, you take the final step that carries you off the brink into oblivion. The water rushes up to meet you -- an icy slap, followed by darkness and a roaring silence. You are enfolded in a watery womb, numbly struggling out of the metal accoutrements that are carrying you down into the furthest depths of the well.||Bloody darkness thunders through your brain. There is no sign of the sunlit surface of the water overhead. You feel as though you are trapped on the border between sleeping and waking, and in the instant of departing consciousness you know you are not in the bottom of the well any more. You have plunged into the fabled river that leads out of the world of the living. You are on your way to the Deathlands.">
 
 <ROOM STORY028
 	(DESC "028")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT028)
+	(PRECHOICE STORY028-PRECHOICE)
+	(CONTINUE STORY119)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY028-PRECHOICE ()
+	<LOSE-LIFE 3 DIED-GREW-WEAKER ,STORY028>>
+
+<CONSTANT TEXT029 "You push through a bank of ferns and pause to get your breath back. You have been walking for hours in the sweltering heat. Moisture trickles down off the leaf canopy, but you cannot even tell if it is rain or just condensation. If only you could get a clear look at the sky, you might be able to tell which way to go.">
+<CONSTANT CHOICES029 <LTABLE "decide to head left from here" "go right" "go straight on">>
 
 <ROOM STORY029
 	(DESC "029")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT029)
+	(CHOICES CHOICES029)
+	(DESTINATIONS <LTABLE STORY144 STORY075 STORY098>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT030 "Nachan is the busy hub of trade up and down the river, so there are hundreds of boats bobbing up and down at the jetty waiting to unload their wares. You wend your way between bales of grain, fruit, feathers, jade and animal pelts. Most of the trader's vessels are dug-out canoes, but you see one crescent-shaped boat constructed of interwoven reeds. You guess that the owner  is not from the wooded country upriver, but must be a native of the fens which lie between here and the coast. Seeing you approach, he straightens up from the task of loading clay pots aboard the boat and winces as he rubs his aching back.||\"Good morning,\" you say to him. \"If you're going downriver, I wonder if you have room for a passenger?\"||He looks you up and down. \"If you have two cacao to spare.\"||\"Two cacao!\" you cry in outrage. \"That is an exorbitant sum. I will offer--\"||The fenman holds up his hand to interrupt you. \"Haggling is pointless,\" he says. \"You would take up as much space as two large pitchers, and the profit I make on each pitcher is one cacao. Consequently you must pay a fee of two cacao to compensate me for my loss of earnings if I take you aboard.\"">
+<CONSTANT CHOICES030 <LTABLE "pay him" "else make your way north on foot">>
 
 <ROOM STORY030
 	(DESC "030")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT030)
+	(PRECHOICE STORY030-PRECHOICE)
+	(CHOICES CHOICES030)
+	(DESTINATIONS <LTABLE STORY030-PAY STORY264>)
+	(REQUIREMENTS <LTABLE 2 NONE>)
+	(TYPES <LTABLE R-MONEY R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY030-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-SEAFARING> <STORY-JUMP ,STORY332>)>>
+
+<ROOM STORY030-PAY
+	(DESC "030")
+	(EVENTS STORY030-EVENTS)
+	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY030-EVENTS ()
+	<CHARGE-MONEY 2>
+	<RETURN ,STORY355>>
 
 <ROOM STORY031
 	(DESC "031")

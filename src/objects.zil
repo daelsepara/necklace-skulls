@@ -29,6 +29,12 @@
 
 ; "Story Objects"
 
+<OBJECT GOLD-DIADEM
+    (DESC "gold diadem")
+    (SYNONYM DIADEM)
+    (ADJECTIVE GOLD)
+    (FLAGS TAKEBIT)>
+
 <OBJECT JADE-BEAD
     (DESC "jade bead")
     (SYNONYM BEAD)
@@ -43,6 +49,11 @@
 <OBJECT ROPE
     (DESC "rope")
     (SYNONYM ROPE)
+    (FLAGS TAKEBIT)>
+
+<OBJECT SHAWL
+    (DESC "shawl")
+    (SYNONYM SHAWL)
     (FLAGS TAKEBIT)>
 
 <OBJECT WATERSKIN
