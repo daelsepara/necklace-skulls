@@ -17,6 +17,8 @@
 
 <ROUTINE RESET-STORY ()
 	<RESET-TEMP-LIST>
+	<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY275>
+	<PUTP ,STORY004 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -61,158 +63,142 @@
 	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT002 "The priest accepts your offering, glancing at the cacao with a slight smile before dropping them into his belt pouch. \"I consulted the oracle before you came, and here is the advice given. Travel first to the town of Balak on the northern coast. Do not put to sea at once; wait a week before you set sail. You might be tempted to put in at the Isle of the Iguana, but be warned that only an accomplished seafarer should venture out of sight of land.\"||\"What about the desert?\" you ask.||\"I told you already, buy a waterskin. And there's one other thing that the oracle revealed. You must seek the blood that is like sap.\"||\"Enigmatic,\" you say, considering this, \"but I suppose that's the way of oracles.\"||The priest beams happily. \"Just so. Before you go, can I interest you in a companion for the journey?\" He claps his hands, and a novitiate priest steps out from around the side side of the shrine carrying a bird on his arm.||You look from the high priest to the bird to the novitiate. \"A companion, you say? Do you mean this lad, or the owl?\"||\"The owl. The lad is needed here to trim the votive lamps in the shrine each evening. But I think you will find the owl a personable companion. Just keep it fed on small rodents and the like. The price is three cacao.\"||You peer closely at the owl. \"Isn't the owl the symbol of death? Additionally, unless I am much mistaken this bird has only one leg.\"||The high priest shrugs. \"Call it two cacao, then. And let me set your mind at rest: the owl is also a symbol of night and the moon.\"">
+
 <ROOM STORY002
 	(DESC "002")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT002)
+	(PRECHOICE STORY002-PRECHOICE)
+	(CONTINUE STORY093)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY002-PRECHOICE ()
+	<REPEAT ()
+		<TELL CR "Buy the owl (2 " D ,CURRENCY ")?">
+		<COND (<YES?>
+			<COND (<G? ,MONEY 1>
+				<CHARGE-MONEY 2>
+				<TAKE-ITEM ,OWL>
+				<RETURN>
+			)(ELSE
+				<HLIGHT ,H-BOLD>
+				<TELL CR "You do not have enough " D ,CURRENCY ,EXCLAMATION-CR>
+				<HLIGHT 0>
+			)>
+		)(ELSE
+			<RETURN>
+		)>
+	>>
+
+<CONSTANT TEXT003 "You are suddenly embroiled in a furious fight while clinging precariously ten metres off the ground. The tree shakes with the stirrings of the mighty beast as it twists its taloned hand to and fro, rumbling its rage in a voice like a hurricane.||You have barely seconds to decide your tactics.">
+<CONSTANT CHOICES003 <LTABLE "grab the arm and let it pull you inside the bole of the dead tree" "chop at it as it flails blindly for you">>
 
 <ROOM STORY003
 	(DESC "003")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT003)
+	(CHOICES CHOICES003)
+	(DESTINATIONS <LTABLE STORY141 STORY164>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT004 "You are not sure which nuts and berries are safe to eat, but extreme hunger forces you to make do. You wash the berries down with water from a brook. The meal is meagre and unsatisfying, but at least it eases the pangs in your stomach. Even so, you realize that you cannot survive for long if you don't find your way back to civilization.">
 
 <ROOM STORY004
 	(DESC "004")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT004)
+	(PRECHOICE STORY004-PRECHOICE)
+	(CONTINUE STORY279)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY004-PRECHOICE ()
+	<LOSE-LIFE 1 DIED-OF-HUNGER ,STORY004>>
+
+<CONSTANT TEXT005 "You steel your nerves and leap over the edge. The water rushes up to meet you, enfolding you in a silent icy embrace. The shock of impact drives the air out of your lungs and you start to fail wildly as you go under. The weight of your gold regalia drags you down, and as you fumble with the straps it becomes obvious that you will run out of air long before you can get free.||Then you remember your blowgun. Thrusting up through the water with it, you pierce the glimmering pane of light that marks the surface and blow into the other end until you have forced water out and can draw down a mouthful of fresh air. Using the blowgun as a breathing tube buys you the time you need to struggle out of the encumbering regalia and swim up to safety.||The moment your head breaks the surface you know you are no longer at the bottom of the sacred well. Instead of the open sky overhead, there is just the roof of a large cavern. Grey light trickles from an unseen source.||A familiar sound echoes off the surrounding rocks. You turn to see a canoe being slowly paddled towards you. But the two oarsmen are like no others on earth...">
 
 <ROOM STORY005
 	(DESC "005")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT005)
+	(CONTINUE STORY097)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT006 "The forest, so lushly appealing when you first entered it, now seems a hellish green labyrinth. The tangled paths are indistinguishable. You might be going in circles. From here:">
+<CONSTANT CHOICES006 <LTABLE "go right" "left" "straight ahead">>
 
 <ROOM STORY006
 	(DESC "006")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT006)
+	(CHOICES CHOICES006)
+	(DESTINATIONS <LTABLE STORY075 STORY160 STORY098>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT007 "You hear a sound. It is quiet and unsettling. It sounded like a rattling intake of breath in a dry dead throat. You have the sudden impression that something has become aware of your presence here. Something is watching you.||You look back. The tunnel behind the boat is now filled with ochre mist that hangs in the air in long sparkling veils. As you watch, you see the cloud getting thicker as more mist seeps out of the edges of the rock tombs.||The demon in the back of the canoe also takes a glance back. He pauses stock-still for a moment, then explodes into frantic action. Paddling furiously, he yells to the other demon, \"They've woken up! Let's get out of here!\"||Too late. The ochre cloud suddenly comes rushing forward as though blown by a blast of wind. The boat is completely enveloped. The demons are obviously expecting trouble and do not wait around. \"Abandon ship!\" you hear the one in the prow yelling, and then two heavy splashes can be heard as they jump overboard.||Phantom figures loom out of the mist, pressing their skeletal faces close to yours and clutching at you with thin fingers of yellow bone. You are rigid with terror; you cannot even find the breath to scream. The mist sends a chill deep into you that no fire will ever be able to warm again.|||The mist retreats as rapidly as it appeared, drawing back in long wisps into the rock tombs like smoke being sucked back into a row of pipes. But the danger is not over. Without the two oarsmen, your canoe is being carried out of control by the river current.">
+<CONSTANT CHOICES007 <LTABLE "use a" "otherwise">>
 
 <ROOM STORY007
 	(DESC "007")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT007)
+	(PRECHOICE STORY007-PRECHOICE)
+	(CHOICES CHOICES007)
+	(DESTINATIONS <LTABLE STORY099 STORY214>)
+	(REQUIREMENTS <LTABLE ROPE NONE>)
+	(TYPES <LTABLE R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY007-PRECHOICE ()
+	<EMPHASIZE "Your maximum Life Points score is permanently reduced by 2.">
+	<SETG MAX-LIFE-POINTS <- ,MAX-LIFE-POINTS 2>>
+	<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
+	<COND (<CHECK-SKILL ,SKILL-SEAFARING> <STORY-JUMP ,STORY076>)>>
+
+<CONSTANT TEXT008 "As you go west, the land rises and becomes drier. You leave behind the lush forest, trekking first through windswept moorland and then dusty gulches lined with sparse bracken.||Ashaka is a hilltop citadel with palaces set on high terraces cut into the mountainside. It stares down across the scattered farming communities it rules, like an eagle glowering atop a cactus. As you start up the red-paved road that wends up to the citadel, you pass a small man who is bent and toothless with age. \"Going up to Ashaka, are you?\" he cackles. \"They'll be pleased!\"||\"Why is that?\" you ask.||He puts a finger to one nostril and snorts a gobbet of mucus onto the ground. \"They're after sacrifices,\" he says. \"Priests reckon the gods are annoyed. Must be bloody furious, if you ask me!\"||\"Eh?\" You are puzzled.||He fixes you with a canny stare. \"The Great City -- it's been sacked by dog-men from the western desert. It's going to take heap of sacrifices to get the gods to rebuild it, hah!\"||What he says is inconvenient if true, since you were relying on getting provisions in Ashaka.">
+<CONSTANT CHOICES008 <LTABLE "go up anyway" "decide against visiting Ashaka by continuing to travel overland" "you can detour to the sea and travel up the coast to Tahil">>
 
 <ROOM STORY008
 	(DESC "008")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT008)
+	(PRECHOICE STORY008-PRECHOICE)
+	(CHOICES CHOICES008)
+	(DESTINATIONS <LTABLE STORY275 STORY298 STORY228>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY008-PRECHOICE ()
+	<COND (<AND <CHECK-SKILL ,SKILL-SWORDPLAY> <CHECK-SKILL ,SKILL-ETIQUETTE>>
+		<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY252>
+	)(ELSE
+		<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY275>
+	)>>
+
+<CONSTANT TEXT009 "You descend into the pyramid. The staircase is narrow, steep and dank. Lighting-strokes cast a guttering white glare from above, plunging you into darkness as they pass. The thundercracks in the sky resound ominously through the heavy stone blocks of the pyramid. The steps are slippery with damp, forcing you to make the descent slowly. At last you reach the bottom and pass through a doorway draped with thick fleshy roots. A tunnel stretches ahead which you have to feel your way along. No light penetrates this far down. The smell in the air is of damp soil and limestone.||The walls vibrate as another thunderbolt shakes the earth. Suddenly you are knocked off your feet by a heavy weight of rubble dropping on you. You realize the tunnel has caved in. Claustrophobia seizes you. Struggling in panic, you claw at the rubble in a frantic attempt to dig yourself free.||Your hands break through to the air and you push up, gasping for breath. You are no longer in the underground tunnel, though. You have emerged into an unearthly landscape. A barren plain stretches away in all directions under a sky of red-tinged darkness. In the distance you can see a haze of sulphurous clouds lit by fiery light: the lip of volcanic fissure. You head towards it">
 
 <ROOM STORY009
 	(DESC "009")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY009-PRECHOICE)
+	(CONTINUE STORY080)
+	(CODEWORD CODEWORD-PAKAL)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY009-PRECHOICE ()
+	<COND (<CHECK-ITEM ,JADE-BEAD>
+		<EMPHASIZE "You lodged the jade bead under your tongue as the spirit advised you.">
+	)>
+	<CRLF>
+	<TELL TEXT009>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT010 "He pretends to listen with interest to your confident reply, but then gives a great whoop of mocking laughter. You realize he lied -- he knows nothing that can help you in your quest.">
 
 <ROOM STORY010
 	(DESC "010")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT010)
+	(PRECHOICE STORY010-PRECHOICE)
+	(CONTINUE STORY060)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY010-PRECHOICE ()
+	<COND (<CHECK-ITEM ,JADE-BEAD> <STORY-JUMP ,STORY056>)>>
 
 <ROOM STORY011
 	(DESC "011")

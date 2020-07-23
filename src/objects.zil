@@ -1,5 +1,6 @@
 ; "Objects for Necklace of Skulls"
 
+; Weapons
 <OBJECT MAGIC-AMULET
     (DESC "magic amulet")
     (SYNONYM AMULET)
@@ -24,4 +25,22 @@
     (DESC "sword")
     (SYNONYM SWORD)
     (REQUIRES SKILL-SWORDPLAY)
+    (FLAGS TAKEBIT)>
+
+; "Story Objects"
+
+<OBJECT JADE-BEAD
+    (DESC "jade bead")
+    (SYNONYM BEAD)
+    (ADJECTIVE JADE)
+    (FLAGS TAKEBIT)>
+
+<OBJECT OWL
+    (DESC "owl")
+    (SYNONYM OWL)
+    (FLAGS TAKEBIT)>
+
+<OBJECT ROPE
+    (DESC "rope")
+    (SYNONYM ROPE)
     (FLAGS TAKEBIT)>
