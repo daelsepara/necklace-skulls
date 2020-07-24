@@ -35,6 +35,7 @@
 	<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY275>
 	<PUT <GETP ,STORY048 ,P?DESTINATIONS> 1 ,STORY117>
 	<PUT <GETP ,STORY060 ,P?DESTINATIONS> 3 ,STORY194>
+	<PUT <GETP ,STORY071 ,P?DESTINATIONS> 1 ,STORY117>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY022 ,P?DEATH T>
@@ -44,6 +45,7 @@
 	<PUTP ,STORY062 ,P?DEATH T>
 	<PUTP ,STORY063 ,P?DEATH T>
 	<PUTP ,STORY068 ,P?DEATH T>
+	<PUTP ,STORY073 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -76,13 +78,13 @@
 	<COND (<G? <COUNT-CONTAINER ,SKILLS> .MAX>
 		<RESET-TEMP-LIST>
 		<SET ITEMS <COUNT-CONTAINER ,SKILLS>>
-    	<SET COUNT 0>
-    	<DO (I 1 .ITEMS)
+		<SET COUNT 0>
+		<DO (I 1 .ITEMS)
 			<SET COUNT <+ .COUNT 1>>
 			<COND (<L=? .COUNT .ITEMS>
 				<PUT TEMP-LIST .COUNT <GET-ITEM .I ,SKILLS>>
 			)>
-    	>
+		>
 		<REPEAT ()
 			<RESET-SKILLS>
 			<SELECT-FROM-LIST TEMP-LIST .COUNT .MAX "skill" ,SKILLS>
@@ -953,7 +955,7 @@
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT060 "The stranger leaps up into the air, displaying a long thin body like a streak of lightning. Suddenly you realize you are not looking at a man at all, but a large iguana. It crouches on the rock, gives you a last lingering glare, and then goes darting off into the mist.||You trudge on, and gradually the mist breaks up to reveal that the path has become a raised stone causeway which snakes down towards a jetty in the distance. Beyond lies an endless green lake. An icy breeze blows in off the water, making you shiver. As you make your way along the causeway, you notice writhing movement under the thin veils of mist that still lie in the hollows. You stoop for a closer look, then recoil in disgust as you realize that the ground off the causeway consists of filth and mud infested with thousands of maggots.||\"You don't like my pets?\"||You look up. A bizarre creature is waiting for you a little way down the causeway. You could have sworn it wasn't there a moment before. It has a large globular body supported on three strong clawed legs. Its eyes are bright narrow slits, and as it watches you it runs its tongue greedily across its lips. You realize that to reach the jetty you will have to get past that monster -- or else wade through the mass of wriggling maggots.">
-<CONSTANT CHOICES060 <LTABLE "use" "or a" "you can  march along the causeway" "head directly for the jetty by leaving the causeway and wading through the maggots">>
+<CONSTANT CHOICES060 <LTABLE "use" "or a" "you can march along the causeway" "head directly for the jetty by leaving the causeway and wading through the maggots">>
 
 <ROOM STORY060
 	(DESC "060")
@@ -1095,7 +1097,7 @@
 <ROUTINE STORY069-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-FOLKLORE> <STORY-JUMP ,STORY345>)>>
 
-<CONSTANT TEXT070 "\"I can give no easy answer, my lady,\" you tell the Matriarch. \"I do not wish to shirk my duty to the clan that has nurtured me, but neither can I ignore the demands of my heart. I must go in search of my brother, since I cannot rest until I know whether he is alive or dead.\"||She heaves a deep sigh, more of resignation than disapproval. \"I know you could not be dissuaded,\" she says. \"You have your late father's impetuosity. Morning Star shared that same quality.  It is the mark of a hero -- but beware, Evening Star, for it can also get you killed.\"||\"I understand. I have your permission to undertake this quest, then?\"||\"You have.\" She produces a letter and hands it to you. \"Take this to the town of Balak on the northern coast. Ask there for a girl named Midnight Bloom. She is a distant cousin of yours. Present her with this letter, which will introduce you and request her assistance in your quest.\"||\"How can she assist me?\" you ask, taking the letter.||\"She is skilled in coastal trade, and will convey you by ship to Tahil. May the gods watch over you, Evening Star.\"||You rise and bow, as you leave, your heart is full of excitement.">
+<CONSTANT TEXT070 "\"I can give no easy answer, my lady,\" you tell the Matriarch. \"I do not wish to shirk my duty to the clan that has nurtured me, but neither can I ignore the demands of my heart. I must go in search of my brother, since I cannot rest until I know whether he is alive or dead.\"||She heaves a deep sigh, more of resignation than disapproval. \"I know you could not be dissuaded,\" she says. \"You have your late father's impetuosity. Morning Star shared that same quality. It is the mark of a hero -- but beware, Evening Star, for it can also get you killed.\"||\"I understand. I have your permission to undertake this quest, then?\"||\"You have.\" She produces a letter and hands it to you. \"Take this to the town of Balak on the northern coast. Ask there for a girl named Midnight Bloom. She is a distant cousin of yours. Present her with this letter, which will introduce you and request her assistance in your quest.\"||\"How can she assist me?\" you ask, taking the letter.||\"She is skilled in coastal trade, and will convey you by ship to Tahil. May the gods watch over you, Evening Star.\"||You rise and bow, as you leave, your heart is full of excitement.">
 
 <ROOM STORY070
 	(DESC "070")
@@ -1104,175 +1106,169 @@
 	(ITEM LETTER-OF-INTRODUCTION)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT071 "The tarantula drowsily probes your fingers with its bristly limbs. Its movement evokes a feeling of fascination and revulsion -- you can well imagine how a mouse might feel as one of these hairy monsters came rushing out of the dark of night to seize it! You snatch your hand back quickly. The tarantula's only reaction is to slowly curl back into the shade of the papaya fruit. You breathe a sigh of relief and step back out from under the tree.||\"Hey, you there! What are you doing?\"||You turn to see an old peasant coming through the dusty orchard towards the causeway.">
+<CONSTANT CHOICES071 <LTABLE "talk to him" "hurry off before he gets here">>
+
 <ROOM STORY071
 	(DESC "071")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT071)
+	(PRECHOICE STORY071-PRECHOICE)
+	(CHOICES CHOICES071)
+	(DESTINATIONS <LTABLE STORY117 STORY163>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY071-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
+		<PUT <GETP ,STORY071 ,P?DESTINATIONS> 1 ,STORY139>
+	)(ELSE
+		<PUT <GETP ,STORY071 ,P?DESTINATIONS> 1 ,STORY117>
+	)>>
+
+<CONSTANT TEXT072 "A wave of dizziness warns you that your wound is becoming infected. You stop to gather puffballs. Their spores act as an antidote to fever. Finding a wild bees' nest, you mix the spores with honey to take away the dry noxious taste and gulp the mixture down. It is unpleasant, but it seems to do the trick.">
 
 <ROOM STORY072
 	(DESC "072")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT072)
+	(CONTINUE STORY118)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT073 "With one bound you cross the veranda and snatch up your belongings. The cannibals are at first taken by surprise, but when you launch yourself at them with a bellow of righteous wrath they take up their weapons and stand ready to fight.">
 
 <ROOM STORY073
 	(DESC "073")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT073)
+	(PRECHOICE STORY073-PRECHOICE)
+	(CONTINUE STORY433)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY073-PRECHOICE ("AUX" (DAMAGE 6))
+	<COND (<CHECK-SKILL ,SKILL-SWORDPLAY>
+		<SET DAMAGE 2>
+	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
+		<SET DAMAGE 4>
+	)>
+	<LOSE-LIFE .DAMAGE DIED-IN-COMBAT ,STORY073>>
+
+<CONSTANT TEXT074 "You glance back to reassure yourself that the demons are not going to abandon you here. \"We will wait,\" says one with a raw-gummed leer.||\"Take your time,\" cackles the other, nodding in grisly encouragement.||You brace yourself on the edge of the crevice and peer within. As your eyes adjust to the darkness, you see a narrow tunnel leading to a chamber inside the rock. Something gleams dully in the grey light. The smell is of rotting things: dank leaf mould and stagnant slime.">
+<CONSTANT CHOICES074 <LTABLE "return to the canoe" "sneak into the tunnel" "enter into the tunnel">>
 
 <ROOM STORY074
 	(DESC "074")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT074)
+	(CHOICES CHOICES074)
+	(DESTINATIONS <LTABLE STORY258 STORY282 STORY140>)
+	(REQUIREMENTS <LTABLE NONE SKILL-ROGUERY NONE>)
+	(TYPES <LTABLE R-NONE R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT075 "You reach a clearing where one of the huge primeval trees has toppled, leaving a temporary rent in the leaf canopy. The great trunk lies like a fallen titan across the leaf littler. Already flowers are blossoming in its bark, their tendrils sucking nutriment out of the decaying wood, and great flanges of fungus thrive in its dank crevices. Other trees will son grow their branches across to exploit the sunlight, but for the moment the sky is revealed in a patch of glorious blue that makes your heart soar. You watch the sun slowly decline from its zenith, slanting off across the treetops to your left. Is this information enough to let you find your way out of the forest?">
+<CONSTANT CHOICES075 <LTABLE "go straight ahead" "left" "right from here">>
 
 <ROOM STORY075
 	(DESC "075")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT075)
+	(CHOICES CHOICES075)
+	(DESTINATIONS <LTABLE STORY052 STORY412 STORY121>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT076 "Leaping to the back of the boat, you pick up the paddle and use it to steer over towards the cavern wall, where the current is not so fast-moving. After a short distance you find a side tunnel and see the gleam of daylight at the far end. Paddling along it, you emerge into the open under an overcast sky the colour of dead skin. The river has become no more than a muddy trickle winding through sickly grey marshland. A dreary landscape of sour white clay and colourless rushes stretches far off into the distance. There is a foul rancid odour in the air.||You put in at a rotting wooden jetty and tether the boat.">
 
 <ROOM STORY076
 	(DESC "076")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT076)
+	(PRECHOICE STORY076-PRECHOICE)
+	(CONTINUE STORY053)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY076-PRECHOICE ()
+	<CRLF>
+	<TELL "Take the " D ,PADDLE "?">
+	<COND (<YES?>
+		<TAKE-ITEM ,PADDLE>
+	)>>
+
+<CONSTANT TEXT077-WELCOMED "You are naturally recognized and welcomed as a noble of Koba">
+<CONSTANT TEXT077-EXPERT "You are granted an audience">
+<CONSTANT CHOICES077 <LTABLE "present the king with a lavish gift" "else give up any hope of being granted an audience">>
 
 <ROOM STORY077
 	(DESC "077")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY077-PRECHOICE)
+	(CHOICES CHOICES077)
+	(DESTINATIONS <LTABLE STORY238 STORY262>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY077-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
+		<CRLF>
+		<TELL TEXT077-WELCOMED>
+		<TELL ,PERIOD-CR>
+		<STORY-JUMP ,STORY192>
+	)(<CHECK-CODEWORD ,CODEWORD-POKTAPOK>
+		<CRLF>
+		<TELL TEXT077-EXPERT>
+		<TELL ,PERIOD-CR>
+		<STORY-JUMP ,STORY215>
+	)>>
+
+<CONSTANT TEXT078 "The courtier returns some time later and tells you that the King is pleased with your gift. A group of royal servants is assigned to take you to the house of a minor nobleman, Lord Fire Serpent. He proves to be a bearded old warrior with a scar across his lip that gives him a rather ferocious appearance. But he greets you cordially when the servants explain that you are a favourite of the King, who commands that you be shown every hospitality.||Clapping his hands, Fire Serpent summons his wife, who brings you a jug of spiced cocoa, then gestures for you to sit beside him. \"Tomorrow is the festival commemorating the old King's departure to the next life,\" he says. \"Is that why you have made the journey from Koba?\"||Sipping your cocoa, you explain that you are on a quest which will take you much further west than this. Fire Serpent nods interestedly and has food brought.">
+<CONSTANT TEXT078-CONTINUED "You spend a restful night at Fire Serpent's home. The next day you must decide">
+<CONSTANT CHOICES078 <LTABLE "head north" "west" "stay for the festivities">>
 
 <ROOM STORY078
 	(DESC "078")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT078)
+	(PRECHOICE STORY078-PRECHOICE)
+	(CHOICES CHOICES078)
+	(DESTINATIONS <LTABLE STORY030 STORY008 STORY416>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY078-PRECHOICE ()
+	<GAIN-LIFE 1>
+	<COND (<CHECK-CODEWORD ,CODEWORD-PSYCHODUCT>
+		<STORY-JUMP ,STORY331>
+	)(ELSE
+		<CRLF>
+		<TELL TEXT078-CONTINUED>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT079 "Seeing that you have no intention of paying his fee, Kawak closes his jaws with a crocodilian snap that sends shockwaves rattling through the ground underfoot. He thinks he has thwarted you, but the Man of Gold is more powerful than any dragon. You warm the manikin in your hands and set it down in from of Kawak's stubbornly sealed maw. Kawak squints at it warily along the length of his snout, then his glistening eyes widen in shocked recognition. The Man of Gold does not even need to do anything. Kawak immediately opens his mouth, extending his ridged tongue like a carpet laid before an honoured guest. \"Enter then, mortal, if you must,\" he growls grudgingly.||You stoop to retrieve the Man of Gold, but it suddenly darts away and leaps off into the abyss.">
 
 <ROOM STORY079
 	(DESC "079")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT079)
+	(PRECHOICE STORY079-PRECHOICE)
+	(CONTINUE STORY033)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY079-PRECHOICE ()
+	<LOSE-ITEM ,MAN-OF-GOLD>>
+
+<CONSTANT TEXT080 "You arrive at the edge of a canyon. Choking yellow vapour rises from the depths, obscuring a sullen fiery light from far below. You can hear distant rumblings, leading you to imagine a river of lava burning beneath the sulphur clouds.||There are thin spires of rock poking up out of the vapour at regular intervals almost two metres apart, leading in a straight line to the far side of the canyon. By jumping form one to another it might be possible to get across, but they would make precarious stepping-stones: the top of each spire is a flattened area no bigger than the palm of your hand.">
+<CONSTANT CHOICES080 <LTABLE "cross the canyon by leaping from one spire to the next" "use a blowgun to cross more safely">>
 
 <ROOM STORY080
 	(DESC "080")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT080)
+	(PRECHOICE STORY080-PRECHOICE)
+	(CHOICES CHOICES080)
+	(DESTINATIONS <LTABLE STORY147 STORY170>)
+	(REQUIREMENTS <LTABLE NONE BLOWGUN>)
+	(TYPES <LTABLE R-NONE R-ITEM>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY080-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-FOLKLORE>
+		<STORY-JUMP ,STORY286>
+	)(<CHECK-CODEWORD ,CODEWORD-PAKAL>
+		<STORY-JUMP ,STORY309>
+	)>>
 
 <ROOM STORY081
 	(DESC "081")

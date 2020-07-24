@@ -99,6 +99,11 @@
     (SYNONYM OWL)
     (FLAGS TAKEBIT)>
 
+<OBJECT PADDLE
+    (DESC "paddle")
+    (SYNONYM PADDLE)
+    (FLAGS TAKEBIT)>
+
 <OBJECT ROPE
     (DESC "rope")
     (SYNONYM ROPE)
