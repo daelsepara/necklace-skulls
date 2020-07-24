@@ -70,6 +70,12 @@
     (ADJECTIVE JADE)
     (FLAGS TAKEBIT)>
 
+<OBJECT LETTER-OF-INTRODUCTION
+    (DESC "letter of introduction")
+    (SYNONYM LETTER)
+    (ADJECTIVE INTRODUCTION)
+    (FLAGS TAKEBIT)>
+
 <OBJECT LOBSTER-POT
     (DESC "lobster pot")
     (SYNONYM POT)

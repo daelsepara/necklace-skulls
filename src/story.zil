@@ -41,6 +41,9 @@
 	<PUTP ,STORY028 ,P?DEATH T>
 	<PUTP ,STORY033 ,P?DEATH T>
 	<PUTP ,STORY051 ,P?DEATH T>
+	<PUTP ,STORY062 ,P?DEATH T>
+	<PUTP ,STORY063 ,P?DEATH T>
+	<PUTP ,STORY068 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -67,6 +70,44 @@
 	(SYNONYM SKILLS)
 	(ADJECTIVE LOST)
 	(FLAGS CONTBIT OPENBIT)>
+
+<ROUTINE LOSE-SKILLS ("OPT" MAX "AUX" COUNT ITEMS)
+	<COND (<NOT .MAX> <SET MAX 1>)>
+	<COND (<G? <COUNT-CONTAINER ,SKILLS> .MAX>
+		<RESET-TEMP-LIST>
+		<SET ITEMS <COUNT-CONTAINER ,SKILLS>>
+    	<SET COUNT 0>
+    	<DO (I 1 .ITEMS)
+			<SET COUNT <+ .COUNT 1>>
+			<COND (<L=? .COUNT .ITEMS>
+				<PUT TEMP-LIST .COUNT <GET-ITEM .I ,SKILLS>>
+			)>
+    	>
+		<REPEAT ()
+			<RESET-SKILLS>
+			<SELECT-FROM-LIST TEMP-LIST .COUNT .MAX "skill" ,SKILLS>
+			<COND (<EQUAL? <COUNT-CONTAINER ,SKILLS> .MAX>
+				<CRLF>
+				<TELL "You have selected: ">
+				<PRINT-CONTAINER ,SKILLS>
+				<CRLF>
+				<TELL "Do you agree?">
+				<COND (<YES?> <RETURN>)>
+			)(ELSE
+				<CRLF>
+				<HLIGHT ,H-BOLD>
+				<TELL "You must select " N .MAX " skill">
+				<COND (<G? .MAX 1> <TELL "s">)>
+				<TELL ,PERIOD-CR>
+				<HLIGHT 0>
+			)>
+		>
+		<DO (I 1 .COUNT)
+			<COND (<NOT <IN? <GET TEMP-LIST .I> ,SKILLS>>
+				<MOVE <GET TEMP-LIST .I> ,LOST-SKILLS>
+			)>
+		>
+	)>>
 
 <CONSTANT TEXT "This story has not been written yet.">
 
@@ -930,174 +971,137 @@
 	)(ELSE
 		<PUT <GETP ,STORY060 ,P?DESTINATIONS> 3 ,STORY194>
 	)>>
+
+<CONSTANT TEXT061 "Grey clouds of fury darken the black pools of the sentinel's eyes. He lets his gory mouth drop open in a long appalling howl of fury that sounds like the heavens cracking in two. You drop cowering to the ground, so terrified that every muscle in your body loses all strength.||At last, like a storm, the awful sound passes. You uncurl yourself and glance timidly up. The sentinel has lost interest in you, having voiced his displeasure. He is once more staring directly ahead across the passage, giving you no more attention than he would give to an insect.||Still dazed, you lope on along the passage. It is only now that you realize how the sentinel's howl has addled your wits.">
+<CONSTANT TEXT061-CONTINUED "Pray to all the gods that your single skill will be enough to see you through">
+
 <ROOM STORY061
 	(DESC "061")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT061)
+	(PRECHOICE STORY061-PRECHOICE)
+	(CONTINUE STORY037)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY061-PRECHOICE ()
+	<EMPHASIZE "You lose all skills except one.">
+	<LOSE-SKILLS 1>
+	<CRLF>
+	<TELL TEXT061-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT062 "He gives a wild shriek of rage and drives both knives towards your breast. The attack is so fast that you have no time even to flinch. At the last instant, the sentinel pulls his blows so that instead of impaling you the tips of the blades just prick your skin. You gulp and look down. Two bright drops of blood are trickling down your chest. This is not a normal injury, however. The wounds inflicted by Lord Blood's knives can never be healed.">
 
 <ROOM STORY062
 	(DESC "062")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT062)
+	(PRECHOICE STORY062-PRECHOICE)
+	(CONTINUE STORY084)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY062-PRECHOICE ()
+	<LOSE-LIFE 2 DIED-GREW-WEAKER ,STORY062>
+	<COND (<IS-ALIVE>
+		<SETG MAX-LIFE-POINTS <- ,MAX-LIFE-POINTS 2>>
+	)>>
+
+<CONSTANT TEXT063 "Your strongest leap carries you to the far side of the pit -- nearly. You teeter on the brink with just your toes on solid ground, arms spinning crazily in a vain attempt to save yourself. You fall back with a cry of alarm which turns into a scream of tortured pain as you land on the burning coals.">
+<CONSTANT TEXT063-CONTINUED "The smell of your own sizzling flesh gives you the burst of frantic strength you need to scramble up out of the pit. You stagger on to the end of the passage to find the courtiers waiting for you. They have wide canine smirks on their faces. \"I hope you appreciated our little jest,\" the chief courtier says. \"Now the real tests begin.\"">
 
 <ROOM STORY063
 	(DESC "063")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT063)
+	(PRECHOICE STORY063-PRECHOICE)
+	(CONTINUE STORY431)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY063-PRECHOICE ()
+	<LOSE-LIFE 3 DIED-GREW-WEAKER ,STORY063>
+	<IF-ALIVE TEXT063-CONTINUED>>
+
+<CONSTANT TEXT064 "You wedge yourself into a corner of the hall and watch the hovering knives. As they come sweeping towards you, you tear off a hunk of meat and throw it to them. They fall on it, shredding it quickly with stabbing blows, then retreat to float around in the centre of the hall. After a while they start to approach, and again you are able to distract them with a scrap of meat.||This continues throughout the knight. You get no sleep but at least you have kept the enchanted knives from your flesh. You have used up the last of the haunch of venison and are waiting nervously for the next assault of the knives, when they suddenly drop lifeless to the floor with the advent of morning.||The courtiers cannot disguise their ill temper when they open the door to find you unscathed. \"Your luck runs out tonight,\" snaps one. \"That's when you must enter the House of cold.\"">
 
 <ROOM STORY064
 	(DESC "064")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT064)
+	(PRECHOICE STORY064-PRECHOICE)
+	(CONTINUE STORY132)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY064-PRECHOICE ()
+	<LOSE-ITEM ,HAUNCH-OF-VENISON>>
+
+<CONSTANT TEXT065 "You think it might be worth going for a long shot along the arena as soon as the game starts. If you are lucky you might score a point straight away, thus gaining an advantage. In subsequent rounds you know you will have to play more cautiously -- perhaps even allowing the attacking enemy player to get past you so that you can close in on the defensive player.">
 
 <ROOM STORY065
 	(DESC "065")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT065)
+	(CONTINUE STORY088)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT066 "On a signal from the chief courtier, both teams return to the end zones of the arena. It is your turn to serve again. You raise the ball and consider your best tactics. The first team to reach seven points wins the contest.">
+<CONSTANT CHOICES066 <LTABLE "go for a long shot" "you prefer to be cautious and go for a safe point">>
 
 <ROOM STORY066
 	(DESC "066")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT066)
+	(CHOICES CHOICES066)
+	(DESTINATIONS <LTABLE STORY089 STORY112>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT067 "The giant blinks. Each time he does, there is a whooshing sound in thin air and a cacao drops from nowhere into your hand. He continues doing this until you have another twenty cacao.||\"A good trick,\" you say, smiling and nodding in the hope that this will encourage him to continue.||He sighs wearily. \"Once my magic was much grater than that. I fear I have squandered eternity.\"||\"By making a tally of all the stars?\" you say as you slip the cacao into your money-pouch. \"What could be more worthwhile!\"||A streak of light flickers across the heavens. \"what was that?\" says the giant grimly.||\"A falling star,\" you reply. \"Better reduce the total by one. Well, I'll be saying goodbye.\"">
 
 <ROOM STORY067
 	(DESC "067")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT067)
+	(PRECHOICE STORY067-PRECHOICE)
+	(CONTINUE STORY135)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY067-PRECHOICE ()
+	<GAIN-MONEY 20>>
+
+<CONSTANT TEXT068 "You dive through the magical flames. A cry of agony escapes your lips as you are terribly burned.">
+<CONSTANT TEXT068-CONTINUED "Luckily, you survived. The flame barrier dies down now that you have broken the spell. As you are still recovering from the wave of pain, Jade Thunder steps forward and eagerly takes the wand from your hand.">
 
 <ROOM STORY068
 	(DESC "068")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT068)
+	(PRECHOICE STORY068-PRECHOICE)
+	(CONTINUE STORY091)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY068-PRECHOICE ("AUX" (DAMAGE 7))
+	<COND (<CHECK-SKILL ,SKILL-CHARMS> <SET DAMAGE 3>)>
+	<LOSE-LIFE .DAMAGE DIED-GREW-WEAKER ,STORY068>
+	<IF-ALIVE TEXT068-CONTINUED>>
+
+<CONSTANT TEXT069 "Cliffs rise in front of you, and you make your way along them until you find a long shoulder of rock by which you are able to scale to the top.||You have gone only a little further when you hear a distant keening noise. It sounds like the wind, but you do not feel even a breath of air in the sultry stillness. Then you notice half a dozen long plumes of dust moving along the ground in your direction. Above each dust-plume is a dark twisting funnel of air. Whirlwinds -- and they are bearing straight down on you. Superstitious dread crawls up your spine. You recall tales of the demons of the desert, who rip men limb from limb with the fury of their whirlwinds.">
+<CONSTANT CHOICES069 <LTABLE "use a wand" "stand ready to fight the demons off" "run back towards the cliffs">>
 
 <ROOM STORY069
 	(DESC "069")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT069)
+	(PRECHOICE STORY069-PRECHOICE)
+	(CHOICES CHOICES069)
+	(DESTINATIONS <LTABLE STORY092 STORY115 STORY137>)
+	(REQUIREMENTS <LTABLE SKILL-SPELLS NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY069-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-FOLKLORE> <STORY-JUMP ,STORY345>)>>
+
+<CONSTANT TEXT070 "\"I can give no easy answer, my lady,\" you tell the Matriarch. \"I do not wish to shirk my duty to the clan that has nurtured me, but neither can I ignore the demands of my heart. I must go in search of my brother, since I cannot rest until I know whether he is alive or dead.\"||She heaves a deep sigh, more of resignation than disapproval. \"I know you could not be dissuaded,\" she says. \"You have your late father's impetuosity. Morning Star shared that same quality.  It is the mark of a hero -- but beware, Evening Star, for it can also get you killed.\"||\"I understand. I have your permission to undertake this quest, then?\"||\"You have.\" She produces a letter and hands it to you. \"Take this to the town of Balak on the northern coast. Ask there for a girl named Midnight Bloom. She is a distant cousin of yours. Present her with this letter, which will introduce you and request her assistance in your quest.\"||\"How can she assist me?\" you ask, taking the letter.||\"She is skilled in coastal trade, and will convey you by ship to Tahil. May the gods watch over you, Evening Star.\"||You rise and bow, as you leave, your heart is full of excitement.">
 
 <ROOM STORY070
 	(DESC "070")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT070)
+	(CONTINUE STORY093)
+	(ITEM LETTER-OF-INTRODUCTION)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY071
