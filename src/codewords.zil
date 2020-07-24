@@ -8,6 +8,10 @@
     (DESC "Pakal")
     (SYNONYM PAKAL)>
 
+<OBJECT CODEWORD-SALVATION
+    (DESC "Salvation")
+    (SYNONYM SALVATION)>
+
 <OBJECT CODEWORD-VENUS
     (DESC "Venus")
     (SYNONYM VENUS)>

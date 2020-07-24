@@ -43,7 +43,7 @@
 <OBJECT SKILL-TARGETING
     (DESC "TARGETING")
     (LDESC "A long-range attack skill. You must possess a blowgun to use this skill")
-    (REQUIRES <LTABLE BLOWGUN>)>
+    (REQUIRES <LTABLE BLOWGUN SPEAR>)>
 
 <OBJECT SKILL-UNARMED-COMBAT
     (DESC "UNARMED COMBAT")

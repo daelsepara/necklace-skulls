@@ -21,6 +21,12 @@
     (REQUIRES SKILL-TARGETING)
     (FLAGS TAKEBIT)>
 
+<OBJECT SPEAR
+    (DESC "spear")
+    (SYNONYM SPEAR)
+    (REQUIRES SKILL-TARGETING)
+    (FLAGS TAKEBIT)>
+
 <OBJECT SWORD
     (DESC "sword")
     (SYNONYM SWORD)
@@ -28,6 +34,18 @@
     (FLAGS TAKEBIT)>
 
 ; "Story Objects"
+
+<OBJECT CHALICE-OF-LIFE
+    (DESC "chalice of life")
+    (SYNONYM CHALICE)
+    (ADJECTIVE LIFE)
+    (FLAGS TAKEBIT)>
+
+<OBJECT CHILLI-PEPPERS
+    (DESC "chilli pepper")
+    (SYNONYM PEPPERS)
+    (ADJECTIVE CHILLI)
+    (FLAGS TAKEBIT)>
 
 <OBJECT GOLD-DIADEM
     (DESC "gold diadem")
@@ -39,6 +57,12 @@
     (DESC "jade bead")
     (SYNONYM BEAD)
     (ADJECTIVE JADE)
+    (FLAGS TAKEBIT)>
+
+<OBJECT LOBSTER-POT
+    (DESC "lobster pot")
+    (SYNONYM POT)
+    (ADJECTIVE LOBSTER)
     (FLAGS TAKEBIT)>
 
 <OBJECT OWL

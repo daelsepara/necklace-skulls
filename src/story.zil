@@ -22,6 +22,7 @@
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY022 ,P?DEATH T>
 	<PUTP ,STORY028 ,P?DEATH T>
+	<PUTP ,STORY033 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -442,7 +443,7 @@
 	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT030 "Nachan is the busy hub of trade up and down the river, so there are hundreds of boats bobbing up and down at the jetty waiting to unload their wares. You wend your way between bales of grain, fruit, feathers, jade and animal pelts. Most of the trader's vessels are dug-out canoes, but you see one crescent-shaped boat constructed of interwoven reeds. You guess that the owner  is not from the wooded country upriver, but must be a native of the fens which lie between here and the coast. Seeing you approach, he straightens up from the task of loading clay pots aboard the boat and winces as he rubs his aching back.||\"Good morning,\" you say to him. \"If you're going downriver, I wonder if you have room for a passenger?\"||He looks you up and down. \"If you have two cacao to spare.\"||\"Two cacao!\" you cry in outrage. \"That is an exorbitant sum. I will offer--\"||The fenman holds up his hand to interrupt you. \"Haggling is pointless,\" he says. \"You would take up as much space as two large pitchers, and the profit I make on each pitcher is one cacao. Consequently you must pay a fee of two cacao to compensate me for my loss of earnings if I take you aboard.\"">
+<CONSTANT TEXT030 "Nachan is the busy hub of trade up and down the river, so there are hundreds of boats bobbing up and down at the jetty waiting to unload their wares. You wend your way between bales of grain, fruit, feathers, jade and animal pelts. Most of the trader's vessels are dug-out canoes, but you see one crescent-shaped boat constructed of interwoven reeds. You guess that the owner is not from the wooded country upriver, but must be a native of the fens which lie between here and the coast. Seeing you approach, he straightens up from the task of loading clay pots aboard the boat and winces as he rubs his aching back.||\"Good morning,\" you say to him. \"If you're going downriver, I wonder if you have room for a passenger?\"||He looks you up and down. \"If you have two cacao to spare.\"||\"Two cacao!\" you cry in outrage. \"That is an exorbitant sum. I will offer--\"||The fenman holds up his hand to interrupt you. \"Haggling is pointless,\" he says. \"You would take up as much space as two large pitchers, and the profit I make on each pitcher is one cacao. Consequently you must pay a fee of two cacao to compensate me for my loss of earnings if I take you aboard.\"">
 <CONSTANT CHOICES030 <LTABLE "pay him" "else make your way north on foot">>
 
 <ROOM STORY030
@@ -458,174 +459,141 @@
 <ROUTINE STORY030-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-SEAFARING> <STORY-JUMP ,STORY332>)>>
 
+<CONSTANT TEXT031 "The folktales of heroes who have ventured into the underworld are as fresh in your mind now as when they were first told to you in infancy. You know that on no account must you part with the bead until you reach the crossroads where four coloured paths meet. The two demons are just tying to trick you. You make curt gestures of dismissal and turn away from them.">
+
 <ROOM STORY031
 	(DESC "031")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT031)
+	(CONTINUE STORY053)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT032 "You give them a puzzled look, your face the very picture of innocence as you reply: \"An owl? Not at all -- my gift was a fine cloak of quetzal feathers with a jade clasp. I think that fellow over there presented the owl...\"||You point to a fretful-looking gentleman who has been pacing along the colonnade for several minutes. You noticed him send in a gift earlier, but he failed to bribe the courtier sufficiently and does not realize he will be kept waiting as a result. He looks up with a bemused half-smile as the guards go striding over to him. The smile soon turns to a look of horror as they start to pummel him with their staves. Cowering under the hail of blows, he goes hobbling off through the crowd of onlookers. Meanwhile you take the opportunity to slink away before anyone finds out the truth.">
 
 <ROOM STORY032
 	(DESC "032")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT032)
+	(CONTINUE STORY308)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT033 "You walk into the jaws of the dragon and descend the long tunnel of his throat until the only light is a dim flicker in the gloom far behind you. Hot gases bubble up out of the chambers of his stomach, forcing you to hold your hand over your face as you proceed.||It gets hotter. You cannot see much of your surroundings, but you reckon that you must now be passing through the dragons bowels. This is the part of his body that lies in the lava at the bottom of the canyon. Such intense temperatures obviously do not bother the dragon, but you are getting weaker by the minute. You stagger on, head swimming from the stinking gases and the burning heat.">
+<CONSTANT TEXT033-CONTINUED "You realize that at last the passage is beginning to slop upwards again. You are climbing out of the canyon, towards the dragon's other head. Sure enough , the awful heat gradually subsides. When you reach the top of your gruelling ascent, however, a further shock awaits you. The dragon's hind and jaws are closed. You are trapped in here.">
+<CONSTANT TEXT033-END "Your days will end in the maw of the the dragon">
 
 <ROOM STORY033
 	(DESC "033")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT033)
+	(PRECHOICE STORY033-PRECHOICE)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY033-PRECHOICE ()
+	<LOSE-LIFE 5 DIED-GREW-WEAKER ,STORY033>
+	<COND (<IS-ALIVE>
+		<CRLF>
+		<TELL TEXT033-CONTINUED>
+		<TELL ,PERIOD-CR>
+		<COND (<CHECK-SKILL ,SKILL-SPELLS>
+			<STORY-JUMP ,STORY439>
+		)(<CHECK-SKILL ,SKILL-CUNNING>
+			<STORY-JUMP ,STORY428>
+		)(<CHECK-ITEM ,CHILLI-PEPPERS>
+			<STORY-JUMP ,STORY125>
+		)(ELSE
+			<CRLF>
+			<TELL TEXT033-END>
+			<TELL ,PERIOD-CR>
+			<PUTP ,STORY033 ,P?DEATH T>
+		)>
+	)>>
+
+<CONSTANT TEXT034 "You moisten a little salt and rub it onto your neck as a precaution. You do not need much, so you can retain the rest of the parcel in case you need it later.">
 
 <ROOM STORY034
 	(DESC "034")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT034)
+	(PRECHOICE STORY034-PRECHOICE)
+	(CONTINUE STORY057)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY034-PRECHOICE ()
+	<GAIN-CODEWORD ,CODEWORD-SALVATION>
+	<COND (<CHECK-ITEM ,LOBSTER-POT> <STORY-JUMP ,STORY081>)>>
+
+<CONSTANT TEXT035 "Your amulet is held around your neck by a thong, which snaps as you are getting off the raft. You give a yelp of alarm and try to grab the amulet before it falls into the water, but for once luck is not with you and it slips through your fingers. However, instead of sinking without trace the amulet comes to rest just under the surface. You stoop to retrieve it, and in doing so you notice something rather interesting; the stairway does not just lead up to the shrine atop the pyramid; it also leads down beneath the lake.||Is that the route you should take? Or is there some secret you must discover inside the shrine first? As you resecure the amulet around your neck, you ponder your next action.">
+<CONSTANT CHOICES035 <LTABLE "ascend to the shrine" "descend into the water">>
 
 <ROOM STORY035
 	(DESC "035")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT035)
+	(CHOICES CHOICES035)
+	(DESTINATIONS <LTABLE STORY058 STORY105>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT036 "You trudge on until you come to a well. On a ridge ahead stands a kapok tree with its upper branches surrounded by the mass of water that hangs above the Deathlands. Squinting in the intense unremitting sunlight, you can make out some figures reclining in the shade of its foliage.">
 
 <ROOM STORY036
 	(DESC "036")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT036)
+	(PRECHOICE STORY036-PRECHOICE)
+	(CONTINUE STORY180)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY036-PRECHOICE ()
+	<COND (<CHECK-ITEM ,JADE-BEAD>
+		<CRLF>
+		<TELL "Do you wish to discard the " D ,JADE-BEAD "?">
+		<COND (<YES?>
+			<LOSE-ITEM ,JADE-BEAD>
+			<STORY-JUMP ,STORY174>
+		)>
+	)>>
+
+<CONSTANT TEXT037 "You have passed two of the sentinels; there are two still to go. The next proves to be a lank bone-white demon with a sharply featured face that gives him an almost serpentine look. He holds a leaf-shaped knife of white onyx in each hand, tilting them like fans as he stoops to peer at you.||\"Your name?\" The words ooze out of his mouth like venom.||\"Evening Star,\" you reply.||He nods and an ugly lipless smile curls his long mouth, \"Good. Now address me with proper respect, Evening Star. Address me by name.\"||What do you think his name is:">
+<CONSTANT CHOICES037 <LTABLE "say that his name is Lord Blood" "Lord Skull" "Thunderbolt Laughter">>
 
 <ROOM STORY037
 	(DESC "037")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT037)
+	(CHOICES CHOICES037)
+	(DESTINATIONS <LTABLE STORY084 STORY129 STORY062>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT038 "The servant falls to his knees with his arms clasped around your legs. he is racked with grief for his dead master, and begs you to restore the man to life. He must think you are some kind of miracle-worker. Understandable, since he has just seen you slay a monster that seemed more than a match for any ten normal men.">
+<CONSTANT CHOICES038 <LTABLE "try to revivify the dead man, though it would probably use up all your magical power" "alternatively you can expend your magic using a" "or a" "otherwise">>
 
 <ROOM STORY038
 	(DESC "038")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT038)
+	(CHOICES CHOICES038)
+	(DESTINATIONS <LTABLE STORY108 STORY130 STORY153 STORY176>)
+	(REQUIREMENTS <LTABLE SKILL-SPELLS GOLD-DIADEM CHALICE-OF-LIFE NONE>)
+	(TYPES <LTABLE R-SKILL R-ITEM R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT039 "You place it across the pit and walk across. When you reach the other side and turn to retrieve your makeshift bridge, however, the chief courtier whisks it away and snaps it across his knee. \"That was cheating,\" he says ill-temperedly.||\"How was I to know? You didn't mention any rules.\"||His scowl melts into a sly smile. He is obviously a creature of volatile moods. \"That's the kind of game we play around here. You discover the rules when you break them.\"||He tosses the broken item aside and takes a great leap which carries him right across the pit. The other courtiers follow with equal agility.">
 
 <ROOM STORY039
 	(DESC "039")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT039)
+	(PRECHOICE STORY039-PRECHOICE)
+	(CONTINUE STORY431)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY039-PRECHOICE ()
+	<COND (<CHECK-ITEM ,BLOWGUN>
+		<LOSE-ITEM ,BLOWGUN>
+	)(<CHECK-ITEM ,SPEAR>
+		<LOSE-ITEM ,SPEAR>
+	)>>
+
+<CONSTANT TEXT040 "\"I have survived all the ordeals,\" you say to the courtiers, \"and now I demand to see your master -- the sorcerer Necklace of Skulls.\"||They watch you with smouldering eyes, but the cocksure sneering looks with which they first greeted you are gone now. By passing the five tests you have earned their respect -- perhaps even their fear. As they escort you to the gateway of bones at the rear of the courtyard, the chief courtier studies you with a long sidelong stare before saying, \"You have got further than any mortal I can remember. But our master will crush you as I might crack a flea between my fingernails.\"||With a hollow rattling noise, the great gates swing inwards to reveal an avenue whose walls slope outwards on either side of you. The black pyramid stands at the far end of the avenue, its steep flanks clad in a block of cold shade that defies the harsh sunlight. The courtiers scatter at a signal you do not hear, rushing off with loping gaits that betray their half-canine ancestry. Climbing stone staircases, they take up positions along the top of the sloping walls.||As you take a step forward along the avenue, you notice rings set hip on the side walls. It is like the arena in which the sacred ball contest is played, and those stone rings are the goals.||You round angrily on the chief courtier, who is still standing close at your shoulder. \"What is this?\" you shout. \"I haven't come to play games! You told me I was going to meet Necklace of Skulls at last!\"||\"I am here,\" echoes a sepulchral voice from the depths of the shrine atop the pyramid. \"Now let the game begin.\"">
 
 <ROOM STORY040
 	(DESC "040")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT040)
+	(CONTINUE STORY317)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY041
