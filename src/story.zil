@@ -34,11 +34,13 @@
 	<RESET-TEMP-LIST>
 	<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY275>
 	<PUT <GETP ,STORY048 ,P?DESTINATIONS> 1 ,STORY117>
+	<PUT <GETP ,STORY060 ,P?DESTINATIONS> 3 ,STORY194>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY022 ,P?DEATH T>
 	<PUTP ,STORY028 ,P?DEATH T>
 	<PUTP ,STORY033 ,P?DEATH T>
+	<PUTP ,STORY051 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -775,176 +777,159 @@
 	<RESET-POSSESSIONS>
 	<MOVE ,ALL-MONEY ,PLAYER>>
 
+<CONSTANT TEXT051 "\"Struggling is futile!\" snaps the high priest as his guards rush at you. \"Submit to the will of the gods and at least you will be granted a noble death.\"||You give a groan of pain as one of the guards slams the butt of his spear across your shoulders. Another kicks you in the stomach as you slump forward.">
+
 <ROOM STORY051
 	(DESC "051")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT051)
+	(PRECHOICE STORY051-PRECHOICE)
+	(CONTINUE STORY327)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY051-PRECHOICE ()
+	<LOSE-LIFE 2 DIED-GREW-WEAKER ,STORY051>>
+
+<CONSTANT TEXT052 "A sense of panic begins to well up, churning your thoughts into a confused mixture of fact and fancy. You begin to imagine that you have strayed into the underworld and that the mighty trees surrounding you are no more than the smallest subterranean roots of the fabled Ceiba tree that supports the heavens. You jump in alarm at every tiny sound of scurrying insects or fluttering wings. If you cannot find your way out of the forest soon, our only fate will be madness followed by a slow torturing death by starvation.">
+<CONSTANT CHOICES052 <LTABLE "bear of to the right" "continue in the direction you have been waling up till now" "decide to go left">>
 
 <ROOM STORY052
 	(DESC "052")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT052)
+	(CHOICES CHOICES052)
+	(DESTINATIONS <LTABLE STORY075 STORY098 STORY144>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT053 "A dry raised path stretches off across the dismal marshland. You set off to find where it leads, and have not been walking long when you come across a tiny wizened man with large round eyes and a very long nose. He is lying by the side of the path in a clump of reeds, gasping with exhaustion. When he catches sight of you he raises his head weakly and says in a high-pitched whine: \"I'm so thirsty. Please give me something to drink...\"">
+<CONSTANT CHOICES053 <LTABLE "go back to the river and fetch some water for him" "ignore him and walk past">>
 
 <ROOM STORY053
 	(DESC "053")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT053)
+	(CHOICES CHOICES053)
+	(DESTINATIONS <LTABLE STORY284 STORY307>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT054 "You pause to admire the details of the frieze. It is divided into two long panels. In the upper part, two jaunty heroes are shown striding towards a gate where four stern sentinels await them. The faces of the heroes are identical. The lower panel is separated from this by a cornice, and the figures there are shown upside-down as though walking across the bottom of the world. You crane your neck to make out a picture, which the artisans have only half finished colouring in. It depicts a rich man and his servant trudging towards a pair of arches. Their crouched stance and tightly drawn features suggest an air of nervousness which contrasts with the bold manner of the two heroes in the upper mural.||The priestess smiles at you. \"You're a connoisseur of temple art? We're having to hurry to get it finished before the festivities tomorrow, of course.\"">
+<CONSTANT CHOICES054 <LTABLE "ask her what the scene with the hero-twins represents" "ask about the noble and the servant" "you are more interested in finding out about the festival">>
 
 <ROOM STORY054
 	(DESC "054")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT054)
+	(CHOICES CHOICES054)
+	(DESTINATIONS <LTABLE STORY123 STORY146 STORY169>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT055 "The King is put in a foul temper because of your paltry gift. A group of royal guards emerge from the palace brandishing hard wooden staves and demand to know if you are the one who has insulted the King by presenting him with a one-legged owl.">
+<CONSTANT CHOICES055 <LTABLE "fight the guards" "make no attempt to resist">>
 
 <ROOM STORY055
 	(DESC "055")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT055)
+	(PRECHOICE STORY055-PRECHOICE)
+	(CHOICES CHOICES055)
+	(DESTINATIONS <LTABLE STORY102 STORY124>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY055-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-CUNNING> <STORY-JUMP ,STORY032>)>>
+
+<CONSTANT TEXT056 "When you answered the riddle, the bead slipped out from under your tongue and fell to the ground. You drop to your knees and start frantically fumbling around for it, then you catch sight of it rolling towards a fissure in the rock. You make a desperate lunge, but your fingers close on thin air. The jade bead rolls into the fissure and is lost to view.">
 
 <ROOM STORY056
 	(DESC "056")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT056)
+	(PRECHOICE STORY056-PRECHOICE)
+	(CONTINUE STORY060)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY056-PRECHOICE ()
+	<COND (<CHECK-ITEM ,JADE-BEAD> <LOSE-ITEM ,JADE-BEAD>)>>
+
+<CONSTANT TEXT057 "Leaving while the creature is asleep would do no good. It would only come looking for you after dark. You must deal with it now.">
+<CONSTANT TEXT057-CONTINUED "Your only option is to do battle with the creature">
+<CONSTANT CHOICES057 <LTABLE "attack it now while it is still attached to its host" "wait until nightfall">>
 
 <ROOM STORY057
 	(DESC "057")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT057)
+	(PRECHOICE STORY057-PRECHOICE)
+	(CHOICES CHOICES057)
+	(DESTINATIONS <LTABLE STORY104 STORY100>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY057-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-CUNNING>
+		<STORY-JUMP ,STORY377>
+	)(<CHECK-SKILL ,SKILL-SPELLS>
+		<STORY-JUMP ,STORY011>
+	)(ELSE
+		<CRLF>
+		<TELL TEXT057-CONTINUED>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT058 "Perhaps you will find the answers to your questions in the shrine. You climb to the top of the steps, pausing for a moment at the threshold of the shrine. The entrance is a block of shadow, dingy with foreboding. But you have no choice. Bowing as every mortal must when in the presence of the gods, you go inside.||It is a shrine to God of the Pole Star, as you can tell immediately by the striped glyphs on the altar. He is the celestial guide whom all travellers pray to when they have lost their way. You doubt if anyone has ever needed his help as much as you do now.">
+<CONSTANT CHOICES058 <LTABLE "offer" "your own lifeblood">>
 
 <ROOM STORY058
 	(DESC "058")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT058)
+	(PRECHOICE STORY058-PRECHOICE)
+	(CHOICES CHOICES058)
+	(DESTINATIONS <LTABLE STORY082 STORY082>)
+	(REQUIREMENTS <LTABLE INCENSE 1>)
+	(TYPES <LTABLE R-LOSE-ITEM R-LOSE-LIFE>)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY058-PRECHOICE ()
+	<COND (<OR <CHECK-ITEM ,INCENSE> <IS-ALIVE 1>>
+		<PUTP ,STORY058 ,P?DEATH F>
+	)(ELSE
+		<EMPHASIZE "You have nothing to offer.">
+	)>>
+
+<CONSTANT TEXT059 "The drink proves cool and invigorating.">
+<CONSTANT TEXT059-CONTINUED "Your companion leads up to the kapok tree, where a group of nobles are resting under the canopy of foliage. They greet him cordially, but you are given a somewhat cooler reception until he explains how you helped him cross the river blood.||It is a relief to be out of the glaring light of the low underworld sun for a while. Out of the shade, you an see less fortunate souls moving to and fro with their hands pressed to their foreheads, squinting in the eternal sunshine. You settle down with your back to the tree and wait to hear what the nobles have to say">
 
 <ROOM STORY059
 	(DESC "059")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT059)
+	(PRECHOICE STORY059-PRECHOICE)
+	(CONTINUE STORY106)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY059-PRECHOICE ()
+	<GAIN-LIFE 2>
+	<CRLF>
+	<TELL TEXT059-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT060 "The stranger leaps up into the air, displaying a long thin body like a streak of lightning. Suddenly you realize you are not looking at a man at all, but a large iguana. It crouches on the rock, gives you a last lingering glare, and then goes darting off into the mist.||You trudge on, and gradually the mist breaks up to reveal that the path has become a raised stone causeway which snakes down towards a jetty in the distance. Beyond lies an endless green lake. An icy breeze blows in off the water, making you shiver. As you make your way along the causeway, you notice writhing movement under the thin veils of mist that still lie in the hollows. You stoop for a closer look, then recoil in disgust as you realize that the ground off the causeway consists of filth and mud infested with thousands of maggots.||\"You don't like my pets?\"||You look up. A bizarre creature is waiting for you a little way down the causeway. You could have sworn it wasn't there a moment before. It has a large globular body supported on three strong clawed legs. Its eyes are bright narrow slits, and as it watches you it runs its tongue greedily across its lips. You realize that to reach the jetty you will have to get past that monster -- or else wade through the mass of wriggling maggots.">
+<CONSTANT CHOICES060 <LTABLE "use" "or a" "you can  march along the causeway" "head directly for the jetty by leaving the causeway and wading through the maggots">>
 
 <ROOM STORY060
 	(DESC "060")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT060)
+	(PRECHOICE STORY060-PRECHOICE)
+	(CHOICES CHOICES060)
+	(DESTINATIONS <LTABLE STORY217 STORY241 STORY194 STORY171>)
+	(REQUIREMENTS <LTABLE SKILL-TARGETING MAN-OF-GOLD NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-ITEM R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
 
+<ROUTINE STORY060-PRECHOICE ()
+	<COND (<CHECK-ITEM ,JADE-BEAD>
+		<PUT <GETP ,STORY060 ,P?DESTINATIONS> 3 ,STORY148>
+	)(ELSE
+		<PUT <GETP ,STORY060 ,P?DESTINATIONS> 3 ,STORY194>
+	)>>
 <ROOM STORY061
 	(DESC "061")
 	(STORY TEXT)
