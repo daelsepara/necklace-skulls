@@ -8,6 +8,10 @@
     (DESC "Pakal")
     (SYNONYM PAKAL)>
 
+<OBJECT CODEWORD-POKTAPOK
+    (DESC "Poktapok")
+    (SYNONYM POKTAPOK)>
+
 <OBJECT CODEWORD-SALVATION
     (DESC "Salvation")
     (SYNONYM SALVATION)>

@@ -9,7 +9,22 @@
 <OBJECT CURRENCY (DESC "cacao")>
 <OBJECT VEHICLE (DESC "none")>
 
+<CONSTANT DRINK-POTION-KEY-CAPS !\D>
+<CONSTANT DRINK-POTION-KEY !\d>
+
 <ROUTINE SPECIAL-INTERRUPT-ROUTINE (KEY)
+	<COND (<EQUAL? .KEY DRINK-POTION-KEY-CAPS DRINK-POTION-KEY>
+		<COND (<CHECK-ITEM ,MAGIC-POTION>
+			<CRLF><CRLF>
+			<TELL "Drink magic potion?">
+			<COND (<YES?>
+				<SETG LIFE-POINTS <+ ,LIFE-POINTS 5>>
+				<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
+				<REMOVE ,MAGIC-POTION>
+			)>
+			<RTRUE>
+		)>
+	)>
 	<RFALSE>>
 
 <ROUTINE RESET-OBJECTS ()
@@ -18,6 +33,7 @@
 <ROUTINE RESET-STORY ()
 	<RESET-TEMP-LIST>
 	<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY275>
+	<PUT <GETP ,STORY048 ,P?DESTINATIONS> 1 ,STORY117>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY022 ,P?DEATH T>
@@ -44,6 +60,11 @@
 		<PUTP .OBJECT ,P?QUANTITY .QUANTITY>
 	)>>
 
+<OBJECT LOST-SKILLS
+	(DESC "skills lost")
+	(SYNONYM SKILLS)
+	(ADJECTIVE LOST)
+	(FLAGS CONTBIT OPENBIT)>
 
 <CONSTANT TEXT "This story has not been written yet.">
 
@@ -297,7 +318,7 @@
 <ROUTINE STORY018-PRECHOICE ()
 	<COND (<CHECK-CODEWORD ,CODEWORD-ANGEL> <REMOVE ,CODEWORD-ANGEL>)>
 	<EMPHASIZE "You have lost the SPELLS skill.">
-	<REMOVE ,SKILL-SPELLS>>
+	<MOVE ,SKILL-SPELLS ,LOST-SKILLS>>
 
 <CONSTANT TEXT019 "You have time to take a single step towards the black pyramid, then a howl rings out from the shrine -- a howl of such gruesome fury that your sweat runs icy on your brow. The courtiers abandon any semblance of human form and, transforming into wild dogs, scatter with yelps of fear.||The shadow men dissolve as Necklace of Skulls draws all his power back into himself. There is a rumbling from deep within the pyramid. The roof of the shrine trembles, then splits apart as something rises up through it. The pillars topple; masonry blocks crack open. Necklace of Skulls stands revealed atop the pyramid.||He is twice the height of a man -- a parody of human form with dead grey features and grotesquely long limbs with too many joints. The eyes are deep sockets under a caul of shrivelled flesh. His robe is sewn from ragged strips of blood-drenched skin; you realize with a shudder they are the flayed skins of men. Around his neck hangs a long chain of gore-spattered skulls, each with living eyes filled with eternal torment.||Necklace of Skulls stands in the rubble of his shrine like a loathsome insect just emerged from a chrysalis. He points a thin finger at you. \"Evening Star,\" he hisses. \"Now you will know the taste of death.\"">
 <CONSTANT CHOICES019 <LTABLE "use a blowgun" "a wand" "close in for a melee -- either by charging straight at him" "zigzagging as you run">>
@@ -596,175 +617,163 @@
 	(CONTINUE STORY317)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT041 "You are waiting by the door when the dog-like courtiers come to release you in th e morning. The chief is not with them, but later in the day he comes over to where you are sitting at the edge of the plaza and asks: \"How are you enjoying your stay?\"||\"If I were to be candid, I would say your hospitality leaves much to be desired,\" you reply, forcing a note of flippancy into your voice with some effort. \"But I feel this can be excused on the grounds that you received few visitors in these parts.\"||\"On the contrary,\" he says with a broad smile, \"we often have people for dinner.\"||Stifling a shudder at this veiled threat, you ask what your next ordeal is to be.||He glances at the sound, which is already declining in the sky. \"You will shortly discover that for yourself. We call it the House of Knives.\"||Soon afterwards you are taken to the third building. Here the floor is covered with knives of sharp green obsidian. As the sun sets, the knives come to life, springing up to slice at the air expectantly. The door crunches solidly into the place behind you. \"Now,\" the chief courtier calls through it, \"I expect you'll be cut down to size.\"">
+<CONSTANT CHOICES041 <LTABLE "use a" "otherwise">>
+
 <ROOM STORY041
 	(DESC "041")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT041)
+	(PRECHOICE STORY041-PRECHOICE)
+	(CHOICES CHOICES041)
+	(DESTINATIONS <LTABLE STORY087 STORY110>)
+	(REQUIREMENTS <LTABLE STONE NONE>)
+	(TYPES <LTABLE R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY041-PRECHOICE ()
+	<COND (<CHECK-ITEM ,HAUNCH-OF-VENISON> <STORY-JUMP ,STORY064>)>>
+
+<CONSTANT TEXT042 "The ball contest is played in every city of the civilized world. It is much more than just a game. Its exponents travel far and wide, earning fame for themselves and glory for their home cities. The priests say that the origins of the contest lie rooted in ancient tradition, and it is said that the playing of each game is like the unfolding of a mighty spell. Portents for the future are read in the outcome. Losers are often sacrificed to the gods.||The contest involves two players on each side. The aim is to bounce a large rubber ball off the sloping side walls of the arena using only your wrists, elbows and knees. At the same time you have to avoid the opposing players, who are allowed to ram into you with stunning force. You have seen men carried off with the broken necks after a vicious tackle.||The side walls are marked into zones. You score points for hitting these with the ball, and the winning team is the first to score seven points. Alternatively, you can win an immediate victory by getting the ball to go through one of the stone rings set high up in the middle of each wall. This is a very difficult feat, rarely achieved by even the best players.">
 
 <ROOM STORY042
 	(DESC "042")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT042)
+	(PRECHOICE STORY042-PRECHOICE)
+	(CONTINUE STORY088)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY042-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-POKTAPOK> <STORY-JUMP ,STORY065>)>>
+
+<CONSTANT TEXT043 "To your own astonishment as much as anyone else's, the blood ball soars up and unerringly passes through the stone ring set in the middle of the wall. A howl of disbelief rises from the watching courtiers. They sound like hounds at the baying of the moon.||Your brother rushes over to join you. \"Can you feel it, Evening Star?\" he says excitedly. \"The tingle of magic on the air?\"||He is right. In some strange way your victory worked a spell which now empowers you both with an invigorating surge of energy.">
+<CONSTANT TEXT043-CONTINUED "A wail of petulant rage echoes down from the sorcerer's sanctum. \"Apparently he's not happy with the result of the contest,\" you say to Morning Star.">
+<CONSTANT CHOICES043 <LTABLE "attack the sorcerer now" "otherwise">>
 
 <ROOM STORY043
 	(DESC "043")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT043)
+	(PRECHOICE STORY043-PRECHOICE)
+	(CHOICES CHOICES043)
+	(DESTINATIONS <LTABLE STORY019 STORY157>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY043-PRECHOICE ()
+	<COND (<L? ,LIFE-POINTS ,MAX-LIFE-POINTS>
+		<EMPHASIZE "You are restored to full health.">
+		<SETG LIFE-POINTS ,MAX-LIFE-POINTS>
+	)>
+	<COND (<G? <COUNT-CONTAINER ,LOST-SKILLS> 0>
+		<CRLF>
+		<TELL "You regained: ">
+		<PRINT-CONTAINER ,LOST-SKILLS>
+		<TRANSFER-CONTAINER ,LOST-SKILLS ,SKILLS>
+	)>
+	<UPDATE-STATUS-LINE>>
+
+<CONSTANT TEXT044 "The giant adopts a look of furious concentration. He puffs out the huge boulders of his cheeks and screws his eyes tight. A rumbling groan escapes from the deep well of his throat, followed by a spluttering and a single cough like a lava plug being blown out of the ground.||He opens his mouth and there on his tongue lies a stone jar. \"What's that?\" you ask.||\"Ake it and thee,\" he replies.||\"I beg your pardon?\" you say, lifting the jar to examine it.||'I said, \"Take it and see,\"' he repeats impatiently. When he sees you grimace at the smell of the jar's contents, he adds: \"It's a healing drink. A magical recipe thousands of years old.\"||\"I think it's gone off!\"||\"No, it's supposed to smell like that,\" he says.||The potion can be drunk once at any time to restore 5 lost Life Points (press D).">
 
 <ROOM STORY044
 	(DESC "044")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT044)
+	(CONTINUE STORY135)
+	(ITEM MAGIC-POTION)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT045 "The golden manikin draws life from the warmth of your hand. Leaping down to the ground, he leaps through the flame barrier and emerge unscathed bearing the wand. You take the wand and give it to the Jade Thunder, who is delighted.||When you go to pick up the Man of Gold, you discover he has tunnelled down into the sand. \"I know the legend of that manikin,\" says Jade Thunder. \"It could only be used once.\"||\"Evidently,\" you reply, staring at the mound of sand where the Man of Gold dug down out of sight.">
 
 <ROOM STORY045
 	(DESC "045")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT045)
+	(PRECHOICE STORY045-PRECHOICE)
+	(CONTINUE STORY091)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY045-PRECHOICE ()
+	<COND (<CHECK-ITEM ,MAN-OF-GOLD> <LOSE-ITEM ,MAN-OF-GOLD>)>>
+
+<CONSTANT TEXT046 "You have never seen so many stars as fill the desert sky after sunset. The night is full of soft sinister rustlings: snakes gliding across the sand, insects and scorpions scuttling unseen in the darkness. It is as eerie as venturing into the underworld. When the moon rises, it outlines the wind-blasted crags in a ghostly silver glow that makes them look like towering clouds.||By day you shelter under overhanging rocks -- after first being sure to check that no venomous creatures have used the same patch of shade as a lair. Each evening, as the sun sinks in the west and the terrible heat of the day gives way to the cool of night, you take up your pack and journey on.">
 
 <ROOM STORY046
 	(DESC "046")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT046)
+	(PRECHOICE STORY046-PRECHOICE)
+	(CONTINUE STORY069)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY046-PRECHOICE ("AUX" (DAMAGE 3))
+	<COND (<CHECK-ITEM ,WATERSKIN>
+		<SET DAMAGE 1>
+	)(<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
+		<SET DAMAGE <- .DAMAGE 1>>
+	)>
+	<LOSE-LIFE .DAMAGE DIED-OF-THIRST ,STORY046>
+	<COND (<IS-ALIVE>
+		<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
+			<EMPHASIZE "Your knowledge of WILDERNESS LORE made you tougher than most people.">
+		)>
+		<COND (<CHECK-ITEM ,WATERSKIN>
+			<EMPHASIZE "You waterskin has been emptied.">
+			<LOSE-ITEM ,WATERSKIN>
+		)>
+	)>>
+
+<CONSTANT TEXT047 "\"What would others think of our clan,\" you assert, \"if we meekly ignored the loss of my brother? Honour is like the sun: it cannot hide its face.\"||The Matriarch thrusts her head forward and stares at you along the great hook of her nose. Perched thus on her stone seat, she reminds you of a fat owl watching a mouse. You begin to fear you have offended her with your frank answer, but then to your relief she gives a rumble of approving laughter. \"Well said, young Evening Star. How like your brother you are -- and both of you like your late father, always brimming over with impatient courage.\"||You set down your cup. \"Then have I your leave to go, my lady?\"||She nods. \"Yes, but since your determination glorifies the clan, I feel that the clan should give you assistance in this quest. Consider what help you need most, Evening Star. I could arrange for you to have an audience with one of our high priests, and you could seek their advice. Or I could allow you to equip yourself with the clan's special ancestral treasures. Or would you prefer a companion on your quest?\"">
+<CONSTANT CHOICES047 <LTABLE "request a meeting with one of the high priests" "ask to see the ancestral treasures of the clan" "you think a companion would be useful">>
 
 <ROOM STORY047
 	(DESC "047")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT047)
+	(CHOICES CHOICES047)
+	(DESTINATIONS <LTABLE STORY116 STORY138 STORY162>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT048 "You know that the spider must be torpid from the heat. Tarantulas are night hunters. It is unlikely to bite if you jerk your hand away, and even if it did the venom is little worse than a wasp sting. Touching it would be far more unpleasant, since the bristles inject a powerful irritant.||The tarantula sleepily probes your fingers with its limbs. You snatch your hand back out of its clutches. Its only reaction is to slowly curl back into the shade of the papaya fruit. You breathe a sigh of relief and step back to the middle of the causeway.||\"Hey there! What're you doing?\"||You turn to see an old peasant coming through the dusty orchard towards you.">
+<CONSTANT CHOICES048 <LTABLE "talk to him" "decide to hurry off before he gets here">>
 
 <ROOM STORY048
 	(DESC "048")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT048)
+	(PRECHOICE STORY048-PRECHOICE)
+	(CHOICES CHOICES048)
+	(DESTINATIONS <LTABLE STORY117 STORY163>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY048-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
+		<PUT <GETP ,STORY048 ,P?DESTINATIONS> 1 ,STORY139>
+	)(ELSE
+		<PUT <GETP ,STORY048 ,P?DESTINATIONS> 1 ,STORY117>
+	)>>
+
+<CONSTANT TEXT049 "You reach into the forbidding hole and snatch up the diadem. As you bring it out into the leaf-spattered sunlight however, a baleful roar issues from the interior of the dead tree. You are started by a scaly moss-covered arm that suddenly thrusts forth, groping for you as a voice thunders: \"Who has taken my trinket? A curse be upon that sly long-fingered thief!">
+<CONSTANT CHOICES049 <LTABLE "lose the shawl" "release your grip and fall back off the tree" "cling on and risk letting the monstrous arm seize you">>
 
 <ROOM STORY049
 	(DESC "049")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT049)
+	(CHOICES CHOICES049)
+	(DESTINATIONS <LTABLE STORY425 STORY400 STORY003>)
+	(REQUIREMENTS <LTABLE SKILL-CUNNING NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT050 "You race off into the undergrowth. The mysterious cannibals make no attempt to stop you, nor do they come after you. They are content to keep your belongings and leave you to the mercy of the forest byways.">
 
 <ROOM STORY050
 	(DESC "050")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT050)
+	(PRECHOICE STORY050-PRECHOICE)
+	(CONTINUE STORY118)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY050-PRECHOICE ()
+	<EMPHASIZE "You lost all your possessions.">
+	<RESET-POSSESSIONS>
+	<MOVE ,ALL-MONEY ,PLAYER>>
 
 <ROOM STORY051
 	(DESC "051")

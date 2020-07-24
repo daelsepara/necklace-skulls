@@ -53,6 +53,12 @@
     (ADJECTIVE GOLD)
     (FLAGS TAKEBIT)>
 
+<OBJECT HAUNCH-OF-VENISON
+    (DESC "haunch of venison")
+    (SYNONYM VENISON)
+    (ADJECTIVE HAUNCH)
+    (FLAGS TAKEBIT)>
+
 <OBJECT JADE-BEAD
     (DESC "jade bead")
     (SYNONYM BEAD)
@@ -63,6 +69,18 @@
     (DESC "lobster pot")
     (SYNONYM POT)
     (ADJECTIVE LOBSTER)
+    (FLAGS TAKEBIT)>
+
+<OBJECT MAGIC-POTION
+    (DESC "magic potion")
+    (SYNONYM POTION)
+    (ADJECTIVE MAGIC)
+    (FLAGS TAKEBIT)>
+
+<OBJECT MAN-OF-GOLD
+    (DESC "Man of Gold")
+    (SYNONYM MAN)
+    (ADJECTIVE GOLD)
     (FLAGS TAKEBIT)>
 
 <OBJECT OWL
@@ -78,6 +96,11 @@
 <OBJECT SHAWL
     (DESC "shawl")
     (SYNONYM SHAWL)
+    (FLAGS TAKEBIT)>
+
+<OBJECT STONE
+    (DESC "stone")
+    (SYNONYM STONE)
     (FLAGS TAKEBIT)>
 
 <OBJECT WATERSKIN
