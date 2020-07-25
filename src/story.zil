@@ -51,6 +51,7 @@
 	<PUTP ,STORY085 ,P?DEATH T>
 	<PUTP ,STORY092 ,P?DEATH T>
 	<PUTP ,STORY094 ,P?DEATH T>
+	<PUTP ,STORY102 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -225,10 +226,12 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY007-PRECHOICE ()
-	<EMPHASIZE "Your maximum Life Points score is permanently reduced by 2.">
-	<SETG MAX-LIFE-POINTS <- ,MAX-LIFE-POINTS 2>>
-	<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
-	<COND (<CHECK-SKILL ,SKILL-SEAFARING> <STORY-JUMP ,STORY076>)>>
+	<COND (,RUN-ONCE
+		<EMPHASIZE "Your maximum Life Points score is permanently reduced by 2.">
+		<SETG MAX-LIFE-POINTS <- ,MAX-LIFE-POINTS 2>>
+		<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
+		<COND (<CHECK-SKILL ,SKILL-SEAFARING> <STORY-JUMP ,STORY076>)>
+	)>>
 
 <CONSTANT TEXT008 "As you go west, the land rises and becomes drier. You leave behind the lush forest, trekking first through windswept moorland and then dusty gulches lined with sparse bracken.||Ashaka is a hilltop citadel with palaces set on high terraces cut into the mountainside. It stares down across the scattered farming communities it rules, like an eagle glowering atop a cactus. As you start up the red-paved road that wends up to the citadel, you pass a small man who is bent and toothless with age. \"Going up to Ashaka, are you?\" he cackles. \"They'll be pleased!\"||\"Why is that?\" you ask.||He puts a finger to one nostril and snorts a gobbet of mucus onto the ground. \"They're after sacrifices,\" he says. \"Priests reckon the gods are annoyed. Must be bloody furious, if you ask me!\"||\"Eh?\" You are puzzled.||He fixes you with a canny stare. \"The Great City -- it's been sacked by dog-men from the western desert. It's going to take heap of sacrifices to get the gods to rebuild it, hah!\"||What he says is inconvenient if true, since you were relying on getting provisions in Ashaka.">
 <CONSTANT CHOICES008 <LTABLE "go up anyway" "decide against visiting Ashaka by continuing to travel overland" "you can detour to the sea and travel up the coast to Tahil">>
@@ -243,10 +246,12 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY008-PRECHOICE ()
-	<COND (<AND <CHECK-SKILL ,SKILL-SWORDPLAY> <CHECK-SKILL ,SKILL-ETIQUETTE>>
-		<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY252>
-	)(ELSE
-		<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY275>
+	<COND (,RUN-ONCE
+		<COND (<AND <CHECK-SKILL ,SKILL-SWORDPLAY> <CHECK-SKILL ,SKILL-ETIQUETTE>>
+			<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY252>
+		)(ELSE
+			<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY275>
+		)>
 	)>>
 
 <CONSTANT TEXT009 "You descend into the pyramid. The staircase is narrow, steep and dank. Lighting-strokes cast a guttering white glare from above, plunging you into darkness as they pass. The thundercracks in the sky resound ominously through the heavy stone blocks of the pyramid. The steps are slippery with damp, forcing you to make the descent slowly. At last you reach the bottom and pass through a doorway draped with thick fleshy roots. A tunnel stretches ahead which you have to feel your way along. No light penetrates this far down. The smell in the air is of damp soil and limestone.||The walls vibrate as another thunderbolt shakes the earth. Suddenly you are knocked off your feet by a heavy weight of rubble dropping on you. You realize the tunnel has caved in. Claustrophobia seizes you. Struggling in panic, you claw at the rubble in a frantic attempt to dig yourself free.||Your hands break through to the air and you push up, gasping for breath. You are no longer in the underground tunnel, though. You have emerged into an unearthly landscape. A barren plain stretches away in all directions under a sky of red-tinged darkness. In the distance you can see a haze of sulphurous clouds lit by fiery light: the lip of volcanic fissure. You head towards it">
@@ -712,17 +717,19 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY043-PRECHOICE ()
-	<COND (<L? ,LIFE-POINTS ,MAX-LIFE-POINTS>
-		<EMPHASIZE "You are restored to full health.">
-		<SETG LIFE-POINTS ,MAX-LIFE-POINTS>
-	)>
-	<COND (<G? <COUNT-CONTAINER ,LOST-SKILLS> 0>
-		<CRLF>
-		<TELL "You regained: ">
-		<PRINT-CONTAINER ,LOST-SKILLS>
-		<TRANSFER-CONTAINER ,LOST-SKILLS ,SKILLS>
-	)>
-	<UPDATE-STATUS-LINE>>
+	<COND (,RUN-ONCE
+		<COND (<L? ,LIFE-POINTS ,MAX-LIFE-POINTS>
+			<EMPHASIZE "You are restored to full health.">
+			<SETG LIFE-POINTS ,MAX-LIFE-POINTS>
+		)>
+		<COND (<G? <COUNT-CONTAINER ,LOST-SKILLS> 0>
+			<CRLF>
+			<TELL "You regained: ">
+			<PRINT-CONTAINER ,LOST-SKILLS>
+			<TRANSFER-CONTAINER ,LOST-SKILLS ,SKILLS>
+		)>
+		<UPDATE-STATUS-LINE>
+	)>>
 
 <CONSTANT TEXT044 "The giant adopts a look of furious concentration. He puffs out the huge boulders of his cheeks and screws his eyes tight. A rumbling groan escapes from the deep well of his throat, followed by a spluttering and a single cough like a lava plug being blown out of the ground.||He opens his mouth and there on his tongue lies a stone jar. \"What's that?\" you ask.||\"Ake it and thee,\" he replies.||\"I beg your pardon?\" you say, lifting the jar to examine it.||'I said, \"Take it and see,\"' he repeats impatiently. When he sees you grimace at the smell of the jar's contents, he adds: \"It's a healing drink. A magical recipe thousands of years old.\"||\"I think it's gone off!\"||\"No, it's supposed to smell like that,\" he says.||The potion can be drunk once at any time to restore 5 lost Life Points (press D).">
 
@@ -796,10 +803,12 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY048-PRECHOICE ()
-	<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
-		<PUT <GETP ,STORY048 ,P?DESTINATIONS> 1 ,STORY139>
-	)(ELSE
-		<PUT <GETP ,STORY048 ,P?DESTINATIONS> 1 ,STORY117>
+	<COND (,RUN-ONCE
+		<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
+			<PUT <GETP ,STORY048 ,P?DESTINATIONS> 1 ,STORY139>
+		)(ELSE
+			<PUT <GETP ,STORY048 ,P?DESTINATIONS> 1 ,STORY117>
+		)>
 	)>>
 
 <CONSTANT TEXT049 "You reach into the forbidding hole and snatch up the diadem. As you bring it out into the leaf-spattered sunlight however, a baleful roar issues from the interior of the dead tree. You are started by a scaly moss-covered arm that suddenly thrusts forth, groping for you as a voice thunders: \"Who has taken my trinket? A curse be upon that sly long-fingered thief!">
@@ -943,6 +952,7 @@
 	<COND (<OR <CHECK-ITEM ,INCENSE> <IS-ALIVE 1>>
 		<PUTP ,STORY058 ,P?DEATH F>
 	)(ELSE
+		<PUTP ,STORY058 ,P?DEATH T>
 		<EMPHASIZE "You have nothing to offer.">
 	)>>
 
@@ -976,10 +986,12 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY060-PRECHOICE ()
-	<COND (<CHECK-ITEM ,JADE-BEAD>
-		<PUT <GETP ,STORY060 ,P?DESTINATIONS> 3 ,STORY148>
-	)(ELSE
-		<PUT <GETP ,STORY060 ,P?DESTINATIONS> 3 ,STORY194>
+	<COND (,RUN-ONCE
+		<COND (<CHECK-ITEM ,JADE-BEAD>
+			<PUT <GETP ,STORY060 ,P?DESTINATIONS> 3 ,STORY148>
+		)(ELSE
+			<PUT <GETP ,STORY060 ,P?DESTINATIONS> 3 ,STORY194>
+		)>
 	)>>
 
 <CONSTANT TEXT061 "Grey clouds of fury darken the black pools of the sentinel's eyes. He lets his gory mouth drop open in a long appalling howl of fury that sounds like the heavens cracking in two. You drop cowering to the ground, so terrified that every muscle in your body loses all strength.||At last, like a storm, the awful sound passes. You uncurl yourself and glance timidly up. The sentinel has lost interest in you, having voiced his displeasure. He is once more staring directly ahead across the passage, giving you no more attention than he would give to an insect.||Still dazed, you lope on along the passage. It is only now that you realize how the sentinel's howl has addled your wits.">
@@ -1127,10 +1139,12 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY071-PRECHOICE ()
-	<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
-		<PUT <GETP ,STORY071 ,P?DESTINATIONS> 1 ,STORY139>
-	)(ELSE
-		<PUT <GETP ,STORY071 ,P?DESTINATIONS> 1 ,STORY117>
+	<COND (,RUN-ONCE
+		<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
+			<PUT <GETP ,STORY071 ,P?DESTINATIONS> 1 ,STORY139>
+		)(ELSE
+			<PUT <GETP ,STORY071 ,P?DESTINATIONS> 1 ,STORY117>
+		)>
 	)>>
 
 <CONSTANT TEXT072 "A wave of dizziness warns you that your wound is becoming infected. You stop to gather puffballs. Their spores act as an antidote to fever. Finding a wild bees' nest, you mix the spores with honey to take away the dry noxious taste and gulp the mixture down. It is unpleasant, but it seems to do the trick.">
@@ -1237,7 +1251,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY078-PRECHOICE ()
-	<GAIN-LIFE 1>
+	<COND (,RUN-ONCE <GAIN-LIFE 1>)>
 	<COND (<CHECK-CODEWORD ,CODEWORD-PSYCHODUCT>
 		<STORY-JUMP ,STORY331>
 	)(ELSE
@@ -1409,10 +1423,12 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY091-PRECHOICE ()
-	<COND (<CHECK-CODEWORD ,CODEWORD-SAKBE>
-		<PUT <GETP ,STORY091 ,P?DESTINATIONS> 2 ,STORY114>
-	)(ELSE
-		<PUT <GETP ,STORY091 ,P?DESTINATIONS> 2 ,STORY136>
+	<COND (,RUN-ONCE
+		<COND (<CHECK-CODEWORD ,CODEWORD-SAKBE>
+			<PUT <GETP ,STORY091 ,P?DESTINATIONS> 2 ,STORY114>
+		)(ELSE
+			<PUT <GETP ,STORY091 ,P?DESTINATIONS> 2 ,STORY136>
+		)>
 	)>>
 
 <CONSTANT TEXT092 "You send a surge of occult power to drive the whirlwinds back, but there are too many of them. Here they are in their element, drawing strength from the sand and the rocks and the dry desert air. They penetrate your barrier of spells and come roaring forward, ripping at your body with invisible hands.">
@@ -1429,10 +1445,12 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY092-PRECHOICE ()
-	<COND (<CHECK-SKILL ,SKILL-CHARMS>
-		<LOSE-LIFE 2 KILLED-AT-ONCE ,STORY092>
-	)(ELSE
-		<EMPHASIZE KILLED-AT-ONCE>
+	<COND (,RUN-ONCE
+		<COND (<CHECK-SKILL ,SKILL-CHARMS>
+			<LOSE-LIFE 2 KILLED-AT-ONCE ,STORY092>
+		)(ELSE
+			<EMPHASIZE KILLED-AT-ONCE>
+		)>
 	)>>
 
 <CONSTANT TEXT093 "Realizing there are things you will need on your travels, you head to the market. Here, under a long colonnade festooned with coloured rugs, you can usually find almost anything. Unfortunately it is now late afternoon and many of the traders have packed up their wares and gone home, driven off by the waves of heat rising from the adjacent plaza.||Making your way along the colonnade, you identify the different goods at a glance according to the colours of the rugs. Green indicates sellers of maize, while yellow and red are used for other foodstuffs. Black is the colour of stone or glass items, with the addition of grey frets signifying weaponry. Wooden products are set out on ochre cloth, and white is reserved for clay pottery.||Soon you have found a few items which might prove useful. You count the cacao in your money-pouch while considering which to buy.">
@@ -1462,15 +1480,17 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY094-PRECHOICE ()
-	<LOSE-LIFE 1 DIED-GREW-WEAKER ,STORY094>
+	<COND (,RUN-ONCE <LOSE-LIFE 1 DIED-GREW-WEAKER ,STORY094>)>
 	<COND (<IS-ALIVE>
 		<CRLF>
 		<TELL TEXT094-CONTINUED>
 		<TELL ,PERIOD-CR>
-		<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
-			<PUT <GETP ,STORY094 ,P?DESTINATIONS> 2 ,STORY139>
-		)(ELSE
-			<PUT <GETP ,STORY094 ,P?DESTINATIONS> 2 ,STORY063>
+		<COND (,RUN-ONCE
+			<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
+				<PUT <GETP ,STORY094 ,P?DESTINATIONS> 2 ,STORY139>
+			)(ELSE
+				<PUT <GETP ,STORY094 ,P?DESTINATIONS> 2 ,STORY063>
+			)>
 		)>
 	)>>
 
@@ -1493,7 +1513,7 @@
 <ROUTINE STORY095-EVENTS ()
 	<EMPHASIZE "You lose all your belongings">
 	<PRESS-A-KEY>
-	<RESET-CONTAINER ,PLAYER>
+	<COND (,RUN-ONCE <RESET-CONTAINER ,PLAYER>)>
 	<RETURN ,STORY050>>
 
 <CONSTANT TEXT096 "They succeed in dislodging several fat plums without disturbing any spiders. You watch as they squabble happily over the distribution of their spoils Apparently you were just unlucky in finding a tarantula in the fruit you tried to pick, but the incident has deadened your appetite and you continue on your way without stopping to collect any of the plums yourself.">
@@ -1504,7 +1524,7 @@
 	(CONTINUE STORY350)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT097 "The oarsmen are demons with squinting eyes and shrunken toothless gums. Stingray spines hang from their brows and upper lips where a mortal might have hair, and their flesh is a sickly blue-white colour. One wears a headdress in the shape of a shark's fin, the other has a jaguar-pelt skullcap. As the canoe draws nearer, you see they have no lower limbs: their torsos end in shapless blobs.||\"You wish to be conveyed to the Deathlands,\" says the shark paddler.||\"We will take you there,\" add the jaguar paddler.||Loathsome as these creatures are, you see no alternative. You climb into the boat and wait as they row through the wanly lit gloom of the cavern. Ahead lies a tunnel, but before you reach it the canoe glides to a halt beside a shelf of rock. You look up to see a narrow crevice in the wall of the cavern. It looks far from inviting, and you detect a gust of noxious air wafting out of the darkened interior.">
+<CONSTANT TEXT097 "The oarsmen are demons with squinting eyes and shrunken toothless gums. Stingray spines hang from their brows and upper lips where a mortal might have hair, and their flesh is a sickly blue-white colour. One wears a headdress in the shape of a shark's fin, the other has a jaguar-pelt skullcap. As the canoe draws nearer, you see they have no lower limbs: their torsos end in shapeless blobs.||\"You wish to be conveyed to the Deathlands,\" says the shark paddler.||\"We will take you there,\" add the jaguar paddler.||Loathsome as these creatures are, you see no alternative. You climb into the boat and wait as they row through the wanly lit gloom of the cavern. Ahead lies a tunnel, but before you reach it the canoe glides to a halt beside a shelf of rock. You look up to see a narrow crevice in the wall of the cavern. It looks far from inviting, and you detect a gust of noxious air wafting out of the darkened interior.">
 <CONSTANT CHOICES097 <LTABLE "disembark and climb up to the crevice" "wait for the strange demons to row on">>
 
 <ROOM STORY097
@@ -1515,7 +1535,7 @@
 	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT098 "A cacophony of chitterings and gleeful screeches makes you look up. From the foliage overhead, dozens of beady pairs of eyes stare back at you. You laugh as you see the tiny comical faces of a troop of monkeys, teeth bared like grimacing old men.||Suddenly you feel small fingers probing at your clothes. A couple of monkeys have crept up on you while the others distracted your attention. One leaps onto your head and puts its hands over your eyes while the other rifles through your belongings. You give vent to a loud curse and lunge to grab the little thieves, but they are too quick for you. You can only stand and watch helplessly as they go swinging happily off the through the strees.">
+<CONSTANT TEXT098 "A cacophony of chitterings and gleeful screeches makes you look up. From the foliage overhead, dozens of beady pairs of eyes stare back at you. You laugh as you see the tiny comical faces of a troop of monkeys, teeth bared like grimacing old men.||Suddenly you feel small fingers probing at your clothes. A couple of monkeys have crept up on you while the others distracted your attention. One leaps onto your head and puts its hands over your eyes while the other rifles through your belongings. You give vent to a loud curse and lunge to grab the little thieves, but they are too quick for you. You can only stand and watch helplessly as they go swinging happily off the through the trees.">
 <CONSTANT CHOICES098 <LTABLE "go straight on" "bear left from here" "bear right">>
 
 <ROOM STORY098
@@ -1528,36 +1548,38 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY098-PRECHOICE ("AUX" (COUNT 0))
-	<RESET-TEMP-LIST>
-	<COND (<CHECK-ITEM ,MAGIC-AMULET> <SET COUNT <+ .COUNT 1>> <PUT TEMP-LIST .COUNT ,MAGIC-AMULET>)>
-	<COND (<CHECK-ITEM ,SHAWL> <SET COUNT <+ .COUNT 1>> <PUT TEMP-LIST .COUNT ,SHAWL>)>
-	<COND (<CHECK-ITEM ,JADE-BEAD> <SET COUNT <+ .COUNT 1>> <PUT TEMP-LIST .COUNT ,JADE-BEAD>)>
-	<COND (<CHECK-ITEM ,MAGIC-POTION> <SET COUNT <+ .COUNT 1>> <PUT TEMP-LIST .COUNT ,MAGIC-POTION>)>
-	<COND (<CHECK-ITEM ,MAIZE-CAKES> <SET COUNT <+ .COUNT 1>> <PUT TEMP-LIST .COUNT ,MAIZE-CAKES>)>
-	<COND (<G? .COUNT 0>
-		<COND (<G? .COUNT 1>
-			<CRLF>
-			<TELL "The monkeys managed to filch one of your items. Select which items to retain" ,PERIOD-CR>
-			<REPEAT ()
-				<DO (I 1 .COUNT)
-					<REMOVE <GETP TEMP-LIST .I>>
-				>
-				<SELECT-FROM-LIST TEMP-LIST .COUNT <- .COUNT 1>>
+	<COND (,RUN-ONCE
+		<RESET-TEMP-LIST>
+		<COND (<CHECK-ITEM ,MAGIC-AMULET> <SET COUNT <+ .COUNT 1>> <PUT TEMP-LIST .COUNT ,MAGIC-AMULET>)>
+		<COND (<CHECK-ITEM ,SHAWL> <SET COUNT <+ .COUNT 1>> <PUT TEMP-LIST .COUNT ,SHAWL>)>
+		<COND (<CHECK-ITEM ,JADE-BEAD> <SET COUNT <+ .COUNT 1>> <PUT TEMP-LIST .COUNT ,JADE-BEAD>)>
+		<COND (<CHECK-ITEM ,MAGIC-POTION> <SET COUNT <+ .COUNT 1>> <PUT TEMP-LIST .COUNT ,MAGIC-POTION>)>
+		<COND (<CHECK-ITEM ,MAIZE-CAKES> <SET COUNT <+ .COUNT 1>> <PUT TEMP-LIST .COUNT ,MAIZE-CAKES>)>
+		<COND (<G? .COUNT 0>
+			<COND (<G? .COUNT 1>
 				<CRLF>
-				<TELL "Are you sure?">
-				<COND (<YES?> <RETURN>)>
-			>
+				<TELL "The monkeys managed to filch one of your items. Select which items to retain" ,PERIOD-CR>
+				<REPEAT ()
+					<DO (I 1 .COUNT)
+						<REMOVE <GETP TEMP-LIST .I>>
+					>
+					<SELECT-FROM-LIST TEMP-LIST .COUNT <- .COUNT 1>>
+					<CRLF>
+					<TELL "Are you sure?">
+					<COND (<YES?> <RETURN>)>
+				>
+			)(ELSE
+				<CRLF>
+				<TELL "The monkeys managed to filch your " D <GET TEMP-LIST 1> ,PERIOD-CR>
+				<LOSE-ITEM <GET TEMP-LIST 1>>
+			)>
 		)(ELSE
 			<CRLF>
-			<TELL "The monkeys managed to filch your " D <GET TEMP-LIST 1> ,PERIOD-CR>
-			<LOSE-ITEM <GET TEMP-LIST 1>>
+			<TELL "The monkeys did not manage to filch anything" ,PERIOD-CR>
 		)>
-	)(ELSE
-		<CRLF>
-		<TELL "The monkeys did not manage to filch anything" ,PERIOD-CR>
 	)>>
 
-<CONSTANT TEXT099 "You can hear the sound of rapids up ahead, and the current carries the boat faster and faster towards them. Hurriedly tying the rope into a loop, you cast it towards the side of the tunnel and manage to lasso an outcrop of rock. The boat is jerked to a halt and sent drifting towards a side tunnel where the current is not so strong. You are unable to dislodge the rope but at least you are safe.||A flicker of daylight shows at the end of the tunnel. You can smell the reek of stangnant marshland in the air. Paddling onwards, you come out into the open under an overcast sky the colour of dead skin. The river here is no more than a muddy trickle winding through sickly grey marshland. A dreary landscape of sour white clay and colourless rushes stretches far off into the distance.||You put in a rotting wooden jetty and tether the boat.">
+<CONSTANT TEXT099 "You can hear the sound of rapids up ahead, and the current carries the boat faster and faster towards them. Hurriedly tying the rope into a loop, you cast it towards the side of the tunnel and manage to lasso an outcrop of rock. The boat is jerked to a halt and sent drifting towards a side tunnel where the current is not so strong. You are unable to dislodge the rope but at least you are safe.||A flicker of daylight shows at the end of the tunnel. You can smell the reek of stagnant marshland in the air. Paddling onwards, you come out into the open under an overcast sky the colour of dead skin. The river here is no more than a muddy trickle winding through sickly grey marshland. A dreary landscape of sour white clay and colourless rushes stretches far off into the distance.||You put in a rotting wooden jetty and tether the boat.">
 
 <ROOM STORY099
 	(DESC "099")
@@ -1584,90 +1606,83 @@
 <ROUTINE STORY100-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-UNARMED-COMBAT> <STORY-JUMP ,STORY126>)>>
 
+<CONSTANT TEXT101 "You find a merchant who has heard of your clan and offer him one cacao to give you lodging.||\"Many people are pouring into the city from the surrounding countryside. They come to take part in the festival, and all will need a place to sleep off their excesses,\" he points out in a patient attempt to get you to offer more.||You are having none of it. \"They're just peasants,\" you counter. \"What little money they have will be spent on mead, and they'll happily sleep where they drop.\"||As an added incentive you take a cacao from your money-pouch and show it to him. This clinches the bargain, and you are given a meal and a bed in his house on the outskirts of the city.">
+<CONSTANT TEXT101-CONTINUED "You rest for the night then decide what to do the next morning">
+<CONSTANT CHOICES101 <LTABLE "head overland to Ashaka" "follow the river to the coast" "stay for the festival">>
+
 <ROOM STORY101
 	(DESC "101")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT101)
+	(PRECHOICE STORY101-PRECHOICE)
+	(CHOICES CHOICES101)
+	(DESTINATIONS <LTABLE STORY008 STORY030 STORY416>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY101-PRECHOICE ()
+	<COND (,RUN-ONCE
+		<CHARGE-MONEY 1>
+		<COND (<CHECK-CODEWORD ,CODEWORD-PSYCHODUCT>
+			<STORY-JUMP ,STORY331>
+		)(ELSE
+			<GAIN-LIFE 1>
+		)>
+	)>>
+
+<CONSTANT TEXT102 "You are too proud to submit to a beating. With a great shout of rage, you charge in among them and lay about you with powerful blows. The sudden attack takes them by surprise, allowing you to badly wound several before the sheer weight of numbers begins to tell against you. For all your courage and determination, at last you are overwhelmed and pushed to the ground. Once they have you down, the guards make sure to pay you back double for every blow you struck against them.">
+<CONSTANT TEXT102-SURVIVED "The guards finally tire of pummelling you. One of them spits on your swollen bloodied face, then they stalk off into the palace.">
 
 <ROOM STORY102
 	(DESC "102")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT102)
+	(PRECHOICE STORY102-PRECHOICE)
+	(CONTINUE STORY262)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY102-PRECHOICE ("AUX" (DAMAGE 3))
+	<COND (<CHECK-SKILL ,SKILL-SWORDPLAY>
+		<SET DAMAGE 6>
+	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
+		<SET DAMAGE 5>
+	)>
+	<LOSE-LIFE .DAMAGE DIED-IN-COMBAT ,STORY102>
+	<IF-ALIVE TEXT102-SURVIVED>>
+
+<CONSTANT TEXT103 "\"Wait!\"||All eyes turn in your direction. The high priest scowls, \"Who is this outsider who dares to interrupt the sacred rite?\"||\"Release them,\" you say, ignoring him. \"I shall carry your petition into the underworld.\"||The priest strides over, pressing his face inches from yours with a look of black fury. \"You? Why should I let you undertake this journey?\"||\"Because I was sent here by a god.\"||He has no answer to that. For a moment his mouth works silently, ready to frame a protest, but he has already seen the light of truth in your eyes. Stepping back, he gives a nod and the young couple are set free.">
+<CONSTANT CHOICES103 <LTABLE "jump into the sacred well" "cast a protective enchantment first">>
 
 <ROOM STORY103
 	(DESC "103")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT103)
+	(CHOICES CHOICES103)
+	(DESTINATIONS <LTABLE STORY327 STORY304>)
+	(REQUIREMENTS <LTABLE NONE SKILL-SPELLS>)
+	(TYPES <LTABLE R-NONE R-SKILL>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT104 "The woman whose body is host to the parasitical head remains in a deep sleep, but her limbs strike out like a living puppet's. The head gnashes its teeth, screeching horribly, as it guides its stolen body forward to attack you with jerking strides.">
+<CONSTANT CHOICES104 <LTABLE "rush in to attack" "back away" "stand your ground and dodge to one side at the last moment">>
 
 <ROOM STORY104
 	(DESC "104")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT104)
+	(CHOICES CHOICES104)
+	(DESTINATIONS <LTABLE STORY195 STORY265 STORY242>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT105 "The green-tinted stone of the staircase is almost invisible through the murky depths. You bite your lip as you consider the water of the lake. It looks almost resinous with cold. You cannot expect to survive long once you are submerged -- you would freeze to death even before you had time to run out of air.">
 
 <ROOM STORY105
 	(DESC "105")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT105)
+	(PRECHOICE STORY105-PRECHOICE)
+	(CONTINUE STORY150)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY105-PRECHOICE ()
+	<COND (<CHECK-ITEM ,HAUNCH-OF-VENISON> <STORY-JUMP ,STORY440>)>>
 
 <ROOM STORY106
 	(DESC "106")
