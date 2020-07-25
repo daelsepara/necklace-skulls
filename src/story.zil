@@ -52,6 +52,7 @@
 	<PUTP ,STORY092 ,P?DEATH T>
 	<PUTP ,STORY094 ,P?DEATH T>
 	<PUTP ,STORY102 ,P?DEATH T>
+	<PUTP ,STORY110 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -1684,90 +1685,71 @@
 <ROUTINE STORY105-PRECHOICE ()
 	<COND (<CHECK-ITEM ,HAUNCH-OF-VENISON> <STORY-JUMP ,STORY440>)>>
 
+<CONSTANT TEXT106 "The nobles are discussing their route into the underworld. You are given to understand that at death most souls are conducted west across the world, entering the afterlife by means of the gate at the edge of the desert. This requires them to pass four sentinels whose duty is to prevent the living from trespassing into their realm. You catch the name of the last four sentinels whom the nobles passed on their way here, a frightful demon called Grandfather of Darkness.||One of the nobles is staring at you, and as you turn a quizzical look towards him he remarks on your resemblance to his late lord, Morning Star.||Excitement quickens your blood. \"Morning Star was my brother.\"||He tells you that he was in Morning Star's retinue when it reached the palace of the wizard. He reaches behind him and produces a skull which he puts into your hands, telling you that it is your brother's skull. Because Morning Star's soul was trapped by the wizard, he has not been able to travel on to the afterlife. This is all that remains of him.||You are filled with grief, followed by a rush of vengeful rage. You vow you will slay the wizard and free your brother's soul. Thanking the nobles for their help, you set out once again.">
+
 <ROOM STORY106
 	(DESC "106")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT106)
+	(CONTINUE STORY200)
+	(ITEM BROTHERS-SKULL)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT107 "Then sentinel's eyes flash with fury as he hears your words. Letting his gory maw drop open, he erupts into a long loud howl of fury that is terrifying enough to kill a weak man on the spot. Even you are flung to a cowering heap on the ground, forced to tuck your head under your arms and lie whimpering until the dreadful howling ends.||At last there is silence. You uncurl yourself and glance up towards the sentinel. Having given awful voice to his displeasure, he now shows no more interest in you. He resumes his imperious posture, sitting erect on his throne and staring directly across the passage. You might as well be a beetle for all the notice he gives you.||You slink off down the passage. You are dazed, but at first you think you have got off lightly. Then you realize how badly the sentinel's shriek addled your wits.">
+<CONSTANT TEXT107-CONTINUED "You will need every scrap of luck to win through with just a single skill">
 
 <ROOM STORY107
 	(DESC "107")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT107)
+	(PRECHOICE STORY107-PRECHOICE)
+	(CONTINUE STORY037)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY107-PRECHOICE ()
+	<EMPHASIZE "You lose all skills except one.">
+	<LOSE-SKILLS 1>
+	<CRLF>
+	<TELL TEXT107-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT108 "You get the servant to help you build a mound of sand roughly as long as a man's body. On top of this you sprinkle some of the dead warrior's blood, then you cover it with his jaguar-skin cloak and place his sword on top of this. At one end you carefully set his severed head. The dead eyes stare up at the stars.||\"What are you going to do?\" says the servant in a frightened voice||\"His spirit has but recently departed\" you reply as you take up your wand. \"I shall recall it and so rekindle the spark of life.\" So you begin what you know will be the hardest incantation of your life. For hours you continue the chant, never faltering, continually tracing occult designs in the sand around the head. The moon is dipping low across the dunes when you hoarsely utter the last syllables of the spell and slump to the ground in exhaustion.||There is a groan, but not from your lips. You look up to see the fallen warrior rising, the body beneath the cloak transformed from gore-soaked sand to living flesh and blood.||\"Master,\" you hear the servant saying, \"this kind magician brought you back from the dead.\"||\"Nonsense!\" scoffs the warrior. \"I must have been knocked out for a while, that's all.\"||He comes over and helps you to your feet. You have used up all your sorcery in a final miracle.">
 
 <ROOM STORY108
 	(DESC "108")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT108)
+	(PRECHOICE STORY108-PRECHOICE)
+	(CONTINUE STORY015)
+	(CODEWORD CODEWORD-ANGEL)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY108-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-SPELLS>
+		<EMPHASIZE "You have lost the SPELLS skill.">
+		<MOVE ,SKILL-SPELLS ,LOST-SKILLS>
+	)>>
+
+<CONSTANT TEXT109 "You use your illusion magic to conjure up a miniature duplicate of the tunnel. Each of the beams appears as a glowing bar tagged with a number. By touching a bar with your wand and uttering the right number, you can select and move it. This allows you to experiment without actually having to remove any of the real beams just yet. Your first few attempts all lead to the illusory tunnel collapsing, but eventually you find a combination of beams that can be removed safely.||Dispelling your illusion, you try removing the same arrangement of beams from the real passage. Cracks appear in the stonework and the walls sag slightly, but you are able to get through safely to the far end. The courtiers are waiting for you there.||\"Magic, eh?\" says the chief courtier. \"Our master's good at magic. Better than you, perhaps.\"||\"Perhaps.\"">
 
 <ROOM STORY109
 	(DESC "109")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT109)
+	(CONTINUE STORY431)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT110 "The knives drift in a circle around you as you move uneasily across the hall. Suddenly, one of them shoots forward and slices a gash in your arm. Recoiling in pain, you are jabbed by another. They are trying to herd you into a position where they can attack you from all directions, but you manage to duck under one as it flies in. Before they can regroup, you have run over to a corner and put back to the wall.||The ordeal continues through the night. You cannot afford to close your eyes for a moment, as the knives would then tear you to shreds. You dodge many attacks, but several cut you badly and soon your strength is ebbing along with your blood.">
+<CONSTANT TEXT110-CONTINUED "At dawn, the knives suddenly fall lifeless to the floor and soon after the courtiers come to let you out.">
 
 <ROOM STORY110
 	(DESC "110")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT110)
+	(PRECHOICE STORY110-PRECHOICE)
+	(CONTINUE STORY132)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY110-PRECHOICE ("AUX" (DAMAGE 2))
+	<COND (<CHECK-SKILL ,SKILL-AGILITY> <SET DAMAGE 1>)>
+	<LOSE-LIFE .DAMAGE DIED-GREW-WEAKER ,STORY110>
+	<IF-ALIVE TEXT110-CONTINUED>>
 
 <ROOM STORY111
 	(DESC "111")

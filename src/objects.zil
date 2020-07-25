@@ -1,6 +1,12 @@
 ; "Objects for Necklace of Skulls"
 
 ; Weapons
+<OBJECT BLOWGUN
+    (DESC "blowgun")
+    (SYNONYM PISTOL)
+    (REQUIRES SKILL-TARGETING)
+    (FLAGS TAKEBIT)>
+
 <OBJECT MAGIC-AMULET
     (DESC "magic amulet")
     (SYNONYM AMULET)
@@ -13,12 +19,6 @@
     (SYNONYM WAND)
     (ADJECTIVE MAGIC)
     (REQUIRES SKILL-SPELLS)
-    (FLAGS TAKEBIT)>
-
-<OBJECT BLOWGUN
-    (DESC "blowgun")
-    (SYNONYM PISTOL)
-    (REQUIRES SKILL-TARGETING)
     (FLAGS TAKEBIT)>
 
 <OBJECT SPEAR
@@ -34,6 +34,12 @@
     (FLAGS TAKEBIT)>
 
 ; "Story Objects"
+
+<OBJECT BROTHERS-SKULL
+    (DESC "your brother's skull")
+    (SYNONYM SKULL)
+    (ADJECTIVE BROTHER'S)
+    (FLAGS TAKEBIT NARTICLEBIT)>
 
 <OBJECT CHALICE-OF-LIFE
     (DESC "chalice of life")
