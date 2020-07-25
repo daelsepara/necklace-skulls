@@ -16,6 +16,10 @@
     (DESC "Psychoduct")
     (SYNONYM PSYCHODUCT)>
 
+<OBJECT CODEWORD-SAKBE
+    (DESC "Sakbe")
+    (SYNONYM SAKBE)>
+
 <OBJECT CODEWORD-SALVATION
     (DESC "Salvation")
     (SYNONYM SALVATION)>

@@ -36,6 +36,8 @@
 	<PUT <GETP ,STORY048 ,P?DESTINATIONS> 1 ,STORY117>
 	<PUT <GETP ,STORY060 ,P?DESTINATIONS> 3 ,STORY194>
 	<PUT <GETP ,STORY071 ,P?DESTINATIONS> 1 ,STORY117>
+	<PUT <GETP ,STORY091 ,P?DESTINATIONS> 2 ,STORY136>
+	<PUT <GETP ,STORY094 ,P?DESTINATIONS> 2 ,STORY063>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY022 ,P?DEATH T>
@@ -47,12 +49,15 @@
 	<PUTP ,STORY068 ,P?DEATH T>
 	<PUTP ,STORY073 ,P?DEATH T>
 	<PUTP ,STORY085 ,P?DEATH T>
+	<PUTP ,STORY092 ,P?DEATH T>
+	<PUTP ,STORY094 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
 <CONSTANT DIED-OF-HUNGER "You died of hunger and thirst">
 <CONSTANT DIED-GREW-WEAKER "You grow weaker and eventually died">
 <CONSTANT DIED-OF-THIRST "You go mad from thirst">
+<CONSTANT KILLED-AT-ONCE "You are killed at once">
 
 <ROUTINE ADD-QUANTITY (OBJECT "OPT" AMOUNT CONTAINER "AUX" QUANTITY CURRENT)
 	<COND (<NOT .OBJECT> <RETURN>)>
@@ -1391,90 +1396,105 @@
 	(CONTINUE STORY135)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT091 "Jade Thunder goes down to the water's edge and sweeps his wand in a grand magical gesture. The water immediately in front of him becomes as smooth and flat as a sheet of glass. You blink in amazement as the effect stretches off into the distance, leaving a glassy causeway through the waves.||You test your weight on the causeway. It is solid. \"Neat trick,\"you say, impressed.||\"I used to be quite famous in my heyday.\" Jade Thunder starts out along the causeway.||\"Can't I join you?\" you call after him.||\"Not on this path. But if you care to sail south to the mainland, look along the coast for a giant who's buried to his neck in the sand. He has been counting stars since the dawn of time. Tell him the true number, which is one hundred thousand million and seven, and he will grant you one wish.\"||You watch him walk of towards the horizon, then go to rejoin the others at the ship. You are amazed to discover that instead of the flimsy vessel in which you set sail, you now have a magnificent craft of green-lacquered kikche wood with magical sails that can never lose the wind. You climb aboard and put out to sea, but now you must decide.">
+<CONSTANT CHOICES091 <LTABLE "go east to Tahil" "south as the wizard suggested">>
+
 <ROOM STORY091
 	(DESC "091")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT091)
+	(PRECHOICE STORY091-PRECHOICE)
+	(CHOICES CHOICES091)
+	(DESTINATIONS <LTABLE STORY300 STORY136>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY091-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-SAKBE>
+		<PUT <GETP ,STORY091 ,P?DESTINATIONS> 2 ,STORY114>
+	)(ELSE
+		<PUT <GETP ,STORY091 ,P?DESTINATIONS> 2 ,STORY136>
+	)>>
+
+<CONSTANT TEXT092 "You send a surge of occult power to drive the whirlwinds back, but there are too many of them. Here they are in their element, drawing strength from the sand and the rocks and the dry desert air. They penetrate your barrier of spells and come roaring forward, ripping at your body with invisible hands.">
+<CONSTANT CHOICES092 <LTABLE "do battle with the demons" "run away from them">>
 
 <ROOM STORY092
 	(DESC "092")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT092)
+	(PRECHOICE STORY092-PRECHOICE)
+	(CHOICES CHOICES092)
+	(DESTINATIONS <LTABLE STORY115 STORY137>)
+	(TYPES TWO-NONES)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY092-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-CHARMS>
+		<LOSE-LIFE 2 KILLED-AT-ONCE ,STORY092>
+	)(ELSE
+		<EMPHASIZE KILLED-AT-ONCE>
+	)>>
+
+<CONSTANT TEXT093 "Realizing there are things you will need on your travels, you head to the market. Here, under a long colonnade festooned with coloured rugs, you can usually find almost anything. Unfortunately it is now late afternoon and many of the traders have packed up their wares and gone home, driven off by the waves of heat rising from the adjacent plaza.||Making your way along the colonnade, you identify the different goods at a glance according to the colours of the rugs. Green indicates sellers of maize, while yellow and red are used for other foodstuffs. Black is the colour of stone or glass items, with the addition of grey frets signifying weaponry. Wooden products are set out on ochre cloth, and white is reserved for clay pottery.||Soon you have found a few items which might prove useful. You count the cacao in your money-pouch while considering which to buy.">
 
 <ROOM STORY093
 	(DESC "093")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT093)
+	(PRECHOICE STORY093-PRECHOICE)
+	(CONTINUE STORY389)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY093-PRECHOICE ()
+	<MERCHANT <LTABLE WATERSKIN ROPE FIREBRAND POT-OF-DYE CHILLI-PEPPERS> <LTABLE 2 3 2 2 1>>>
+
+<CONSTANT TEXT094 "The spider's bristly limbs send a shiver through you as they slowly probe your outstretched hand. It takes every shred of nerve to remain motionless while you carefully reach around behind it with your other hand. Its multiple eyes gleam horribly, full of the ruthless intensity of the predator. It looks like a demon carved from polished mahogany, more nightmarish than any image on the walls of the Temple of Death.||As you take hold of it, it starts to twitch its legs furiously. With a sob of revulsion, you hurl it away. It falls with an audible thud somewhere off among the trees, but then a stab of pain convulses your hand. Did it bite you after all? You have to prise your fingers apart, but instead of a bite you find dozens of tiny pinpricks all over your palm. The tarantula's bristles were razor-sharp, and seem to have injected a stinging chemical into your skin.">
+<CONSTANT TEXT094-CONTINUED "\"Hey, you there! What are you doing?\"||You look up to see an old peasant hurrying through the dusty orchard towards the causeway">
+<CONSTANT CHOICES094 <LTABLE "talk to him" "leave before he gets here">>
 
 <ROOM STORY094
 	(DESC "094")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT094)
+	(PRECHOICE STORY094-PRECHOICE)
+	(CHOICES CHOICES094)
+	(DESTINATIONS <LTABLE STORY117 STORY163>)
+	(TYPES TWO-NONES)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY094-PRECHOICE ()
+	<LOSE-LIFE 1 DIED-GREW-WEAKER ,STORY094>
+	<COND (<IS-ALIVE>
+		<CRLF>
+		<TELL TEXT094-CONTINUED>
+		<TELL ,PERIOD-CR>
+		<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
+			<PUT <GETP ,STORY094 ,P?DESTINATIONS> 2 ,STORY139>
+		)(ELSE
+			<PUT <GETP ,STORY094 ,P?DESTINATIONS> 2 ,STORY063>
+		)>
+	)>>
+
+<CONSTANT TEXT095 "You trudge wearily on, but your wounds soon become infected and within a few hours you are too weak to continue. Slumping down against the trunk of a tree, you lapse into a fever while ants crawl uncaringly across your outstretched legs. Cold sweat pours off you as your limbs begin to shake, and gradually you slip into unconsciousness.||Tortured by the pain of fever, your mind retreats into delirium. You see your brother in the clutches of a grotesque phantom with fleshless features. Fire licks up across a sky drenched in blood, but there is no heat. The scene becomes smeared with lurid greens and violets from which skulls peer with eager watchfulness. Then, emerging from the image like a reflection in a stagnant pool, you see a colossal serpent with four leering faces...||You awaken to find yourself lying on a bed of wadded leaves. There is a smell of wood smoke and roasting meat in the air. Groaning at the ache deep in your bones, you sit up and take stock of your surroundings. You are in a hut with open walls, on the edge of a clearing. Outside you see a woodland pool surrounded by crude plots of tomato, manioc, peppers and sweet potatoes.||\"So you recovered. We expected you to die.\"||The accent is lilting and unfamiliar. Craning your neck, you see a group of men in plain white robes clustered around a fire. They have your possessions spread out among them. Then you see what is roasting on the fire, and the sight makes you gasp in horror. It is a tiny baby, hideously charred as the flames lick around its thin body!">
+<CONSTANT CHOICES095 <LTABLE "leap up at once and rush off into the woods abandoning your belongings" "attack these cannibals at once" "wait to see what they have to say">>
 
 <ROOM STORY095
 	(DESC "095")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT095)
+	(CHOICES CHOICES095)
+	(DESTINATIONS <LTABLE STORY095-LOSE-ALL STORY073 STORY027>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROOM STORY095-LOSE-ALL
+	(DESC "095")
+	(EVENTS STORY095-EVENTS)
+	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY095-EVENTS ()
+	<EMPHASIZE "You lose all your belongings">
+	<PRESS-A-KEY>
+	<RESET-CONTAINER ,PLAYER>
+	<RETURN ,STORY050>>
 
 <ROOM STORY096
 	(DESC "096")

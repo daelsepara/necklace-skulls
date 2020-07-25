@@ -47,6 +47,11 @@
     (ADJECTIVE CHILLI)
     (FLAGS TAKEBIT)>
 
+<OBJECT FIREBRAND
+    (DESC "firebrand")
+    (SYNONYM FIREBRAND)
+    (FLAGS TAKEBIT)>
+    
 <OBJECT GOLD-DIADEM
     (DESC "gold diadem")
     (SYNONYM DIADEM)
@@ -102,6 +107,12 @@
 <OBJECT PADDLE
     (DESC "paddle")
     (SYNONYM PADDLE)
+    (FLAGS TAKEBIT)>
+
+<OBJECT POT-OF-DYE
+    (DESC "pot of dye")
+    (SYNONYM DYE)
+    (ADJECTIVE POT)
     (FLAGS TAKEBIT)>
 
 <OBJECT ROPE
