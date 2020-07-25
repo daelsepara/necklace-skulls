@@ -1496,90 +1496,93 @@
 	<RESET-CONTAINER ,PLAYER>
 	<RETURN ,STORY050>>
 
+<CONSTANT TEXT096 "They succeed in dislodging several fat plums without disturbing any spiders. You watch as they squabble happily over the distribution of their spoils Apparently you were just unlucky in finding a tarantula in the fruit you tried to pick, but the incident has deadened your appetite and you continue on your way without stopping to collect any of the plums yourself.">
+
 <ROOM STORY096
 	(DESC "096")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT096)
+	(CONTINUE STORY350)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT097 "The oarsmen are demons with squinting eyes and shrunken toothless gums. Stingray spines hang from their brows and upper lips where a mortal might have hair, and their flesh is a sickly blue-white colour. One wears a headdress in the shape of a shark's fin, the other has a jaguar-pelt skullcap. As the canoe draws nearer, you see they have no lower limbs: their torsos end in shapless blobs.||\"You wish to be conveyed to the Deathlands,\" says the shark paddler.||\"We will take you there,\" add the jaguar paddler.||Loathsome as these creatures are, you see no alternative. You climb into the boat and wait as they row through the wanly lit gloom of the cavern. Ahead lies a tunnel, but before you reach it the canoe glides to a halt beside a shelf of rock. You look up to see a narrow crevice in the wall of the cavern. It looks far from inviting, and you detect a gust of noxious air wafting out of the darkened interior.">
+<CONSTANT CHOICES097 <LTABLE "disembark and climb up to the crevice" "wait for the strange demons to row on">>
 
 <ROOM STORY097
 	(DESC "097")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT097)
+	(CHOICES CHOICES097)
+	(DESTINATIONS <LTABLE STORY074 STORY258>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT098 "A cacophony of chitterings and gleeful screeches makes you look up. From the foliage overhead, dozens of beady pairs of eyes stare back at you. You laugh as you see the tiny comical faces of a troop of monkeys, teeth bared like grimacing old men.||Suddenly you feel small fingers probing at your clothes. A couple of monkeys have crept up on you while the others distracted your attention. One leaps onto your head and puts its hands over your eyes while the other rifles through your belongings. You give vent to a loud curse and lunge to grab the little thieves, but they are too quick for you. You can only stand and watch helplessly as they go swinging happily off the through the strees.">
+<CONSTANT CHOICES098 <LTABLE "go straight on" "bear left from here" "bear right">>
 
 <ROOM STORY098
 	(DESC "098")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT098)
+	(PRECHOICE STORY098-PRECHOICE)
+	(CHOICES CHOICES098)
+	(DESTINATIONS <LTABLE STORY121 STORY412 STORY029>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY098-PRECHOICE ("AUX" (COUNT 0))
+	<RESET-TEMP-LIST>
+	<COND (<CHECK-ITEM ,MAGIC-AMULET> <SET COUNT <+ .COUNT 1>> <PUT TEMP-LIST .COUNT ,MAGIC-AMULET>)>
+	<COND (<CHECK-ITEM ,SHAWL> <SET COUNT <+ .COUNT 1>> <PUT TEMP-LIST .COUNT ,SHAWL>)>
+	<COND (<CHECK-ITEM ,JADE-BEAD> <SET COUNT <+ .COUNT 1>> <PUT TEMP-LIST .COUNT ,JADE-BEAD>)>
+	<COND (<CHECK-ITEM ,MAGIC-POTION> <SET COUNT <+ .COUNT 1>> <PUT TEMP-LIST .COUNT ,MAGIC-POTION>)>
+	<COND (<CHECK-ITEM ,MAIZE-CAKES> <SET COUNT <+ .COUNT 1>> <PUT TEMP-LIST .COUNT ,MAIZE-CAKES>)>
+	<COND (<G? .COUNT 0>
+		<COND (<G? .COUNT 1>
+			<CRLF>
+			<TELL "The monkeys managed to filch one of your items. Select which items to retain" ,PERIOD-CR>
+			<REPEAT ()
+				<DO (I 1 .COUNT)
+					<REMOVE <GETP TEMP-LIST .I>>
+				>
+				<SELECT-FROM-LIST TEMP-LIST .COUNT <- .COUNT 1>>
+				<CRLF>
+				<TELL "Are you sure?">
+				<COND (<YES?> <RETURN>)>
+			>
+		)(ELSE
+			<CRLF>
+			<TELL "The monkeys managed to filch your " D <GET TEMP-LIST 1> ,PERIOD-CR>
+			<LOSE-ITEM <GET TEMP-LIST 1>>
+		)>
+	)(ELSE
+		<CRLF>
+		<TELL "The monkeys did not manage to filch anything" ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT099 "You can hear the sound of rapids up ahead, and the current carries the boat faster and faster towards them. Hurriedly tying the rope into a loop, you cast it towards the side of the tunnel and manage to lasso an outcrop of rock. The boat is jerked to a halt and sent drifting towards a side tunnel where the current is not so strong. You are unable to dislodge the rope but at least you are safe.||A flicker of daylight shows at the end of the tunnel. You can smell the reek of stangnant marshland in the air. Paddling onwards, you come out into the open under an overcast sky the colour of dead skin. The river here is no more than a muddy trickle winding through sickly grey marshland. A dreary landscape of sour white clay and colourless rushes stretches far off into the distance.||You put in a rotting wooden jetty and tether the boat.">
 
 <ROOM STORY099
 	(DESC "099")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT099)
+	(PRECHOICE STORY099-PRECHOICE)
+	(CONTINUE STORY053)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY099-PRECHOICE ()
+	<LOSE-ITEM ,ROPE>
+	<CRLF>
+	<TELL "Keep the paddle?">
+	<COND (<YES?> <TAKE-ITEM ,PADDLE>)>>
+
+<CONSTANT TEXT100 "The woman dozes until the long red rays of late afternoon are drawing back across the treetops. Suddenly her arms jerk up as though on strings, seizing the pitcher and lifting it to reveal a second head is superficially humanoid, there is no mistaking it for any human face with its staring bloodshot eyes and black slit of a mouth.|||Long black hair uncoils like tendrils from the monstrous head. Some of the tresses are up to two metres long, and you watch in revulsion as they form into thin matted stalks which remind you of an insect's legs. These probe the ground, preparing to support the creature's weight, and then with a grisly sucking sound the head pulls itself free of the sleeping woman's neck. As soon as it sets eyes on you it gives a gurgle of ghoulish glee and comes scuttling forward on its limbs of twisted hair. It uses some of these to propel itself up level with your face, snapping at your neck with its sharp chisel-shaped teeth while other strands of hair snake out to encircle your wrists. You cannot use a weapon now even if you have one; this struggle will be fought at close quarters.">
 
 <ROOM STORY100
 	(DESC "100")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT100)
+	(PRECHOICE STORY100-PRECHOICE)
+	(CONTINUE STORY149)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY100-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-UNARMED-COMBAT> <STORY-JUMP ,STORY126>)>>
 
 <ROOM STORY101
 	(DESC "101")

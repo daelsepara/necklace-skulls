@@ -93,6 +93,12 @@
     (ADJECTIVE MAGIC)
     (FLAGS TAKEBIT)>
 
+<OBJECT MAIZE-CAKES
+    (DESC "maize cakes")
+    (SYNONYM CAKES)
+    (ADJECTIVE MAIZE)
+    (FLAGS TAKEBIT)>
+
 <OBJECT MAN-OF-GOLD
     (DESC "Man of Gold")
     (SYNONYM MAN)
