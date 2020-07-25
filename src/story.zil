@@ -46,6 +46,7 @@
 	<PUTP ,STORY063 ,P?DEATH T>
 	<PUTP ,STORY068 ,P?DEATH T>
 	<PUTP ,STORY073 ,P?DEATH T>
+	<PUTP ,STORY085 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -72,6 +73,8 @@
 	(SYNONYM SKILLS)
 	(ADJECTIVE LOST)
 	(FLAGS CONTBIT OPENBIT)>
+
+<GLOBAL POINTS 0>
 
 <ROUTINE LOSE-SKILLS ("OPT" MAX "AUX" COUNT ITEMS)
 	<COND (<NOT .MAX> <SET MAX 1>)>
@@ -1270,174 +1273,122 @@
 		<STORY-JUMP ,STORY309>
 	)>>
 
+<CONSTANT TEXT081 "You settle down and wait for night to fall. As the sun dips across the network of canals and trees to the west, the pitcher on the woman's shoulder starts to stir as if of its own accord. It falls away to reveal what you expected: a second head protruding from her neck. The eyes snap open and fix on you, and the head's mouth drops open in a long hissing snarl. Long strands of black hair extend rapidly from it like tentacles -- some of them up to two metres long. These form into thin matted stalks like insectoid legs which probe the ground, preparing to support the creature's weight. There is a grisly sucking sound as the head pulls itself free of the sleeping woman's neck.||It comes scuttling forward eagerly on its limbs of twined hair and leaps up onto your neck, intending to make you its new host, but you are ready for it. The coating of salt cause it to recoil and it drops to the ground, momentarily helpless. You seize your chance to stuff it into the lobster pot, which you weight with stones before throwing it into the water. \"And good riddance,\" you say as it sinks to a final resting-place on the river bed.">
+
 <ROOM STORY081
 	(DESC "081")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT081)
+	(PRECHOICE STORY081-PRECHOICE)
+	(CONTINUE STORY398)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY081-PRECHOICE ()
+	<LOSE-ITEM ,LOBSTER-POT>>
+
+<CONSTANT TEXT082 "The god accepts your sacrifice and reveals the true path to you. You hear no words. Suddenly the knowledge is in your mind, where before there was confusion. You know that you must descend the steps back down to the lake -- and then keep going. The route to the Deathlands lies under the water.||Backing out of the shrine, you respectfully retreat one step at a time until you reach the water's edge. Now that you look closely, you can see that the stairway does indeed continue down into the icy green murk.">
 
 <ROOM STORY082
 	(DESC "082")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT082)
+	(CONTINUE STORY105)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT083 "Your companion leads you past miserable souls who are doomed to mill about for ever in the blazing sunshine, eyes downcast and hands pressed to their foreheads. As you approach the kapok tree, you see that the figures sitting under it are living skeletons. Their bones are green with algae and moss, and creepers and insects twine through their open joints. One raises a grinning face made even more grotesque by a brilliantly patterned butterfly sitting above his eyeless sockets. It is strange juxtaposition of the imagery of life and death.||Your companion tells you that the denizens of the Deathlands are nobles like himself who, because of their status, are privileged to rest in the shade of the tree. Now you see that he too is changing. The appearance of flesh and sinew is dropping away to reveal another of the emerald skeletons with its covering of foliage and wildlife.">
 
 <ROOM STORY083
 	(DESC "083")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT083)
+	(PRECHOICE STORY083-PRECHOICE)
+	(CONTINUE STORY151)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY083-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-SPELLS> <STORY-JUMP ,STORY128>)>>
+
+<CONSTANT TEXT084 "You reach the last of the sentinels -- a giant hunched figure with eyes like fiery mirrors. He crooks one of his taloned fingers and beckons you closer. \"Tell me,\" he says in a rasping whisper, \"by what name am I called?\"||This is your last test. Get past this demon unscathed and you can escape into the fresh air of the living world.">
+<CONSTANT CHOICES084 <LTABLE "address him as Lord Skull" "call him Thunderbolt Laughter">>
 
 <ROOM STORY084
 	(DESC "084")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT084)
+	(CHOICES CHOICES084)
+	(DESTINATIONS <LTABLE STORY336 STORY349>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT085 "Food will be hard to come by in the arid sierra, so you make sure to pluck fruits from the abandoned orchards lining the first few kilometres of the causeway. The causeway dwindles to a stony road, then a dirt track, and finally you are trudging through open country.||Your fruit soon gives out but in the baking summer heat it is lack of water, not food, that is your main concern.">
+<CONSTANT TEXT085-CONTINUED "Days turn to weeks. At last you catch sight of the town of Shakalla in the distance, its pyramids trembling in a haze of heat and dust. Beyond it lies a grim grey shadow: the desert, stretched like a basking serpent along the edge of the world.">
 
 <ROOM STORY085
 	(DESC "085")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT085)
+	(PRECHOICE STORY085-PRECHOICE)
+	(CONTINUE STORY321)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY085-PRECHOICE ()
+	<COND (<OR <CHECK-SKILL ,SKILL-WILDERNESS-LORE> <CHECK-ITEM ,WATERSKIN>>
+		<PUTP ,STORY085 ,P?DEATH F>
+	)(ELSE
+		<LOSE-LIFE 1 DIED-OF-THIRST ,STORY085>
+	)>
+	<IF-ALIVE TEXT085-CONTINUED>>
+
+<CONSTANT TEXT086 "The arrangement of beams reminds you of a trap you were once asked to devise to foil tomb robbers. It is all down to a question of basic stress and strain: identifying which beams are taking the weight of the wall, and which you can safely remove without disturbing anything.||It takes you the better part of an hour, but at last you clear enough space to pick your way through the far end of the passage. You find the courtiers already waiting for you there, crouching around the sides of the wide sunlit courtyard. The chief courtier leaps to his feet as he sees you.||\"What kept you?\" he said. \"If you found that little puzzle of ours difficult, you're going to have real trouble with tests to come.\"">
 
 <ROOM STORY086
 	(DESC "086")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT086)
+	(CONTINUE STORY431)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT087 "You wedge yourself into a corner of the hall and watch the hovering knives with a wary eye. As they come sweeping through the air towards you, you thrust out the stone. Sparks fly as the first of the knives strikes it, chipping its edge of volcanic glass.||The knives go darting away like startled birds, retreating to float around uncertainly in the centre of the hall. After a while they seem to recover themselves and again start to approach. Again you strike out with the stone, blunting one of the knives and sending them veering away -- but this time the attack took a chip out of the stone.||This continues throughout the night. You get no sleep, but at least you have kept the enchanted knives from your own flesh. Your stone shrinks to the size of a pebble, and finally a concerted attack by the knives shatters it entirely. You are waiting nervously for the knives' next assault when they suddenly drop lifeless to the floor with the coming of the dawn.||The courtiers cannot disguise their ill temper when they open the door to find you unscathed. \"You're a cool customer,\" snaps one, \"so you're probably looking forward to the House of Cold tonight.\"">
 
 <ROOM STORY087
 	(DESC "087")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT087)
+	(PRECHOICE STORY087-PRECHOICE)
+	(CONTINUE STORY132)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY087-PRECHOICE ()
+	<LOSE-ITEM ,STONE>>
+
+<CONSTANT TEXT088 "The chief courtier comes forwards and puts the ball into your hands. \"So we get to launch the first round?\" you say. \"Very sporting.\"||\"We are nothing if not magnanimous,\" he replies with a vaunting leer. \"Later, when you have lost, we will be equally be generous in dividing your carcass.\"||You watch him dart back to the sidelines. At the other end of the arena, the two shadow men stand ready.||\"Begin,\" commands Necklace of Skulls.||You throw the ball against the side wall and run forward to intercept it on the rebound. The nearer of the shadow men charges towards you.">
+<CONSTANT CHOICES088 <LTABLE "tackle him head-on" "weave around him towards the rear shadow man" "try to score a point immediately">>
 
 <ROOM STORY088
 	(DESC "088")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT088)
+	(CHOICES CHOICES088)
+	(DESTINATIONS <LTABLE STORY111 STORY133 STORY156>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT089 "You aim the ball high up on the wall, so that it strikes the angle where the slope meets the vertical. As it rebounds in a long arc that carries it far out across the arena, you run forward and deflect it against the high-scoring zone on the opposite wall. The ball ricochets off towards your opponents, who leap in to seize possession.">
 
 <ROOM STORY089
 	(DESC "089")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT089)
+	(PRECHOICE STORY089-PRECHOICE)
+	(CONTINUE STORY181)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY089-PRECHOICE ()
+	<SETG POINTS <+ ,POINTS 2>>
+	<COND (<G? ,POINTS 6>
+		<STORY-JUMP ,STORY134>
+	)(<OR <CHECK-CODEWORD ,CODEWORD-SHADE> <CHECK-CODEWORD ,CODEWORD-ANGEL>>
+		<STORY-JUMP ,STORY019>
+	)>>
+
+<CONSTANT TEXT090 "\"Buy a waterskin,\" the giant tells you.||\"Others have suggested the same thing.\"||\"Buy two, then. And a knife or sword. There is a four-headed serpent in the desert, and its one weak spot is at the branching of its four necks. You'll need to get close to land a killing blow, and my advice is to pretend to retreat at first. Dodge back a couple of times and the serpent will rush at you headlong -- er, heads-long. Then you can slay it.\"||\"What about just avoiding it?\"||\"Then you wouldn't get a drop of its blood -- a substance like sap, which hardens into rubber.\"||\"And what's the good of that?\"||\"The rubber ball will help you in the Necklace of Skull's contest. The ball contest is an ancient ritual which he uses to humiliate and weaken his foes, but by scoring a daring victory you can exploit the contest's magic for yourself.\"||\"How do I kill Necklace of Skulls?\"||He snorts contemptuously. \"You mortals are so predictable. There are greater victories than revenge. Do you know the ultimate triumph?\"||You can think of several replies, but you doubt if any of them are what he is driving at. \"No.\"||\"The ultimate triumph is to be greater than your enemy,\" he says. \"There, that is my best advice.\"">
 
 <ROOM STORY090
 	(DESC "090")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT090)
+	(CONTINUE STORY135)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY091

@@ -20,6 +20,10 @@
     (DESC "Salvation")
     (SYNONYM SALVATION)>
 
+<OBJECT CODEWORD-SHADE
+    (DESC "Shade")
+    (SYNONYM SHADE)>
+
 <OBJECT CODEWORD-VENUS
     (DESC "Venus")
     (SYNONYM VENUS)>
