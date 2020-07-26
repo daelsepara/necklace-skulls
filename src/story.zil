@@ -58,6 +58,8 @@
 	<PUTP ,STORY110 ,P?DEATH T>
 	<PUTP ,STORY111 ,P?DEATH T>
 	<PUTP ,STORY115 ,P?DEATH T>
+	<PUTP ,STORY121 ,P?DEATH T>
+	<PUTP ,STORY124 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -1912,90 +1914,67 @@
 <ROUTINE STORY120-PRECHOICE ()
 	<COND (<CHECK-ITEM ,SERPENT-BRACELET> <STORY-JUMP ,STORY257>)>>
 
+<CONSTANT TEXT121 "You stumble into a bush whose sharply hooked leaves give you some nasty scratches. In ordinary circumstances such wounds would only be a painful nuisance. Here in the feverish dankness of the jungle, they soon go septic and begin to weep.">
+<CONSTANT TEXT121-CONTINUED "You must decide what route to follow from here:">
+<CONSTANT CHOICES121 <LTABLE "go right" "left" "straight ahead">>
+
 <ROOM STORY121
 	(DESC "121")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT121)
+	(PRECHOICE STORY121-PRECHOICE)
+	(CHOICES CHOICES121)
+	(DESTINATIONS <LTABLE STORY075 STORY412 STORY029>)
+	(TYPES THREE-NONES)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY121-PRECHOICE ()
+	<COND (,RUN-ONCE <TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY121>)>
+	<IF-ALIVE TEXT121-CONTINUED>>
+
+<CONSTANT TEXT122 "You lash out with lightning speed, pinning the snake's head against the cliff-face before it can dodge. It writhes, hissing angrily and slapping the stone with its muscular coils, but is powerless to break free. You apply increasing pressure to its neck until it goes limp and drops to fall with a heavy plop in the river below.||You peer into the tomb. The darkness seems to rustle with unseen threats, but you know that it is just a figment of your imagination. You have dealt with the tomb guardian. Now you are eager to see if there is any treasure to be had.">
 
 <ROOM STORY122
 	(DESC "122")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT122)
+	(CONTINUE STORY339)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT123 "\"Do you know the myths of the twins called Forethought and Afterthought?\" she asks. You shake your head. \"Well, it is very popular in these parts. This picture deals with the part of the story when the twins have crossed the desert and are about to pass into the Deathlands. First they must greet each of the four sentinels correctly: Lord Skull, Lord Blood -- \"||\"Milady,\" calls out one of the artisans, interrupting her. \"We've run out of the green dye. How about using blue for these feathers in the bloke's hat?\"||\"No, no! That won't do!\" she cries. Turning to you, she mumbles, \"Please excuse me...\" and hurries off to remonstrate with the artisans.">
+<CONSTANT CHOICES123 <LTABLE "now either seek an audience with the King" "pay for lodging in the city if you have nay money">>
 
 <ROOM STORY123
 	(DESC "123")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT123)
+	(CHOICES CHOICES123)
+	(DESTINATIONS <LTABLE STORY077 STORY101>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT124 "Luckily for you, the royal guards consider that a simple task like beating up offenders is beneath their dignity. They give you a few sharp blows to teach you a lesson, then shove you across the courtyard. \"Beat it!\" growls one, jabbing you in the kidneys with the end of his staff. \"I don't want to catch sight of you hanging around here again.\"">
 
 <ROOM STORY124
 	(DESC "124")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT124)
+	(PRECHOICE STORY124-PRECHOICE)
+	(CONTINUE STORY262)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY124-PRECHOICE ()
+	<TEST-MORTALITY 2 DIED-GREW-WEAKER ,STORY124>>
+
+<CONSTANT TEXT125 "Scattering the chillies onto the dragon's tongue has the desired effect. He opens his mouth and spits you out with a great bellow of pain and surprise. You scrabble off to a safe distance before turning to watch his anguished attempts to wipe his tongue clean against the clifftop.||Kawak's rear head has blunt face with upcurving tusks and pallid globular eyes. He glowers at you and speaks with difficulty because of his burning tongue, saying, \"If you attempt to return this way, I shall devour you.\"||Bearing this warning in mind, you hurry onwards.">
 
 <ROOM STORY125
 	(DESC "125")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT125)
+	(PRECHOICE STORY125-PRECHOICE)
+	(CONTINUE STORY263)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY125-PRECHOICE ()
+	<LOSE-ITEM ,CHILLI-PEPPERS>>
 
 <ROOM STORY126
 	(DESC "126")
