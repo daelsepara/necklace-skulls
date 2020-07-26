@@ -32,6 +32,9 @@
 
 <ROUTINE RESET-STORY ()
 	<RESET-TEMP-LIST>
+	<SETG POINTS 0>
+	<SETG CROSS 0>
+	<SETG IMMORTAL F>
 	<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY275>
 	<PUT <GETP ,STORY048 ,P?DESTINATIONS> 1 ,STORY117>
 	<PUT <GETP ,STORY060 ,P?DESTINATIONS> 3 ,STORY194>
@@ -53,6 +56,8 @@
 	<PUTP ,STORY094 ,P?DEATH T>
 	<PUTP ,STORY102 ,P?DEATH T>
 	<PUTP ,STORY110 ,P?DEATH T>
+	<PUTP ,STORY111 ,P?DEATH T>
+	<PUTP ,STORY115 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -82,6 +87,8 @@
 	(FLAGS CONTBIT OPENBIT)>
 
 <GLOBAL POINTS 0>
+<GLOBAL CROSS 0>
+<GLOBAL IMMORTAL F>
 
 <ROUTINE LOSE-SKILLS ("OPT" MAX "AUX" COUNT ITEMS)
 	<COND (<NOT .MAX> <SET MAX 1>)>
@@ -119,6 +126,13 @@
 				<MOVE <GET TEMP-LIST .I> ,LOST-SKILLS>
 			)>
 		>
+	)>>
+
+<ROUTINE TEST-MORTALITY (DAMAGE MESSAGE STORY)
+	<COND (<NOT ,IMMORTAL>
+		<LOSE-LIFE .DAMAGE .MESSAGE .STORY>
+	)(ELSE
+		<PUTP .STORY ,P?DEATH F>
 	)>>
 
 <CONSTANT TEXT "This story has not been written yet.">
@@ -192,7 +206,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY004-PRECHOICE ()
-	<LOSE-LIFE 1 DIED-OF-HUNGER ,STORY004>>
+	<TEST-MORTALITY 1 DIED-OF-HUNGER ,STORY004>>
 
 <CONSTANT TEXT005 "You steel your nerves and leap over the edge. The water rushes up to meet you, enfolding you in a silent icy embrace. The shock of impact drives the air out of your lungs and you start to fail wildly as you go under. The weight of your gold regalia drags you down, and as you fumble with the straps it becomes obvious that you will run out of air long before you can get free.||Then you remember your blowgun. Thrusting up through the water with it, you pierce the glimmering pane of light that marks the surface and blow into the other end until you have forced water out and can draw down a mouthful of fresh air. Using the blowgun as a breathing tube buys you the time you need to struggle out of the encumbering regalia and swim up to safety.||The moment your head breaks the surface you know you are no longer at the bottom of the sacred well. Instead of the open sky overhead, there is just the roof of a large cavern. Grey light trickles from an unseen source.||A familiar sound echoes off the surrounding rocks. You turn to see a canoe being slowly paddled towards you. But the two oarsmen are like no others on earth...">
 
@@ -313,7 +327,7 @@
 
 <ROUTINE STORY013-PRECHOICE ()
 	<COND (<NOT <OR <CHECK-SKILL ,SKILL-SWORDPLAY> <CHECK-SKILL ,SKILL-UNARMED-COMBAT>>>
-		<LOSE-LIFE 1 DIED-IN-COMBAT ,STORY013>
+		<TEST-MORTALITY 1 DIED-IN-COMBAT ,STORY013>
 	)>
 	<IF-ALIVE TEXT013-CONTINUED>>
 
@@ -361,7 +375,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY017-PRECHOICE ()
-	<LOSE-LIFE 1 DIED-GREW-WEAKER ,STORY017>
+	<TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY017>
 	<IF-ALIVE TEXT017-CONTINUED>>
 
 <CONSTANT TEXT018 "You set the skull gently on the dusty ground and take a few paces back, raising your wand.||Necklace of Skulls sees what you are planning and speaks in protest from the inner recesses of his shrine: \"You cannot resurrect him. You do not have that power.\"||\"Raw determination is the basis of all magic,\" you counter. \"My love for my brother will bring him back.\"||This is the hardest spell you will ever cast. For almost an hour you continue the chant. The wolfish courtiers do not intervene, fearing your power. For his part, Necklace of Skulls is happy to indulge you. He wants to see you fail. You are determined to disappoint him.||Searingly bright light envelops the skull like a phosphoric bubble from which long green sparks go crawling out along the ground. The wand grows hoot in your hand as it channels more magical force than it was ever intended to contain. At last you know you can do no more. Hoarsely uttering the last syllables of the spell, you slump to your knees.||There is a gasp from the watching courtiers, a howl of spite from the sorcerer. You look up. An hour of staring into the heart of the spell-glare has left a flickering after-image across your vision, but you are sure you can see something stirring. It looks like a man. He rises to his feet and steps towards you. You rub your eyes, then a familiar voice brings tears of joy to them. \"Evening Star,\" he says. Your brother is alive once more!||You have used up all your sorcery in working this miracle.">
@@ -427,7 +441,7 @@
 
 <ROUTINE STORY022-PRECHOICE ()
 	<COND (<CHECK-ITEM ,WATERSKIN>
-		<LOSE-LIFE 2 DIED-OF-THIRST ,STORY022>
+		<TEST-MORTALITY 2 DIED-OF-THIRST ,STORY022>
 		<COND (<IS-ALIVE>
 			<EMPHASIZE "You waterskin has been emptied.">
 			<LOSE-ITEM ,WATERSKIN>
@@ -510,7 +524,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY028-PRECHOICE ()
-	<LOSE-LIFE 3 DIED-GREW-WEAKER ,STORY028>>
+	<TEST-MORTALITY 3 DIED-GREW-WEAKER ,STORY028>>
 
 <CONSTANT TEXT029 "You push through a bank of ferns and pause to get your breath back. You have been walking for hours in the sweltering heat. Moisture trickles down off the leaf canopy, but you cannot even tell if it is rain or just condensation. If only you could get a clear look at the sky, you might be able to tell which way to go.">
 <CONSTANT CHOICES029 <LTABLE "decide to head left from here" "go right" "go straight on">>
@@ -567,7 +581,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY033-PRECHOICE ()
-	<LOSE-LIFE 5 DIED-GREW-WEAKER ,STORY033>
+	<TEST-MORTALITY 5 DIED-GREW-WEAKER ,STORY033>
 	<COND (<IS-ALIVE>
 		<CRLF>
 		<TELL TEXT033-CONTINUED>
@@ -769,7 +783,7 @@
 	)(<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
 		<SET DAMAGE <- .DAMAGE 1>>
 	)>
-	<LOSE-LIFE .DAMAGE DIED-OF-THIRST ,STORY046>
+	<TEST-MORTALITY .DAMAGE DIED-OF-THIRST ,STORY046>
 	<COND (<IS-ALIVE>
 		<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
 			<EMPHASIZE "Your knowledge of WILDERNESS LORE made you tougher than most people.">
@@ -849,7 +863,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY051-PRECHOICE ()
-	<LOSE-LIFE 2 DIED-GREW-WEAKER ,STORY051>>
+	<TEST-MORTALITY 2 DIED-GREW-WEAKER ,STORY051>>
 
 <CONSTANT TEXT052 "A sense of panic begins to well up, churning your thoughts into a confused mixture of fact and fancy. You begin to imagine that you have strayed into the underworld and that the mighty trees surrounding you are no more than the smallest subterranean roots of the fabled Ceiba tree that supports the heavens. You jump in alarm at every tiny sound of scurrying insects or fluttering wings. If you cannot find your way out of the forest soon, our only fate will be madness followed by a slow torturing death by starvation.">
 <CONSTANT CHOICES052 <LTABLE "bear of to the right" "continue in the direction you have been waling up till now" "decide to go left">>
@@ -1023,7 +1037,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY062-PRECHOICE ()
-	<LOSE-LIFE 2 DIED-GREW-WEAKER ,STORY062>
+	<TEST-MORTALITY 2 DIED-GREW-WEAKER ,STORY062>
 	<COND (<IS-ALIVE>
 		<SETG MAX-LIFE-POINTS <- ,MAX-LIFE-POINTS 2>>
 	)>>
@@ -1040,7 +1054,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY063-PRECHOICE ()
-	<LOSE-LIFE 3 DIED-GREW-WEAKER ,STORY063>
+	<TEST-MORTALITY 3 DIED-GREW-WEAKER ,STORY063>
 	<IF-ALIVE TEXT063-CONTINUED>>
 
 <CONSTANT TEXT064 "You wedge yourself into a corner of the hall and watch the hovering knives. As they come sweeping towards you, you tear off a hunk of meat and throw it to them. They fall on it, shredding it quickly with stabbing blows, then retreat to float around in the centre of the hall. After a while they start to approach, and again you are able to distract them with a scrap of meat.||This continues throughout the knight. You get no sleep but at least you have kept the enchanted knives from your flesh. You have used up the last of the haunch of venison and are waiting nervously for the next assault of the knives, when they suddenly drop lifeless to the floor with the advent of morning.||The courtiers cannot disguise their ill temper when they open the door to find you unscathed. \"Your luck runs out tonight,\" snaps one. \"That's when you must enter the House of cold.\"">
@@ -1099,7 +1113,7 @@
 
 <ROUTINE STORY068-PRECHOICE ("AUX" (DAMAGE 7))
 	<COND (<CHECK-SKILL ,SKILL-CHARMS> <SET DAMAGE 3>)>
-	<LOSE-LIFE .DAMAGE DIED-GREW-WEAKER ,STORY068>
+	<TEST-MORTALITY .DAMAGE DIED-GREW-WEAKER ,STORY068>
 	<IF-ALIVE TEXT068-CONTINUED>>
 
 <CONSTANT TEXT069 "Cliffs rise in front of you, and you make your way along them until you find a long shoulder of rock by which you are able to scale to the top.||You have gone only a little further when you hear a distant keening noise. It sounds like the wind, but you do not feel even a breath of air in the sultry stillness. Then you notice half a dozen long plumes of dust moving along the ground in your direction. Above each dust-plume is a dark twisting funnel of air. Whirlwinds -- and they are bearing straight down on you. Superstitious dread crawls up your spine. You recall tales of the demons of the desert, who rip men limb from limb with the fury of their whirlwinds.">
@@ -1172,7 +1186,7 @@
 	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
 		<SET DAMAGE 4>
 	)>
-	<LOSE-LIFE .DAMAGE DIED-IN-COMBAT ,STORY073>>
+	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY073>>
 
 <CONSTANT TEXT074 "You glance back to reassure yourself that the demons are not going to abandon you here. \"We will wait,\" says one with a raw-gummed leer.||\"Take your time,\" cackles the other, nodding in grisly encouragement.||You brace yourself on the edge of the crevice and peer within. As your eyes adjust to the darkness, you see a narrow tunnel leading to a chamber inside the rock. Something gleams dully in the grey light. The smell is of rotting things: dank leaf mould and stagnant slime.">
 <CONSTANT CHOICES074 <LTABLE "return to the canoe" "sneak into the tunnel" "enter into the tunnel">>
@@ -1351,7 +1365,7 @@
 	<COND (<OR <CHECK-SKILL ,SKILL-WILDERNESS-LORE> <CHECK-ITEM ,WATERSKIN>>
 		<PUTP ,STORY085 ,P?DEATH F>
 	)(ELSE
-		<LOSE-LIFE 1 DIED-OF-THIRST ,STORY085>
+		<TEST-MORTALITY 1 DIED-OF-THIRST ,STORY085>
 	)>
 	<IF-ALIVE TEXT085-CONTINUED>>
 
@@ -1448,7 +1462,7 @@
 <ROUTINE STORY092-PRECHOICE ()
 	<COND (,RUN-ONCE
 		<COND (<CHECK-SKILL ,SKILL-CHARMS>
-			<LOSE-LIFE 2 KILLED-AT-ONCE ,STORY092>
+			<TEST-MORTALITY 2 KILLED-AT-ONCE ,STORY092>
 		)(ELSE
 			<EMPHASIZE KILLED-AT-ONCE>
 		)>
@@ -1481,7 +1495,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY094-PRECHOICE ()
-	<COND (,RUN-ONCE <LOSE-LIFE 1 DIED-GREW-WEAKER ,STORY094>)>
+	<COND (,RUN-ONCE <TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY094>)>
 	<COND (<IS-ALIVE>
 		<CRLF>
 		<TELL TEXT094-CONTINUED>
@@ -1647,7 +1661,7 @@
 	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
 		<SET DAMAGE 5>
 	)>
-	<LOSE-LIFE .DAMAGE DIED-IN-COMBAT ,STORY102>
+	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY102>
 	<IF-ALIVE TEXT102-SURVIVED>>
 
 <CONSTANT TEXT103 "\"Wait!\"||All eyes turn in your direction. The high priest scowls, \"Who is this outsider who dares to interrupt the sacred rite?\"||\"Release them,\" you say, ignoring him. \"I shall carry your petition into the underworld.\"||The priest strides over, pressing his face inches from yours with a look of black fury. \"You? Why should I let you undertake this journey?\"||\"Because I was sent here by a god.\"||He has no answer to that. For a moment his mouth works silently, ready to frame a protest, but he has already seen the light of truth in your eyes. Stepping back, he gives a nod and the young couple are set free.">
@@ -1748,93 +1762,87 @@
 
 <ROUTINE STORY110-PRECHOICE ("AUX" (DAMAGE 2))
 	<COND (<CHECK-SKILL ,SKILL-AGILITY> <SET DAMAGE 1>)>
-	<LOSE-LIFE .DAMAGE DIED-GREW-WEAKER ,STORY110>
+	<TEST-MORTALITY .DAMAGE DIED-GREW-WEAKER ,STORY110>
 	<IF-ALIVE TEXT110-CONTINUED>>
+
+<CONSTANT TEXT111 "You slam into him. For a creature formed of living shadow, he feels very solid.">
 
 <ROOM STORY111
 	(DESC "111")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT111)
+	(PRECHOICE STORY111-PRECHOICE)
+	(CONTINUE STORY226)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY111-PRECHOICE ()
+	<TEST-MORTALITY 1 "You died from the impact." ,STORY111>
+	<COND (<IS-ALIVE>
+		<CRLF>
+		<COND (<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
+			<TELL "You get possession of the ball and send it bouncing against the end zone, scoring a point">
+			<SETG POINTS <+ ,POINTS 1>>
+		)(ELSE
+			<TELL "Your opponent gets the ball and scores a point">
+			<SETG CROSS <+ ,CROSS 1>>
+		)>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT112 "You slam the ball against the side wall then run backwards into the middle of the arena, keeping your eye on it as it bounces. A blow with your wrist sends it spinning up to strike the low-score zone, giving your team another point. It ricochets towards your opponents, who eagerly seize possession.">
 
 <ROOM STORY112
 	(DESC "112")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT112)
+	(CONTINUE STORY181)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT113 "\"You have done me a service, and yet you ask no favour in return,\" rumbles the giant. \"Hence I shall bestow my gift: immortality.\"||You wait but nothing happens. You don't feel any different. You raise your hands; you still look the same. \"Is that it?\"||\"Yes. Now your natural lifespan is infinite.\"||\"My natural lifespan?\" you say. A point like this is worth getting exactly right.||\"You will never die a natural death,\" the giant clarifies.||You don't know what to say. \"Er... well, thank you.\" Uppermost in your thoughts is that adventurers rarely die natural deaths in any case.||\"Also, you cannot suffer gradual injury,\" adds the giant. \"A single fatal accident can kill you outright, but that is all.\"||That sounds better. It means that from now on you cannot lose Life Points. As the giant said, the only thing that can now kill you is an overwhelming catastrophe like falling into a volcano.">
 
 <ROOM STORY113
 	(DESC "113")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT113)
+	(PRECHOICE STORY113-PRECHOICE)
+	(CONTINUE STORY135)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY113-PRECHOICE ()
+	<EMPHASIZE "You have become immortal.">
+	<SETG IMMORTAL T>>
+
+<CONSTANT TEXT114 "Midnight Bloom agrees to a detour since it will give her the chance to buy some of the fine pottery that is brought from Nachan through the fens. Putting into a lagoon where there is a small fishing village, she tells you to be quick about checking the wizard's story. \"I would like to resume our journey to Tahil at first light,\" she says.||It is already late afternoon. The sun is trawling in the red net">
 
 <ROOM STORY114
 	(DESC "114")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT114)
+	(CONTINUE STORY260)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT115 "The whirlwinds strike you with frightening force. The air is sucked out of your lungs and your limbs are stretched until you fear they will be torn from their sockets. With a burst of desperate strength, you break free of the demon's clutches and go staggering back across the sand.">
+<CONSTANT TEXT115-CONTINUED "You must try another tack:">
+<CONSTANT CHOICES115 <LTABLE "use a" "flee for your life">>
 
 <ROOM STORY115
 	(DESC "115")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT115)
+	(PRECHOICE STORY115-PRECHOICE)
+	(CHOICES CHOICES115)
+	(DESTINATIONS <LTABLE STORY092 STORY137>)
+	(REQUIREMENTS <LTABLE SKILL-SPELLS NONE>)
+	(TYPES <LTABLE R-SKILL R-NONE>)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY115-PRECHOICE ("AUX" (DAMAGE 3))
+	<COND (,RUN-ONCE
+		<COND (<CHECK-SKILL ,SKILL-SWORDPLAY>
+			<SET DAMAGE 1>
+		)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
+			<SET DAMAGE 2>
+		)>
+		<TEST-MORTALITY .DAMAGE DIED-GREW-WEAKER ,STORY115>
+		<IF-ALIVE TEXT115-CONTINUED>
+	)>>
 
 <ROOM STORY116
 	(DESC "116")
