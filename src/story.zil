@@ -41,6 +41,7 @@
 	<PUT <GETP ,STORY071 ,P?DESTINATIONS> 1 ,STORY117>
 	<PUT <GETP ,STORY091 ,P?DESTINATIONS> 2 ,STORY136>
 	<PUT <GETP ,STORY094 ,P?DESTINATIONS> 2 ,STORY063>
+	<PUT <GETP ,STORY133 ,P?DESTINATIONS> 2 ,STORY179>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY022 ,P?DEATH T>
@@ -61,6 +62,7 @@
 	<PUTP ,STORY121 ,P?DEATH T>
 	<PUTP ,STORY124 ,P?DEATH T>
 	<PUTP ,STORY129 ,P?DEATH T>
+	<PUTP ,STORY133 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -2043,90 +2045,86 @@
 <ROUTINE STORY130-PRECHOICE ()
 	<LOSE-ITEM ,GOLD-DIADEM>>
 
+<CONSTANT TEXT131 "You have held back from using the Man of Gold until you really needed its power. Now the time has come. Holding the little manikin in your hand, you wait until you feel it beginning to stir and then place it on the floor of the passage.||The Man of Gold strikes a haughty pose as he surveys the tangle of wooden beams. His elongated head and theatrically imperious stance remind you of the nobles of long ago whom you have seen depicted in ancient paintings. Striding forward, he takes hold of two of the beams and braces them against the side walls. His strength is incredible -- despite his tiny size, he is able to support the whole passage while you push the other beams out of the way and continue on to the far end. Once you are safe, he drops the beams he is holding and the roof caves in. Coughing at the clouds of rock dust, you peer through the rubble but can see no sign of the Man of Gold.||The courtiers are already here waiting. \"You should have kept that manikin until you faced a real challenge,\" they mutter insidiously.">
+
 <ROOM STORY131
 	(DESC "131")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT131)
+	(PRECHOICE STORY131-PRECHOICE)
+	(CONTINUE STORY431)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY131-PRECHOICE ()
+	<LOSE-ITEM ,MAN-OF-GOLD>>
+
+<CONSTANT TEXT132 "The following evening you are shown into the House of Cold, where sparkling sheets of ice encase the walls and long icicles form pillars from floor to ceiling. Your breath curls like smoke in the freezing air as you stand shivering and watch the courtiers swing the heavy door shut.">
 
 <ROOM STORY132
 	(DESC "132")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT132)
+	(PRECHOICE STORY132-PRECHOICE)
+	(CONTINUE STORY178)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY132-PRECHOICE ()
+	<COND (<AND <CHECK-ITEM ,STONE> <CHECK-ITEM ,LUMP-OF-CHARCOAL>>
+		<STORY-JUMP ,STORY155>
+	)(<CHECK-ITEM ,FIREBRAND>
+		<STORY-JUMP ,STORY319>
+	)>>
+
+<CONSTANT TEXT133 "He lunges into you as you try to get past. It is clearly a foul but from the way the courtiers are baying for blood you suspect the normal rules do not apply.">
+<CONSTANT CHOICES133 <LTABLE "either run towards the enemy defensive player" "stand where you are and hope your partner can get the ball to you">>
 
 <ROOM STORY133
 	(DESC "133")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT133)
+	(PRECHOICE STORY133-PRECHOICE)
+	(CHOICES CHOICES133)
+	(DESTINATIONS <LTABLE STORY111 STORY179>)
+	(TYPES TWO-NONES)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY133-PRECHOICE ()
+	<COND (,RUN-ONCE
+		<COND (<CHECK-SKILL ,SKILL-AGILITY>
+			<PUTP ,STORY133 ,P?DEATH F>
+		)(ELSE
+			<TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY133>
+		)>
+	)>
+	<COND (<IS-ALIVE>
+		<COND (<CHECK-CODEWORD ,CODEWORD-SHADE>
+			<PUT <GETP ,STORY133 ,P?DESTINATIONS> 2 ,STORY203>
+		)(ELSE
+			<PUT <GETP ,STORY133 ,P?DESTINATIONS> 2 ,STORY179>
+		)>
+	)>>
+
+<CONSTANT TEXT134 "\"The game is over,\" you announce, \"and we are the victors.\"||The voice speaks from the shrine in a croak of malice: \"You resorted to cheating. The wage of dishonour is death.\"||A flat metallic twang builds rapidly in the dry air. There is a sour taste on your tongue, and you can feel your hair standing on end. You glance at your partner just in time to see him explode in a blossom of silent white sparks, leaving nothing but a scorched black patch on the dusty ground.||Necklace of Skulls has vaporized him -- snuffed out his life with a casual flicker of sorcery! You are horrified by the callous murder, but you cannot waste time brooding on it now. If you don't act quickly, you will be next.">
 
 <ROOM STORY134
 	(DESC "134")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT134)
+	(CONTINUE STORY019)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT135 "The giant gives a hiccup and something white rolls out of his mouth onto the sand.||\"What's that?\" you ask him.||\"Your brother's skull,\" he replies. \"Don't thank me. Its proper place in the scheme of things is here with you. I'm just the instrument of destiny in this case.\"||Tucking your brother's skull into your haversack, you set off along the beach. You have not gone more than a hundred paces when you hear a loud grunt followed by a damp sucking noise. You turn to see the giant hauling himself out of the ground. Throwing off the mass of sand and shingle that has accumulated around his body over aeons, he stands on the shore. He is big enough to climb the highest pyramid with two bounds.||You watch as the water closes over the black dome of his head, you turn away with a feeling of awe.">
+<CONSTANT CHOICES135 <LTABLE "head on to Tahil by land" "by sea">>
 
 <ROOM STORY135
 	(DESC "135")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT135)
+	(PRECHOICE STORY135-PRECHOICE)
+	(CHOICES CHOICES135)
+	(DESTINATIONS <LTABLE STORY228 STORY251>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY135-PRECHOICE ()
+	<COND (,RUN-ONCE <TAKE-ITEM ,BROTHERS-SKULL>)>
+	<COND (<CHECK-CODEWORD ,CODEWORD-SAKBE> <STORY-JUMP ,STORY300>)>>
 
 <ROOM STORY136
 	(DESC "136")

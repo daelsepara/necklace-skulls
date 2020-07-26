@@ -93,6 +93,12 @@
     (ADJECTIVE LOBSTER)
     (FLAGS TAKEBIT)>
 
+<OBJECT LUMP-OF-CHARCOAL
+    (DESC "lump of charcoal")
+    (SYNONYM CHARCOAL)
+    (ADJECTIVE LUMP)
+    (FLAGS TAKEBIT)>
+
 <OBJECT MAGIC-POTION
     (DESC "magic potion")
     (SYNONYM POTION)
