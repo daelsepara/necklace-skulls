@@ -1844,90 +1844,73 @@
 		<IF-ALIVE TEXT115-CONTINUED>
 	)>>
 
+<CONSTANT TEXT116 "Which temple do you wish to visit?">
+<CONSTANT CHOICES116 <LTABLE "visit the temple of the War God" "the temple of the Moon Goddess" "or the temple of the Death God" "you do not think any of the priests will be of much help,and would ask the Matriarch to let you have some of the clan treasures">>
+
 <ROOM STORY116
 	(DESC "116")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT116)
+	(CHOICES CHOICES116)
+	(DESTINATIONS <LTABLE STORY231 STORY254 STORY277 STORY138>)
+	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT117 "\"I was very nearly bitten by a tarantula!\" you tell the peasant as he comes up to the side of the causeway.||He mops at his brow. \"They enjoy the cool and moisture under the bunches of fruit,\" he remarks. \"Sometimes I wish I too were a tarantula, and not a poor farmer who must toil in this sweltering heat.\"||You smile, familiar with the customary grumblings of peasants. \"Let us hope the rains will be abundant this year,\" you say by way of conversation. \"The crops grow worse because of the drought.\"||\"In Yashuna the priests are holding a ceremony in honour of the Rain God,\" he says, nodding. Is it your imagination, or does a craft look come into his eye as he adds: \"My eldest son was going to attend the ceremony, but I need him to help me in the fields. Perhaps you would like to go in his place?\"||\"I presume the priests would not appreciate all and sundry poking their nose into such sacred rituals.\"||\"Quite so,\" he says. \"But I have here a jade bracelet which my son was told to wear. It authorizes him to take an intimate role in the proceedings. I could sell it to you for a cacao or two.\"||You study the bracelet he is holding out. It is in the shape of a water serpent with the glyph of the Rain God on its triangular head. \"In all candour, this is worth rather more than the sum mentioned,\" you reply cautiously.||He shrugs. \"I would be happy for any money at all in these hard times. Is it a deal, or not?">
+<CONSTANT TEXT117-CONTINUED "Bidding the peasant good.day, you set off once more towards Yashuna">
 
 <ROOM STORY117
 	(DESC "117")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT117)
+	(PRECHOICE STORY117-PRECHOICE)
+	(CONTINUE STORY163)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY117-PRECHOICE ()
+	<COND (<G? ,MONEY 0>
+		<CRLF>
+		<TELL "Buy " T ,SERPENT-BRACELET " for 1 " D ,CURRENCY "?">
+		<COND (<YES?>
+			<CHARGE-MONEY 1>
+			<TAKE-ITEM ,SERPENT-BRACELET>
+		)>
+	)(ELSE
+		<EMPHASIZE "You do not have enough cacao">
+	)>>
+
+<CONSTANT TEXT118 "Straying deeper in the forest, you surprise a deer which bolts off through the undergrowth. It reminds you how hungry you are now.">
+<CONSTANT CHOICES118 <LTABLE "hunt for food" "set a trap" "sneak up on some game" "search among your belongings for something to eat">>
 
 <ROOM STORY118
 	(DESC "118")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT118)
+	(CHOICES CHOICES118)
+	(DESTINATIONS <LTABLE STORY187 STORY210 STORY233 STORY256>)
+	(REQUIREMENTS <LTABLE SKILL-TARGETING SKILL-WILDERNESS-LORE SKILL-ROGUERY NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT119 "Thoughts gradually come trickling back -- and, along with them, a dull sense of pain. You realize you are alive. A cold wet rock presses against your back. Above you is not the open sky but a grey-lit cavern roof.||You slowly raise your head. Your ordeal has left you as weak as a newborn child, and each movement feels as though the entire weight of the earth were pressing down on your limbs. You see that the slab of smooth rock on which you are lying is surrounded by an underground lake. Blood flows freely from a deep gash in your thigh, streaming into the black water like sunset swallowed up by the night.||A great reptilian head floats alongside the rock. You have the impression of an immense body of glistening green coils. Eyes which are aglow with the lore of centuries stare back at yours. The serpent's tongue flickers out on the water, tasting the blood that swirls there.||You slump back wearily. You are lying in the underworld and a water serpent is feasting on your lifeblood.">
+<CONSTANT CHOICES119 <LTABLE "struggle to your feet and chase the serpent off" "lie still and do nothing">>
 
 <ROOM STORY119
 	(DESC "119")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT119)
+	(CHOICES CHOICES119)
+	(DESTINATIONS <LTABLE STORY166 STORY143>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT120 "Following the crowds, you pass under an archway at the north edge of the city. People go milling past and you find yourself carried by the surge of bodies along a plaster-paved causeway that leads through light woodland. You are surprised to see no buildings on this side of the city. The crowds are all eagerly discussing some great spectacle that lies in store, and you catch snatches of conversation as you are borne along. \"Now the Rain God will no longer forsake us,\" says one man. A woman who is carrying two squalling brats shouts back over her shoulder: \"Just so long as the sacrifice pleases him! Don't forget that.\"||Then the trees give way to an immense clearing. At first you cannot tell what lies ahead, but by pushing your way forward you reach the front of the crowd. Your breath escapes from your lungs in a gasp of awe. The clearing is formed by a gigantic hole in the ground. It looks as though the crust of the earth simply crumbled away to real an entrance into the underworld. The sinkhole is more than twenty metres deep and even a strong man could never hope to cast a spear right across to the far side. The sides of the pit are raw limestone clothed in a dry tangled mass of roots and creepers, dropping right down to the murky lake that occupies the bottom of this vast cavernous gulf.||\"What is it?\" you ask a priest standing beside you.||When he answers, you discover that your first wild impression was correct. \"This is the sacred well of Yashuna,\" he replies in a stately voice. \"It is the mouth of the underworld.\"">
 
 <ROOM STORY120
 	(DESC "120")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT120)
+	(PRECHOICE STORY120-PRECHOICE)
+	(CONTINUE STORY234)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY120-PRECHOICE ()
+	<COND (<CHECK-ITEM ,SERPENT-BRACELET> <STORY-JUMP ,STORY257>)>>
 
 <ROOM STORY121
 	(DESC "121")
