@@ -60,6 +60,7 @@
 	<PUTP ,STORY115 ,P?DEATH T>
 	<PUTP ,STORY121 ,P?DEATH T>
 	<PUTP ,STORY124 ,P?DEATH T>
+	<PUTP ,STORY129 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -1042,6 +1043,7 @@
 	<TEST-MORTALITY 2 DIED-GREW-WEAKER ,STORY062>
 	<COND (<IS-ALIVE>
 		<SETG MAX-LIFE-POINTS <- ,MAX-LIFE-POINTS 2>>
+		<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
 	)>>
 
 <CONSTANT TEXT063 "Your strongest leap carries you to the far side of the pit -- nearly. You teeter on the brink with just your toes on solid ground, arms spinning crazily in a vain attempt to save yourself. You fall back with a cry of alarm which turns into a scream of tortured pain as you land on the burning coals.">
@@ -1976,90 +1978,70 @@
 <ROUTINE STORY125-PRECHOICE ()
 	<LOSE-ITEM ,CHILLI-PEPPERS>>
 
+<CONSTANT TEXT126 "The head's spittle sprays into your eyes, stinging you like venom. Its strands of hair hug it to your neck, and you see its red eyes blazing with impending triumph. You must act quickly, or all is lost.">
+<CONSTANT CHOICES126 <LTABLE "deliver a forearm smash to its jaw" "dive to the ground and try to force its face into the dirt" "attempt to batter it against the bole of the nearby tree">>
+
 <ROOM STORY126
 	(DESC "126")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT126)
+	(CHOICES CHOICES126)
+	(DESTINATIONS <LTABLE STORY334 STORY311 STORY378>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT127 "You turn away and push your way out of the crowd. There are those who say it is a great honour to be chosen for sacrifice, but you have no desire to witness the death of the two young people so soon after your own bereavement.||You journey north until the causeway ends. Dusty tracks fringed with scrubland carry you the rest of the way to the coast. A farmer directs you to the village of Balak. You pass through the streets, pace quickening as you catch the enticing smell of salt spray on the air. You emerge from between two high-roofed houses and there is the sea spread out in front of you, glittering under a cloudless blue sky.">
 
 <ROOM STORY127
 	(DESC "127")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT127)
+	(PRECHOICE STORY127-PRECHOICE)
+	(CONTINUE STORY158)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY127-PRECHOICE ()
+	<COND (<CHECK-ITEM ,LETTER-OF-INTRODUCTION>
+		<STORY-JUMP ,STORY370>
+	)(<CHECK-SKILL ,SKILL-SEAFARING>
+		<STORY-JUMP ,STORY391>
+	)>>
+
+<CONSTANT TEXT128 "You now realize that drinking from the well would have enabled you to see the occupants of the Deathlands as normal folk, but without that magic you must see them as they truly are in the eyes of the living: skeletal remains encrusted with teeming mould. Before you succumb to blind panic, you raise your wand and cast an enchantment of illusion over your own vision, allowing you to see them as they were in life. Now you can converse with them without a feeling of terror.">
 
 <ROOM STORY128
 	(DESC "128")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT128)
+	(CONTINUE STORY106)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT129 "He gives a wild shriek of rage and plunges both knives towards you. The attack comes with such speed that you have no time to react, and for a split-second it seems your time has come. But the sentinel stops his lunge with perfect precision so that the tips of the blades just prick your skin. You look down to see two bright drops of blood forming on your chest.||This is no ordinary wound, however. No one can recover from an injury dealt by Lord Blood's knives.">
 
 <ROOM STORY129
 	(DESC "129")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT129)
+	(PRECHOICE STORY129-PRECHOICE)
+	(CONTINUE STORY084)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY129-PRECHOICE ()
+	<TEST-MORTALITY 2 DIED-GREW-WEAKER ,STORY129>
+	<COND (<IS-ALIVE>
+		<SETG MAX-LIFE-POINTS <- ,MAX-LIFE-POINTS 2>>
+		<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
+	)>>
+
+<CONSTANT TEXT130 "The symbol on the diadem represents the World Tree, the source of all birth and regeneration. Whether its power is enough to restore the dead to life remains to be tested.||You carefully set the severed head upright on the sand and place the diadem over its brow. \"What do we do now?\" breathes the servant.||You admit you don't know. \"Just wait, I suppose.\"||The shadows flow like ink as the moon rises higher, laying a cool white patina over the desert that lends it a sense of strange enchantment. If you are ever to witness a miracle, tonight would be the time for it.||The moon reaches its zenith. Both you and the servant gaze up into the night sky, overawed by a shared sense of wonder at the countless stars. A moment later you share something else: a startled jump as a voice calls: \"By the gods! What am I doing buried up to my neck in the sand?\"||Although you were waiting for such a miracle, it is no less amazing now that it has happened. You dig the sand out from around the warrior's head to find his body has been wholly restored by the magic of the diadem. \"A miracle!\" gasps the servant. \"Master, this kind of traveller brought you back from the dead.\"||\"Nonsense,\" snaps the warrior, scuffing sand off his limbs, \"I must have been knocked out, that's all. Fancy burying me in the sand, you daft idiots!\"||It seems he intends to keep the gold diadem.">
 
 <ROOM STORY130
 	(DESC "130")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT130)
+	(PRECHOICE STORY130-PRECHOICE)
+	(CONTINUE STORY015)
+	(CODEWORD CODEWORD-ANGEL)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY130-PRECHOICE ()
+	<LOSE-ITEM ,GOLD-DIADEM>>
 
 <ROOM STORY131
 	(DESC "131")
