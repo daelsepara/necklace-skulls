@@ -127,6 +127,11 @@
     (SYNONYM PADDLE)
     (FLAGS TAKEBIT)>
 
+<OBJECT PAPAYA
+    (DESC "papaya")
+    (SYNONYM PAPAYA)
+    (FLAGS TAKEBIT)>
+
 <OBJECT POT-OF-DYE
     (DESC "pot of dye")
     (SYNONYM DYE)

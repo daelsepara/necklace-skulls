@@ -2126,90 +2126,100 @@
 	<COND (,RUN-ONCE <TAKE-ITEM ,BROTHERS-SKULL>)>
 	<COND (<CHECK-CODEWORD ,CODEWORD-SAKBE> <STORY-JUMP ,STORY300>)>>
 
+<CONSTANT TEXT136 "The trader is prepared to detour south just to drop you off, but then you will have to find your own way to Tahil. \"It wasn't in our original agreement, \"he reminds you. \"My business is in Tahil, not in the fens.\"">
+<CONSTANT CHOICES136 <LTABLE "agree to being set down on the mainland coast south of the Isle of the Iguana" "you would rather sail on to Tahil">>
+
 <ROOM STORY136
 	(DESC "136")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT136)
+	(CHOICES CHOICES136)
+	(DESTINATIONS <LTABLE STORY260 STORY300>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT137 "You race back towards the clifftops with the whirling demons hot on your heels. You can hear the screeching wind as they rush across the sand. And is it just your imagination, or can you also hear another sound behind the wind -- a sound like wild laughter?||You reach the cliff. The whirlwinds are right at your back. Trapped, you dive frantically to one side, landing heavily. You try to rise, but you are too exhausted to run any further.||Luckily you do not have to. The demons are unable to stop themselves, and pitch straight over the side of the cliff. You distinctly hear their cries of outrage and shock as the swirling eddies of dust and wind tumble downwards.||Breathing a sight of relief, you set off again into the west.">
 
 <ROOM STORY137
 	(DESC "137")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT137)
+	(CONTINUE STORY161)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT138 "The Matriarch speaks to a servant, who goes bustling out and returns shortly leading two slaves bearing a large wooden chest. This is set down in front of the Matriarch's seat and the two slaves are ushered outside before it can be opened. The Matriarch beckons you over. \"These,\" she says, delving into the interior of the chest, \"are the treasures of our ancestors.\"||A golden figuring catches your eye. It is in the form of a muscular naked man with an elongated forehead. \"What is this?\" you ask.||The Man of Gold -- most ancient of all our treasures. It is said that in the earliest days of the world, the gods experimented with various substances to create life. One of the lesser gods tried using gold, but because it was so scarce he could only make a small human.\"||You lift the Man of Gold with a sense of awe. \"Is it alive, then?\"|||\"If you hold it in your hands long enough, it will come to life through your body's warmth. Then it will serve you with great strength and skill -- but only once.\"||\"Only once?\" you ask. \"If it only works once, how does anyone know this?\"||The Matriarch responds with a sly wink. \"You have to trust your elders sometimes, Evening Star. Now, do you want the Man of Gold or would you rather take a look at the other treasures?\"">
 
 <ROOM STORY138
 	(DESC "138")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT138)
+	(PRECHOICE STORY138-PRECHOICE)
+	(CONTINUE STORY185)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY138-PRECHOICE ()
+	<CRLF>
+	<TELL "Take " T ,MAN-OF-GOLD "?">
+	<COND (<YES?>
+		<TAKE-ITEM ,MAN-OF-GOLD>
+		<STORY-JUMP ,STORY093>
+	)(ELSE
+		<CRLF>
+		<TELL "You decided to choose from the rest of the treasures" ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT139 "Your bearing and accent immediately mark you as a member of the nobility. The peasant stands watching you with a sullen expression. \"In these times of drought my fruit is precious to me,\" he says. \"But I will sell you a papaya for two cacao.\"||\"Your fruit is infested with poisonous spiders,\" you reply proudly. I am doubtful whether it is worth the risk of picking it, drought or not.\"||He compresses his lips, biting back an angry retort out of deference to your status. \"One cacao, then,\" he says.">
+<CONSTANT TEXT139-CONTINUED "Bidding the peasant a curt good-day, you continue along the causeway towards Yashuna">
 
 <ROOM STORY139
 	(DESC "139")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT139)
+	(PRECHOICE STORY139-PRECHOICE)
+	(CONTINUE STORY163)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY139-PRECHOICE ()
+	<COND (<G? ,MONEY 0>
+		<COND (<NOT <CHECK-ITEM ,PAPAYA>>
+			<CRLF>
+			<TELL "Buy a papaya (1 " D, CURRENCY ")?">
+			<COND (<YES?>
+				<CHARGE-MONEY 1>
+				<TAKE-ITEM ,PAPAYA>
+			)>
+		)(ELSE
+			<EMPHASIZE "You already have that.">
+		)>
+	)(ELSE
+		<EMPHASIZE "You do not have enough money for that.">
+	)>
+	<CRLF>
+	<TELL TEXT139-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT140 "You steady yourself against the rough stone walls, only to recoil with a gasp of disgust. The brief contact has left an unpleasant coating of slime on your hands. You hurriedly wipe it away on your cloak. The stench grows stronger with each step you take until it is almost unbearable. You feel sick, but you manage to reach the chamber and stoop to inspect the item that caught your eye. It is a bowl of polished stone incised with the emblem of the Creator God, who gave life to all things. You need no special sense to recognize the aura of divine magic. This can only be the fabled Chalice of Life in which the gods brewed the primordial potion that birthed the ancestors of mankind.">
+<CONSTANT TEXT140-CONTINUED "As you rise to return to the boat, however, a trickle of viscous slime drips from the roof of the chamber across your face. Spluttering, you look up. A shiver of horror runs through you as you see the creatures whose lair this is.||There are about a dozen of them, clinging to the walls and ceiling of tunnel like bloated pods. They are about as big as large dogs, humanoid in the upper body but with the hindquarters of giant snails. Their flesh, where it is exposed from their shells, glistens with thick mucus. There features are horribly unformed, like babies torn prematurely from their mother's womb, and they utter soft bleating cries as they close inexorable to block your escape">
+<CONSTANT CHOICES140 <LTABLE "use an item" "fight your way to safety">>
 
 <ROOM STORY140
 	(DESC "140")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT140)
+	(PRECHOICE STORY140-PRECHOICE)
+	(CHOICES CHOICES140)
+	(DESTINATIONS <LTABLE STORY305 STORY328>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY140-PRECHOICE ()
+	<COND (,RUN-ONCE
+		<COND (<NOT <CHECK-ITEM ,CHALICE-OF-LIFE>>
+			<CRLF>
+			<TELL "Take " T ,CHALICE-OF-LIFE "?">
+			<COND (<YES?>
+				<TAKE-ITEM ,CHALICE-OF-LIFE>
+			)>
+		)>
+	)>
+	<CRLF>
+	<TELL TEXT140-CONTINUED>
+	<TELL ,PERIOD-CR>>
 
 <ROOM STORY141
 	(DESC "141")
