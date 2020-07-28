@@ -63,6 +63,8 @@
 	<PUTP ,STORY124 ,P?DEATH T>
 	<PUTP ,STORY129 ,P?DEATH T>
 	<PUTP ,STORY133 ,P?DEATH T>
+	<PUTP ,STORY143 ,P?DEATH T>
+	<PUTP ,STORY150 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -2221,175 +2223,124 @@
 	<TELL TEXT140-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
+<CONSTANT TEXT141 "A grip of iron closes on your arm and you are dragged bodily into the black pit inside the tree. A musky stench makes you reel as you a are pinned against a wall of moss and decaying wood. The creature's body is covered with rough scales and it begins to strangle you with remorseless strength. You can do nothing to save yourself, and your last thought is of the gold diadem clutched in your hand. You batter it against the creature in a futile struggle, bending the soft metal with no care for its value now. You will be the richest corpse in the forest.">
+
 <ROOM STORY141
 	(DESC "141")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT141)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT142 "You are surprised to find the market almost deserted. Contrary to your assumption, most of the populace are not headed here, but are streaming to the causeway that leads north out of the city.||The stalls are set up under awnings whose cool shade is welcoming after the dusty heat of the road.||You stand back and examine the wares on offer. The traders are doing so little business that you should have the chance of some real bargains.||You make a show of strolling casually past a number of stalls, careful not to give any sign of interest in the items you want most. This will help you when the haggling starts.||You find the following on sale:">
 
 <ROOM STORY142
 	(DESC "142")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT142)
+	(PRECHOICE STORY142-PRECHOICE)
+	(CONTINUE STORY188)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY142-PRECHOICE ()
+	<MERCHANT <LTABLE WATERSKIN ROPE TERRACOTTA-EFFIGY BLOWGUN INCENSE> <LTABLE 1 2 3 3 3>>>
+
+<CONSTANT TEXT143 "As more of your blood flows away, your growing sense of weakness begins to border on hallucination. A strange warmth spreads through you, as though the rock on which you are lying were not a cold stone in the waters of the underworld, but bathed in the rays of an unseen sun. The rhythmic slap of the serpent's tongue as it licks the blood-rimmed water lulls you into a dreamy state. Your head bobs up again, but this time without apparent effort. Staring at the serpent, you begin to imagine that you can see a tall figure standing with his feet on its coils. He looks like a king in his resplendent panoply of blue jade, copper and long turquoise quetzal feathers. You can only half make him out like an image seen in a cloudy mirror, but you see enough to tell that he is not a human being. He can only be the Rain God himself.">
+<CONSTANT CHOICES143 <LTABLE "speak to the Rain God" "rise up and fight">>
 
 <ROOM STORY143
 	(DESC "143")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT143)
+	(PRECHOICE STORY143-PRECHOICE)
+	(CHOICES CHOICES143)
+	(DESTINATIONS <LTABLE STORY212 STORY166>)
+	(TYPES TWO-NONES)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY143-PRECHOICE ()
+	<COND (,RUN-ONCE
+		<TEST-MORTALITY 1 "You've died from losing too much blood" ,STORY143>
+	)>>
+
+<CONSTANT TEXT144 "The forest is a bewildering maze with walls of tattered green moss and gloomy bark. Sensing eyes upon you, you spin around but there is no one there. Are you being followed, or is your mind playing tricks on you?">
+<CONSTANT CHOICES144 <LTABLE "veer off to the right" "go straight on from here" "decide to head left">>
 
 <ROOM STORY144
 	(DESC "144")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT144)
+	(CHOICES CHOICES144)
+	(DESTINATIONS <LTABLE STORY052 STORY121 STORY006>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT145 "The snake's head jabs forward and you feel its fangs sink into your flesh. A sensation like acid burning its way across your chest is immediately followed by a creeping numbness; panic is replaced by ghastly calm. You stare at the hooded monster coiled at your breast. It looks like a suckling demon in one of the mythological murals on temple walls. You watch the waves of muscular effort which pulse along its neck as it pumps the contents of its venom sac into your veins.||You slump to the ledge, unable to feel the cold stone against your flesh. A cloudy film moves in from the edges of your vision. The eyes of the serpent glimmer like the first stars of evening...||Darkness falls.">
 
 <ROOM STORY145
 	(DESC "145")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT145)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT146 "\"As you can see, the two figures in this part of the frieze are inverted,\" says the priestess. \"This is to indicate they are in the underworld.\"||\"But specifically who are they?\" you enquire. \"One seems to be a nobleman -- the other his slave, perhaps?\"||She nods. \"They are shown approaching the path into the afterlife. As the old adage goes, a rich man can only reach the afterlife if taken there by a poor man. That is why many nobles arrange to have their favourite servant buried with them in their tomb. But the picture in this case also has a symbolic meaning: the 'rich' man is the sun, escorted through the underworld each night by the planet Venus.\"||Her answers are very enlightening. If only you had had such lucid instruction from the priests in Koba you would have a better understanding of the ancient myths. Before you can ask her anything else, however, she is called away to inspect some details of the mural. You are left to ponder your next move.">
+<CONSTANT CHOICES146 <LTABLE "go to the royal palace and ask to see the King" "spend some money on arranging a place to stay">>
 
 <ROOM STORY146
 	(DESC "146")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT146)
+	(CHOICES CHOICES146)
+	(DESTINATIONS <LTABLE STORY077 STORY101>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY147
 	(DESC "147")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY147-EVENTS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY147-EVENTS ()
+	<COND (<CHECK-SKILL ,SKILL-AGILITY> <RETURN ,STORY193>)>
+	<RETURN ,STORY216>>
+
+<CONSTANT TEXT148 "The monster rushes forward on its strong stumpy legs, saliva pouring from its snapping jaws. You flinch back, expecting to feel a stab of pain as it sinks its teeth into your flesh, but it abruptly stops short as thought it has run in an invisible wall. It is powerless to do more than growl and make futile threatening lunges in your direction, but you edge past cautiously all the same.">
 
 <ROOM STORY148
 	(DESC "148")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT148)
+	(CONTINUE STORY020)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT149 "Your options are limited and you must choose between them quickly.">
+<CONSTANT CHOICES149 <LTABLE "match your strength against the head and try to fling it away" "fall to the ground and try grappling with it there">>
 
 <ROOM STORY149
 	(DESC "149")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT149)
+	(CHOICES CHOICES149)
+	(DESTINATIONS <LTABLE STORY334 STORY311>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT150 "Bitter life-sucking cold envelops you in the moment you enter the water. The shock almost stops your heart.">
+<CONSTANT TEXT150-CONTINUED "Half in a swoon, you stumble weightlessly down the stairway towards a submarine glimmer of icy green light. If you stay in this water for much longer you know you are doomed">
 
 <ROOM STORY150
 	(DESC "150")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT150)
+	(PRECHOICE STORY150-PRECHOICE)
+	(CONTINUE STORY173)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY150-PRECHOICE ("AUX" (DAMAGE 2))
+	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE> <SET DAMAGE 1>)>
+	<TEST-MORTALITY .DAMAGE DIED-GREW-WEAKER ,STORY150>
+	<COND (<IS-ALIVE>
+		<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
+			<EMPHASIZE "Your hardiness inures you to the extreme cold.">
+		)>
+		<CRLF>
+		<TELL TEXT150-CONTINUED>
+		<TELL ,PERIOD-CR>
+	)>>
 
 <ROOM STORY151
 	(DESC "151")
