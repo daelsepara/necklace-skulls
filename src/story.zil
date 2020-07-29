@@ -2402,89 +2402,62 @@
 <ROUTINE STORY155-PRECHOICE ()
 	<LOSE-ITEM ,LUMP-OF-CHARCOAL>>
 
+<CONSTANT TEXT155-WIN "You manage to send the ball soaring to strike one of the zones marked out along the top of the wall. You score a point">
+<CONSTANT TEXT155-LOSE "You stumble and jar your elbow on the side pall, recoiling in agony while your opponent gains possession of the ball">
+
 <ROOM STORY156
 	(DESC "156")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY156-PRECHOICE)
+	(CONTINUE STORY179)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY156-PRECHOICE ()
+	<CRLF>
+	<COND (<CHECK-CODEWORD ,CODEWORD-POKTAPOK>
+		<TELL TEXT155-WIN>
+	)(ELSE
+		<TELL TEXT155-LOSE>
+	)>
+	<TELL ,PERIOD-CR>
+	<COND (<CHECK-CODEWORD ,CODEWORD-SHADE> <STORY-JUMP ,STORY203>)>>
+
+<CONSTANT TEXT157 "You do not need to fight Necklace of Skulls. You have beaten him at every turn, and he knows it. \"Listen to me, wizard,\" you call up to him. \"You put dangers across my path, but I prevailed. Your courtiers tested me with their ordeals, but I survived. You conjured men of shadow to contend against me in the ball game, but I won. You slew my brother once, but here he stands beside me, alive again!\"||There is no reply. Only cold brooding silence emanates from the lightless depths of the shrine.||You raise your fist. \"Stay out of our way in the future, Necklace of Skulls,\" you warn him. \"Keep to your palace and don't trouble living men with your noxious ways. Otherwise, my brother and I will return and pull that shrine down on top of you.\"||There is a long pause like the sigh of breath in a dying man's throat. \"Very well,\" says the sorcerer's voice. \"I agree to those terms.\"||The silence from the shrine somehow deepens. You sense that Necklace of Skulls has withdrawn his presence deep into the underworld.">
 
 <ROOM STORY157
 	(DESC "157")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT157)
+	(CONTINUE STORY442)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT158 "You strike up conversation with a couple of traders who are down on the shore making repairs to their vessels. The first tells you he is setting out for Tahil tomorrow, and would be pleased to take you along. \"Not only for the sake of civilized company, either,\" he adds. There are pirates in the area, and an extra hand would be useful in deterring them.\"||\"I have a better deterrent in mind,\" says the other man, looking up from his work. \"I shall delay my journey for a week or so. By that time, the pirates will have already made enough from raiding other vessels to sail back to their homeland, leaving the coast clear.\"||\"Perhaps I could travel with you?\" you ask him.||He snorts. \"Not for free! I am partially deaf, so company is of no interest whether it be civilized or not. Also, I have just explained why I won't need a guard. If you want to come along, you can pay four cacao for your passage.">
+<CONSTANT CHOICES158 <LTABLE "sail with the first man for free" "agree to pay and travel in a week">>
 
 <ROOM STORY158
 	(DESC "158")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT158)
+	(CHOICES CHOICES158)
+	(DESTINATIONS <LTABLE STORY280 STORY205>)
+	(REQUIREMENTS <LTABLE NONE 4>)
+	(TYPES <LTABLE R-NONE R-MONEY>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT159 "When can you reply with a well-mannered but firm objection, the lord immediately recognizes you as a fellow noble and apologizes. \"I took you for a common trader,\" h says, bowing contritely. \"I am very story.\"||\"These are difficult times,\" you say. \"Are all these people refugees from the Great City?\"||He glances along the quay. \"Either from there or the outlying farmlands. The attack on the city has sent a shockwave across the civilized world. From this day, certain fundamentals we have always taken for granted are suddenly thrown into question.\"||\"Such as where to get a servant capable of mixing a decent cup of spiced cocoa,\" you put in.||He laughs. \"Exactly. Well, I'd better find another ship for my family to travel in.\"||You wave your hand expansively. \"Not at all! I shan't be needing this one again, since I'm travelling on inland. I think perhaps if you gave my, er, servants here a few cacao for their trouble they could take you back to Balak.\"||Your travelling companions smile and nod their thanks to you when the lord's back is turned. Without another word, you take up your pack and set out towards Shakalla.">
 
 <ROOM STORY159
 	(DESC "159")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT159)
+	(CONTINUE STORY085)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT160 "You emerge at last from the forest beside a village where you get directions to the city of Nachan. You pass west along a wooded ridge overlooking flat plains that stretch northwards towards the sea. The journey takes you a day and a night, and you have to sleep under the stars. Arising early, you yawn and stretch your cramped limbs. The countryside is swathed in fog which lies in hollows like an ocean of whiteness. You stroll onwards until the path emerges from a copse of trees and you stand overlooking a marvellous sight. You arrived at Nachan just a the moment of sunrise. The palaces and temples rise from the spectral fog: man-made hilltops thrusting through cloud. Beyond them lie the suburbs of the city, where lights twinkle like fading stars under the blanket of mist.||The warmth of day burns away the fog as you make your descent from the ridge. Now you can see the scintillant colours on the walls of the ceremonial buildings -- a vivid interplay of hues which is very unlike the austere white and red of Koba's palaces.||By the time you reach the level of the streets, the mist has retreated to just a few strands hanging around the upper steps of the pyramids and veiling the tree-covered hills that form a backdrop to the city. Already there are people hurrying to and fro. Some are carrying garlands of flowers while others in fanciful costumes are carpeting the roads with fresh west leaves. \"Is there a festival?\" you ask a passer-by.||\"Indeed there is,\" he replies. \"Tonight is the anniversary of the old king's death.\"">
+<CONSTANT CHOICES160 <LTABLE "break your journey here" "head on overland towards Ashaka" "follow the river to the coast">>
 
 <ROOM STORY160
 	(DESC "160")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT160)
+	(CHOICES CHOICES160)
+	(DESTINATIONS <LTABLE STORY426 STORY008 STORY030>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY161
