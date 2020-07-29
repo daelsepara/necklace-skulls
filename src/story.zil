@@ -65,6 +65,7 @@
 	<PUTP ,STORY133 ,P?DEATH T>
 	<PUTP ,STORY143 ,P?DEATH T>
 	<PUTP ,STORY150 ,P?DEATH T>
+	<PUTP ,STORY154 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -2342,90 +2343,64 @@
 		<TELL ,PERIOD-CR>
 	)>>
 
+<CONSTANT TEXT151 "Seized by uncontrollable horror at the sight of your companion's ghastly transformation, you turn and run, not stopping until you are far from the kapok tree and its throng of gristly nobles.">
+
 <ROOM STORY151
 	(DESC "151")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT151)
+	(CONTINUE STORY200)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT152 "The palace of Necklace of Skulls cannot be far from here, since it is reputed to lie at the western rim of the world. With a wry glance at the shimmering sun, you set out across the dunes.||Thankfully, the sun sets at last and the cool of evening comes on the breeze. By this time you are weary with heat and thirst, but you know you must press on to cover as much ground as possible. The stars emerge like a thousand gleaming pebbles seen in a stream. Moonlight soaks the sand in hues of charcoal and silver.||You reach the crest of a dune to find a dramatic scene unfolding before your eyes. Only thirty paces away, a warrior in jaguar-hide cloak stands confronting a giant serpent with four heads. The warrior's servant holds up a burning torch to give more light as his master moves forward. The torchlight looks like fresh blood along the monster's gruesome fang-rimmed jaws.">
+<CONSTANT CHOICES152 <LTABLE "rush in to attack the monster" "sneak off while the warrior is fighting it" "stand by and watch what happens">>
 
 <ROOM STORY152
 	(DESC "152")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT152)
+	(CHOICES CHOICES152)
+	(DESTINATIONS <LTABLE STORY175 STORY365 STORY198>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT153 "\"If this is indeed Chalice of Life,\" you tell the servant, it is the very bowl in which the Lord of all Gods gave birth to mankind.\"||He looks on, appropriately wide-eyed with awe, as you lift the dead man's head and place it within the chalice. The two of you retreat to a distance of at least thirty paces, as though tacitly sharing a fear that the spot where the chalice rests is about to be struck by a thunderbolt.|| In fact what happens is far stranger. As the moon nears its zenith, its rays seem to become a stream of heavy vapour pouring directly down into the chalice. Soon you cannot see the head at all because the interior of the chalice is brimming with thick white mist. This rises up into a swirling column about two metres high which just hangs there above the chalice, shining with a core of moonbeams.||Suddenly a breeze arises briefly. This mist disperses at one, and as the last strands are blown away you behold the warrior standing in the chalice, his body once more made whole. He opens his eyes and watches you approach. \"What are you gawping at?\" he says.||The servant is so confused by feelings of joy, amazement and superstitious fear that he falls to the ground in a near faint. \"I've just restored you to life with that chalice,\" you tell the warrior.||\"Nonsense!\" He looks down. \"What chalice?\"||You note with dismay that the chalice has indeed vanished. Obviously such power is not meant to stay in one mortal's hands for long. You just hope that you used it wisely.">
 
 <ROOM STORY153
 	(DESC "153")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT153)
+	(PRECHOICE STORY153-PRECHOICE)
+	(CONTINUE STORY015)
+	(CODEWORD CODEWORD-ANGEL)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY153-PRECHOICE ()
+	<LOSE-ITEM ,CHALICE-OF-LIFE>>
+
+<CONSTANT TEXT154 "You remove a second beam without mishap -- and a third. Just as you are beginning to feel confident, a deep crack appears instantaneously across the roof of the passage. It is accompanied by a growl of breaking rock. Your body stiffens. You are on the point of jumping back, but it is too late. A cascade of rubble knocks you flat. You lie with your hands over your head as rocks batter you, bruising ad scraping your flesh. You wince as you feel a rib cracking.">
+<CONSTANT TEXT154-CONTINUED "You crawl on the end of the passage where the dog-like courtiers await you. \"I had a lucky escape,\" you say as you stagger to your feet.||The chief courtier sniggers. \"That was just a little practical joke of ours,\" he says. \"I thought you'd have no trouble! You'll have to buck your ideas up if you're going to survive the real tests.\"">
 
 <ROOM STORY154
 	(DESC "154")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT154)
+	(PRECHOICE STORY154-PRECHOICE)
+	(CONTINUE STORY431)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY154-PRECHOICE ()
+	<TEST-MORTALITY 3 "You were buried underneath the rubble" ,STORY154>
+	<IF-ALIVE TEXT154-CONTINUED>>
+
+<CONSTANT TEXT155 "Unravelling a few fibres from your clothes, you use the stone to strike sparks off the walls until you have set the fibres alight. Then you carefully ignite a few splinters of charcoal and use this to get the rest of the lump burning.||The charcoal gives scant warmth, but it is better than nothing. Huddling beside your tiny fire, you spend a long miserable night waiting for the courtiers to let you out of the House of Cold.">
 
 <ROOM STORY155
 	(DESC "155")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT155)
+	(PRECHOICE STORY155-PRECHOICE)
+	(CONTINUE STORY202)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY155-PRECHOICE ()
+	<LOSE-ITEM ,LUMP-OF-CHARCOAL>>
 
 <ROOM STORY156
 	(DESC "156")
