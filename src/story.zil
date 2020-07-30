@@ -66,6 +66,9 @@
 	<PUTP ,STORY143 ,P?DEATH T>
 	<PUTP ,STORY150 ,P?DEATH T>
 	<PUTP ,STORY154 ,P?DEATH T>
+	<PUTP ,STORY164 ,P?DEATH T>
+	<PUTP ,STORY166 ,P?DEATH T>
+	<PUTP ,STORY168 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -134,6 +137,16 @@
 				<MOVE <GET TEMP-LIST .I> ,LOST-SKILLS>
 			)>
 		>
+	)>>
+
+<ROUTINE LOSE-SKILL (SKILL)
+	<COND (<AND .SKILL <CHECK-SKILL .SKILL>>
+		<CRLF>
+		<HLIGHT ,H-BOLD>
+		<TELL "You lost " T .SKILL " skill">
+		<TELL ,PERIOD-CR>
+		<HLIGHT 0>
+		<MOVE .SKILL ,LOST-SKILLS>
 	)>>
 
 <ROUTINE TEST-MORTALITY (DAMAGE MESSAGE STORY)
@@ -398,8 +411,7 @@
 
 <ROUTINE STORY018-PRECHOICE ()
 	<COND (<CHECK-CODEWORD ,CODEWORD-ANGEL> <REMOVE ,CODEWORD-ANGEL>)>
-	<EMPHASIZE "You have lost the SPELLS skill.">
-	<MOVE ,SKILL-SPELLS ,LOST-SKILLS>>
+	<LOSE-SKILL ,SKILL-SPELLS>>
 
 <CONSTANT TEXT019 "You have time to take a single step towards the black pyramid, then a howl rings out from the shrine -- a howl of such gruesome fury that your sweat runs icy on your brow. The courtiers abandon any semblance of human form and, transforming into wild dogs, scatter with yelps of fear.||The shadow men dissolve as Necklace of Skulls draws all his power back into himself. There is a rumbling from deep within the pyramid. The roof of the shrine trembles, then splits apart as something rises up through it. The pillars topple; masonry blocks crack open. Necklace of Skulls stands revealed atop the pyramid.||He is twice the height of a man -- a parody of human form with dead grey features and grotesquely long limbs with too many joints. The eyes are deep sockets under a caul of shrivelled flesh. His robe is sewn from ragged strips of blood-drenched skin; you realize with a shudder they are the flayed skins of men. Around his neck hangs a long chain of gore-spattered skulls, each with living eyes filled with eternal torment.||Necklace of Skulls stands in the rubble of his shrine like a loathsome insect just emerged from a chrysalis. He points a thin finger at you. \"Evening Star,\" he hisses. \"Now you will know the taste of death.\"">
 <CONSTANT CHOICES019 <LTABLE "use a blowgun" "a wand" "close in for a melee -- either by charging straight at him" "zigzagging as you run">>
@@ -1745,10 +1757,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY108-PRECHOICE ()
-	<COND (<CHECK-SKILL ,SKILL-SPELLS>
-		<EMPHASIZE "You have lost the SPELLS skill.">
-		<MOVE ,SKILL-SPELLS ,LOST-SKILLS>
-	)>>
+	<LOSE-SKILL ,SKILL-SPELLS>>
 
 <CONSTANT TEXT109 "You use your illusion magic to conjure up a miniature duplicate of the tunnel. Each of the beams appears as a glowing bar tagged with a number. By touching a bar with your wand and uttering the right number, you can select and move it. This allows you to experiment without actually having to remove any of the real beams just yet. Your first few attempts all lead to the illusory tunnel collapsing, but eventually you find a combination of beams that can be removed safely.||Dispelling your illusion, you try removing the same arrangement of beams from the real passage. Cracks appear in the stonework and the walls sag slightly, but you are able to get through safely to the far end. The courtiers are waiting for you there.||\"Magic, eh?\" says the chief courtier. \"Our master's good at magic. Better than you, perhaps.\"||\"Perhaps.\"">
 
@@ -2460,175 +2469,162 @@
 	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT161 "Days pass. You have lost track of how long you have been travelling across the desert. The intense sun leeches the ground of all moisture and turns the horizon to a blaze of dazzling whiteness. Dusk brings no respite, but only an icy wind that leaves you shuddering inside your thin clothes. Your tongue is as dry as burnt paper, and blisters make every every step a misery.">
+
 <ROOM STORY161
 	(DESC "161")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT161)
+	(PRECHOICE STORY161-PRECHOICE)
+	(CONTINUE STORY207)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY161-PRECHOICE ()
+	<COND (<CHECK-ITEM ,WATERSKIN> <STORY-JUMP ,STORY184>)>>
+
+<CONSTANT TEXT162 "The Matriarch hands you a letter. \"Present this to Midnight Bloom, a distant cousin of yours who lives in the town of Balak on the northern coast,\" she explains. \"Midnight Bloom is an experienced seafarer, having traded the clan's goods with the distant city of Tahil for several years, and can arrange a passage for you there. Once in Tahil, you are halfway to your goal.\"||You take the letter of introduction. Rising to your feet, you bow to the Matriarch. \"I shall strive always to conduct myself with honour during my quest,\" you say.||\"See that you do,\" she replies. \"You wear the clan's honour on your shoulders.\" As you reach the door, she calls after you: \"Oh, and Evening Star --\"||\"You turn. \"My lady?\"||\"Good luck.\" She gives you one of her rare smiles -- a momentary crack in the sober mask of clan authority -- and waves you out into the bright sunshine.">
 
 <ROOM STORY162
 	(DESC "162")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT162)
+	(CONTINUE STORY093)
+	(ITEM LETTER-OF-INTRODUCTION)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT163 "Travelling on, you see a group of small children gazing longingly at the fruit growing in the orchard beside the causeway. One of them finds a stick and goes over to prod at a bunch of juicy plums. In the light of your recent experience, you wonder if they might be in danger from tarantulas.">
+<CONSTANT CHOICES163 <LTABLE "give them some food from your own pack" "stand by and watch them pick the fruit">>
 
 <ROOM STORY163
 	(DESC "163")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT163)
+	(CHOICES CHOICES163)
+	(DESTINATIONS <LTABLE STORY186 STORY096>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT164 "Its talons cut your flesh with the force of obsidian blades as you strike again and again, trying desperately to fend off the attack while climbing down out of the monster's reach. Its hideous roars would make the braves warriors go faint with terror.">
+<CONSTANT TEXT164-ARMED "You are able to deflect the worst lunges.">
+<CONSTANT TEXT164-CONTINUED "You reach the ground and run off into the undergrowth. The creature shrieks its rage to the forest depths, unleashing a curse which pursues you with inescapable magical force: \"Thief, you will never again pilfer so easily, for I curse you now with clumsiness. Your foot will grow clubbed like a gnarled knot of wood, and you will stumble and falter from this day until the time of your death.\"">
+<CONSTANT TEXT164-CHARMS "You are able to counteract the curse with sorcery of your own.">
+<CONSTANT TEXT-END "The stabai have made themselves scarce, affrighted by the monster's anger. You are alone. Running until you have left the dead tree far behind, you lean breathlessly against a fallen log to examine the diadem. It is inlaid with a jade plaque in the cruciform shape of the sacred Tree of Life. You drop it into your pack ruefully, as it cost you dear">
 
 <ROOM STORY164
 	(DESC "164")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT164)
+	(PRECHOICE STORY164-PRECHOICE)
+	(CONTINUE STORY324)
+	(ITEM GOLD-DIADEM)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY164-PRECHOICE ("AUX" (ARMED F) (DAMAGE 3))
+	<COND (<OR <CHECK-SKILL ,SKILL-SWORDPLAY> <CHECK-SKILL ,SKILL-UNARMED-COMBAT>>
+		<SET ARMED T>
+		<SET DAMAGE 1>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY164>
+	<COND (<IS-ALIVE>
+		<COND (.ARMED <EMPHASIZE TEXT164-ARMED>)>
+		<CRLF>
+		<TELL TEXT164-CONTINUED>
+		<CRLF>
+		<COND (<CHECK-SKILL ,SKILL-AGILITY>
+			<COND (<CHECK-SKILL ,SKILL-CHARMS>
+				<EMPHASIZE TEXT164-CHARMS>
+			)(ELSE
+				<LOSE-SKILL ,SKILL-AGILITY>
+			)>
+		)>
+		<CRLF>
+		<TELL TEXT-END>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT165 "The causeway soon peters out and you leave the fields and orchards far behind. Light woodland begins to be replaced by the luxuriant foliage of the thick forest. After a few days you find yourself walking through deep leaf-rooted glades. Rainfall is more plentiful here than in the arid northern peninsula that is your homeland, and you are startled by the resulting profusion of vegetation and wildlife. For several days you subsist well enough on a diet of wild plums, avocados and breadnuts, but increasingly you find the plants of the region to be unfamiliar and you are no longer certain what is safe to eat.||Arriving at a wooden house, you introduce yourself the family living there. The man is a hunter who tells you that he formerly farmed a small plot near Yashuna. \"But lately the rains have been unreliable,\" he adds. \"At last I decided to bring my family south where the land is more bountiful.\"||\"Are there no dangers to living close to the forest?\" you ask, casting a wary eye at the forbidding gloom between the tall tree-trunks.||He nods and draws deeply on his pipe. \"Many! Apart from supernatural creatures such as the spiteful stabai and the strangler beast, there are also jungle people who will brook no outsiders in their territory. They claim to be the guardians of the World Tree, which supports the sky itself.\"||The hunter asks no payment for the food and hospitality he gives you but you feel obliged to offer him a cacao anyway. Then, bidding these kind people farewell, you set off west towards the great city of Nachan.">
 
 <ROOM STORY165
 	(DESC "165")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT165)
+	(CONTINUE STORY209)
+	(COST 1)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT166 "You realize that the sense of lassitude that afflicts you is a trance brought on by magic. The spell is broken as you rise to your feet and lash out at the serpent. It rears up from the water with an angry hiss. Its body is as thick as a tree and it has fangs like scythes of sharpened glass.||The battle is brief and bloody.">
+<CONSTANT TEXT166-CONTINUED "You manage to drive the serpent off at last. You watch it swim away, sliding its glistening coils beneath the black water.||The soft sound of oars echoes across the cavern. You turn to see a canoe approaching out of the gloom, paddled by two of the strangest creatures you have ever seen.">
 
 <ROOM STORY166
 	(DESC "166")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT166)
+	(PRECHOICE STORY166-PRECHOICE)
+	(CONTINUE STORY097)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY166-PRECHOICE ("AUX" (DAMAGE 4))
+	<COND (<CHECK-SKILL ,SKILL-SWORDPLAY>
+		<SET DAMAGE 2>
+	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
+		<SET DAMAGE 3>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY166>
+	<IF-ALIVE TEXT166-CONTINUED>>
+
+<CONSTANT TEXT167 "The two demons continue their senseless chortling as they paddle you away form the rock tombs. It is a if they share some private joke -- and you have the unpleasant feeling that the joke is at your expense.">
 
 <ROOM STORY167
 	(DESC "167")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT167)
+	(PRECHOICE STORY167-PRECHOICE)
+	(CONTINUE STORY007)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY167-PRECHOICE ()
+	<COND (<CHECK-ITEM ,JADE-BEAD> <STORY-JUMP ,STORY236>)>>
+
+<CONSTANT TEXT168 "A rustling in the undergrowth warns you too late that what you took to be another gnarled tree root was in fact a long brown snake. It slithers away through the carpet of dead leaves after sinking its fangs into your ankle. You clutch your head as a wave of sudden weakness rolls over you. The snake was poisonous.||Taking advantage of the distraction to snatch back their shawl, the stabai go loping away into the forest. Their half-audible whoops of jubilation recede until they are just like the whisper of the breeze through the leaves.||You drop to your knees as the poison burns its way through your veins.">
+<CONSTANT TEXT168-REMEDY "You bandage the wound and apply herbal remedies.">
 
 <ROOM STORY168
 	(DESC "168")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT168)
+	(PRECHOICE STORY168-PRECHOICE)
+	(CONTINUE STORY324)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY168-PRECHOICE ("AUX" (HERBAL F) (DAMAGE 4))
+	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
+		<SET HERBAL T>
+		<SET DAMAGE 2>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-GREW-WEAKER ,STORY168>
+	<COND (<IS-ALIVE>
+		<COND (.HERBAL <EMPHASIZE TEXT168-REMEDY>)>
+		<LOSE-ITEM ,SHAWL>
+	)>>
+
+<CONSTANT TEXT169 "She tells you that the present king's father, Sky Shield, died exactly twenty sacerdotal years ago after a long and prosperous reign. \"You see that pyramid there -- that's where he's buried,\" she says, indicating a tall stepped structure adjoining the royal palace. Of all the buildings of Nachan, only this one is painted entirely red, with monochrome images outlined in white up its steep-stairway. Now that the sun has fully risen, the pyramid is beginning to shimmer in the heat like an image daubed in fresh blood.||\"His tomb is the shrine at the top?\" you ask.||\"No, that lies deep within the pyramid. When the tomb was sealed, the builders left a hollow tube extending up from the sarcophagus; it emerges in the shrine.\"||You raise your eyebrows quizzically. \"What is the purpose of that?\"||\"It's a speaking tube, of course. King Cloud Jaguar uses it when he wishes to commune with the spirit of his dead father.\"||She turns away to give instructions to the artisans, leaving you to decide what to do next.">
+<CONSTANT CHOICES169 <LTABLE "seek an audience with the King" "spend some money to arrange a place to stay">>
 
 <ROOM STORY169
 	(DESC "169")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT169)
+	(CHOICES CHOICES169)
+	(DESTINATIONS <LTABLE STORY077 STORY101>)
+	(TYPES TWO-NONES)
+	(CODEWORD CODEWORD-PSYCHODUCT)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT170 "You place your blowgun so that it forms a bridge to the first spire of rock. Quickly crossing, you move the blowgun around to the next spire and proceed in steps right across the canyon.||By the time you are nearing the far side, you can hear alarming creaks each time you tread on the blowgun. It was never intended to be used like this. Reaching the safety of firm ground at last, you pick up the blowgun and inspect the damage. Your weight has bent it out of shape and split the wood, making it useless. Still, at least it got you across the dreaded Death Canyon. You glance back, shuddering now that you allow yourself to imagine the long drop down through those heavy volcanic clouds. Hopefully there should be no more obstacles as perilous as that.||Discarding the broken blowgun, you continue on your journey.">
 
 <ROOM STORY170
 	(DESC "170")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT170)
+	(PRECHOICE STORY170-PRECHOICE)
+	(CONTINUE STORY263)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY170-PRECHOICE ()
+	<LOSE-ITEM ,BLOWGUN>>
 
 <ROOM STORY171
 	(DESC "171")
