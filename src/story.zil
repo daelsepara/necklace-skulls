@@ -71,7 +71,36 @@
 	<PUTP ,STORY168 ,P?DEATH T>
 	<PUTP ,STORY178 ,P?DEATH T>
 	<PUTP ,STORY184 ,P?DEATH T>
+	<PUTP ,STORY194 ,P?DEATH T>
+	<PUTP ,STORY195 ,P?DEATH T>
+	<PUTP ,STORY199 ,P?DEATH T>
 	<RETURN>>
+
+<ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
+	<RESET-POSSESSIONS>
+	<TRANSFER-CONTAINER ,LOST-SKILLS ,SKILLS>
+	<SETG MAX-LIFE-POINTS <GETP ,CURRENT-CHARACTER ,P?LIFE-POINTS>>
+	<SETG LIFE-POINTS ,MAX-LIFE-POINTS>
+	<SETG MONEY <GETP ,CURRENT-CHARACTER ,P?MONEY>>
+	<MOVE ,ALL-MONEY ,PLAYER>
+	<SET POSSESSIONS <GETP ,CURRENT-CHARACTER ,P?POSSESSIONS>>
+	<COND (.POSSESSIONS
+		<SET COUNT <GET .POSSESSIONS 0>>
+		<DO (I 1 .COUNT)
+			<MOVE <GET .POSSESSIONS .I> ,PLAYER>
+		>
+	)>
+	<SET SKILL <FIRST? ,SKILLS>>
+    <REPEAT ()
+        <COND (<NOT .SKILL> <RETURN>)>
+        <SET REQUIREMENT <GETP .SKILL ,P?REQUIRES>>
+        <COND (.REQUIREMENT
+            <MOVE <GET .REQUIREMENT 1> ,PLAYER>
+        )>
+        <SET SKILL <NEXT? .SKILL>>
+    >
+	<RESET-OBJECTS>
+	<RESET-STORY>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
 <CONSTANT DIED-OF-HUNGER "You died of hunger and thirst">
@@ -2845,7 +2874,7 @@
 		<LOSE-ITEM ,WATERSKIN>
 	)>>
 
-<CONSTANT TEXT185 "\"I cannot take this,\" you decide, replacing the golden statuette in the chest. \"It is too precious; the clan might one day need to use it.\"||\"Well said!\" declares the Matriarch, her eyes almost vanishing in her plump face as she beams with satisfaction at your answer. \"The treasures that remain are less potent in their magic, but may also prove useful.\"||There are three other items. The first is a small mirror of dark green glass with a powerful spell inscribed around the rim. \"It can be used to see into the future,\" the Matriarch tells you. \"As for this next item --\" she holds up a sealed jar \"-- it contains a magic drink concocted by your great-grandfather  which is capable of healing grievous wounds.\"||\"And what of this?\" you ask, taking out a sword of sharpened green jade adorned with tiny glyphs.||\"That also belonged to your great-grandfather. It served him both as a weapon of war and as a tool of his sorcery.\"">
+<CONSTANT TEXT185 "\"I cannot take this,\" you decide, replacing the golden statuette in the chest. \"It is too precious; the clan might one day need to use it.\"||\"Well said!\" declares the Matriarch, her eyes almost vanishing in her plump face as she beams with satisfaction at your answer. \"The treasures that remain are less potent in their magic, but may also prove useful.\"||There are three other items. The first is a small mirror of dark green glass with a powerful spell inscribed around the rim. \"It can be used to see into the future,\" the Matriarch tells you. \"As for this next item --\" she holds up a sealed jar \"-- it contains a magic drink concocted by your great-grandfather which is capable of healing grievous wounds.\"||\"And what of this?\" you ask, taking out a sword of sharpened green jade adorned with tiny glyphs.||\"That also belonged to your great-grandfather. It served him both as a weapon of war and as a tool of his sorcery.\"">
 
 <ROOM STORY185
 	(DESC "185")
@@ -2930,7 +2959,7 @@
 
 <ROOM STORY190
 	(DESC "190")
-	(STORY TEXT)
+	(STORY TEXT190)
 	(PRECHOICE STORY190-PRECHOICE)
 	(CHOICES CHOICES190)
 	(DESTINATIONS <LTABLE STORY329 STORY306 STORY167>)
@@ -2942,175 +2971,156 @@
 <ROUTINE STORY190-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-ROGUERY> <STORY-JUMP ,STORY283>)>>
 
+<CONSTANT TEXT191 "Ordinarily you might try to seize the cobra before it strikes. You have heard of hunters doing this, and your own reflexes are as sharp as any man's. But at the moment your arms are trembling, muscles turned to jelly by the exertions of the past two hours. You could not rely on getting a firm grip.||The cobra is about to attack. It puts its head back, neck bracing for the lethal strike -- an action which momentarily blinds it. It is the one chance you will get, and you do not hesitate. You take a swift step closer and thrust your head forward with all your strength. There is aloud crack as your forehead slams into the cobra and crushes it back into the hard stone of the wall.||You reel back, stunned. The cobra drops limply to the floor and writhes there weakly until you recover your wits enough to stamp on it. Nursing a swelling bump on your head, you squeeze through into the tomb.">
+
 <ROOM STORY191
 	(DESC "191")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT191)
+	(CONTINUE STORY339)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT192 "Your are invited to join King Cloud Jaguar and the nobles of his court in the steam-bath adjoining the palace. This is a domed room which is entered through an aperture so low that each bather has to crawl through on hands and knees.||Inside are rows of stone benches, and the middle of the floor is taken up by a pit filled with pebbles which have been warmed earlier in a fire until they are red-hot. Servants brings pitchers of scented water which sizzles on contact with the hot pebbles, releasing clouds of steam that make the sweat pour from your skin. At first you can hardly stand to draw a breath, but gradually you get used to the sweltering heat and start to enjoy the cleansing feeling. An old nobleman nudges you and hands you some herbs. \"Rub these on your body,\" he grunts. \"Most invigorating!\"||">
+<CONSTANT TEXT192-CONTINUED "You regain vitality owing to the restorative effect of the herbs and the steam-bath. You also get the chance to ask about the next day's festivities, and you are told that this is the anniversary of the old king's death. When Cloud Jaguar learns of your quest, he is very impressed by your bravery. \"The pillaging of the Great City will have dire consequences,\" he says. \"I have heard tales of demons and werewolves ransacking the temples. Perhaps you can find out the truth on the matter.\"||You bow respectfully. \"I will try, your Majesty.\"||\"You will spend the night in the shrine atop my father's pyramid,\" he continues. \"A tube connects the shrine to the tomb chamber. If it is the will of the gods, my father's spirit may appear to you and offer guidance.\"||You cannot refuse without giving offence. Whatever you think of meeting the late king's ghost, you must do as Cloud Jaguar has commanded. You spend the rest of the day in a mood of excitement tinged with dread, and at nightfall you are taken up to the top of the pyramid and left alone to await the ghost's appearance">
 
 <ROOM STORY192
 	(DESC "192")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT192)
+	(PRECHOICE STORY192-PRECHOICE)
+	(CONTINUE STORY415)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY192-PRECHOICE ()
+	<GAIN-LIFE 2>
+	<CRLF>
+	<TELL TEXT192-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT193 "With a long bound, you launch yourself from the edge of the canyon onto the first of the spires of rock. Only now do you discover that it is red hot, but you remain undaunted. Careless of the long drop that surrounds you on all sides, you fall into an easy leaping gait which carries you from one spire to the next without pause. You have reached the far side of the canyon even before the heat of the rock can start to scorch your shoes.">
 
 <ROOM STORY193
 	(DESC "193")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT193)
+	(CONTINUE STORY263)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT194 "The monster charges along the causeway. Its three legs are short but thick with muscle, giving it a powerful lurching gait. You almost retch at the foul animal stench of its breath as it opens its jaws to snap at you. You dodge away, trying to move around to the side before counter-attacking. Your reasoning is that its tripedal stance will make it slow to turn. Unfortunately you guessed wrong: it simply rears back onto its hind leg and whirls about to face you, ripping a hunk of flesh from your arm as you step in to strike it.">
+<CONSTANT TEXT194-CONTINUED "You finally manage to fight your way past the monster and go running on towards the jetty.">
 
 <ROOM STORY194
 	(DESC "194")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT194)
+	(PRECHOICE STORY194-PRECHOICE)
+	(CONTINUE STORY020)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY194-PRECHOICE ("AUX" (DAMAGE 4))
+	<COND (<CHECK-SKILL ,SKILL-SWORDPLAY>
+		<SET DAMAGE 2>
+	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
+		<SET DAMAGE 3>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY194>
+	<IF-ALIVE TEXT194-CONTINUED>>
+
+<CONSTANT TEXT195 "Despite your horror of the macabre creature, you force yourself to close with it in a desperate effort to the end the fight quickly. Its black maw drops open in a triumphant hiss as it lifts its host body's limbs to grapple with you. You are alarmed by the force in its blows: the poor woman it is attached to is being forced to do its bedding with a strength beyond human endurance.">
 
 <ROOM STORY195
 	(DESC "195")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT195)
+	(PRECHOICE STORY195-PRECHOICE)
+	(CONTINUE STORY288)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY195-PRECHOICE ("AUX" (DAMAGE 5))
+	<COND (<CHECK-SKILL ,SKILL-SWORDPLAY>
+		<SET DAMAGE 2>
+	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
+		<SET DAMAGE 3>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY195>>
+
+<CONSTANT TEXT196 "You start out along the road, relieved at the fact that this leaves the dazzling sun of the underworld at your back. You trudge on for hours. For more than hours. Time begins to have no meaning. It seems you are waling on sand, illuminated by a ruddy glow. Your pulse sounds like the roar of the tide. The redness becomes a deep gloomy haze. You feel you can hardly breathe. Each step weighs you down, but you struggle onward towards a blaze of light...||You awaken with a sobbing intake of breath. You are back in your clanhouse in Koba. You have returned through time and space to the start of your adventure. You have a chance to begin again, forewarned by your previous mistakes.">
 
 <ROOM STORY196
 	(DESC "196")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT196)
+	(PRECHOICE RESET-UNIVERSE)
+	(CONTINUE STORY001)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT197 "The drink proves cool and invigorating.">
+<CONSTANT TEXT197-CONTINUED "You walk on until you reach the tree, passing throngs of wandering souls on your way. All have their arms raised to shield their eyes from the terrible glare of the eternally setting sun. Those under the tree, however, lounge in comfort. They are shaded from the sunlight by the dense foliage. From their rich costumes you perceive them to be the souls of nobles, who enjoy this privilege by reason of their status.">
+<CONSTANT TEXT197-NOBLE "The nobles recognize you as one of them and invite you to sit">
+<CONSTANT TEXT197-BEGONE "They react haughtily, telling you to begone">
 
 <ROOM STORY197
 	(DESC "197")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT197)
+	(PRECHOICE STORY197-PRECHOICE)
+	(CONTINUE STORY200)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY197-PRECHOICE ()
+	<GAIN-LIFE 2>
+	<CRLF>
+	<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
+		<TELL TEXT197-NOBLE>
+		<STORY-JUMP ,STORY106>
+	)(ELSE
+		<TELL TEXT197-BEGONE>
+	)>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT198 "You see the jagged outline of a sword in the warrior's hand. He is no fool. He realizes the sword is not long enough to reach the vulnerable point where the four huge necks join the monster's body, so he begins by dodging away from its attacks. This forces it to haul its bulk closer. As it does, the warrior suddenly rushes in to the attack.||At first it seems the ploy might work -- three of the heads are extended, slavering eagerly, and he easily jumps past their guard. But from your vantage point you see that he should have made more of his pretence at retreating, since one of the heads has stayed cautiously aloft on the long stalk of its neck, watching warily like a hovering eagle. It lashes down with terrifying ferocity when the warrior is still an arm's length from making his strike. His head is severed from his body in a single snap of those long jaws.||You hurriedly descend the slope of the dune. The fallen warrior's head rolls across the sand and comes to rest at your feet. You glare up at the monster, determined not to fall victim to it in the same way. It sees you and gives vent to four predatory snarls.||You move in. You have no choice. You must slay the hydra or you cannot reach your goal.">
 
 <ROOM STORY198
 	(DESC "198")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT198)
+	(CONTINUE STORY222)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT199 "You are trembling with thirst and exhaustion. Your mouth feels as dry as the endless wastes surrounding you.">
+<CONSTANT TEXT199-HARDINESS "Your natural hardiness made you cope better with the effects of thirst">
 
 <ROOM STORY199
 	(DESC "199")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT199)
+	(PRECHOICE STORY199-PRECHOICE)
+	(CONTINUE STORY220)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY199-PRECHOICE ("AUX" (HARDY F) (DAMAGE 2))
+	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
+		<SET HARDY T>
+		<SET DAMAGE 1>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-OF-THIRST ,STORY199>
+	<COND (<IS-ALIVE>
+		<COND (.HARDY
+			<CRLF>
+			<TELL TEXT199-HARDINESS>
+			<TELL ,PERIOD-CR>
+		)>
+	)>>
+
+<CONSTANT TEXT200 "You find a river -- not of blood this time, but of cold pus-coloured fluid -- and follow its course through pale rolling dales until you come to a massive stone arch. Peering inside, you see steps rising up a long a tunnel that goes up through the layer of water roofing the Deathlands. From far ahead comes a shaft of true daylight. You have the way back to the land of the living.||You advance up the tunnel. Soon you can see the bright sunlight ahead, and smell the clean air of the upper world. But to reach it you must run a perilous gauntlet, for now you see that the passage is guarded by four baleful sentinels who sit in alcoves along the walls. They are nearly twice as big as you, with faces of brooding nightmare and talons like jaguar's teeth. From the legends you heard in childhood, you know that the only way safely past these four is to greet each by name.">
+<CONSTANT CHOICES200 <LTABLE "make use of either" "or" "otherwise, if you have none of those">>
 
 <ROOM STORY200
 	(DESC "200")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT200)
+	(PRECHOICE STORY200-PRECHOICE)
+	(CHOICES CHOICES200)
+	(DESTINATIONS <LTABLE STORY267 STORY290 STORY313>)
+	(REQUIREMENTS <LTABLE SKILL-FOLKLORE SKILL-ROGUERY NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY200-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-ZAZ> <STORY-JUMP ,STORY244>)>>
 
 <ROOM STORY201
 	(DESC "201")
