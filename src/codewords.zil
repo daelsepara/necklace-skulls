@@ -4,6 +4,10 @@
     (DESC "Angel")
     (SYNONYM ANGEL)>
 
+<OBJECT CODEWORD-CALABASH
+    (DESC "Calabash")
+    (SYNONYM CALABASH)>
+
 <OBJECT CODEWORD-PAKAL
     (DESC "Pakal")
     (SYNONYM PAKAL)>

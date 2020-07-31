@@ -2626,174 +2626,164 @@
 <ROUTINE STORY170-PRECHOICE ()
 	<LOSE-ITEM ,BLOWGUN>>
 
+<CONSTANT TEXT171 "You lower yourself off the causeway. Standing waist-deep in the foul mass of maggots and murky slime gives you a strong urge to vomit. The monster is left fairly hopping with rage, shuffling from one stumpy leg to another as it watches you wade across in the direction of the jetty. \"Cowardly mortal!\" it roars. \"Afraid to face me, eh?\"||Who wouldn't be afraid, with a face like that? In comparison, the maggots are unpleasant but not dangerous. You arrive at the jetty and pull yourself out of the mire, plucking maggots off the backpack which contains your possessions.">
+
 <ROOM STORY171
 	(DESC "171")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT171)
+	(PRECHOICE STORY171-PRECHOICE)
+	(CONTINUE STORY020)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY171-PRECHOICE ()
+	<COND (<CHECK-ITEM ,HAUNCH-OF-VENISON>
+		<TELL CR "The maggots consumed " T ,HAUNCH-OF-VENISON ,PERIOD-CR>
+		<LOSE-ITEM ,HAUNCH-OF-VENISON>
+	)>>
+
+<CONSTANT TEXT172 "\"Nightcrawlers are disembodied heads that live in calabash trees and descend to glide through the air in the dead of night,\" the fenman tells you. \"They find their way into houses through the roof, and can sometimes be heard crunching the charcoal beside the hearth. I myself once woke after a night of disturbing dreams to find my stock of firewood had mysteriously vanished.\"||\"These nightcrawlers are mischievous creatures, then,\" you reply.||He gives a snort of grim laughter. \"I prefer to think of them as steeped in evil, in view of the fact that they also smother babies.\"||\"I shall be sure to keep a weather eye out for flying head,\" you assure him.||\"Oh, they are more cunning than that! A nightcrawler will sometimes latch onto a human neck, sinking tendrils into the host in the manner of a strangler fig taking root in another tree. In that guise, they may use trickery and guile to entice you off the road into the swamps.\"||\"Presumably the presence of two heads on a body is a sure giveaway, though?\" you say.||He shrugs as though this had never occurred to him. \"Salt is the only remedy,\" he maintains. \"Nightcrawlers are repelled by salt. Farewell to you, then.\" He strolls off towards his house and you are left to mull over his advise as you continue your journey on foot.">
 
 <ROOM STORY172
 	(DESC "172")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT172)
+	(CONTINUE STORY264)
+	(CODEWORD CODEWORD-CALABASH)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT173 "You reach the circle of light and plunge through, relieved to discover that you have emerged into open air. It is cold here, but nothing like the deadly cold of the lake.||You wring out your clothes and look around you. The water of the lake is suspended eerily about two metres above your head, forming a roof over this strange world that extends far off into the distance. On the horizon hangs a glaring ball of white light which sends its low rays slanting across the land. The light shines straight into your eyes giving you a headache. You raise one hand to shield yourself from the glare.||Now you notice that you are standing at a crossroads.">
+<CONSTANT TEXT173-JADE "You remember that you were advised to keep the jade bead under your tongue until you reached a crossroads. You can take it out of your mouth, and choose to discard it altogether">
+<CONSTANT TEXT173-CONTINUED "You must pick a direction:">
+<CONSTANT CHOICES173 <LTABLE "take the white road" "the red road" "the black road" "the yellow road">>
 
 <ROOM STORY173
 	(DESC "173")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT173)
+	(PRECHOICE STORY173-PRECHOICE)
+	(CHOICES CHOICES173)
+	(DESTINATIONS <LTABLE STORY243 STORY196 STORY219 STORY266>)
+	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY173-PRECHOICE ()
+	<COND (,RUN-ONCE
+		<COND (<CHECK-ITEM ,JADE-BEAD>
+			<CRLF>
+			<TELL TEXT173-JADE>
+			<TELL ,PERIOD-CR>
+			<CRLF>
+			<TELL "Discard " T ,JADE-BEAD "?">
+			<COND (<YES?>
+				<LOSE-ITEM ,JADE-BEAD>
+			)>
+		)>
+	)>
+	<COND (<CHECK-SKILL ,SKILL-FOLKLORE>
+		<STORY-JUMP ,STORY289>
+	)(<CHECK-SKILL ,SKILL-SPELLS>
+		<STORY-JUMP ,STORY312>
+	)>>
+
+<CONSTANT TEXT174 "On a impulse you drop the jade bead into the well. As it falls into the water, it emits a gleam of gold-green light for an instant and then dissolves.">
+<CONSTANT CHOICES174 <LTABLE "drink from the well" "not">>
 
 <ROOM STORY174
 	(DESC "174")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT174)
+	(PRECHOICE STORY174-PRECHOICE)
+	(CHOICES CHOICES174)
+	(DESTINATIONS <LTABLE STORY197 STORY180>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY174-PRECHOICE ()
+	<COND (,RUN-ONCE <LOSE-ITEM ,JADE-BEAD>)>>
+
+<CONSTANT TEXT175 "You rush down the side of the dune and past the warrior, ignoring his gasp of surprise. You are eager to have the glory of killing this creature.">
 
 <ROOM STORY175
 	(DESC "175")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT175)
+	(CONTINUE STORY222)
+	(CODEWORD CODEWORD-ANGEL)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT176 "With the servant, you trek on until the stars are snuffed out by a limpid haze that heralds the approach of dawn. As the heat of the day grows stifling, you find shelter beneath a sand-blasted spar of rock where you rest until nightfall. Then you gather your belongings and set out again. The moon appears over the horizon and casts its colourless beams, lighting your way.||\"Am I now to serve you?\" asks the servant -- almost the first words you've exchanged since killing the hydra.||\"Consider yourself a free man,\" you tell him indifferently. \"Since we may be going to our deaths, it's only fitting that in your last days you should taste the benefits of freedom.\"||He casts a woebegone look at his sagging waterskin. \"If only you'd mention that earlier, I'd have retrieved my late master's waterskin. It seemed disrespectful at the time.\"">
 
 <ROOM STORY176
 	(DESC "176")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT176)
+	(PRECHOICE STORY176-PRECHOICE)
+	(CONTINUE STORY199)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY176-PRECHOICE ()
+	<COND (<CHECK-ITEM ,WATERSKIN> <STORY-JUMP ,STORY220>)>>
+
+<CONSTANT TEXT177 "A prayer springs to mind that seems appropriate now. As you step cautiously forward along the passage, you touch your amulet and recite: \"Let me not suffer misfortune, nor fall among deceivers; let me not suffer hurt upon the road, nor be impeded by obstacles to back or front; let me not suffer disgrace in my journey, nor be deterred by qualms. Grant me all this, O Lord of the Skies, by your divine grace.\"||You reach the end of the passage. The courtiers are crouching there in the shade of the wall. When they see you emerge unscathed they leap up with expressions of high dudgeon. The chief courtier recovers quickly from the surprise. He puts on an ingratiating smile as he slips his arm around your shoulder. \"Well, you got through that all right,\" he says. \"There's more to you than meets the eye.\"||One of the other courtiers sticks his head into the passage to inspect the vaulting. It immediately collapses. The courtier throws up his arms and has just time to give a startled yelp before he is buried under tons of falling rubble.||A cloud of dust gusts out of the passage. Once it has cleared the passage is entirely blocked. There is no sign of their unlucky courtier, except for a trickle of blood that seeps from under the debris and soaks into the dust at your feet.||\"Courtiers are getting thin on the ground these days,\" you say with a mocking smile.">
 
 <ROOM STORY177
 	(DESC "177")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT177)
+	(CONTINUE STORY431)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT178 "You feel yourself getting drowsy as the chill seeps into your bones. If you fall asleep here you will certainly perish, so you force yourself to pace up and down the long hall. Ice crunches underfoot as you walk, and your limbs are soon blue with cold.">
+<CONSTANT TEXT178-RESILIENCE "Your natural resilience helps you resist the cold">
+<CONSTANT TEXT178-CONTINUED "It can only be raw determination that sustains you. When the courtiers come to open the door, you note with satisfaction that you have only one more ordeal to face. Then you will be taken to meet the one whom you hate more than any in the world, and yet have never seen. The sorcerer Necklace of Skulls">
 
 <ROOM STORY178
 	(DESC "178")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT178)
+	(PRECHOICE STORY178-PRECHOICE)
+	(CONTINUE STORY202)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY178-PRECHOICE ("AUX" (RESILIENT F)(DAMAGE 3))
+	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
+		<SET RESILIENT T>
+		<SET DAMAGE 2>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-GREW-WEAKER ,STORY178>
+	<COND (<IS-ALIVE>
+		<COND (.RESILIENT
+			<CRLF>
+			<TELL TEXT178-RESILIENCE>
+			<TELL ,PERIOD-CR>
+		)>
+		<CRLF>
+		<TELL TEXT178-CONTINUED>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT179 "The ball bounces towards your partner, who slams it across the arena in your direction.">
+<CONSTANT TEXT179-HIGH "You bat it up into a high-scoring zone: you score two points">
+<CONSTANT TEXT179-LOW "You go for a safer shot but you still get one point">
 
 <ROOM STORY179
 	(DESC "179")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT179)
+	(PRECHOICE STORY179-PRECHOICE)
+	(CONTINUE STORY226)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY179-PRECHOICE ("AUX" (SCORED 1))
+	<CRLF>
+	<COND (<CHECK-SKILL ,SKILL-AGILITY>
+		<SET SCORED 2>
+		<TELL TEXT179-HIGH>
+	)(ELSE
+		<TELL TEXT179-LOW>
+	)>
+	<SETG ,POINTS <+ ,POINTS .SCORED>>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT180 "You walk on until you reach the tree. The figures seated there are of macabre appearance: living skeletons whose bones are green with algae. Roots and soil clump their joints, and you can see snakes burrowing between the bars of their ribcages One raises a grinning skull-face to greet you. As it does, a butterfly opens wings of scarlet and gold across its emerald brow. If you saw such a sight in one of the murals on a temple wall, you might be moved to admire its uncanny beauty. Faced with such a thing in stark reality, however, you find yourself jumping back in fright. You hurry past without acknowledging the skeleton's welcoming gestures.">
 
 <ROOM STORY180
 	(DESC "180")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT180)
+	(CONTINUE STORY200)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY181
