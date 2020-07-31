@@ -69,6 +69,8 @@
 	<PUTP ,STORY164 ,P?DEATH T>
 	<PUTP ,STORY166 ,P?DEATH T>
 	<PUTP ,STORY168 ,P?DEATH T>
+	<PUTP ,STORY178 ,P?DEATH T>
+	<PUTP ,STORY184 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DIED-IN-COMBAT "You died in combat">
@@ -2498,7 +2500,8 @@
 	(STORY TEXT163)
 	(CHOICES CHOICES163)
 	(DESTINATIONS <LTABLE STORY186 STORY096>)
-	(TYPES TWO-NONES)
+	(REQUIREMENTS <LTABLE <LTABLE MAIZE-CAKES PAPAYA> NONE>)
+	(TYPES <LTABLE R-ANY R-NONE>)
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT164 "Its talons cut your flesh with the force of obsidian blades as you strike again and again, trying desperately to fend off the attack while climbing down out of the monster's reach. Its hideous roars would make the braves warriors go faint with terror.">
@@ -2786,175 +2789,158 @@
 	(CONTINUE STORY200)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT181 "You were just beginning to feel confident, but now the shadow men make a daring play which abruptly turns your hopes to bleak despair. You watch aghast as they launch the ball in a smooth trajectory which carries it through the stone ring at the top of the wall. It is a one in a thousand shot, and by the rules of the contest it means that they have won.||Necklace of Skulls' pronouncement falls like an icy wave across the arena: \"The losers' lives are forfeit.\"||A flat metallic twang builds rapidly in the dry air. There is a sour taste on your tongue, and you can feel your hair standing on end. You glance at your partner just in time to see him explode in a blossom of silent white sparks, leaving nothing but a scorched black patch on the dusty ground.||Necklace of Skulls has vaporized him -- snuffed out his life with a casual flick of sorcery! You are horrified by the callous murder, but you cannot waste time brooding on it now. If you don't act quickly, you will be next.">
+
 <ROOM STORY181
 	(DESC "181")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT181)
+	(PRECHOICE STORY181-PRECHOICE)
+	(CONTINUE STORY019)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY181-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-VENUS> <REMOVE ,CODEWORD-VENUS>)>>
+
+<CONSTANT TEXT182 "It is early in the morning when you make ready to sail. The sky is a shimmering pane of jade on which the last stars sparkle like dewdrops that are swiftly burnt away when the trembling red disc of the sun lurches up from the east.||Along with the half dozen other crewmen, you push the ship out through the cool grey waves and then jump aboard. Paddles are used to move out from the shores until the sail catches the breeze. Its triangular shape puts you in mind of an elegant bird unfolding its to soar.||The day passes pleasantly as you sail on keeping the shore in sight, but towards evening a cloud looms on the horizon. It indicates a storm blowing from out at sea. \"We must put out from the coastline,\" says one of the crew as you feel the wind rising. \"Otherwise we run the risk of being blown onto the reefs.\"||As the storm rolls over you, it turns the twilight to night and blots out any sign of the shore. Rain sweeps into your face, stinging your eyes with its force. The sailors cling to the mast and mutter prayers to the gods through chattering teeth. Their prayers go unheeded: the sea lifts your vessel like a toy and flings it far out into the unknown ocean.">
 
 <ROOM STORY182
 	(DESC "182")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT182)
+	(CONTINUE STORY406)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT183 "\"Well, what are you waiting for?\" snaps the lord. \"I told you to get out of the ship as my family and I will now be needing it. If you expect payment --\"||You leap out onto the quay, \"Payment? For this wretched craft?\" you cry in an incredulous tone. \"Why, it has nearly cost me my life three times since I left home!\"||\"It looks sturdy enough,\" he says dubiously.||\"Cursed is what it is! Cursed by a woodland imp who dwelt in the tree from which the vessel was built. And cursed am I for being foolish enough to set sail in such a vessel, for I lost my aunt and most of my belongings when it last capsized under me!\"||The Lord looks at the vessel, then at the swelling crowd of refugees. Superstitious fear is struggling with necessity in his mind. \"I'll take the risk,\" he decides.||\"You're a brave man and no mistake!\" you say with an admiring sigh. \"Still, I can't let you take the ship for nothing.\"||\"I'm not paying you,\" he says witheringly.||\"Of course not, sir. I'll pay you, for taking it off my hands.\" You reach for your money-pouch. \"I think -- well twenty cacao would be fair, considering the trouble it's given me...\"||That convinces him. He back away, dragging his family with him. \"Keep your money! We'll find another ship.\"||Bidding your travelling companions farewell, you set out towards Shakalla.">
 
 <ROOM STORY183
 	(DESC "183")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT183)
+	(CONTINUE STORY085)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT184 "Thirst and weariness continue to sap your strength. Your small remaining supply of water is soon used up.">
+<CONSTANT TEXT184-RATION "You manage to ration your supplies more effectively">
+<CONSTANT TEXT184-CONTINUED "Your water skin is now used up">
 
 <ROOM STORY184
 	(DESC "184")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT184)
+	(PRECHOICE STORY184-PRECHOICE)
+	(CONTINUE STORY152)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY184-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
+		<CRLF>
+		<TELL TEXT184-RATION>
+		<TELL ,PERIOD-CR>
+		<PUT ,STORY184 ,P?DEATH F>
+	)(ELSE
+		<TEST-MORTALITY 2 DIED-OF-THIRST ,STORY184>
+	)>
+	<COND (<IS-ALIVE>
+		<CRLF>
+		<TELL TEXT184-CONTINUED>
+		<TELL ,PERIOD-CR>
+		<LOSE-ITEM ,WATERSKIN>
+	)>>
+
+<CONSTANT TEXT185 "\"I cannot take this,\" you decide, replacing the golden statuette in the chest. \"It is too precious; the clan might one day need to use it.\"||\"Well said!\" declares the Matriarch, her eyes almost vanishing in her plump face as she beams with satisfaction at your answer. \"The treasures that remain are less potent in their magic, but may also prove useful.\"||There are three other items. The first is a small mirror of dark green glass with a powerful spell inscribed around the rim. \"It can be used to see into the future,\" the Matriarch tells you. \"As for this next item --\" she holds up a sealed jar \"-- it contains a magic drink concocted by your great-grandfather  which is capable of healing grievous wounds.\"||\"And what of this?\" you ask, taking out a sword of sharpened green jade adorned with tiny glyphs.||\"That also belonged to your great-grandfather. It served him both as a weapon of war and as a tool of his sorcery.\"">
 
 <ROOM STORY185
 	(DESC "185")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT185)
+	(PRECHOICE STORY185-PRECHOICE)
+	(CONTINUE STORY208)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY185-PRECHOICE ()
+	<SELECT-FROM-LIST <LTABLE GREEN-MIRROR MAGIC-POTION JADE-SWORD> 3 2>
+	<COND (<CHECK-ITEM ,MAGIC-POTION>
+		<EMPHASIZE "(You have taken the magic potion. Press 'D' to drink it)">
+	)>>
+
+<CONSTANT TEXT186-CONTINUED "The children accept your gift with a look of open-mouthed astonishment before darting shyly off through the orchard. Pleased with yourself at your good deed, you whistle a jaunty tune as you continue towards Yashuna">
 
 <ROOM STORY186
 	(DESC "186")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY186-PRECHOICE)
+	(CONTINUE STORY350)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT-HESITATE "You hesitate for a moment.">
+
+<ROUTINE STORY186-PRECHOICE ("AUX" RESULT)
+	<REPEAT ()
+		<SET RESULT <GIVE-FROM-LIST <LTABLE MAIZE-CAKES PAPAYA> TEXT-HESITATE TEXT-HESITATE 1>>
+		<COND (<EQUAL? .RESULT GIVE-GIVEN> <RETURN>)>
+	>
+	<CRLF>
+	<TELL TEXT186-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT187 "Your dart brings down a small brocket of deer. It is scarcely bigger than a dog, but enough to assuage your hunger and leave you with a good haunch of venison to consume later.">
 
 <ROOM STORY187
 	(DESC "187")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT187)
+	(PRECHOICE STORY187-PRECHOICE)
+	(CONTINUE STORY279)
+	(ITEM HAUNCH-OF-VENISON)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY187-PRECHOICE ()
+	<GAIN-LIFE 1>>
+
+<CONSTANT TEXT188 "As you leave the market, a tall fellow emerges from the portico bordering on the temple plaza and stands surveying the marketplace. He is carrying pots that mark him as a fisherman, presumably from one of the coastal towns to the north. \"Huh!\" he mutters, half to himself. \"Is there no demand for good fish these days?\"||\"Probably not when it is several days old,\" you remark, grimacing at the smell wafting from his goods.||He fixes you with a stare of outrage. \"Then buy one of my pots and take up fishing yourself!\" he cries, thrusting a lobster pot towards you. \"There! Destroy my livelihood, if you wish! I will sell you this pot for only two cacao.\"">
+<CONSTANT TEXT188-CONTINUED "As you turn to go, he adds: \"I would give anything for a taste of decent bread. I have been on the road for two days with nothing but my own fish to sustain me -- and, as you so tersely put it, they are no longer of the best quality.\"">
+<CONSTANT CHOICES188 <LTABLE "trade a parcel of" "otherwise go north" "south">>
 
 <ROOM STORY188
 	(DESC "188")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT188)
+	(PRECHOICE STORY188-PRECHOICE)
+	(CHOICES CHOICES188)
+	(DESTINATIONS <LTABLE STORY211 STORY120 STORY165>)
+	(REQUIREMENTS <LTABLE MAIZE-CAKES NONE NONE>)
+	(TYPES <LTABLE R-ITEM R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY188-PRECHOICE ()
+	<COND (<AND ,RUN-ONCE <G? ,MONEY 1> <NOT <CHECK-ITEM ,LOBSTER-POT>>>
+		<CRLF>
+		<TELL "Buy the lobster pot for 2 cacao?">
+		<COND (<YES?>
+			<CHARGE-MONEY 2>
+			<TAKE-ITEM ,LOBSTER-POT>
+		)>
+	)>>
+
+<CONSTANT TEXT189 "The sun dips across the treetops to the west, sending the hazy light of late afternoon slanting down into the well. You do not need the high priest's signal to know the moment has arrived. Steeling your nerves, you step out from the platform into empty space. The creeper-clad walls of the sinkhole go rushing by as you fall, then the water suddenly seizes you in a silent icy embrace. The impact drives the air out of your lungs and you flail wildly, carried inexorably down by the weight of your gold regalia. It would spell your death, but good luck is with you as always. One of the straps was not fastened securely, and you are able to shrug out of the encumbering regalia and strike up towards the surface.||It takes longer than you would have expected. Your lungs are bursting when you finally struggle up out of the water and gulp fresh air. You are on a rocky outcrop in the middle of a subterranean lake. There is no sign of the open sky. A wan grey light hovers in the air, no brighter than dusk.||A familiar noise echoes across the cavern. It is the splash of oars. You turn to see a canoe approaching, paddle by two bizarre nonhuman creatures.">
 
 <ROOM STORY189
 	(DESC "189")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT189)
+	(CONTINUE STORY097)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT190 "The hard veins of luminous crystal running through the cavern wall make fine handholds. You quickly ascend to the ledge and stand inspecting the tombs. Each is sealed by a massive slab of stone bearing an engraved image of the person buried within. At first glance they look too solid for you to have nay hope of gaining entry, but then you notice that there is one slab which already has a crack in it. Even better, you discover a hammer lying on the ledge. You estimate that it would be an hour's hard work to smash a way into the tomb.">
+<CONSTANT CHOICES190 <LTABLE "break the tomb open using the hammer" "use the" "decide against further exploration of the tombs: return to the canoe and continue on your way.
+">>
 
 <ROOM STORY190
 	(DESC "190")
 	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY190-PRECHOICE)
+	(CHOICES CHOICES190)
+	(DESTINATIONS <LTABLE STORY329 STORY306 STORY167>)
+	(REQUIREMENTS <LTABLE NONE MAN-OF-GOLD NONE>)
+	(TYPES <LTABLE R-NONE R-ITEM R-NONE>)
+	(ITEM HAMMER)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY190-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-ROGUERY> <STORY-JUMP ,STORY283>)>>
 
 <ROOM STORY191
 	(DESC "191")

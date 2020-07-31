@@ -38,7 +38,7 @@
 <OBJECT SKILL-SWORDPLAY
     (DESC "SWORDPLAY")
     (LDESC "The best fighting skill. You must possess a sword to use this skill")
-    (REQUIRES <LTABLE SWORD>)>
+    (REQUIRES <LTABLE SWORD JADE-SWORD>)>
 
 <OBJECT SKILL-TARGETING
     (DESC "TARGETING")
