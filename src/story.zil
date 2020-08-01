@@ -26,9 +26,11 @@
 			)>
 			<RTRUE>
 		)>
-	)>
-	<COND (<EQUAL? .KEY MAGIC-MIRROR-KEY-CAPS MAGIC-MIRROR-KEY>
-		<RTRUE>
+	)(<EQUAL? .KEY MAGIC-MIRROR-KEY-CAPS MAGIC-MIRROR-KEY>
+		<COND (<CHECK-ITEM ,GREEN-MIRROR>
+			<ORACLE>
+			<RTRUE>
+		)>
 	)>
 	<RFALSE>>
 
@@ -192,6 +194,46 @@
 		<LOSE-LIFE .DAMAGE .MESSAGE .STORY>
 	)(ELSE
 		<PUTP .STORY ,P?DEATH F>
+	)>>
+
+<ROUTINE ORACLE ("OPT" STORY "AUX" DESTINATIONS COUNT CHOICES)
+	<COND (<NOT <CHECK-ITEM ,GREEN-MIRROR>> <RETURN>)>
+	<COND (<NOT .STORY> <SET STORY ,HERE>)>
+	<SET DESTINATIONS <GETP .STORY ,P?DESTINATIONS>>
+	<COND (.DESTINATIONS
+		<HLIGHT ,H-BOLD>
+		<TELL CR CR "You used " T ,GREEN-MIRROR " to get a glimpse of your future" ,PERIOD-CR>
+		<HLIGHT 0>
+		<REPEAT ()
+			<SET COUNT <GET .DESTINATIONS 0>>
+			<SET CHOICES <GETP .STORY ,P?CHOICES>>
+			<DO (I 1 .COUNT)
+				<CRLF>
+				<HLIGHT ,H-BOLD>
+				<TELL "... " <GET .CHOICES .I> ":" CR>
+				<COND (<GETP <GET .DESTINATIONS .I> ,P?STORY>
+					<HLIGHT 0>
+					<PRINT-PAGE <GET .DESTINATIONS .I>>
+					<HLIGHT ,H-BOLD>
+					<COND (<GETP <GET .DESTINATIONS .I> ,P?DEATH>
+						<TELL CR "... this way may lead to tragedy" ,PERIOD-CR>
+					)(<GETP <GET .DESTINATIONS .I> ,P?VICTORY>
+						<CRLF>
+						<TELL CR "... this way may lead to glory" ,PERIOD-CR>
+					)>
+					<COND (<OR <GETP <GET .DESTINATIONS .I> ,P?DESTINATIONS> <GETP <GET .DESTINATIONS .I> ,P?CONTINUE>>
+						<TELL CR "... further adventures lie ahead" ,PERIOD-CR>
+					)>
+					<HLIGHT 0>
+				)(ELSE
+					<CRLF>
+					<TELL "... your vision of this future is obscured" ,PERIOD-CR>
+				)>
+				<PRESS-A-KEY>
+			>
+			<TELL CR "Do you want to take a look again?">
+			<COND (<NOT <YES?>> <CRLF> <LOSE-ITEM ,GREEN-MIRROR> <RETURN>)>
+		>
 	)>>
 
 <CONSTANT TEXT "This story has not been written yet.">
