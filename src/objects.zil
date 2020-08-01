@@ -149,6 +149,12 @@
     (SYNONYM PAPAYA)
     (FLAGS TAKEBIT)>
 
+<OBJECT PARCEL-OF-SALT
+    (DESC "parcel of salt")
+    (SYNONYM SALT)
+    (ADJECTIVE PARCEL)
+    (FLAGS TAKEBIT)>
+
 <OBJECT POT-OF-DYE
     (DESC "pot of dye")
     (SYNONYM DYE)

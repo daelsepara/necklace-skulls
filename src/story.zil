@@ -3326,89 +3326,70 @@
 <ROUTINE STORY210-PRECHOICE ()
 	<GAIN-LIFE 1>>
 
+<CONSTANT TEXT211 "You offer to sell him your maize cakes, but he protests that his wife would not be happy if he returned home with no money to show for his journey. \"On the other hand, I could give you this parcel of salt,\" he suggests, taking a bundle of oiled cloth from his backpack. \"It is worth nothing to me on the way back to Balak, but you may be able to get a good price for it.">
+<CONSTANT CHOICES211 <LTABLE "make your way north out of the city" "go south towards the forest">>
+
 <ROOM STORY211
 	(DESC "211")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT211)
+	(PRECHOICE STORY211-PRECHOICE)
+	(CHOICES CHOICES211)
+	(DESTINATIONS <LTABLE STORY120 STORY165>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY211-PRECHOICE ()
+	<COND (<AND ,RUN-ONCE <CHECK-ITEM ,MAIZE-CAKES> <NOT <CHECK-ITEM ,PARCEL-OF-SALT>>>
+		<TELL CR "Exchange " T ,MAIZE-CAKES " with " T ,PARCEL-OF-SALT "?">
+		<COND (<YES?>
+			<LOSE-ITEM ,MAIZE-CAKES>
+			<TAKE-ITEM ,PARCEL-OF-SALT>
+		)>
+	)>>
+
+<CONSTANT TEXT212 "You open your mouth to speak and jade the bead rolls out. It falls, bounces off the rock and disappears into the water with a tiny splash.||In the same moment, the tenebrous image of the Rain God leaps into sharp focus. You see him as clearly now as if all the sun's light were focused just where he is standing. Everything else goes plunging into darkness. Your vision is filled with the blazing presence of the divinity.||His face is far from human; you can see that now. He opens his hand in the traditional beneficent gesture of royalty throughout the ages, inviting you to speak.||\"O supreme lord...\"||You falter. How can you address a god?||Then you hear his voice inside your head, telling you that he knows why you have been sent. He accepts the sacrifice. Your life will buy the heavy rains needed to irrigate the crops.||You try to open your mouth to tell him more -- about your quest to find your brother, about the thirst for truth and for vengeance on the sorcerer in the western desert. But you are too drowsy. The dazzling radiance of the Rain Godøs aura is veiled by a wave of darkness. You relax, strangely content.||In the gloom of the underworld, a monstrous serpent contentedly laps up the last of your blood and dives beneath the water.">
 
 <ROOM STORY212
 	(DESC "212")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT212)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT213 "With a wave of your wand and a muttered incantation, you animate the rope. Guiding it like a snake charmer, you impel it to rise up to the ledge above.">
+<CONSTANT TEXT213-JADE-BEAD "Unfortunately, the jade bead rolls out of your mouth while you are speaking the spell and is lost in the water;">
+<CONSTANT TEXT213-HAMMER "A tug on the rope confirms that it is taut. You climb up to the ledge without any trouble. The doors of the tombs are massive slabs of stone, each with a bas-relief carving of the occupant. At first glance they look impregnable, but then you notice that there is one slab which has a crack running right across it. Even better, you discover a hammer lying on the ledge. You estimate that it would be about an hour's hard work to smash a way into the tomb.">
+<CONSTANT CHOICES213 <LTABLE "smash the tomb open" "use the" "decide against violating the tombs and return to the canoe, continuing on your way">>
 
 <ROOM STORY213
 	(DESC "213")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT213)
+	(PRECHOICE STORY213-PRECHOICE)
+	(CHOICES CHOICES213)
+	(DESTINATIONS <LTABLE STORY329 STORY306 STORY167>)
+	(REQUIREMENTS <LTABLE NONE MAN-OF-GOLD NONE>)
+	(TYPES <LTABLE R-NONE R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY213-PRECHOICE ()
+	<COND (<AND ,RUN-ONCE <NOT <CHECK-ITEM ,HAMMER>>>
+		<TELL CR "Take " T ,HAMMER "?">
+		<COND (<YES?> <TAKE-ITEM ,HAMMER>)>
+	)>>
+
+<CONSTANT TEXT214 "You try to paddle the canoe, but the current is too strong. You are borne helplessly on to an underground waterfall and flung out as the canoe goes plunging over the brink. Something strikes your head. There is a blaze of painful light, then darkness as you go under the surface. You drift down towards the river bed, dimly aware that your life ebbing away with the thin trickle of air bubbles rising from your slack jaw.">
 
 <ROOM STORY214
 	(DESC "214")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT214)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT215 "The ritual ball contest is of great importance to the nobility, who often wage enormous sums on the outcome. The priests value it just as highly because of its religious significance. As an expert exponent of the contest, you are greeted like an esteemed guest. A courtier bows and users you through into the palace, to the envy of those those waiting in vain to present their petitions to the King.">
 
 <ROOM STORY215
 	(DESC "215")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT215)
+	(CONTINUE STORY192)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY216
