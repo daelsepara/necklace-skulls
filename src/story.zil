@@ -32,7 +32,7 @@
 
 <ROUTINE RESET-STORY ()
 	<RESET-TEMP-LIST>
-	<SETG POINTS 0>
+	<SETG TICKS 0>
 	<SETG CROSS 0>
 	<SETG IMMORTAL F>
 	<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY275>
@@ -74,6 +74,7 @@
 	<PUTP ,STORY194 ,P?DEATH T>
 	<PUTP ,STORY195 ,P?DEATH T>
 	<PUTP ,STORY199 ,P?DEATH T>
+	<PUTP ,STORY205 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -128,7 +129,7 @@
 	(ADJECTIVE LOST)
 	(FLAGS CONTBIT OPENBIT)>
 
-<GLOBAL POINTS 0>
+<GLOBAL TICKS 0>
 <GLOBAL CROSS 0>
 <GLOBAL IMMORTAL F>
 
@@ -294,7 +295,7 @@
 
 <ROUTINE STORY007-PRECHOICE ()
 	<COND (,RUN-ONCE
-		<EMPHASIZE "Your maximum Life Points score is permanently reduced by 2.">
+		<EMPHASIZE "Your maximum Life Points is permanently reduced by 2.">
 		<SETG MAX-LIFE-POINTS <- ,MAX-LIFE-POINTS 2>>
 		<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
 		<COND (<CHECK-SKILL ,SKILL-SEAFARING> <STORY-JUMP ,STORY076>)>
@@ -797,7 +798,7 @@
 		<UPDATE-STATUS-LINE>
 	)>>
 
-<CONSTANT TEXT044 "The giant adopts a look of furious concentration. He puffs out the huge boulders of his cheeks and screws his eyes tight. A rumbling groan escapes from the deep well of his throat, followed by a spluttering and a single cough like a lava plug being blown out of the ground.||He opens his mouth and there on his tongue lies a stone jar. \"What's that?\" you ask.||\"Ake it and thee,\" he replies.||\"I beg your pardon?\" you say, lifting the jar to examine it.||'I said, \"Take it and see,\"' he repeats impatiently. When he sees you grimace at the smell of the jar's contents, he adds: \"It's a healing drink. A magical recipe thousands of years old.\"||\"I think it's gone off!\"||\"No, it's supposed to smell like that,\" he says.||The potion can be drunk once at any time to restore 5 lost Life Points (press D).">
+<CONSTANT TEXT044 "The giant adopts a look of furious concentration. He puffs out the huge boulders of his cheeks and screws his eyes tight. A rumbling groan escapes from the deep well of his throat, followed by a spluttering and a single cough like a lava plug being blown out of the ground.||He opens his mouth and there on his tongue lies a stone jar. \"What's that?\" you ask.||\"Ake it and thee,\" he replies.||\"I beg your pardon?\" you say, lifting the jar to examine it.||'I said, \"Take it and see,\"' he repeats impatiently. When he sees you grimace at the smell of the jar's contents, he adds: \"It's a healing drink. A magical recipe thousands of years old.\"||\"I think it's gone off!\"||\"No, it's supposed to smell like that,\" he says.||(The potion can be drunk once at any time to restore 5 lost Life Points by pressing 'D')">
 
 <ROOM STORY044
 	(DESC "044")
@@ -1462,8 +1463,8 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY089-PRECHOICE ()
-	<SETG POINTS <+ ,POINTS 2>>
-	<COND (<G? ,POINTS 6>
+	<SETG TICKS <+ ,TICKS 2>>
+	<COND (<G? ,TICKS 6>
 		<STORY-JUMP ,STORY134>
 	)(<OR <CHECK-CODEWORD ,CODEWORD-SHADE> <CHECK-CODEWORD ,CODEWORD-ANGEL>>
 		<STORY-JUMP ,STORY019>
@@ -1830,7 +1831,7 @@
 		<CRLF>
 		<COND (<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
 			<TELL "You get possession of the ball and send it bouncing against the end zone, scoring a point">
-			<SETG POINTS <+ ,POINTS 1>>
+			<SETG TICKS <+ ,TICKS 1>>
 		)(ELSE
 			<TELL "Your opponent gets the ball and scores a point">
 			<SETG CROSS <+ ,CROSS 1>>
@@ -1846,7 +1847,7 @@
 	(CONTINUE STORY181)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT113 "\"You have done me a service, and yet you ask no favour in return,\" rumbles the giant. \"Hence I shall bestow my gift: immortality.\"||You wait but nothing happens. You don't feel any different. You raise your hands; you still look the same. \"Is that it?\"||\"Yes. Now your natural lifespan is infinite.\"||\"My natural lifespan?\" you say. A point like this is worth getting exactly right.||\"You will never die a natural death,\" the giant clarifies.||You don't know what to say. \"Er... well, thank you.\" Uppermost in your thoughts is that adventurers rarely die natural deaths in any case.||\"Also, you cannot suffer gradual injury,\" adds the giant. \"A single fatal accident can kill you outright, but that is all.\"||That sounds better. It means that from now on you cannot lose Life Points. As the giant said, the only thing that can now kill you is an overwhelming catastrophe like falling into a volcano.">
+<CONSTANT TEXT113 "\"You have done me a service, and yet you ask no favour in return,\" rumbles the giant. \"Hence I shall bestow my gift: immortality.\"||You wait but nothing happens. You don't feel any different. You raise your hands; you still look the same. \"Is that it?\"||\"Yes. Now your natural lifespan is infinite.\"||\"My natural lifespan?\" you say. A point like this is worth getting exactly right.||\"You will never die a natural death,\" the giant clarifies.||You don't know what to say. \"Er... well, thank you.\" Uppermost in your thoughts is that adventurers rarely die natural deaths in any case.||\"Also, you cannot suffer gradual injury,\" adds the giant. \"A single fatal accident can kill you outright, but that is all.\"||That sounds better. As the giant said, the only thing that can now kill you is an overwhelming catastrophe like falling into a volcano.">
 
 <ROOM STORY113
 	(DESC "113")
@@ -1856,7 +1857,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY113-PRECHOICE ()
-	<EMPHASIZE "You have become immortal.">
+	<EMPHASIZE "You have become immortal. You cannot lose Life Points.">
 	<SETG IMMORTAL T>>
 
 <CONSTANT TEXT114 "Midnight Bloom agrees to a detour since it will give her the chance to buy some of the fine pottery that is brought from Nachan through the fens. Putting into a lagoon where there is a small fishing village, she tells you to be quick about checking the wizard's story. \"I would like to resume our journey to Tahil at first light,\" she says.||It is already late afternoon. The sun is trawling in the red net">
@@ -2807,7 +2808,7 @@
 	)(ELSE
 		<TELL TEXT179-LOW>
 	)>
-	<SETG ,POINTS <+ ,POINTS .SCORED>>
+	<SETG ,TICKS <+ ,TICKS .SCORED>>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT180 "You walk on until you reach the tree. The figures seated there are of macabre appearance: living skeletons whose bones are green with algae. Roots and soil clump their joints, and you can see snakes burrowing between the bars of their ribcages One raises a grinning skull-face to greet you. As it does, a butterfly opens wings of scarlet and gold across its emerald brow. If you saw such a sight in one of the murals on a temple wall, you might be moved to admire its uncanny beauty. Faced with such a thing in stark reality, however, you find yourself jumping back in fright. You hurry past without acknowledging the skeleton's welcoming gestures.">
@@ -3122,90 +3123,92 @@
 <ROUTINE STORY200-PRECHOICE ()
 	<COND (<CHECK-CODEWORD ,CODEWORD-ZAZ> <STORY-JUMP ,STORY244>)>>
 
+<CONSTANT TEXT201 "A deep crunch reverberates through the stone around you and cracks appear in the corbels of the roof with such startling suddenness that they could almost be long splashes of ink. But you know that they are not, and even as the masonry blocks start to shift you are throwing yourself into a forward somersault that carries you safely to the end of the passage. There you turn to see a thick cloud of rock dust billowing out. When the dust settles, the passage has been entirely buried under huge slabs of fallen masonry.||The courtiers join you. \"You're quick on your feet,\" says the chief courtier, patting your shoulder.||You instinctively recoil at his touch. You make no pretence at hiding your loathing as you look at him. \" get the feeling I'm going to need to be.\"">
+
 <ROOM STORY201
 	(DESC "201")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT201)
+	(CONTINUE STORY431)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT202 "When it is time for you to be taken to the House of Gloom, the courtiers summon you with surly grunts. It is obvious from their glowering looks that they did not expect you to endure this long. As they prod you through the doorway, the chief courtier is struck by inspiration.||\"You have been cheating in the ordeals,\" he says. \"Using items to help you. Give me your travelling pack.\" He takes the pack containing your belongings and places it outside the door. \"It will be returned to you tomorrow. If you survive.\" It is a dingy cobweb-strewn chamber with many shadowy recesses. The packed-earth floor rises at intervals in long low mounds. Something about the place stirs the hairs on the nape of your neck. You feel the tingle of awakening dread as you ask: \"What is the ordeal here?\"||The chief courtier places a single short candle on the floor just inside the door. \"This is the place where our ancestors are buried. See those mounds? Their graves. If you can keep the candle alight until morning, they'll leave you alone. But it goes out then their ghosts wills be sure to pay you a visit.\"||The door grates shut, leaving just the trembling flame of the candle between you and eldritch terror.">
 
 <ROOM STORY202
 	(DESC "202")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT202)
+	(PRECHOICE STORY202-PRECHOICE)
+	(CONTINUE STORY294)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY202-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-IGNIS>
+		<STORY-JUMP ,STORY248>
+	)(<CHECK-SKILL ,SKILL-CUNNING>
+		<STORY-JUMP ,STORY271>
+	)>>
+
+<CONSTANT TEXT203 "The ball bounces towards your brother, but with one arm held to his brow he is not nimble enough to get possession and send it back to you. The attacking shadow man leaps up swatting the ball against one of the scoring zones.">
 
 <ROOM STORY203
 	(DESC "203")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT203)
+	(PRECHOICE STORY203-PRECHOICE)
+	(CONTINUE STORY226)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY203-PRECHOICE ()
+	<SETG CROSS <+ ,CROSS 1>>>
+
+<CONSTANT TEXT204 "You place a dart directly between his cobwebby eyes. It would kill any mortal man, but Necklace of Skulls has endured for a thousand years. The sorcery he used to prolong his life turned him into a creature halfway between life and death. He reels back, giving vent to a roar of anguish that sounds like the sky being ripped in two, and pulls the dart out of his bloodless flesh.||You race up the pyramid steps towards him, ducking as he sends a fountain of ultraviolet fire streaming from his fingertips. It scorches your flesh. A direct hit would have charred you to the bone.">
+<CONSTANT TEXT204-CONTINUED "Before he has time for another spell, you have closed with him for the final battle">
 
 <ROOM STORY204
 	(DESC "204")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT204)
+	(PRECHOICE STORY204-PRECHOICE)
+	(CONTINUE STORY296)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY204-PRECHOICE ()
+	<TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY204>
+	<COND (<IS-ALIVE>
+		<CRLF>
+		<TELL TEXT204-CONTINUED>
+		<TELL ,PERIOD-CR>
+		<COND (<CHECK-CODEWORD ,CODEWORD-VENUS> <STORY-JUMP ,STORY240>)>
+	)>>
+	
+
+<CONSTANT TEXT205 "You have a week to while away before you set sail.">
+<CONSTANT TEXT205-FISH "You fish for food in this time">
+<CONSTANT TEXT205-POISONING "You are reduced to begging for scraps and collecting snails along the shore. This soon results in mild food poisoning">
 
 <ROOM STORY205
 	(DESC "205")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT205)
+	(PRECHOICE STORY205-PRECHOICE)
+	(CONTINUE STORY182)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY205-PRECHOICE ("AUX" (FISHED F))
+	<COND (<OR <CHECK-SKILL ,SKILL-SEAFARING> <CHECK-SKILL ,SKILL-WILDERNESS-LORE>>
+		<SET FISHED T>
+	)(<CHECK-ITEM ,LOBSTER-POT>
+		<SET FISHED T>
+		<LOSE-ITEM ,LOBSTER-POT>
+	)>
+	<CRLF>
+	<COND (.FISHED
+		<TELL TEXT205-FISH>
+		<TELL ,PERIOD-CR>
+		<PUTP ,STORY205 ,P?DEATH F>
+	)(ELSE
+		<TELL TEXT205-POISONING>
+		<TELL ,PERIOD-CR>
+		<TEST-MORTALITY 1 DIED-OF-HUNGER ,STORY205>
+	)>>
 
 <ROOM STORY206
 	(DESC "206")

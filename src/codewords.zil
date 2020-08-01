@@ -8,6 +8,10 @@
     (DESC "Calabash")
     (SYNONYM CALABASH)>
 
+<OBJECT CODEWORD-IGNIS
+    (DESC "Ignis")
+    (SYNONYM IGNIS)>
+
 <OBJECT CODEWORD-PAKAL
     (DESC "Pakal")
     (SYNONYM PAKAL)>
