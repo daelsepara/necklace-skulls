@@ -218,7 +218,6 @@
 					<COND (<GETP <GET .DESTINATIONS .I> ,P?DEATH>
 						<TELL CR "... this way may lead to tragedy" ,PERIOD-CR>
 					)(<GETP <GET .DESTINATIONS .I> ,P?VICTORY>
-						<CRLF>
 						<TELL CR "... this way may lead to glory" ,PERIOD-CR>
 					)>
 					<COND (<OR <GETP <GET .DESTINATIONS .I> ,P?DESTINATIONS> <GETP <GET .DESTINATIONS .I> ,P?CONTINUE>>
@@ -226,8 +225,7 @@
 					)>
 					<HLIGHT 0>
 				)(ELSE
-					<CRLF>
-					<TELL "... your vision of this future is obscured" ,PERIOD-CR>
+					<TELL CR "... your vision of this future is obscured" ,PERIOD-CR>
 				)>
 				<PRESS-A-KEY>
 			>
