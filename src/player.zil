@@ -33,7 +33,7 @@
 <OBJECT SKILL-SPELLS
     (DESC "SPELLS")
     (LDESC "A range of magical effects encompassing illusions, elemental effects, commands, and summonings. You must possess a magic wand to use this skill")
-    (REQUIRES <LTABLE MAGIC-WAND>)>
+    (REQUIRES <LTABLE MAGIC-WAND JADE-SWORD>)>
 
 <OBJECT SKILL-SWORDPLAY
     (DESC "SWORDPLAY")

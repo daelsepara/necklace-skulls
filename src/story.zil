@@ -11,6 +11,8 @@
 
 <CONSTANT DRINK-POTION-KEY-CAPS !\D>
 <CONSTANT DRINK-POTION-KEY !\d>
+<CONSTANT MAGIC-MIRROR-KEY-CAPS !\M>
+<CONSTANT MAGIC-MIRROR-KEY !\m>
 
 <ROUTINE SPECIAL-INTERRUPT-ROUTINE (KEY)
 	<COND (<EQUAL? .KEY DRINK-POTION-KEY-CAPS DRINK-POTION-KEY>
@@ -24,6 +26,9 @@
 			)>
 			<RTRUE>
 		)>
+	)>
+	<COND (<EQUAL? .KEY MAGIC-MIRROR-KEY-CAPS MAGIC-MIRROR-KEY>
+		<RTRUE>
 	)>
 	<RFALSE>>
 
@@ -75,6 +80,7 @@
 	<PUTP ,STORY195 ,P?DEATH T>
 	<PUTP ,STORY199 ,P?DEATH T>
 	<PUTP ,STORY205 ,P?DEATH T>
+	<PUTP ,STORY206 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -3178,7 +3184,6 @@
 		<TELL ,PERIOD-CR>
 		<COND (<CHECK-CODEWORD ,CODEWORD-VENUS> <STORY-JUMP ,STORY240>)>
 	)>>
-	
 
 <CONSTANT TEXT205 "You have a week to while away before you set sail.">
 <CONSTANT TEXT205-FISH "You fish for food in this time">
@@ -3204,96 +3209,82 @@
 		<TELL TEXT205-FISH>
 		<TELL ,PERIOD-CR>
 		<PUTP ,STORY205 ,P?DEATH F>
+		<SETG LIFE-POINTS ,MAX-LIFE-POINTS>
 	)(ELSE
 		<TELL TEXT205-POISONING>
 		<TELL ,PERIOD-CR>
 		<TEST-MORTALITY 1 DIED-OF-HUNGER ,STORY205>
 	)>>
 
+<CONSTANT TEXT206 "Your sword lashes out, clattering loudly against the lord's. The crowd stares in excitement and horror as the two of you circle warily. You see the lord's wife draw her children protectively against her skirts. You lunge in close. Your opponent's sword comes up in a desperate parry that breaks splinters off its obsidian edge. He grunts as a red weal appears across his arm, but he responds with a clubbing upswing of the sword hilt that leaves you stunned.||The fight goes on, carrying you to and fro across quay. At last you score a mighty blow that slashes his hand knocking his sword into the water. He gives a snarl which is as much annoyance as pain, then pulls his family off into the crowd.||You are bleeding from several deep cuts.">
+<CONSTANT TEXT206-CONTINUED "You manage to bind your wounds with strips of cloth. Then, bidding your grateful travelling companions goodbye, you set out towards Shakalla.">
+
 <ROOM STORY206
 	(DESC "206")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT206)
+	(PRECHOICE STORY206-PRECHOICE)
+	(CONTINUE STORY085)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY206-PRECHOICE ()
+	<TEST-MORTALITY 2 DIED-IN-COMBAT ,STORY206>
+	<IF-ALIVE TEXT206-CONTINUED>>
+
+<CONSTANT TEXT207 "Your head is pounding and it feels as though a rough rope has been used to scour your throat. You recognize the symptoms of dehydration. Without water, you will die.||You find three plants that might yield the moisture you need. The first is a large barrel-shaped cactus with a milky sap. The second is a clump of rough spiky leaves with a single long stalk growing up from the centre. The last is another cactus, paler in colour than the first, comprising many flattened bulbous segments with squashy fruits.">
+<CONSTANT CHOICES207 <LTABLE "get moisture from the barrel cactus" "the spiky-leafed plant" "the bulbous cactus" "you think none of these plants will help you">>
 
 <ROOM STORY207
 	(DESC "207")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT207)
+	(PRECHOICE STORY207-PRECHOICE)
+	(CHOICES CHOICES207)
+	(DESTINATIONS <LTABLE STORY253 STORY276 STORY299 STORY322>)
+	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY207-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE> <STORY-JUMP ,STORY230>)>>
+
+<CONSTANT TEXT208-MAGIC-POTION "It can be used once during your adventure. It will restore 5 lost Life Points, up to the limit set your your initial Life Points score. Press 'D' to drink it">
+<CONSTANT TEXT208-GREEN-MIRROR "It can be used once -- and only once -- at any point in your adventure before deciding which you will choose. (Press 'M' to use it)">
+<CONSTANT TEXT208-JADE-SWORD "It counts as both a sword and a wand for the purposes of skill-use">
 
 <ROOM STORY208
 	(DESC "208")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY208-PRECHOICE)
+	(CONTINUE STORY093)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY208-PRECHOICE ("AUX" (COLON-SPACE ": "))
+	<CRLF>
+	<COND (<CHECK-ITEM ,MAGIC-POTION> <PRINT-CAP-OBJ ,MAGIC-POTION> <TELL .COLON-SPACE> <TELL TEXT208-MAGIC-POTION> <TELL ,PERIOD-CR>)>
+	<COND (<CHECK-ITEM ,GREEN-MIRROR> <PRINT-CAP-OBJ ,GREEN-MIRROR> <TELL .COLON-SPACE> <TELL TEXT208-GREEN-MIRROR> <TELL ,PERIOD-CR>)>
+	<COND (<CHECK-ITEM ,JADE-SWORD> <PRINT-CAP-OBJ ,JADE-SWORD> <TELL .COLON-SPACE> <TELL TEXT208-MAGIC-POTION> <TELL ,PERIOD-CR>)>>
+
+<CONSTANT TEXT209 "A sense of awe comes over you while walking through the green gloom that lies between the soaring tree-trunks of the forest. Dragonflies flash with the colours of copper, obsidian and gemstones as they dart in and out of the scattered beams of sunlight. Monkeys chitter unseen high above your head, crashing the thick foliage aside as they tumble from branch to branch. A dust-like swirling in the shadows is in fact the flight of countless tiny gnats. There is a hot perfumed dampness here: the rich odour of the forest floor rising to mingle with the scent that trickles down from brightly hued orchids. You pass huge fanciful growths of fungi which look like unearthly stones dropped by the gods.||A sparkle of bright light catches your eye. Standing some distance off, framed in the eternal twilight of the jungle like a jewel displayed on dark cloth, is a bewitching figure. She turns her face towards you and you give a gasp of surprise. Her features -- her whole body -- are suffused with a dazzling golden radiance that seems to shine from her very skin. With a musical laugh, she swirls her shawl up around her shoulders and starts to dance between the trees.">
+<CONSTANT CHOICES209 <LTABLE "pursue her" "not">>
 
 <ROOM STORY209
 	(DESC "209")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT209)
+	(CHOICES CHOICES209)
+	(DESTINATIONS <LTABLE STORY232 STORY160>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT210 "You rig a spear trap by using creepers to lash a splintered branch to a tethered sapling. Before long a deer springs the trap and is impaled by the branch. You rush forward to administer a merciful death, then set to preparing the meat. There is enough to provide you with a good meal and leave a launch of venison over.">
 
 <ROOM STORY210
 	(DESC "210")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT210)
+	(PRECHOICE STORY210-PRECHOICE)
+	(CONTINUE STORY279)
+	(ITEM HAUNCH-OF-VENISON)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY210-PRECHOICE ()
+	<GAIN-LIFE 1>>
 
 <ROOM STORY211
 	(DESC "211")
