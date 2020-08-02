@@ -85,6 +85,9 @@
 	<PUTP ,STORY206 ,P?DEATH T>
 	<PUTP ,STORY216 ,P?DEATH T>
 	<PUTP ,STORY224 ,P?DEATH T>
+	<PUTP ,STORY227 ,P?DEATH T>
+	<PUTP ,STORY229 ,P?DEATH T>
+	<PUTP ,STORY230 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -3555,90 +3558,77 @@
 		<STORY-JUMP ,STORY432>
 	)>>
 
+<CONSTANT TEXT226 "Now it is the opposing team's turn to serve. They send the ball skidding along the side wall in a long arc, and the enemy offensive player comes towards you.">
+<CONSTANT CHOICES226 <LTABLE "move aside and let him past" "make a tackle" "retreat ahead of him">>
+
 <ROOM STORY226
 	(DESC "226")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT226)
+	(CHOICES CHOICES226)
+	(DESTINATIONS <LTABLE STORY249 STORY272 STORY295>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT227 "You raise your wand and stand ready to do battle with Necklace of Skulls. The first exchange of spells is cautious, as each of you probes the other's psychic defences. Then you become bolder, casting crackling fireballs and shuddering bolts of plasma across the intervening space.||The air itself darkens with the presence of magic. Shapes become warped in the wake of each reality-twisting conjuration. Your foe is visible only as a glimmering speck, like an insect trapped in amber, calling energy up out of the depths of his black soul to hurl at you. A spell cuts through your guard, searing you to the core. You retaliate with a spray of lightning that makes your foe shudder, and he counters by sending a cloud of choking gas towards you.">
 
 <ROOM STORY227
 	(DESC "227")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT227)
+	(PRECHOICE STORY227-PRECHOICE)
+	(CONTINUE STORY342)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY227-PRECHOICE ("AUX" (DAMAGE 8))
+	<COND (<CHECK-SKILL ,SKILL-CHARMS> <SET DAMAGE 4>)>
+	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY227>
+	<COND (<AND <IS-ALIVE> <CHECK-CODEWORD ,CODEWORD-VENUS>> <STORY-JUMP ,STORY442>)>>
+
+<CONSTANT TEXT228 "Following the sweep of the coastline, you press on into the north-west. You subsist on fruit and fish for a week or so until finally you arrive at the great port of Tahil. The streets are crowded with refugees, all pouring towards the quayside in the hope of finding passage on a ship going east.||You make your way through the press of frightened people and past the great temples and townhouses which now lie deserted. The causeway to the west is empty apart from a few forlorn stragglers and those who have fallen crippled by the wayside.||\"Turn back!\" cautions a starving beggar as he passes you on the causeway. \"Monsters are coming out of the western desert to slay us all!\"||\"No,\" you reply without looking back, \"I'm going to slay them.\"">
 
 <ROOM STORY228
 	(DESC "228")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT228)
+	(CONTINUE STORY085)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT229 "Spittle flies from the hound's jaw and fury fills its pink eyes as it leaps forward eagerly to fight you. It is keen to chomp your bones and drink the marrow from them.">
+<CONSTANT TEXT229-CONTINUED "After a short exchange you are forced back, bleeding, to the mouth of the passage. The hound crouches ready to renew its attack.">
+<CONSTANT CHOICES229 <LTABLE "entice it out under the colonnade" "give up and choose another route -- either the pit of coals" "the tunnel blocked by wooden beams" "the ominously unguarded passage">>
 
 <ROOM STORY229
 	(DESC "229")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT229)
+	(PRECHOICE STORY229-PRECHOICE)
+	(CHOICES CHOICES229)
+	(DESTINATIONS <LTABLE STORY362 STORY338 STORY361 STORY382>)
+	(TYPES FOUR-NONES)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY229-PRECHOICE ("AUX" (DAMAGE 3))
+	<COND (,RUN-ONCE
+		<COND (<CHECK-SKILL ,SKILL-SWORDPLAY>
+			<SET DAMAGE 1>
+		)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
+			<SET DAMAGE 2>
+		)>
+		<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY229>
+	)>
+	<IF-ALIVE TEXT229-CONTINUED>>
+
+<CONSTANT TEXT230 "The spiky-leafed bush is a mescal plant. You can get water from it by biting the tips off the leaves and sucking the moisture out of them. You know that eating any of these plants would only increase your thirst. It is water you need now, not food.">
 
 <ROOM STORY230
 	(DESC "230")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT230)
+	(PRECHOICE STORY230-PRECHOICE)
+	(CONTINUE STORY152)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY230-PRECHOICE ()
+	<TEST-MORTALITY 1 DIED-OF-THIRST ,STORY230>>
 
 <ROOM STORY231
 	(DESC "231")
