@@ -234,6 +234,25 @@
 		>
 	)>>
 
+<ROUTINE GET-NUMBER (MESSAGE "OPT" MINIMUM MAXIMUM "AUX" COUNT)
+	<REPEAT ()
+		<CRLF>
+		<TELL .MESSAGE>
+		<COND (<AND <OR <ASSIGNED? MINIMUM> <ASSIGNED? MAXIMUM>> <G? .MAXIMUM .MINIMUM>>
+			<TELL " (" N .MINIMUM "-" N .MAXIMUM ")">
+		)>
+		<TELL "?">
+		<READLINE>
+		<COND (<EQUAL? <GETB ,LEXBUF 1> 1> <SET COUNT <CONVERT-TO-NUMBER 1 10>>
+			<COND (<OR .MINIMUM .MAXIMUM>
+				<COND (<AND <G=? .COUNT .MINIMUM> <L=? .COUNT .MAXIMUM>> <RETURN>)>
+			)(<G? .COUNT 0>
+				<RETURN>
+			)>
+		)>
+	>
+	<RETURN .COUNT>>
+
 <CONSTANT TEXT "This story has not been written yet.">
 
 <CONSTANT PROLOGUE-TEXT "Last night you dreamed you saw your brother again. He was walking through a desert, his sandals scuffing up plumes of sooty black sand from the low endless dunes. It seemed you were hurrying to catch him up, but the sand slipped away under your feet and you could make no headway up the slop. You heard your own voice call his name: \"Morning Star!\" But muffled by distance, the words went rolling off the sky unheeded.||You struggled on. Cresting the dune, you saw your brother standing close by, staring at something in his hands. Your heart thudded with relief as you stumbled through the dream towards him. But even as your hand reached out for his shoulder, a sense of dread was growing like a storm cloud to blot out any joy. You saw the object Morning Star was holding: an obsidian mirror. You leaned forward and gazed at the face of your brother reflected in the dark green glass.||Your twin brother's face was the face of a skull.|||The soothsayer nods as you finish recounting the dream. He plays idly with his carved stone prophecy-markers, pouring them from one hand to the other with a light rattling sound.||\"Today is the day of Lamat,\" he says in his thin old voice. \"And the symbol of Lamat is the death's head. On this day, the morning-star has ended its cycle and will not be visible in the heavens for ninety days, when it will reappear as the evening-star. The meaning of the dream is therefore that in the absence of your brother it falls to you, Evening Star to fulfil his duties.\"||You cannot resist a smile, even though the ominous import of the dream weighs heavily on your soul. \"So it only concerns the importance of duty? I wonder if my clan elders have been speaking to you?\"||The soothsayer snorts and casts the prophecy-markers back into his bag with a pretence of indignation, but he has too good a heart to overlook your concern for your brother. Turning at the door, he adds, \"The King gave Morning Star a great honour when he made him his ambassador. But it is no less honourable to stay at home and help with the affairs of one's clan. You are young, Evening Star; your chance for glory will come.\"||\"Do the prophecy-makers also tell you that?\"||He rattles the bag. \"These? They're just for show; it's the two old stones on either side of my nose that tell me everything I need to know about the future!\" He points to his eyes and hobbles out in a gale of wheezing laughter.||You lean back, feeling the cool of the stone wall press against your bare shoulders. The soothsayer intended to set your mind at rest, but you have shared a bond with Morning Star since the two of you were born. To be troubled by such a dream is not, you feel sure, a mere quirk of the imagination. Somehow you sense that something terrible has befallen your brother.||You are still brooding an hour later when a servant comes scurrying into the room. \"There is news of Lord Morning Star's expedition...\" he begins, almost too frightened of your reaction to blurt out the words.||You are on your feet in an instant. \"What news?\"||The servant bows. \"The Council of Nobles is holding an emergency session. The rumour... I have heard a rumour that only a single member of the expedition returned alive.\"||Pausing only to draw on your cloak, you hurry outside and head along the street towards the city centre. All around you sprawl the tall thatched roofs of the city, spreading out towards the distant fields. Each clan or group of families has its own dwellings of stone or mud-brick, according to status. These rest upon raised platforms above the level of the street, their height determined again by status. But not even the most exalted noble has a home to match the grand dwellings of the gods, which you now see towering ahead of you atop their immense pyramids. They shimmer with the colours of fresh blood and polished bone in the noonday sunlight, covered with demonic carvings which stare endlessly down across the city of Koba.||The central plaza of the city is a blaze of white stone in the sunshine. Quickening your step, you approach the amphitheatre where the Council of Nobles is meeting. As you step under the arch of the entrance, your way is barred by two burly warriors of the King's guard, each armed with an obsidian-edged sword. \"You may not enter.\"||\"I am Evening Star. The ambassador is my brother. Has he returned to Koba?\"||One of them peers at you, recognition trickling like cold honey into his gaze. \"I know you now. Morning Star has not returned, no.\"||The other says, \"Look, I suppose you'd better go in. One of the ambassador's retinue came back this morning. He's telling the Council what happened.\"||You walk in to the amphitheatre and numbly find a seat. You can hardly take in the guard's words; they sit like stones in your head, impossible to accept. Can it be true? Your twin brother -- dead?||A man you recognize as one of Morning Star's veteran warriors stands in the centre of the amphitheatre, giving his report. The seats on either side are crowded with the lords and ladies of Koba, each face a picture of grave deliberation. At the far end is the King himself, resplendent in a turquoise mantle of quetzal feathers, his throne carved to resemble the open jaws of some titanic monster on whose tongue he seems to sit like the very decree of the gods.||\"...arrived at the Great City,\" the veteran is saying. \"We found it ransacked -- the temples torn down, whole palaces burned. Some poor wretches still live there, eking out a stark existence in the ruins, but it is like the carcass of a beast who lies with a death-wound. Whenever we asked how this destruction had come about, we received the same reply: werewolves from the land of the dead, beyond the west, had descended from the desert and slain all the Great City's defenders in a single night of carnage.\"||There is a murmuring at this. The Great City had endured for centuries before Koba was even built. The King raises his hand for silence. \"What was Lord Morning Star's decision when he heard this?\"||\"Majesty, he led us into the desert. He believed it his duty to uncover the truth of the matter and report it to you. After many days of trekking almost all our water was used up. We had faced monsters along the way, and many of us bore grievous injuries. Then we came to a place like a royal palace, but entirely deserted except for dogs and owls. We camped outside the walls there, and on the next day Morning Star told us he had dreamed of a sorcerer called Necklace of Skulls who dwelt within the palace. He said he would enter and find out if this sorcerer had sent the werewolves to destroy the Great City. We watched him enter the portals of the palace, and we waited for his return for eight days, but he did not emerge. Then we began the long march back here to Koba, but sickness and the creatures of the desert gradually took their toll, and I alone remain to tell the tale.\"||The King rises to his feet. \"Morning Star must be considered slain by this sorcerer. His mission shall not be recorded as a failure, since he died attempting to carry out his duty. Prayers shall be said for the safe journey of his soul through the underworld. This meeting is ended.\"||The others file out in groups, heads bent together in urgent debate. For most of them the veteran's report carried that special thrill of a distant alarm. A great but far-off city reduced to ruin; a disaster from halfway across the world. Cataclysmic news, but an event comfortingly remote from the day to day affairs at home. A matter for the noblemen to worry over when they sit with their cigars at night. The reverberations of a toppling temple in the Great City will be heard here in Koba as no more than the droning discussions of old men.||For you it is different. Left alone in the amphitheatre, you sit like a figure of clay, eerily detached from your own turbulent emotions. Fractured images and words whirl through your stunned brain. Morning Star is dead. Your twin brother, lost for ever...||A single sudden thought of burning clarity impels you to your feet. In that instant you seem to see your destiny unrolling in front of you like along straight carpet. You turn your face to the west, eyes narrowing in the glare of the declining sun.||Your brother might not be dead. There is only one place you can learn the truth.||You must journey to the western desert, to the palace of the sorcerer called Necklace of Skulls.">
@@ -3392,90 +3411,88 @@
 	(CONTINUE STORY192)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT216 "You spend a minute staring down into the rolling billows of gritty smoke. It ought to be a mercy that you cannot see the bottom of the canyon, but in fact the faint glare of those distant fires only evokes the worst fears of your imagination. You make several run-ups to the edge of the canyon, stopping short each time with a gasp of sudden panic. But at last, dredging up every drop of courage, you manage to force yourself to leap out towards the first spire of rock.||You misjudged your landing. For a long agonizing second you are left teetering on the brink. Then you slip, barely managing to catch hold of the spire in time to prevent yourself plunging down into the volcanic abyss. It is only when you wrap your limbs around the spire that you discover it is baking hot. You do not have the strength to pull yourself up, and the heat will soon force you to relinquish your grip.">
+<CONSTANT TEXT216-END "You are left to morbidly consider your fate in the last minutes before your strength gives out">
+
 <ROOM STORY216
 	(DESC "216")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT216)
+	(PRECHOICE STORY216-PRECHOICE)
+	(CONTINUE STORY239)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY216-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-ZOTZ>
+		<PUTP ,STORY216 ,P?DEATH F>
+	)(ELSE
+		<CRLF>
+		<TELL TEXT216-END>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT217 "You pop a dart into your blowgun and start walking towards the monster. It shuffles eagerly from side to side on its strong stumpy legs. \"Why aren't you afraid, mortal?\" it asks. \"I'm going to swallow you up -- crunch your bones, drink your juices, and spit out the skin for my maggots to enjoy!\"||You keep on walking along the causeway, apparently unperturbed.||\"You haven't got a chance!\" snarls the monster, tensing its legs to spring on you.||\"Your only reply is to raise the blowgun and puff your dart straight into the monster's eye. It gives a howl of pain and stumbles off the causeway into the mass of maggots, while you go racing towards the jetty.">
 
 <ROOM STORY217
 	(DESC "217")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT217)
+	(CONTINUE STORY020)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT218 "As evening drapes the city in long blue shadows, you take a stroll to the perimeter of the royal compound. A high white wall encloses the palace and the tomb-pyramids of the King's ancestors. At the gateway you see a group of burly warriors armed with jag-edged swords. Their lacquered shields and resplendent feather cloaks mark them out as elite soldiers of the royal guard -- too dangerous to risk a skirmish with, no matter what your skill at arms.">
+<CONSTANT TEXT218-CONTINUED "You give up on your plan and decide what to do the next morning:">
+<CONSTANT CHOICES218 <LTABLE "go west" "go north" "stay here for the festival">>
 
 <ROOM STORY218
 	(DESC "218")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT218)
+	(PRECHOICE STORY218-PRECHOICE)
+	(CHOICES CHOICES218)
+	(DESTINATIONS <LTABLE STORY008 STORY030 STORY416>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY218-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-AGILITY>
+		<STORY-JUMP ,STORY354>
+	)(<CHECK-SKILL ,SKILL-ROGUERY>
+		<STORY-JUMP ,STORY374>
+	)(<CHECK-SKILL ,SKILL-SPELLS>
+		<STORY-JUMP ,STORY396>
+	)(ELSE
+		<CRLF>
+		<TELL TEXT218-CONTINUED>
+		<CRLF>
+		<COND (,RUN-ONCE <GAIN-LIFE 1>)>
+	)>>
+
+<CONSTANT TEXT219 "The road takes you into a dingy region devoid of any feature except for a sheer cliff that stretches across the horizon ahead. You see someone in the distance, shining like a jewel against the drab surrounds because of his feather cloak and turquoise head-dress. Though you call out, he is too far away to hear. As you hurry along the causeway, you see him reach the cliff and disappear into one of the two cave mouths.||You are so intent on reaching the cliff that you almost fail to notice a pitted stone idol beside the road. The skeletal jaw and blackened eyes mark it as an effigy of the Death God who rules this land. The stone bowl in front of the idol is bare of offerings, so obviously the figure in the feather cloak left nothing. On the other hand, you might consider it wise to donate some money of your own to secure the god's benison.">
 
 <ROOM STORY219
 	(DESC "219")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT219)
+	(PRECHOICE STORY219-PRECHOICE)
+	(CONTINUE STORY259)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY219-PRECHOICE ("AUX" DONATION)
+	<COND (<AND ,RUN-ONCE <G? ,MONEY 0>>
+		<SET DONATION <GET-NUMBER "Make a donation for the god's benison" 0 ,MONEY>>
+		<COND (<G? .DONATION 0> <CHARGE-MONEY .DONATION>)>
+	)>
+	<COND (<CHECK-SKILL ,SKILL-FOLKLORE> <STORY-JUMP ,STORY379>)>>
+
+<CONSTANT TEXT220 "The sun rises again, flooding the sands with the stifling heat of day. You realize that soon you must find shade, or the sun will bake you alive. Stumbling wearily up to the top of the next dune, however, all such thoughts fly from your mind to be replaced by a feeling of exhilaration. You have found it! The wizard's palace lies just ahead across a stretch of brown-gold sand. The dawn light makes it seem to shimmer like a mirage in the deep blue shadows between the dunes, but you know it is real.||Double doors swing open in the wall as you approach. Confronting you are a horde of men in ragged animal skins. Their long thin faces and downcast smiles give them a canine appearance. All of them bear stone axes which they lift when you walk through the palace gates -- not a gesture of immediate attack, but just to warn you where you stand.||\"I have come,\" you say, \"to speak to Necklace of Skulls.\"||One of the men gives a bark of laughter. \"It is not as easy as that. Do you think our master sees every stray mongrel who wanders to his door? First you will have to pass five nights among us, his faithful courtiers.\"||You decide to change tack. \"What of my brother, Morning Star?\" you ask.||\"He's been here. Perhaps you'll get to meet him -- later.\"">
 
 <ROOM STORY220
 	(DESC "220")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT220)
+	(PRECHOICE STORY220-PRECHOICE)
+	(CONTINUE STORY292)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY220-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-ANGEL> <STORY-JUMP ,STORY269>)>>
 
 <ROOM STORY221
 	(DESC "221")
