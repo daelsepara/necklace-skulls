@@ -83,6 +83,8 @@
 	<PUTP ,STORY199 ,P?DEATH T>
 	<PUTP ,STORY205 ,P?DEATH T>
 	<PUTP ,STORY206 ,P?DEATH T>
+	<PUTP ,STORY216 ,P?DEATH T>
+	<PUTP ,STORY224 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -116,6 +118,7 @@
 <CONSTANT DIED-GREW-WEAKER "You grow weaker and eventually died">
 <CONSTANT DIED-OF-THIRST "You go mad from thirst">
 <CONSTANT KILLED-AT-ONCE "You are killed at once">
+<CONSTANT DIED-FROM-INJURIES "You died from your injuries">
 
 <ROUTINE ADD-QUANTITY (OBJECT "OPT" AMOUNT CONTAINER "AUX" QUANTITY CURRENT)
 	<COND (<NOT .OBJECT> <RETURN>)>
@@ -1154,7 +1157,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY062-PRECHOICE ()
-	<TEST-MORTALITY 2 DIED-GREW-WEAKER ,STORY062>
+	<TEST-MORTALITY 2 DIED-FROM-INJURIES ,STORY062>
 	<COND (<IS-ALIVE>
 		<SETG MAX-LIFE-POINTS <- ,MAX-LIFE-POINTS 2>>
 		<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
@@ -1172,7 +1175,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY063-PRECHOICE ()
-	<TEST-MORTALITY 3 DIED-GREW-WEAKER ,STORY063>
+	<TEST-MORTALITY 3 DIED-FROM-INJURIES ,STORY063>
 	<IF-ALIVE TEXT063-CONTINUED>>
 
 <CONSTANT TEXT064 "You wedge yourself into a corner of the hall and watch the hovering knives. As they come sweeping towards you, you tear off a hunk of meat and throw it to them. They fall on it, shredding it quickly with stabbing blows, then retreat to float around in the centre of the hall. After a while they start to approach, and again you are able to distract them with a scrap of meat.||This continues throughout the knight. You get no sleep but at least you have kept the enchanted knives from your flesh. You have used up the last of the haunch of venison and are waiting nervously for the next assault of the knives, when they suddenly drop lifeless to the floor with the advent of morning.||The courtiers cannot disguise their ill temper when they open the door to find you unscathed. \"Your luck runs out tonight,\" snaps one. \"That's when you must enter the House of cold.\"">
@@ -1231,7 +1234,7 @@
 
 <ROUTINE STORY068-PRECHOICE ("AUX" (DAMAGE 7))
 	<COND (<CHECK-SKILL ,SKILL-CHARMS> <SET DAMAGE 3>)>
-	<TEST-MORTALITY .DAMAGE DIED-GREW-WEAKER ,STORY068>
+	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY068>
 	<IF-ALIVE TEXT068-CONTINUED>>
 
 <CONSTANT TEXT069 "Cliffs rise in front of you, and you make your way along them until you find a long shoulder of rock by which you are able to scale to the top.||You have gone only a little further when you hear a distant keening noise. It sounds like the wind, but you do not feel even a breath of air in the sultry stillness. Then you notice half a dozen long plumes of dust moving along the ground in your direction. Above each dust-plume is a dark twisting funnel of air. Whirlwinds -- and they are bearing straight down on you. Superstitious dread crawls up your spine. You recall tales of the demons of the desert, who rip men limb from limb with the fury of their whirlwinds.">
@@ -1877,7 +1880,7 @@
 
 <ROUTINE STORY110-PRECHOICE ("AUX" (DAMAGE 2))
 	<COND (<CHECK-SKILL ,SKILL-AGILITY> <SET DAMAGE 1>)>
-	<TEST-MORTALITY .DAMAGE DIED-GREW-WEAKER ,STORY110>
+	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY110>
 	<IF-ALIVE TEXT110-CONTINUED>>
 
 <CONSTANT TEXT111 "You slam into him. For a creature formed of living shadow, he feels very solid.">
@@ -1955,7 +1958,7 @@
 		)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
 			<SET DAMAGE 2>
 		)>
-		<TEST-MORTALITY .DAMAGE DIED-GREW-WEAKER ,STORY115>
+		<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY115>
 		<IF-ALIVE TEXT115-CONTINUED>
 	)>>
 
@@ -2042,7 +2045,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY121-PRECHOICE ()
-	<COND (,RUN-ONCE <TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY121>)>
+	<COND (,RUN-ONCE <TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY121>)>
 	<IF-ALIVE TEXT121-CONTINUED>>
 
 <CONSTANT TEXT122 "You lash out with lightning speed, pinning the snake's head against the cliff-face before it can dodge. It writhes, hissing angrily and slapping the stone with its muscular coils, but is powerless to break free. You apply increasing pressure to its neck until it goes limp and drops to fall with a heavy plop in the river below.||You peer into the tomb. The darkness seems to rustle with unseen threats, but you know that it is just a figment of your imagination. You have dealt with the tomb guardian. Now you are eager to see if there is any treasure to be had.">
@@ -2075,7 +2078,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY124-PRECHOICE ()
-	<TEST-MORTALITY 2 DIED-GREW-WEAKER ,STORY124>>
+	<TEST-MORTALITY 2 DIED-FROM-INJURIES ,STORY124>>
 
 <CONSTANT TEXT125 "Scattering the chillies onto the dragon's tongue has the desired effect. He opens his mouth and spits you out with a great bellow of pain and surprise. You scrabble off to a safe distance before turning to watch his anguished attempts to wipe his tongue clean against the clifftop.||Kawak's rear head has blunt face with upcurving tusks and pallid globular eyes. He glowers at you and speaks with difficulty because of his burning tongue, saying, \"If you attempt to return this way, I shall devour you.\"||Bearing this warning in mind, you hurry onwards.">
 
@@ -2135,7 +2138,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY129-PRECHOICE ()
-	<TEST-MORTALITY 2 DIED-GREW-WEAKER ,STORY129>
+	<TEST-MORTALITY 2 DIED-FROM-INJURIES ,STORY129>
 	<COND (<IS-ALIVE>
 		<SETG MAX-LIFE-POINTS <- ,MAX-LIFE-POINTS 2>>
 		<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
@@ -2200,7 +2203,7 @@
 		<COND (<CHECK-SKILL ,SKILL-AGILITY>
 			<PUTP ,STORY133 ,P?DEATH F>
 		)(ELSE
-			<TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY133>
+			<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY133>
 		)>
 	)>
 	<COND (<IS-ALIVE>
@@ -3236,7 +3239,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY204-PRECHOICE ()
-	<TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY204>
+	<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY204>
 	<COND (<IS-ALIVE>
 		<CRLF>
 		<TELL TEXT204-CONTINUED>
@@ -3494,90 +3497,63 @@
 <ROUTINE STORY220-PRECHOICE ()
 	<COND (<CHECK-CODEWORD ,CODEWORD-ANGEL> <STORY-JUMP ,STORY269>)>>
 
+<CONSTANT TEXT221 "The noble gives a cry of alarm as he watches you dive off the ledge into the river of blood. Though the current is strong, you are a good swimmer and you have the added advantage of a determined heart. Your powerful strokes carry you safely through the charnel foam to the far bank, where you wring your clothes out with a grimace at how they will smell once the blood dries.">
+
 <ROOM STORY221
 	(DESC "221")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT221)
+	(CONTINUE STORY036)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT222 "The hydra rolls its massive coils across the sand towards you. It moves slowly, but its heads can strike out with lightning speed. You will need to keep your wits about you if you are to survive this battle.">
+<CONSTANT CHOICES222 <LTABLE "try dodging away from its attack" "rush straight in towards it" "stand your ground and make ready to parry">>
 
 <ROOM STORY222
 	(DESC "222")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT222)
+	(CHOICES CHOICES222)
+	(DESTINATIONS <LTABLE STORY245 STORY268 STORY291>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT223 "Seeing you have no water of your own, Stooping Eagle says, \"You have not come well prepared into this desert, my friend.\"||\"It seems not.\" You wipe a dusty trickle off your sunburnt brow.||He hands you the waterskin. \"We are both nobles -- even though from different cities and of different races. It would be churlish of me not to share my rations, since we share a thirst for vengeance.\"||You are careful to take only a little of the water. It is warm and tastes stale. There is not much left anyway, but you may be glad of the last drop before you reach the palace of Necklace of Skulls.">
 
 <ROOM STORY223
 	(DESC "223")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT223)
+	(CONTINUE STORY220)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT224 "The corbels of the roof produce a heart-stopping groan of cracking masonry. Cracks spread across the stone with terrifying speed. You throw yourself forward just as it gives way completely, pelting you with falling rubble.">
+<CONSTANT TEXT224-CONTINUED "You stagger out into the open in a suffocating cloud of rock dust. You are badly bruised and you are bleeding from several deep cuts. You cough the dust out of your lungs and take a look back along the tunnel. It is now buried under tons of fallen masonry. Another second's hesitation and you'd be buried too.||The courtiers join you. \"That was nothing,\" sneers their chief. \"We have much more entertaining challenges lined up for you.\"">
 
 <ROOM STORY224
 	(DESC "224")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT224)
+	(PRECHOICE STORY224-PRECHOICE)
+	(CONTINUE STORY431)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY224-PRECHOICE ()
+	<TEST-MORTALITY 3 DIED-FROM-INJURIES ,STORY224>
+	<IF-ALIVE TEXT224-CONTINUED>>
+
+<CONSTANT TEXT225 "You spend the day crouched in the meagre shade afforded by the walls of the courtyard. At sunset, the courtiers lead you to the second of the five windowless buildings. When they open the door, you can see nothing but blackness inside. A waft of acrid air touches your face as you step inside. You get the impression of a high-ceilinged hall whose dark recesses are filled by rustling and high-pitched squeaks. Something like dust brushes your face. You put up your fingers and run them through your hair, then grimace when you see what is falling from the roof: lice.||\"The bats are our master's second favourite pets, after ourselves. They are vampire bats, of course,\" says the chief courtier. He peers in and calls up to the rafters: \"Supper time, gentlemen!\" Then he leaves and the door is slammed shut, blotting out all light.">
 
 <ROOM STORY225
 	(DESC "225")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT225)
+	(PRECHOICE STORY225-PRECHOICE)
+	(CONTINUE STORY017)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY225-PRECHOICE ()
+	<COND (<CHECK-ITEM ,OWL>
+		<STORY-JUMP ,STORY421>
+	)(<CHECK-CODEWORD ,CODEWORD-ZOTZ>
+		<STORY-JUMP ,STORY432>
+	)>>
 
 <ROOM STORY226
 	(DESC "226")
