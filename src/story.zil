@@ -90,6 +90,8 @@
 	<PUTP ,STORY230 ,P?DEATH T>
 	<PUTP ,STORY232 ,P?DEATH T>
 	<PUTP ,STORY235 ,P?DEATH T>
+	<PUTP ,STORY242 ,P?DEATH T>
+	<PUTP ,STORY246 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -124,6 +126,7 @@
 <CONSTANT DIED-OF-THIRST "You go mad from thirst">
 <CONSTANT KILLED-AT-ONCE "You are killed at once">
 <CONSTANT DIED-FROM-INJURIES "You died from your injuries">
+<CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope better with the thirst">
 
 <ROUTINE ADD-QUANTITY (OBJECT "OPT" AMOUNT CONTAINER "AUX" QUANTITY CURRENT)
 	<COND (<NOT .OBJECT> <RETURN>)>
@@ -3171,7 +3174,6 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT199 "You are trembling with thirst and exhaustion. Your mouth feels as dry as the endless wastes surrounding you.">
-<CONSTANT TEXT199-HARDINESS "Your natural hardiness made you cope better with the effects of thirst">
 
 <ROOM STORY199
 	(DESC "199")
@@ -3190,7 +3192,7 @@
 	<COND (<IS-ALIVE>
 		<COND (.HARDY
 			<CRLF>
-			<TELL TEXT199-HARDINESS>
+			<TELL NATURAL-HARDINESS>
 			<TELL ,PERIOD-CR>
 		)>
 	)>>
@@ -3746,6 +3748,7 @@
 		<CRLF>
 		<TELL TEXT237-JADE-BEAD>
 		<TELL ,PERIOD-CR>
+		<LOSE-ITEM ,JADE-BEAD>
 	)>
 	<CRLF>
 	<TELL TEXT237>
@@ -3783,174 +3786,143 @@
 	(CONTINUE STORY442)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT241 "The Man of Gold draws life from your body warmth. Dropping to the causeway, he goes running towards the monster. It stares down wide-eyed at his approach, unable to believe that a tiny metal manikin could present much of a threat. Snorting with unhuman laughter, it strides forward and tries to kick the Man of Gold aside.||That is a mistake. Bodily uprooting a chunk of stone from the causeway, the Man of Gold brings it crashing down a surprised yelp as he lifts its huge bulk clear of the ground and sends it hurtling off to land in the maggot-infested mire surrounding the causeway.||With a gesture of farewell, the Man of Gold runs on to the jetty. By the time you catch up, he has plunged without a trace into the gelid green waters.">
+
 <ROOM STORY241
 	(DESC "241")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT241)
+	(PRECHOICE STORY241-PRECHOICE)
+	(CONTINUE STORY020)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY241-PRECHOICE ()
+	<LOSE-ITEM ,MAN-OF-GOLD>>
+
+<CONSTANT TEXT242 "You duck to one side as the monster comes rushing forward. It stumbles past, but throws out its arm and catches you a powerful blow. You wince as you hear one of your ribs crack, and the pain sends you staggering back out from under the trees into the hot afternoon sunshine.">
+<CONSTANT TEXT242-AGILITY "You turn away from the brunt of the blow">
 
 <ROOM STORY242
 	(DESC "242")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT242)
+	(PRECHOICE STORY242-PRECHOICE)
+	(CONTINUE STORY265)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY242-PRECHOICE ("AUX" (DAMAGE 2))
+	<COND (<CHECK-SKILL ,SKILL-AGILITY>
+		<CRLF>
+		<TELL TEXT242-AGILITY>
+		<TELL ,PERIOD-CR>
+		<SET DAMAGE  1>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY242>>
+
+<CONSTANT TEXT243 "The road leads you through a hazy realm. You pass by ranks of tall stately figures with bald elongated heads and cross-eyed expressions that make them seem introspective and wistful. You try to speak to them, to ask where you are, but they recede into the distance whenever you approach.||You cannot tell how long has passed when you find yourself back at the crossroads. Your memory is cloudy, and you realize that you have lost some of your expertise, along with other recollections.">
+<CONSTANT TEXT243-CONTINUED "One of the other paths must be the correct one.">
+<CONSTANT CHOICES243 <LTABLE "follow the red road" "the black road" "the yellow road">>
 
 <ROOM STORY243
 	(DESC "243")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT243)
+	(PRECHOICE STORY243-PRECHOICE)
+	(CHOICES CHOICES243)
+	(DESTINATIONS <LTABLE STORY196 STORY219 STORY266>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY243-PRECHOICE ()
+	<COND (,RUN-ONCE
+		<DELETE-CODEWORD ,CODEWORD-POKTAPOK>
+		<LOSE-SKILLS 1>
+	)>>
+
+<CONSTANT TEXT244 "\"I'll help you find out their names,\" says a familiar high-pitched voice in your ear.||Startled you look around but there is no one there. Then a flicker of motion in the corner of your eye draws your attention to a tiny hovering shape. It flits down to alight on your hand.||Squinting at it, you are astonished to find it is the tiny wizened fellow with the long nose whom you helped when you first arrived in the underworld. Viewed at this size, he looks as much like a mosquito as a man.||Zaz goes flying off down the passage. \"Ouch!\" says the first sentinel after a moment.||\"What is it, Grandfather of Darkness?\" enquires the next sentinel.||\"Something bit me, Thunderbolt Laughter.\" He leans out of his alcove and calls to the third sentinel, \"Can you see a mosquito flying around, Lord Blood?\"||Lord Blood's reply is interrupted by a yelp of pain from the last sentinel. He turns and asks: \"Did it bite you, Lord Skull?\"||While the sentinels start grumbling about the mosquito, you make your way along the tunnel. You address each of them by the names that Zaz cunningly tricked them into revealing, and so you are allowed to pass unmolested to the exit.">
 
 <ROOM STORY244
 	(DESC "244")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT244)
+	(PRECHOICE STORY244-PRECHOICE)
+	(CONTINUE STORY336)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY244-PRECHOICE ()
+	<DELETE-CODEWORD ,CODEWORD-ZAZ>>
+
+<CONSTANT TEXT245 "Three of its heads stab forward and the fourth sways aloft, surveying your every move. You barely evade the gnashing fangs as hot venom splashes into the sand where you were standing.">
+<CONSTANT CHOICES245 <LTABLE "continue to dodge back" "you think that now is the right moment to charge in and attack">>
 
 <ROOM STORY245
 	(DESC "245")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT245)
+	(CHOICES CHOICES245)
+	(DESTINATIONS <LTABLE STORY314 STORY337>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT246 "You cannot keep a look of covetous disappointment off your face when Stooping Eagle replaces the stopper without offering you a drink. \"You came ill-prepared for a desert crossing, it seems,\" he says as he replaces the waterskin at his belt.||You can only nod. Your tongue is too dry to waste words. You wipe a dusty trickle of sweat off your sunburnt brow and smear the salty moisture across your lips.||Stooping Eagle adopts a look of regret. \"If only you were a nobleman like myself, I would be happy to share my rations with you, meagre as they are. But there are certain standards we must maintain even in the face of death. A noble does not drink from the same flask as a commoner.\"||\"Our skeletons won't look much different when they've  both been bleached by the sun's rays,\" you reply sullenly.||You would argue the point further, but if the two of you came to blows here and now it would just waste your last reserves of strength. The only victor in such a s struggle would be the merciless sun and the uncaring sands.">
 
 <ROOM STORY246
 	(DESC "246")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT246)
+	(PRECHOICE STORY246-PRECHOICE)
+	(CONTINUE STORY220)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY246-PRECHOICE ("AUX" (HARDY F) (DAMAGE 2))
+	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
+		<SET HARDY T>
+		<SET DAMAGE 1>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-OF-THIRST ,STORY246>
+	<COND (<AND <IS-ALIVE> .HARDY>
+		<CRLF>
+		<TELL NATURAL-HARDINESS>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT247 "You once heard a folktale about an albino hound that guarded a dead king's treasure. The hero of the story defeated the hound by luring it into the open, where its weak eyes were blinded by sunlight. You glance back over your shoulder. Outside the colonnade, the sun is so bright that it makes your eyes hurt. You would have a definite advantage over the hound if you got it to follow you out there. On the other hand, looking at the hound, maybe 'less of a disadvantage' would be a more accurate phrase. You reckon it to be about a hundred kilograms of bad-tempered bone and muscle.">
+<CONSTANT CHOICES247 <LTABLE "fight it" "use" "use a blowgun" "a">>
 
 <ROOM STORY247
 	(DESC "247")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT247)
+	(CHOICES CHOICES247)
+	(DESTINATIONS <LTABLE STORY362 STORY270 STORY316 STORY383>)
+	(REQUIREMENTS <LTABLE NONE SKILL-CUNNING SKILL-TARGETING HYDRA-BLOOD-BALL>)
+	(TYPES <LTABLE R-NONE R-SKILL R-SKILL R-ITEM>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT248 "You feel as though you are about to be sick. You are surprised and ashamed. You have felt fear before, but you have always borne it bravely. Chattering teeth, quaking limbs and nausea might be excusable in a small child, but not in a proud Maya warrior.||With an uncontrollable belch, your stomach suddenly ejects something up into your throat. You feel it squirming. It's alive! Your mouth drops open in amazement and a firefly buzzes out.||The firefly circles the candle just as a gust of air extinguishes the flame. For a moment you are plunged into darkness, and your skin crawls with primordial fear as you imagine the spirits of the dead rising from their grave-mounds. But then the firefly settles on the wick and gives off a glow that makes it seem that the candle is still burning.||The courtiers are openly dumbfounded when you emerge from the House of Gloom at dawn showing every sign of having spent a peaceful night. \"Were you not afflicted by ghastly nightmares, visitations, hauntings and mind-shattering terrors?\" asks the chief courtier.||\"Not at all. Here's your candle back,\" you reply.||He stares at it. \"It hasn't even burned down!\"||\"You didn't leave me anything to read,\" you say with a shrug, \"so I just blew it out and got some sleep.\"||You pretend not to notice his expression of astonishment as you retrieve your pack of belongings.">
 
 <ROOM STORY248
 	(DESC "248")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT248)
+	(PRECHOICE STORY248-PRECHOICE)
+	(CONTINUE STORY040)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY248-PRECHOICE ()
+	<GAIN-LIFE 1>>
+
+<CONSTANT TEXT249 "He advances past you and presses on into your own team's defensive zone.">
+<CONSTANT CHOICES249 <LTABLE "chase after him" "run towards the enemy defence" "stay in mid-arena">>
 
 <ROOM STORY249
 	(DESC "249")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT249)
+	(CHOICES CHOICES249)
+	(DESTINATIONS <LTABLE STORY341 STORY318 STORY364>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT250 "You do not even get a dozen paces. Contemptuously, Necklace of Skulls raises one of his many-jointed limbs and brings a gout of celestial darkness streaming down from the cobalt sky. You are engulfed in icy shadow, and can only writhe in silent horror as the spell sucks you out of this world and carries you down through the ground towards the abode ghosts. You have failed.">
 
 <ROOM STORY250
 	(DESC "250")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT250)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY251
