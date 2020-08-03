@@ -16,6 +16,10 @@
     (DESC "Ignis")
     (SYNONYM IGNIS)>
 
+<OBJECT CODEWORD-OLMEK
+    (DESC "Olmek")
+    (SYNONYM OLMEK)>
+
 <OBJECT CODEWORD-PAKAL
     (DESC "Pakal")
     (SYNONYM PAKAL)>

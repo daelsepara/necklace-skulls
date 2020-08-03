@@ -35,6 +35,8 @@
 	<RFALSE>>
 
 <ROUTINE RESET-OBJECTS ()
+	<RESET-CONTAINER ,LOST-SKILLS>
+	<RESET-CONTAINER ,EAT-BAG>
 	<RETURN>>
 
 <ROUTINE RESET-STORY ()
@@ -92,6 +94,7 @@
 	<PUTP ,STORY235 ,P?DEATH T>
 	<PUTP ,STORY242 ,P?DEATH T>
 	<PUTP ,STORY246 ,P?DEATH T>
+	<PUTP ,STORY253 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -109,14 +112,12 @@
 		>
 	)>
 	<SET SKILL <FIRST? ,SKILLS>>
-    <REPEAT ()
-        <COND (<NOT .SKILL> <RETURN>)>
-        <SET REQUIREMENT <GETP .SKILL ,P?REQUIRES>>
-        <COND (.REQUIREMENT
-            <MOVE <GET .REQUIREMENT 1> ,PLAYER>
-        )>
-        <SET SKILL <NEXT? .SKILL>>
-    >
+	<REPEAT ()
+		<COND (<NOT .SKILL> <RETURN>)>
+		<SET REQUIREMENT <GETP .SKILL ,P?REQUIRES>>
+		<COND (.REQUIREMENT <MOVE <GET .REQUIREMENT 1> ,PLAYER>)>
+		<SET SKILL <NEXT? .SKILL>>
+	>
 	<RESET-OBJECTS>
 	<RESET-STORY>>
 
@@ -146,6 +147,12 @@
 	(DESC "skills lost")
 	(SYNONYM SKILLS)
 	(ADJECTIVE LOST)
+	(FLAGS CONTBIT OPENBIT)>
+
+<OBJECT EAT-BAG
+	(DESC "stuff eaten")
+	(SYNONYM BAG)
+	(ADJECTIVE EAT)
 	(FLAGS CONTBIT OPENBIT)>
 
 <GLOBAL TICKS 0>
@@ -3814,7 +3821,7 @@
 		<CRLF>
 		<TELL TEXT242-AGILITY>
 		<TELL ,PERIOD-CR>
-		<SET DAMAGE  1>
+		<SET DAMAGE 1>
 	)>
 	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY242>>
 
@@ -3860,7 +3867,7 @@
 	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT246 "You cannot keep a look of covetous disappointment off your face when Stooping Eagle replaces the stopper without offering you a drink. \"You came ill-prepared for a desert crossing, it seems,\" he says as he replaces the waterskin at his belt.||You can only nod. Your tongue is too dry to waste words. You wipe a dusty trickle of sweat off your sunburnt brow and smear the salty moisture across your lips.||Stooping Eagle adopts a look of regret. \"If only you were a nobleman like myself, I would be happy to share my rations with you, meagre as they are. But there are certain standards we must maintain even in the face of death. A noble does not drink from the same flask as a commoner.\"||\"Our skeletons won't look much different when they've  both been bleached by the sun's rays,\" you reply sullenly.||You would argue the point further, but if the two of you came to blows here and now it would just waste your last reserves of strength. The only victor in such a s struggle would be the merciless sun and the uncaring sands.">
+<CONSTANT TEXT246 "You cannot keep a look of covetous disappointment off your face when Stooping Eagle replaces the stopper without offering you a drink. \"You came ill-prepared for a desert crossing, it seems,\" he says as he replaces the waterskin at his belt.||You can only nod. Your tongue is too dry to waste words. You wipe a dusty trickle of sweat off your sunburnt brow and smear the salty moisture across your lips.||Stooping Eagle adopts a look of regret. \"If only you were a nobleman like myself, I would be happy to share my rations with you, meagre as they are. But there are certain standards we must maintain even in the face of death. A noble does not drink from the same flask as a commoner.\"||\"Our skeletons won't look much different when they've both been bleached by the sun's rays,\" you reply sullenly.||You would argue the point further, but if the two of you came to blows here and now it would just waste your last reserves of strength. The only victor in such a s struggle would be the merciless sun and the uncaring sands.">
 
 <ROOM STORY246
 	(DESC "246")
@@ -3925,174 +3932,144 @@
 	(DEATH T)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT251 "You find a trader who will shortly be sailing up the coast to Tahil.||He offers a free passage if you will help defend the boat against pirates. If not, he will charge you 6 cacao passage.">
+<CONSTANT CHOICES251 <LTABLE "travel with him and help with the defence" "pay for your passage" "travel overland instead">>
+
 <ROOM STORY251
 	(DESC "251")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT251)
+	(CHOICES CHOICES251)
+	(DESTINATIONS <LTABLE STORY300 STORY300 STORY228>)
+	(REQUIREMENTS <LTABLE <LTABLE SWORD BLOWGUN> 6 NONE>)
+	(TYPES <LTABLE R-ALL R-MONEY R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT252 "It is an arduous climb in the dry noon heat. You reach the city exhausted, and are grateful for the goblet of water that is put into your hands by a smiling priest. He beckons to a throng of richly attired warriors whose red face-paint and black helmet feathers make their welcoming smiles look rather fierce. \"We're glad to greet such an esteemed guest,\" says one.||\"You are just the sort of person we're looking for these days,\" mutters another, hand resting casually on his sword-hilt.||\"Why not come this way and spruce yourself up?\" says another, resting his strong arm across your weary shoulders.||You are led to the altar platform on top of the city's main pyramid, where more smiling priests await you. And if you feel like a turkey who's being invited to a feast, you are not far wrong.">
 
 <ROOM STORY252
 	(DESC "252")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT252)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT253 "You slice off the top of one of the cacti and drink its sap. The taste is unpleasantly bitter. You manage to resist the urge to vomit, knowing that to do so now would mean your death. Resting until your stomach stops gurgling, you head on across the barren sun-bleached land.">
 
 <ROOM STORY253
 	(DESC "253")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT253)
+	(PRECHOICE STORY253-PRECHOICE)
+	(CONTINUE STORY152)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY253-PRECHOICE ()
+	<TEST-MORTALITY 3 DIED-OF-THIRST ,STORY253>>
+
+<CONSTANT TEXT254 "The Moon Goddess has a small shrine off the northern edge of the temple plaza. You look up the pyramid steps to where the high priest awaits you, and he beckons for you to ascend. You compress your lips in annoyance; you had hoped he would come down to you. Even a small temple involves a steep climb.||As you make your way up the steps, you see stone effigies that depict the Nine Lords of the Night bearing the full moon up towards the shrine at the summit of the pyramid. The effigies are painted in the simple cream-gold hue of moonlight, with none of the bright daubings favoured by the other temples.||The high priest, too, has a manner quite unlike the priests of other gods. He wears a plain white robe, and a thin silver chain hangs around his waist. His smile of welcome seems modest and unaffected, but you sense a slight air of smugness behind the diffidently averted eyes. \"Good afternoon,\" he says. \"You must be Evening Star.\"||\"Let me get my breath back,\" you say, stooping as you reach the top of the steps. The baking sun on your back sends rivulets of sweat trickling off your brow. You glance down at the plaza twenty metres below. \"That's quite a climb.\"||The high priest smiles. \"You are out of condition.\"||You give him a wry look and sweep out your arm to indicate the flat landscape of fields and savannah surrounding the city. \"In these parts, only the holy get plenty of climbing practice. I've come to you for advice on my quest into the western desert.\"||\"Buy a waterskin.\"||You're unsure how to take that remark. You watch him, but the only trace that he might be joking is a sly curl of the lips. \"Is that all you have to suggest?\" you ask.||He glances at the shrine behind him. \"See this stucco? Flaking away, I'm afraid. The whole outer facade needs repairs.\"||In his roundabout way, he's asking for a donation.">
+<CONSTANT CHOICES254 <LTABLE "pay 1 cacao" "pay 2 cacao" "you are not prepared to make any donation and you need to hurry over to the market and spend your money on supplies instead">>
 
 <ROOM STORY254
 	(DESC "254")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT254)
+	(CHOICES CHOICES254)
+	(DESTINATIONS <LTABLE STORY424 STORY002 STORY093>)
+	(REQUIREMENTS <LTABLE 1 2 NONE>)
+	(TYPES <LTABLE R-MONEY R-MONEY R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT255 "The stabai are inconstant creatures. Their perspective is like that of the forest itself, where the promises and threats of mankind mean nothing beside the endless cycle of death, decay and rebirth. The only way you will get anything form them is by keeping a tight grip on the shawl. As long as you hold the stabai's precious property, you have some power over them. Relinquish it, and you immediately lay yourself open to their most noxious tricks.">
 
 <ROOM STORY255
 	(DESC "255")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT255)
+	(CONTINUE STORY369)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT256 "The rumbling in your belly grows more insistent. You must find something to eat or you risk starving here in the forest's depths.">
+<CONSTANT TEXT256-NOTHING "... But you have nothing to eat">
 
 <ROOM STORY256
 	(DESC "256")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT256)
+	(PRECHOICE STORY256-PRECHOICE)
+	(CONTINUE STORY004)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY256-PRECHOICE ("AUX" (COUNT 0))
+	<RESET-TEMP-LIST>
+	<RESET-CONTAINER ,EAT-BAG>
+	<COND (<CHECK-ITEM ,HAUNCH-OF-VENISON>
+		<SET COUNT <+ .COUNT 1>>
+		<PUT TEMP-LIST .COUNT ,HAUNCH-OF-VENISON>
+	)>
+	<COND (<CHECK-ITEM ,PAPAYA>
+		<SET COUNT <+ .COUNT 1>>
+		<PUT TEMP-LIST .COUNT ,PAPAYA>
+	)>
+	<COND (<CHECK-ITEM ,OWL>
+		<SET COUNT <+ .COUNT 1>>
+		<PUT TEMP-LIST .COUNT ,OWL>
+	)>
+	<COND (<CHECK-ITEM ,MAIZE-CAKES>
+		<SET COUNT <+ .COUNT 1>>
+		<PUT TEMP-LIST .COUNT ,MAIZE-CAKES>
+	)>
+	<COND (<G? .COUNT 0>
+		<SELECT-FROM-LIST TEMP-LIST .COUNT 1 "food" ,EAT-BAG "eat">
+		<COND (<FIRST? ,EAT-BAG>
+			<GAIN-LIFE 1>
+			<STORY-JUMP ,STORY279>
+		)>
+	)(ELSE
+		<CRLF>
+		<TELL TEXT256-NOTHING>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT257 "The priest sees your bracelet and turns to look at you with new interest. You do not entire like the expression of alert scrutiny on his face. He reminds you of an eagle studying a mouse. \"Ah, I see you are one of the chosen,\" he says, calling to a group of priestly warriors near by.||\"The chosen what?\" you ask.||He gives you a puzzled look. \"Why, one of those chosen to carry our petition to the Rain God,\" he replies.||The guards close in at your shoulders. The priest gestures towards the sunken lake, and suddenly the truth dawns. They mean to cat you into the pit as a living sacrifice to the gods.">
+<CONSTANT CHOICES257 <LTABLE "struggle to resist the fate they have in store for you" "cast a protective enchantment" "agree to being thrown into the pit">>
 
 <ROOM STORY257
 	(DESC "257")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT257)
+	(CHOICES CHOICES257)
+	(DESTINATIONS <LTABLE STORY281 STORY304 STORY327>)
+	(REQUIREMENTS <LTABLE NONE SKILL-SPELLS NONE>)
+	(TYPES <LTABLE R-NONE R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT258 "The strange pair guide their canoe into a tunnel leading off the side of the cavern. As you proceed, the roof of the tunnel gets lower until finally you have to crouch down to avoid bumping your head. The tunnel is so narrow by now that the sides of the canoe are scraping against the rock walls. You begin to worry that you will get wedged in the tunnel, unable either to go on or turn back, but the two unhuman oarsmen are entirely unconcerned. Pressed into the bottom of the boat, you can hear them sniggering to themselves.||\"The water level's higher than the last time,\" calls back the one in front.||\"It's a tight squeeze,\" agrees the other. \"We might have to go under.\"||Go under? Do they mean submerge?">
+<CONSTANT CHOICES258 <LTABLE "tell them to take you back to the cave and find another route" "let them row on">>
 
 <ROOM STORY258
 	(DESC "258")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT258)
+	(CHOICES CHOICES258)
+	(DESTINATIONS <LTABLE STORY237 STORY261>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT259 "You reach the cliff. It is a solid wall of smooth grey stone receding off towards the horizon to left and right, and bounded above by the shimmering surface of the water hanging overhead. There are two doorways into the cliff, each sealed by a gate of stout wooden bars held shut by an elaborate knot of rope as thick as your wrist.">
 
 <ROOM STORY259
 	(DESC "259")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT259)
+	(PRECHOICE STORY259-PRECHOICE)
+	(CONTINUE STORY358)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY259-PRECHOICE ()
+	<COND (<G? ,MONEY 0> <STORY-JUMP ,STORY414>)>>
+
+<CONSTANT TEXT260 "You walk along the shore as dusk gathers and the stars slowly emerge against the curtain of night. Ahead of you, nestling at the base of the cliffs, you see a massive round head that seems to be carved out of smooth black stone. It is taller than a man. As you get closer, it becomes possible to make out the features: a strong face with wide aristocratic nose, thick lips compressed in stern deliberation, heavy brows above eyes which stare impassively out to sea.||Then you realize you can hear muttering. A low quiet sound at the very limit of audibility. It sounds like someone counting: \"Seventeen million and sixty-two, seventeen million and sixty-three...\"||You step up to the head and say, \"Excuse me.\"||The huge eyes roll in their sockets with a stony scraping. You find yourself fixed with a disconcerting stare. The eyes hold that blank expression which lies on the far side of outrage and disbelief.||After a moment, the head's gaze turns back to the starry sky. \"One,\" you hear it say distinctly. \"Two. Three...\"||You give a polite cough. \"There are one hundred thousand million and seven of them,\" you venture.||The huge eyes swivel back to study you again, this time filled with a look of cautious hope. \"You're sure? I thought mortal eyes could only see a few thousand stars.\"|| \"They can, but I was told the number by a magician.\"||He gives a gravelly sigh. \"I have been counting the stars since before the coming of man -- but they kept moving, and often the daytime made me lose count. See, I've been here so long I've been buried up to my neck.\"||You look at the sand and gravel, trying to imagine the huge body buried beneath it.">
+<CONSTANT CHOICES260 <LTABLE "ask the giant for a favour" "you think it is time to get on with planning your journey to Tahil">>
 
 <ROOM STORY260
 	(DESC "260")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT260)
+	(CHOICES CHOICES260)
+	(DESTINATIONS <LTABLE STORY023 STORY113>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY261
