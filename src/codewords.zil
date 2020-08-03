@@ -8,6 +8,10 @@
     (DESC "Calabash")
     (SYNONYM CALABASH)>
 
+<OBJECT CODEWORD-CENOTE
+    (DESC "Cenote")
+    (SYNONYM CENOTE)>
+
 <OBJECT CODEWORD-IGNIS
     (DESC "Ignis")
     (SYNONYM IGNIS)>

@@ -88,6 +88,8 @@
 	<PUTP ,STORY227 ,P?DEATH T>
 	<PUTP ,STORY229 ,P?DEATH T>
 	<PUTP ,STORY230 ,P?DEATH T>
+	<PUTP ,STORY232 ,P?DEATH T>
+	<PUTP ,STORY235 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -258,6 +260,21 @@
 		)>
 	>
 	<RETURN .COUNT>>
+
+<ROUTINE DONATE-CACAO ("AUX" DONATION)
+	<COND (<AND ,RUN-ONCE <G? ,MONEY 0>>
+		<SET DONATION <GET-NUMBER "Make a donation for the god's benison" 0 ,MONEY>>
+		<COND (<G? .DONATION 0> <CHARGE-MONEY .DONATION>)>
+	)>>
+
+<ROUTINE DELETE-CODEWORD (CODEWORD)
+	<COND (<AND .CODEWORD <CHECK-CODEWORD .CODEWORD>>
+		<HLIGHT ,H-BOLD>
+		<CRLF>
+		<TELL "You lose the codeword " D .CODEWORD ,PERIOD-CR>
+		<HLIGHT 0>
+		<REMOVE .CODEWORD>
+	)>>
 
 <CONSTANT TEXT "This story has not been written yet.">
 
@@ -513,7 +530,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY018-PRECHOICE ()
-	<COND (<CHECK-CODEWORD ,CODEWORD-ANGEL> <REMOVE ,CODEWORD-ANGEL>)>
+	<COND (<CHECK-CODEWORD ,CODEWORD-ANGEL> <DELETE-CODEWORD ,CODEWORD-ANGEL>)>
 	<LOSE-SKILL ,SKILL-SPELLS>>
 
 <CONSTANT TEXT019 "You have time to take a single step towards the black pyramid, then a howl rings out from the shrine -- a howl of such gruesome fury that your sweat runs icy on your brow. The courtiers abandon any semblance of human form and, transforming into wild dogs, scatter with yelps of fear.||The shadow men dissolve as Necklace of Skulls draws all his power back into himself. There is a rumbling from deep within the pyramid. The roof of the shrine trembles, then splits apart as something rises up through it. The pillars topple; masonry blocks crack open. Necklace of Skulls stands revealed atop the pyramid.||He is twice the height of a man -- a parody of human form with dead grey features and grotesquely long limbs with too many joints. The eyes are deep sockets under a caul of shrivelled flesh. His robe is sewn from ragged strips of blood-drenched skin; you realize with a shudder they are the flayed skins of men. Around his neck hangs a long chain of gore-spattered skulls, each with living eyes filled with eternal torment.||Necklace of Skulls stands in the rubble of his shrine like a loathsome insect just emerged from a chrysalis. He points a thin finger at you. \"Evening Star,\" he hisses. \"Now you will know the taste of death.\"">
@@ -2900,7 +2917,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY181-PRECHOICE ()
-	<COND (<CHECK-CODEWORD ,CODEWORD-VENUS> <REMOVE ,CODEWORD-VENUS>)>>
+	<COND (<CHECK-CODEWORD ,CODEWORD-VENUS> <DELETE-CODEWORD ,CODEWORD-VENUS>)>>
 
 <CONSTANT TEXT182 "It is early in the morning when you make ready to sail. The sky is a shimmering pane of jade on which the last stars sparkle like dewdrops that are swiftly burnt away when the trembling red disc of the sun lurches up from the east.||Along with the half dozen other crewmen, you push the ship out through the cool grey waves and then jump aboard. Paddles are used to move out from the shores until the sail catches the breeze. Its triangular shape puts you in mind of an elegant bird unfolding its to soar.||The day passes pleasantly as you sail on keeping the shore in sight, but towards evening a cloud looms on the horizon. It indicates a storm blowing from out at sea. \"We must put out from the coastline,\" says one of the crew as you feel the wind rising. \"Otherwise we run the risk of being blown onto the reefs.\"||As the storm rolls over you, it turns the twilight to night and blots out any sign of the shore. Rain sweeps into your face, stinging your eyes with its force. The sailors cling to the mast and mutter prayers to the gods through chattering teeth. Their prayers go unheeded: the sea lifts your vessel like a toy and flings it far out into the unknown ocean.">
 
@@ -3481,11 +3498,8 @@
 	(CONTINUE STORY259)
 	(FLAGS LIGHTBIT)>
 
-<ROUTINE STORY219-PRECHOICE ("AUX" DONATION)
-	<COND (<AND ,RUN-ONCE <G? ,MONEY 0>>
-		<SET DONATION <GET-NUMBER "Make a donation for the god's benison" 0 ,MONEY>>
-		<COND (<G? .DONATION 0> <CHARGE-MONEY .DONATION>)>
-	)>
+<ROUTINE STORY219-PRECHOICE ()
+	<DONATE-CACAO>
 	<COND (<CHECK-SKILL ,SKILL-FOLKLORE> <STORY-JUMP ,STORY379>)>>
 
 <CONSTANT TEXT220 "The sun rises again, flooding the sands with the stifling heat of day. You realize that soon you must find shade, or the sun will bake you alive. Stumbling wearily up to the top of the next dune, however, all such thoughts fly from your mind to be replaced by a feeling of exhilaration. You have found it! The wizard's palace lies just ahead across a stretch of brown-gold sand. The dawn light makes it seem to shimmer like a mirage in the deep blue shadows between the dunes, but you know it is real.||Double doors swing open in the wall as you approach. Confronting you are a horde of men in ragged animal skins. Their long thin faces and downcast smiles give them a canine appearance. All of them bear stone axes which they lift when you walk through the palace gates -- not a gesture of immediate attack, but just to warn you where you stand.||\"I have come,\" you say, \"to speak to Necklace of Skulls.\"||One of the men gives a bark of laughter. \"It is not as easy as that. Do you think our master sees every stray mongrel who wanders to his door? First you will have to pass five nights among us, his faithful courtiers.\"||You decide to change tack. \"What of my brother, Morning Star?\" you ask.||\"He's been here. Perhaps you'll get to meet him -- later.\"">
@@ -3630,174 +3644,143 @@
 <ROUTINE STORY230-PRECHOICE ()
 	<TEST-MORTALITY 1 DIED-OF-THIRST ,STORY230>>
 
+<CONSTANT TEXT231 "The high priest of the War God is a grizzled old soldier, sturdy in spite of his years. You find him at the arena practising the ball contest which is both a sport and a sacred ritual for your people. Clad in heavy protective padding, he swipes at the rubber ball with his forearms and knees, now and again running up along the slanting walls of the arena to drive the ball towards the goal: a stone ring set high up off the arena floor. You watch for a while, marvelling at his strength and grace. Each impact of the ball costs him an effort which can be heard in his grunts and gasps, but he plays on despite the heat of the afternoon, which has sent many a younger man off to a siesta.||At last he concludes his practice. Pulling off his protective helmet, he wipes back his sweat-soaked greying hair and walks towards you. \"So you're Evening Star,\" he says, clasping your hand. \"Going after your brother, are you? Good, I admire that! Sort that damned sorcerer out, eh?\"||It is not the custom of your people to be so direct, and is manner leaves you discomposed. \"Um... your ball practice was very impressive,\" you say lamely.||\"For someone of my age, you were going to say?\" He laughs heartily. \"Well, I prefer a bit of killing, if the truth be told, but Koba's not at war with anyone at the moment. Now, as to this quest of yours -- I take it you'll be going by the land route? Take the causeway as far as Yashuna, then turn south and head cross-country of Nachan. There's fine deer to be had in the forest, I can tell you. You are taking all this in, aren't you?\"||\"Er, yes.\"||\"Good. Now, watch out for the stabai when you're in the forest. They're sort of magical nymphs -- can be mischievous, or downright nasty. After Nachan you'll head up through the mountains to the western desert. Make sure you've got a waterskin, by the way, or you won't survive two days in the desert. Do you want to make an offering to the god?||An offering might bring you good fortune on your journey.">
+
 <ROOM STORY231
 	(DESC "231")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT231)
+	(PRECHOICE DONATE-CACAO)
+	(CONTINUE STORY301)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT232 "\"Wait!\" You take a step towards the mysterious girl. She barely glances GO-BACK but hurls a peal of laughter over her shoulder and skips away through a sparse bank of ferns. Quickening your pace, you plunge through the undergrowth after her. Her own gait is as light as a dancer's, but even though you break into a run you find yourself unable to catch her.||Stumbling into a thickset of thorns, you give a gasp of pain and annoyance as the sharp spines rip your clothing and your flesh.">
+<CONSTANT TEXT232-CONTINUED "When you manage to struggle free, the girl is still lingering a little way ahead, hovering luminously in the emerald twilight. Now she turns her shining face and gives you a bolder smile, but along with curiosity you feel a stirring of superstitious dread. This chase is leading you far off your route and into the darker depths of the forest. The image of the shimmering jewel-like figure outlined against the shadows between the trees awakens a disquieting comparison. She reminds you of the bright pattern of a spider hanging in its web.">
+<CONSTANT CHOICES232 <LTABLE "continue the chase" "give up and retrace your steps to find your original route">>
 
 <ROOM STORY232
 	(DESC "232")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT232)
+	(PRECHOICE STORY232-PRECHOICE)
+	(CHOICES CHOICES232)
+	(DESTINATIONS <LTABLE STORY278 STORY160>)
+	(TYPES TWO-NONES)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY232-PRECHOICE ()
+	<COND (,RUN-ONCE <TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY232>)>
+	<IF-ALIVE TEXT232-CONTINUED>>
+
+<CONSTANT TEXT233 "Crouching hidden behind a bank of ferns, you wait patiently until a rabbit comes hopping past. It squats with ears pricked up and nose twitching, barely arm's length from your hiding place. You lob a stone over to the far side of the clearing, and the sudden noise startles the rabbit so that it rushes straight into your clutches. A quick twist ends its struggles, and soon you are roasting your catch over a fire. As you chew at the rangey meat, you reflect on how your artful ways are not only of use in the city.">
 
 <ROOM STORY233
 	(DESC "233")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT233)
+	(CONTINUE STORY279)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT234 "A young man and woman are brought forward by the priests and led to a shrine at the western edge of the hole. A steep flight of steps descends from the shrine towards a platform covered with sacred glyphs. As golden pectorals are placed over the couple's shoulders, it becomes clear that they are going to be sacrificed. They have chosen to jump into the sinkhole, carrying the people's prayers to the Rain God who dwells under the world.">
 
 <ROOM STORY234
 	(DESC "234")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT234)
+	(PRECHOICE STORY234-PRECHOICE)
+	(CONTINUE STORY127)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY234-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-CENOTE>
+		<DELETE-CODEWORD ,CODEWORD-CENOTE>
+		<STORY-JUMP ,STORY103>
+	)>>
+
+<CONSTANT TEXT235 "You steel your nerves and leap from the lip of the sinkhole.||The water rushes up to meet you, enfolding you in a silent icy embrace. Shock drives the air out of your lungs and you flail wildly. Instantly disoriented, you have no idea which way to swim to reach the surface. Bloody darkness thunders through your brain. You feel yourself drifting, and you know that by now you should have had a glimpse of the sunlit surface of the water. You are not in the bottom of the well anymore. You have plunged into the fabled river that leads between the world of the living and the dead">
 
 <ROOM STORY235
 	(DESC "235")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY235-PRECHOICE)
+	(CONTINUE STORY119)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY235-PRECHOICE ()
+	<COND (<CHECK-ITEM ,JADE-BEAD>
+		<CRLF>
+		<TELL "You slip " T ,JADE-BEAD " under your tongue as you were told to do">
+		<TELL ,PERIOD-CR>
+	)>
+	<CRLF>
+	<TELL TEXT235>
+	<TELL ,PERIOD-CR>
+	<TEST-MORTALITY 3 DIED-GREW-WEAKER ,STORY235>>
+
+<CONSTANT TEXT236 "A gust of wind carrying a rotting miasmal stench tells you that you are approaching the end of the tunnel. The demons steer along a side passage towards a patch of grey daylight, emerging under a sky the colour of wet limestone. This tributary of the river is barely more than a muddy trickle. The rank smell hangs over a dreary expanse of marshland which stretches off into the distance. No matter which way you look, all you can see is a landscape of sour white clay covered with scum-covered ponds and grey tufts of reeds.||You put in at a rotting wooden jetty and the demons wait for you to disembark. \"Hope you enjoyed the voyage,\" cackles one.||\"It's customary to show your appreciation,\" says the other as you clamber onto the jetty.||\"That's right!\" says the first as though it has only just occurred to him. \"Got a jade bead you could let us have?\"">
 
 <ROOM STORY236
 	(DESC "236")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT236)
+	(PRECHOICE STORY236-PRECHOICE)
+	(CONTINUE STORY053)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY236-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-FOLKLORE>
+		<STORY-JUMP ,STORY031>
+	)(<CHECK-ITEM ,JADE-BEAD>
+		<CRLF>
+		<TELL "Give them " T ,JADE-BEAD "?">
+		<COND (<YES?> <LOSE-ITEM ,JADE-BEAD>)>
+	)>>
+
+<CONSTANT TEXT237-JADE-BEAD "The jade bead rolls out from under your tongue when you speak and it falls into the water">
+<CONSTANT TEXT237 "\"There's no other way,\" replies the demon with the jaguar-skin skullcap.\"||\"Not if you want to reach the Deathlands alive,\" adds his accomplice, and they rock with immoderate joy like two senile old men">
 
 <ROOM STORY237
 	(DESC "237")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY237-PRECHOICE)
+	(CONTINUE STORY261)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY237-PRECHOICE ()
+	<COND (<CHECK-ITEM ,JADE-BEAD>
+		<CRLF>
+		<TELL TEXT237-JADE-BEAD>
+		<TELL ,PERIOD-CR>
+	)>
+	<CRLF>
+	<TELL TEXT237>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT238 "You join the queue of people waiting outside the palace in the hope of being granted an audience. When it comes to your turn, a snooty courtier soon makes it plain that you will have to bribe him if you want your gift taken to the King.">
+<CONSTANT CHOICES238 <LTABLE "bribe him" "an audience with the King is not worth it">>
 
 <ROOM STORY238
 	(DESC "238")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT238)
+	(CHOICES CHOICES238)
+	(DESTINATIONS <LTABLE STORY285 STORY262>)
+	(REQUIREMENTS <LTABLE 3 NONE>)
+	(TYPES <LTABLE R-MONEY R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT239 "Something passes overhead with a heavy flapping noise, then descends to alight on the spire where you are clinging. You look up to see the familiar face of the dwarf you helped earlier. Ugly as he is, you could not imagine a more joyous sight -- for you now see that his long ares are not clothed in a black mantle as you had supposed, but are actually bat-like wings.||\"Grab hold of my feet,\" he says.||You do not need to be told twice. Once you have a firm grip, he sweeps out his wings and flies you across the canyon. It is a breathtaking ride, swooping with giddying speed high above the billowing lava-mist as the far edge of the canyon comes rushing nearer. You are not sorry when Zotz finally spirals down and your feet touch solid ground again.||\"There, I said I'd repay my debt,\" says Zotz with a grotesque grin. \"Take care, now!\" And he leaps off the edge, gliding back until he is swallowed by the rising veils of steam.">
 
 <ROOM STORY239
 	(DESC "239")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT239)
+	(PRECHOICE STORY239-PRECHOICE)
+	(CONTINUE STORY263)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY239-PRECHOICE ()
+	<DELETE-CODEWORD ,CODEWORD-ZOTZ>>
+
+<CONSTANT TEXT240 "Necklace of Skulls towers over you, his huge face looming like a grotesque white mushroom against the indigo blue of the sky. His sword descends in a murderous arc. You throw yourself to one side and it clashes against a block masonry, scattering chips of broken stone. And physical strength is not his only weapon -- he also unleashes sorcery, spewing out torrents of acrid smoke from his mouth. His screams of fury are so charged with magic that they awaken the skulls hanging at his chest. Chittering with malevolence, they strain on their cords to snap at you.||It is an impressive display of sheer power. Others might even find it terrifying, but you have come too far and faced too many perils to fail now. You stand side by side with your brother and slowly force the wizard back. Just as his fury takes tangible form, so his desperation shows as sparks of cindery light. He stabs out with his sword a final time, wounding Morning Star, then emits a bleak cry like a dying vulture and topples back into the pit leading to the interior of the pyramid.||As your foe dies, the whole palace begins to shudder. You help Morning Star to his feet, relieved to see that his wound is not a fatal one. He will always carry a scar to remind him of Necklace of Skulls' final sword-strike, but at least he will live.||\"I think we ought to get out of here,\" you say to him as a nearby building caves in.||\"I think you're right,\" he says.">
 
 <ROOM STORY240
 	(DESC "240")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT240)
+	(CONTINUE STORY442)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY241
