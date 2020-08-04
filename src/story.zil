@@ -103,7 +103,12 @@
 	<PUTP ,STORY276 ,P?DEATH T>
 	<PUTP ,STORY281 ,P?DEATH T>
 	<PUTP ,STORY285 ,P?DEATH T>
-	<PUTP ,STORY290 ,P?DEATH F>
+	<PUTP ,STORY290 ,P?DEATH T>
+	<PUTP ,STORY291 ,P?DEATH T>
+	<PUTP ,STORY294 ,P?DEATH T>
+	<PUTP ,STORY295 ,P?DEATH T>
+	<PUTP ,STORY296 ,P?DEATH T>
+	<PUTP ,STORY298 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -304,6 +309,57 @@
 		<HLIGHT 0>
 		<REMOVE .CODEWORD>
 	)>>
+
+<ROUTINE EAT-PROVISIONS (QUANTITY STORY "OPT" DAMAGE JUMP "AUX" (COUNT 0) (CONSUMED 0))
+	<RESET-TEMP-LIST>
+	<RESET-CONTAINER ,EAT-BAG>
+	<COND (<CHECK-ITEM ,HAUNCH-OF-VENISON>
+		<SET COUNT <+ .COUNT 1>>
+		<PUT TEMP-LIST .COUNT ,HAUNCH-OF-VENISON>
+	)>
+	<COND (<CHECK-ITEM ,SALTED-MEAT>
+		<SET COUNT <+ .COUNT 1>>
+		<PUT TEMP-LIST .COUNT ,SALTED-MEAT>
+	)>
+	<COND (<CHECK-ITEM ,PAPAYA>
+		<SET COUNT <+ .COUNT 1>>
+		<PUT TEMP-LIST .COUNT ,PAPAYA>
+	)>
+	<COND (<CHECK-ITEM ,OWL>
+		<SET COUNT <+ .COUNT 1>>
+		<PUT TEMP-LIST .COUNT ,OWL>
+	)>
+	<COND (<CHECK-ITEM ,MAIZE-CAKES>
+		<SET COUNT <+ .COUNT 1>>
+		<PUT TEMP-LIST .COUNT ,MAIZE-CAKES>
+	)>
+	<COND (<G? .COUNT 0>
+		<SELECT-FROM-LIST TEMP-LIST .COUNT .QUANTITY "food" ,EAT-BAG "eat">
+		<SET CONSUMED <COUNT-CONTAINER ,EAT-BAG>>
+		<COND (<G? .CONSUMED 0>
+			<COND (<NOT .DAMAGE>
+				<COND (<L? .CONSUMED .QUANTITY>
+					<GAIN-LIFE <- .QUANTITY .CONSUMED>>
+				)(ELSE
+					<GAIN-LIFE .QUANTITY>					
+				)>
+			)(<G=? .CONSUMED .QUANTITY>
+				<EMPHASIZE "You were able to eat your fill">
+				<PUTP .STORY ,P?DEATH F>
+			)(ELSE
+				<TEST-MORTALITY <- .QUANTITY .CONSUMED> DIED-OF-HUNGER .STORY>
+			)>
+			<COND (.JUMP <STORY-JUMP .JUMP>)>
+		)(.DAMAGE
+			<TEST-MORTALITY .QUANTITY DIED-OF-HUNGER .STORY>
+		)>
+	)(ELSE
+		<CRLF>
+		<TELL "... But you have nothing to eat">
+		<TELL ,PERIOD-CR>
+		<COND (.DAMAGE <TEST-MORTALITY .QUANTITY DIED-OF-HUNGER .STORY>)>
+	)>
+	<UPDATE-STATUS-LINE>>
 
 <CONSTANT TEXT "This story has not been written yet.">
 
@@ -3965,36 +4021,8 @@
 	(CONTINUE STORY004)
 	(FLAGS LIGHTBIT)>
 
-<ROUTINE STORY256-PRECHOICE ("AUX" (COUNT 0))
-	<RESET-TEMP-LIST>
-	<RESET-CONTAINER ,EAT-BAG>
-	<COND (<CHECK-ITEM ,HAUNCH-OF-VENISON>
-		<SET COUNT <+ .COUNT 1>>
-		<PUT TEMP-LIST .COUNT ,HAUNCH-OF-VENISON>
-	)>
-	<COND (<CHECK-ITEM ,PAPAYA>
-		<SET COUNT <+ .COUNT 1>>
-		<PUT TEMP-LIST .COUNT ,PAPAYA>
-	)>
-	<COND (<CHECK-ITEM ,OWL>
-		<SET COUNT <+ .COUNT 1>>
-		<PUT TEMP-LIST .COUNT ,OWL>
-	)>
-	<COND (<CHECK-ITEM ,MAIZE-CAKES>
-		<SET COUNT <+ .COUNT 1>>
-		<PUT TEMP-LIST .COUNT ,MAIZE-CAKES>
-	)>
-	<COND (<G? .COUNT 0>
-		<SELECT-FROM-LIST TEMP-LIST .COUNT 1 "food" ,EAT-BAG "eat">
-		<COND (<FIRST? ,EAT-BAG>
-			<GAIN-LIFE 1>
-			<STORY-JUMP ,STORY279>
-		)>
-	)(ELSE
-		<CRLF>
-		<TELL TEXT256-NOTHING>
-		<TELL ,PERIOD-CR>
-	)>>
+<ROUTINE STORY256-PRECHOICE ()
+	<EAT-PROVISIONS 1 ,STORY256 F ,STORY279>>
 
 <CONSTANT TEXT257 "The priest sees your bracelet and turns to look at you with new interest. You do not entire like the expression of alert scrutiny on his face. He reminds you of an eagle studying a mouse. \"Ah, I see you are one of the chosen,\" he says, calling to a group of priestly warriors near by.||\"The chosen what?\" you ask.||He gives you a puzzled look. \"Why, one of those chosen to carry our petition to the Rain God,\" he replies.||The guards close in at your shoulders. The priest gestures towards the sunken lake, and suddenly the truth dawns. They mean to cat you into the pit as a living sacrifice to the gods.">
 <CONSTANT CHOICES257 <LTABLE "struggle to resist the fate they have in store for you" "cast a protective enchantment" "agree to being thrown into the pit">>
@@ -4486,174 +4514,169 @@
 		<COND (<IS-ALIVE> <EMPHASIZE TEXT290-FLESH>)>
 	)>>
 
+<CONSTANT TEXT291 "Two of the monster's head lash out together. You give a cry of pain as long curved fangs scythe a chunk out of your flesh.">
+<CONSTANT TEXT291-BLOCK "You blocked one of the attacks">
+<CONSTANT CHOICES291 <LTABLE "dodge back away from it" "make a headlong assault" "attempt to distract it with a feint">>
+
 <ROOM STORY291
 	(DESC "291")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT291)
+	(PRECHOICE STORY291-PRECHOICE)
+	(CHOICES CHOICES291)
+	(DESTINATIONS <LTABLE STORY245 STORY268 STORY419>)
+	(TYPES THREE-NONES)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY291-PRECHOICE ("AUX" (BLOCKED F) (DAMAGE 3))
+	<COND (,RUN-ONCE
+		<COND (<OR <CHECK-SKILL ,SKILL-SWORDPLAY> <CHECK-SKILL ,SKILL-UNARMED-COMBAT>>
+			<SET BLOCKED T>
+			<SET DAMAGE 2>
+		)>
+		<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY291>
+		<COND (<AND <IS-ALIVE> .BLOCKED>
+			<CRLF>
+			<TELL TEXT291-BLOCK>
+			<TELL ,PERIOD-CR>
+		)>
+	)>>
+
+<CONSTANT TEXT292 "Your companion is led off across the courtyard towards a group of buildings. He looks back at you with sudden alarm, only to be jostled by the throng of dog-like courtiers surrounding him. \"Do not be afraid,\" you call after him. \"Courage and determination will win us through the trials to come.\"||The chief courtier picks at his teeth and murmurs in a mocking tone. \"By the look of him, he doesn't share your sterling qualities. Timidity and wretchedness seem more his mark.\"||You watch until the poor man is bustled inside, then round on the chief courtier. \"I demand to be taken to Necklace of Skulls.\"||\"In good time,\" he chortles. \"Have I not invited you to be our guest first? After five nights you will be admitted to the sanctum of our master.\" He points a long hairy finger towards the pyramid that towers over the inner courtyard. The black colouring of the building makes it look like a sliver of night that remains to defy the daytime.||\"Take me to my quarters, then,\" you tell him.||The assembled courtiers give a high howling laugh at this. \"Not so fast,\" titters the chief when he has recovered himself. \"First you have to choose your route to our compound.\"">
 
 <ROOM STORY292
 	(DESC "292")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT292)
+	(CONTINUE STORY315)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT293 "You lick your lips nervously and venture another step closer to the burly hound. Its snarl becomes a roar as it throws itself at your throat.">
+<CONSTANT CHOICES293 <LTABLE "stand your ground and fight" "retreat to the colonnade at the mouth of the passage">>
 
 <ROOM STORY293
 	(DESC "293")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT293)
+	(DESTINATIONS <LTABLE STORY229 STORY362>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT294 "The candle looks as though it will last for about an hour. Just as you are thinking this, a draft of cold air suddenly blows it out, plunging you into darkness.||Silence hangs like a waiting presence in the air. The darkness dances in front of your eyes, causing your imagination to paint pictures of horror on the back of your mind. Your flesh creeps with unidentifiable fears.||You hear a noise that sets your heart pounding and every nerve shrieking. It was the sound of something dragging itself across the dry earthen floor. It stops beside you and you feel it reach out to stroke your leg: a thin dry hand with no flesh on it...||And then you scream.||All through the night you are beset by gibbering phantoms that come prancing out of the darkness, running their unseen hands over your skin and whispering horrible things in your ears.">
+<CONSTANT TEXT294-CONTINUED "When the dawn arrives you stagger out on shaking legs to retrieve your pack of belongings. No matter what dangers you have to face now, you cannot conceive of anything more unpleasant than another night in the House of Gloom.">
 
 <ROOM STORY294
 	(DESC "294")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT294)
+	(PRECHOICE STORY294-PRECHOICE)
+	(CONTINUE STORY040)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY294-PRECHOICE ()
+	<TEST-MORTALITY 1 "You died from the harrowing experience" ,STORY294>
+	<IF-ALIVE TEXT294-CONTINUED>>
+
+<CONSTANT TEXT295 "With a breathtaking lunge he catches up with the ball and strikes it a sweeping blow which sends it thudding up against the scoring zone.">
+<CONSTANT TEXT295-CHARMS "You are unlucky and it catches you a hard blow on the side of the head">
 
 <ROOM STORY295
 	(DESC "295")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT295)
+	(PRECHOICE STORY295-PRECHOICE)
+	(CONTINUE STORY066)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY295-PRECHOICE ()
+	<SET CROSS <+ ,CROSS 1>>
+	<COND (<NOT <CHECK-SKILL ,SKILL-CHARMS>>
+		<CRLF>
+		<TELL TEXT295-CHARMS>
+		<TELL ,PERIOD-CR>
+		<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY295>
+	)(ELSE
+		<PUTP ,STORY295 ,P?DEATH F>
+	)>>
+
+<CONSTANT TEXT296 "Necklace of Skulls towers over you, his grotesque head looming like a pallid mushroom against the deep blue bowl of the heavens. His sword descends in a jagged sweep, and you throw yourself to one side. You hear it clash against the stone steps. At the same time as fighting you physically, he also uses his magic -- unleashing tendrils of poisonous gas from his throat and enchanting the skulls hanging at his chest so that they strain on their cords to snap at.">
 
 <ROOM STORY296
 	(DESC "296")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT296)
+	(PRECHOICE STORY296-PRECHOICE)
+	(CONTINUE STORY342)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY296-PRECHOICE ("AUX" (DAMAGE 9))
+	<COND (<CHECK-SKILL ,SKILL-SWORDPLAY> <SET DAMAGE <- .DAMAGE 2>>)>
+	<COND (<CHECK-SKILL ,SKILL-CHARMS> <SET DAMAGE <- .DAMAGE 2>>)>
+	<COND (<CHECK-SKILL ,SKILL-UNARMED-COMBAT> <SET DAMAGE <- .DAMAGE 2>>)>
+	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY296>>
+
+<CONSTANT TEXT297 "Your first dart hits a pirate right between his white-rimmed eyes and he slumps over the side with a groan. The others react to this with screeches of rage, paddling furiously to catch up with your own vessel. By the time the gap has been closed to ten paces, you have slain two more of them with your blowgun and they are beginning to have second thoughts. When they see you slide another dart into the blowgun, they throw up their hands in a gesture of surrender and go veering off towards the horizon -- no doubt in search of easier pickings.">
 
 <ROOM STORY297
 	(DESC "297")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT297)
+	(CONTINUE STORY343)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT298 "All along your route you find deserted cottages where people have abandoned their homes and farms for safer regions. You pass refugees on the mountain roads. Some tell you they are fleeing from brigands. Others fear the devils and werewolves that they believe will be unleashed from the western desert now the Great City has fallen.||Food is hard to come by in the arid sierra.">
+<CONSTANT TEXT298-TRAVEL "Travelling off the main paths to avoid the groups of marauding brigands, you are forced ">
+<CONSTANT TEXT298-HUNT "back on your own skills to find sustenance">
+<CONSTANT TEXT298-EAT "to eat from your provisions">
+<CONSTANT TEXT298-CONTINUED "Days turn to weeks. At last you catch sight of the town of Shakalla in the distance. Beyond it lies the great stony rim of the desert, crouching like a baleful predator at the edge of the world">
 
 <ROOM STORY298
 	(DESC "298")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT298)
+	(PRECHOICE STORY298-PRECHOICE)
+	(CONTINUE STORY321)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY298-PRECHOICE ()
+	<CRLF>
+	<TELL TEXT298-TRAVEL>
+	<COND (<OR <CHECK-SKILL ,SKILL-TARGETING> <CHECK-SKILL ,SKILL-WILDERNESS-LORE>>
+		<TELL TEXT298-HUNT>
+		<TELL ,PERIOD-CR>
+		<EMPHASIZE "You were able to hunt for food.">
+		<PUTP ,STORY298 ,P?DEATH F>
+	)(ELSE
+		<TELL TEXT298-EAT>
+		<TELL ,PERIOD-CR>
+		<EAT-PROVISIONS 2 STORY298 T>
+	)>
+	<COND (<IS-ALIVE>
+		<CRLF>
+		<TELL TEXT298-CONTINUED>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT299 "You break the stem of the cactus and it oozes a clear sweet-smelling fluid. You taste a little, then suck at it until you have drained all you can. It is barely enough. You stumble on across the lifeless wilderness of stone and sand, thirst burning a throbbing gulf in your throat.">
 
 <ROOM STORY299
 	(DESC "299")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT299)
+	(PRECHOICE STORY299-PRECHOICE)
+	(CONTINUE STORY152)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY299-PRECHOICE ()
+	<TEST-MORTALITY 4 DIED-OF-THIRST ,STORY299>>
+
+<CONSTANT TEXT300 "Two days' sailing brings you to Tahil, a busy trading settlement on the far coast. The others squint warily as they bring the vessel in to the harbour. You can see at once there is trouble here. Instead of the stacks of trade goods that would normally be piled up along the quayside at a port like this, there are milling crowds of refugees carrying everything they own on their backs.||As you tie up at the quay, a man whose elegant clothing marks him as a lord of the Great City comes striding towards you. \"I am commandeering your vessel,\" he says in a tone that brooks no disagreement.||Without waiting for a reply, he turns and beckons his wife and children to join him. A couple of servants scurry along behind them, struggling under the weight of the family's possessions.">
+<CONSTANT CHOICES300 <LTABLE "prevent his appropriation of the vessel by employing" "using" "a sword" "you are not bothered about him taking the vessel, you can just set out towards Shakalla">>
 
 <ROOM STORY300
 	(DESC "300")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT300)
+	(CHOICES CHOICES300)
+	(DESTINATIONS <LTABLE STORY159 STORY183 STORY206 STORY085>)
+	(REQUIREMENTS <LTABLE SKILL-ETIQUETTE SKILL-CUNNING SKILL-SWORDPLAY NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY301
