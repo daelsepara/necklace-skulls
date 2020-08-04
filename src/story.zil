@@ -98,6 +98,8 @@
 	<PUTP ,STORY253 ,P?DEATH T>
 	<PUTP ,STORY265 ,P?DEATH T>
 	<PUTP ,STORY268 ,P?DEATH T>
+	<PUTP ,STORY272 ,P?DEATH T>
+	<PUTP ,STORY273 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -4227,90 +4229,92 @@
 	(CONTINUE STORY431)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT271 "You scrape some clay out of the walls and spit into it, smearing it into a grey-white mixture which you apply to your eyelids. Once that has dried, you collect a little soot from the candle-flame and dab a black spot into the middle of each eyelid. You have no mirror in which to check the finished result, but it ought to now look as though your eyes are open even when you in fact have them screwed tight shut.||Settling down with your back to the wall, you pull your cloak across in front of you like blanket. After a few minutes, a gust of cool dry air blows out of the candle and you are left in darkness,. As if on cue, the ghosts come seeping up from their graves under the floor. You see flickers of luminosity sketching the outlines of skeletal bodies and grotesque dead faces against the darkness. As they draw near, you close your eyes.||\"Ah, we have a visitor among us,\" whispers a voice like wind sighing in a well. \"Watch, brothers, as I unleash my most terrifying visage.\"||There is a revolting wet sound a a blaze of grey-blue light that you see even through your closed eyelids. After a long pause, another ghostly voice says: \"That didn't work. Let me try: I'll send the mortal screaming to the rafters.\"||The ensuing sound is suggestive of maggots, shrieking torments and fluttering dead things. Fortunately you do not see the manifestation that caused it. As far as the ghosts can tell, you are looking on at their best efforts to haunt you without batting an eyelid.||\"Aren't you getting the least bit scared, mortal?\" asks a voice like a death-rattle.||\"No,\" you say in feigned innocence. \"I'm quite enjoying the show, actually. Do go on.\"||Having been fooled into thinking you aren't frightened by them, the ghosts lose interest and return grumbling to their graves. Even so, you find it difficult to get any sleep with the thought of their corpses lying just under the mounds of earth. At dawn you emerge gratefully from the House of Gloom and retrieve your pack of belongings, eager for the final stage of your quest to commence.">
+
 <ROOM STORY271
 	(DESC "271")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT271)
+	(CONTINUE STORY040)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT272 "The onrushing figure looks just like a black rip in the air and makes no sound as he runs, but the impact when he hits you is like having a tree-branch swung into your midriff.">
+<CONSTANT TEXT272-DEFLECT "You deflect the blow and was not wounded.">
+<CONSTANT TEXT272-CONTINUED "While you stagger back recovering your balance, your opponent sends the ball sailing against the high-score zone for two points.">
 
 <ROOM STORY272
 	(DESC "272")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT272)
+	(PRECHOICE STORY272-PRECHOICE)
+	(CONTINUE STORY066)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY272-PRECHOICE ("AUX" (DAMAGE 2))
+	<COND (<CHECK-SKILL ,SKILL-AGILITY> <SET DAMAGE 1>)>
+	<COND (<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
+		<PUTP ,STORY272 ,P?DEATH F>
+		<EMPHASIZE TEXT272-DEFLECT>
+	)(ELSE
+		<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY272>
+	)>
+	<IF-ALIVE TEXT272-CONTINUED>
+	<SETG CROSS <+ ,CROSS 2>>>
+
+<CONSTANT TEXT273 "As you race along the arena and up the steps of the pyramid, Necklace of Skulls conjures down a storm of blazing meteors.">
+<CONSTANT TEXT273-AGILITY "You move too fast for him. ">
+<CONSTANT TEXT273-CONTINUED "You close with your foe for the final battle">
 
 <ROOM STORY273
 	(DESC "273")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT273)
+	(PRECHOICE STORY273-PRECHOICE)
+	(CONTINUE STORY296)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY273-PRECHOICE ("AUX" (AGILE F) (DAMAGE 3))
+	<COND (<CHECK-SKILL ,SKILL-AGILITY>
+		<SET DAMAGE 1>
+		<SET AGILE T>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY273>
+	<COND (<IS-ALIVE>
+		<CRLF>
+		<COND (.AGILE <TELL TEXT273-AGILITY>)>
+		<TELL TEXT273-CONTINUED>
+		<TELL ,PERIOD-CR>
+		<COND (<CHECK-CODEWORD ,CODEWORD-VENUS> <STORY-JUMP ,STORY240>)>
+	)>>
+
+<CONSTANT TEXT274 "The water between the two ships seethes, the a vast fanged maw bursts to the surface and long tentacles slash towards the sky. The pirates stare in terror, then scramble over one another in their mad haste to change course. You watch with a smile as they recede into the distance.||The trader is crouching in the bottom of the hull.||\"A seas monster,\" he whimpers. \"It's come to kill us and seize all my goods!\"||The two boys are leaping up and down with whoops of joy, pulling faces at the fleeing pirates. One of them turns to his father. \"Oh, Dad,\" he says. \"It was just an illusion!\"">
 
 <ROOM STORY274
 	(DESC "274")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT274)
+	(CONTINUE STORY343)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT275 "Apart from a few glowering looks, you are all but ignored by the people of Ashaka. Striding boldly up to a warrior in scarlet war paint, you ask directions to the market. He gives you a look like a bird studying a worm.||\"Market?\" he sneers. \"There is no time for trade these days. We're preparing for war.\"||\"War?\" you say naively. \"With whom?\"||\"With everyone! Now the Great City's gone, all the upstart cities will start vying for dominance in the region.\"||\"How sad and senseless,\" you sigh.||He spits into the dust. \"Don't be daft. Think about it. Now there'll have to be a new Great City. That's going to be us.\"||Shaking your head, you make your way through the streets until you find a furtive stallholder who is prepared to sell you a strip of salted meat for 1 cacao.">
+<CONSTANT CHOICES275 <LTABLE "head directly towards Shakalla" "detour to the coast and make your way via Tahil">>
 
 <ROOM STORY275
 	(DESC "275")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT275)
+	(PRECHOICE STORY275-PRECHOICE)
+	(CHOICES CHOICES275)
+	(DESTINATIONS <LTABLE STORY298 STORY228>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY275-PRECHOICE ()
+	<COND (<AND ,RUN-ONCE <G? ,MONEY 0> <NOT <CHECK-ITEM ,SALTED-MEAT>>>
+		<CRLF>
+		<TELL "Buy " T ,SALTED-MEAT "?">
+		<COND (<YES?>
+			<CHARGE-MONEY 1>
+			<TAKE-ITEM ,SALTED-MEAT>
+		)>
+	)>>
 
 <ROOM STORY276
 	(DESC "276")

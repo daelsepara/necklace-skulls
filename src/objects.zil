@@ -172,6 +172,12 @@
     (SYNONYM ROPE)
     (FLAGS TAKEBIT)>
 
+<OBJECT SALTED-MEAT
+    (DESC "salted meat")
+    (SYNONYM MEAT)
+    (ADJECTIVE SALTERD)
+    (FLAGS TAKEBIT)>
+
 <OBJECT SERPENT-BRACELET
     (DESC "serpent bracelet")
     (SYNONYM BRACELET)
