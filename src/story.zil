@@ -103,6 +103,7 @@
 	<PUTP ,STORY276 ,P?DEATH T>
 	<PUTP ,STORY281 ,P?DEATH T>
 	<PUTP ,STORY285 ,P?DEATH T>
+	<PUTP ,STORY290 ,P?DEATH F>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -136,6 +137,7 @@
 <CONSTANT KILLED-AT-ONCE "You are killed at once">
 <CONSTANT DIED-FROM-INJURIES "You died from your injuries">
 <CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope better with the thirst">
+<CONSTANT ALL-POSSESSIONS "You lost all your possessions.">
 
 <ROUTINE ADD-QUANTITY (OBJECT "OPT" AMOUNT CONTAINER "AUX" QUANTITY CURRENT)
 	<COND (<NOT .OBJECT> <RETURN>)>
@@ -1002,7 +1004,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY050-PRECHOICE ()
-	<EMPHASIZE "You lost all your possessions.">
+	<EMPHASIZE ALL-POSSESSIONS>
 	<RESET-POSSESSIONS>
 	<MOVE ,ALL-MONEY ,PLAYER>>
 
@@ -1664,7 +1666,10 @@
 <ROUTINE STORY095-EVENTS ()
 	<EMPHASIZE "You lose all your belongings">
 	<PRESS-A-KEY>
-	<COND (,RUN-ONCE <RESET-CONTAINER ,PLAYER>)>
+	<COND (,RUN-ONCE
+		<RESET-CONTAINER ,PLAYER>
+		<MOVE ,ALL-MONEY ,PLAYER>
+	)>
 	<RETURN ,STORY050>>
 
 <CONSTANT TEXT096 "They succeed in dislodging several fat plums without disturbing any spiders. You watch as they squabble happily over the distribution of their spoils Apparently you were just unlucky in finding a tarantula in the fruit you tried to pick, but the incident has deadened your appetite and you continue on your way without stopping to collect any of the plums yourself.">
@@ -4414,90 +4419,72 @@
 		<TELL "Having nothing to give, you are forced to abandon your quest" ,PERIOD-CR>
 	)>>
 
+<CONSTANT TEXT286 "This is the so-called Death Canyon which prevents spirits returning form the deathlands by means of the underworld. The story goes that even the hero Jewelled Bird nearly fell when he tried jumping between the spires of rock, so you guess that such a feat would demand great agility. Dredging deeper into your memory you recall a legend of the dragon Kawak, a serpentine monster with a head at each end who is said to span this canyon, lying with one head on each side. The hero-twins Forethought and Afterthought returned from the Deathlands by walking into the open jaws of the dragon and making their way through its bowels. It goes without saying that such a route might not be so easy in reality as it was for such heroes of long ago. Kawak might just devour you!">
+<CONSTANT CHOICES286 <LTABLE "search for the two-headed dragon" "use a blowgun to get across" "try jumping between the spires of rock">>
+
 <ROOM STORY286
 	(DESC "286")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT286)
+	(CHOICES CHOICES286)
+	(DESTINATIONS <LTABLE STORY309 STORY170 STORY147>)
+	(REQUIREMENTS <LTABLE NONE BLOWGUN NONE>)
+	(TYPES <LTABLE R-NONE R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT287 "All signs are that the woman is a victim of one of the parasitical monsters that people call nightcrawlers. These are disembodied heads that latch onto a human host, sinking tendrils deep into the flesh that allow them to control their victim like a puppet. By day they prefer to  shield themselves from the sun, which no doubt explains the overturned pitcher on the woman's shoulder. After nightfall they detach from the host and go gliding about in search of blood to feed on.||You know that salt prevents the night-crawler from fixing onto its prey.">
 
 <ROOM STORY287
 	(DESC "287")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT287)
+	(PRECHOICE STORY287-PRECHOICE)
+	(CONTINUE STORY057)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY287-PRECHOICE ()
+	<COND (<CHECK-ITEM ,PARCEL-OF-SALT> <STORY-JUMP ,STORY034>)>>
+
+<CONSTANT TEXT288 "You stand over the fallen body. The eyes in the creature's ghastly face fix you with a last glare of fury, then roll up in their sockets. There is a dying rattle from the inhuman throat as it detaches itself from its host and rolls away, rotting like an overripe fruit the moment it enters the sunlight. You cover your nose with a gasp of disgust as you catch a whiff of the moulder stench that drifts up from it.||You kneel beside the poor woman who was forced to act as host to the disembodied head. Her neck was broken in the struggle. There is nothing you can do except give her a decent burial before heading grimly onwards.">
 
 <ROOM STORY288
 	(DESC "288")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT288)
+	(CONTINUE STORY417)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT289 "In the mythology of your people, each of the cardinal points is associate with a colour. White is the colour of the north, the colour of mankind's ancient ancestors, a palace of lost memories. Red is the east, denoting birth and a return to fresh beginnings. Yellow is the southern route of misfortune and loss. And black is the west, where the Deathlands lie. That is the route you must follow.">
 
 <ROOM STORY289
 	(DESC "289")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT289)
+	(CONTINUE STORY219)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT290 "You press yourself into the angle where the floor meets the wall and slither forward like a snake. You pass right under the alcove where the first sentinel sits, but he never notices a thing. As you go past the second, he sniff the air suspiciously but says nothing. Beneath the alcove of the third, you accidentally scuff the stone flagging; the sentinel pricks up his ears and looks left and right along the passage, but he does not think to look down.||You are almost past the fourth alcove when your luck runs out. A speck of dust wafts up your nose and you give a loud sneeze. Instantly you are on your feet and running, but just as quickly the last sentinel makes a grab for you. He snatches away something you were carrying.">
+<CONSTANT TEXT290-FLESH "It was a strip of flesh that he ripped off">
 
 <ROOM STORY290
 	(DESC "290")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT290)
+	(PRECHOICE STORY290-PRECHOICE)
+	(CONTINUE STORY336)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY290-PRECHOICE ("AUX" COUNT)
+	<SET COUNT <COUNT-POSSESSIONS>>
+	<COND (<G? .COUNT 0>
+		<PUTP ,STORY290 ,P?DEATH F>
+		<COND (<G? .COUNT 1>
+			<LOSE-STUFF ,PLAYER ,LOST-BAG "item" <- .COUNT 1> RESET-POSSESSIONS>
+		)(ELSE
+			<EMPHASIZE ALL-POSSESSIONS>
+			<RESET-CONTAINER ,PLAYER>
+			<MOVE ,ALL-MONEY ,PLAYER>
+		)>
+	)(ELSE
+		<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY290>
+		<COND (<IS-ALIVE> <EMPHASIZE TEXT290-FLESH>)>
+	)>>
 
 <ROOM STORY291
 	(DESC "291")
