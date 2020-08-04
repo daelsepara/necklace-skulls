@@ -37,6 +37,7 @@
 <ROUTINE RESET-OBJECTS ()
 	<RESET-CONTAINER ,LOST-SKILLS>
 	<RESET-CONTAINER ,EAT-BAG>
+	<RESET-CONTAINER ,LOST-BAG>
 	<RETURN>>
 
 <ROUTINE RESET-STORY ()
@@ -95,6 +96,8 @@
 	<PUTP ,STORY242 ,P?DEATH T>
 	<PUTP ,STORY246 ,P?DEATH T>
 	<PUTP ,STORY253 ,P?DEATH T>
+	<PUTP ,STORY265 ,P?DEATH T>
+	<PUTP ,STORY268 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -155,47 +158,56 @@
 	(ADJECTIVE EAT)
 	(FLAGS CONTBIT OPENBIT)>
 
+<OBJECT LOST-BAG
+	(DESC "stuff lost")
+	(SYNONYM BAG)
+	(ADJECTIVE LOST)
+	(FLAGS CONTBIT OPENBIT)>
+
 <GLOBAL TICKS 0>
 <GLOBAL CROSS 0>
 <GLOBAL IMMORTAL F>
 
-<ROUTINE LOSE-SKILLS ("OPT" MAX "AUX" COUNT ITEMS)
+<ROUTINE LOSE-STUFF (CONTAINER LOST-CONTAINER ITEM "OPT" MAX ACTION "AUX" (COUNT 0) ITEMS)
 	<COND (<NOT .MAX> <SET MAX 1>)>
-	<COND (<G? <COUNT-CONTAINER ,SKILLS> .MAX>
+	<COND (<G? <COUNT-CONTAINER .CONTAINER> .MAX>
 		<RESET-TEMP-LIST>
-		<SET ITEMS <COUNT-CONTAINER ,SKILLS>>
-		<SET COUNT 0>
+		<SET ITEMS <COUNT-CONTAINER .CONTAINER>>
 		<DO (I 1 .ITEMS)
 			<SET COUNT <+ .COUNT 1>>
 			<COND (<L=? .COUNT .ITEMS>
-				<PUT TEMP-LIST .COUNT <GET-ITEM .I ,SKILLS>>
+				<PUT TEMP-LIST .COUNT <GET-ITEM .I .CONTAINER>>
 			)>
 		>
 		<REPEAT ()
-			<RESET-SKILLS>
-			<SELECT-FROM-LIST TEMP-LIST .COUNT .MAX "skill" ,SKILLS>
-			<COND (<EQUAL? <COUNT-CONTAINER ,SKILLS> .MAX>
+			<COND (.ACTION <APPLY .ACTION>)>
+			<SELECT-FROM-LIST TEMP-LIST .COUNT .MAX .ITEM .CONTAINER "retain">
+			<COND (<EQUAL? <COUNT-CONTAINER .CONTAINER> .MAX>
 				<CRLF>
 				<TELL "You have selected: ">
-				<PRINT-CONTAINER ,SKILLS>
+				<PRINT-CONTAINER .CONTAINER>
 				<CRLF>
 				<TELL "Do you agree?">
 				<COND (<YES?> <RETURN>)>
 			)(ELSE
 				<CRLF>
 				<HLIGHT ,H-BOLD>
-				<TELL "You must select " N .MAX " skill">
+				<TELL "You must select " N .MAX " " .ITEM>
 				<COND (<G? .MAX 1> <TELL "s">)>
 				<TELL ,PERIOD-CR>
 				<HLIGHT 0>
 			)>
 		>
 		<DO (I 1 .COUNT)
-			<COND (<NOT <IN? <GET TEMP-LIST .I> ,SKILLS>>
-				<MOVE <GET TEMP-LIST .I> ,LOST-SKILLS>
+			<COND (<NOT <IN? <GET TEMP-LIST .I> .CONTAINER>>
+				<MOVE <GET TEMP-LIST .I> .LOST-CONTAINER>
 			)>
 		>
 	)>>
+
+<ROUTINE LOSE-SKILLS ("OPT" MAX)
+	<COND (<NOT .MAX> <SET MAX 1>)>
+	<LOSE-STUFF ,SKILLS ,LOST-SKILLS "skill" .MAX RESET-SKILLS>>
 
 <ROUTINE LOSE-SKILL (SKILL)
 	<COND (<AND .SKILL <CHECK-SKILL .SKILL>>
@@ -4072,174 +4084,147 @@
 	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT261 "Just when it seems certain that the canoe will get stuck in the passage, immuring you below the earth for ever, you realize that the gap is widening. The canoe drifts on into a vast tunnel through which runs a wide underground river. Misty blue light sparkles on the water and trickles across the glistening rock. It appears to emanate from veins of glassy stone which you can see running through the walls of the tunnel.||The demons manoeuvre their craft between a forest of stalagmites which protrude from the water like thin fangs. Once on the open river they begin to ply their oars with vigour, propelling the canoe amid whoops of crazed glee.||You gaze in awe at the wondrous sight surrounding you. The tunnel is far wider than any stream to be found in the dry countryside around Koba, with walls rising almost vertically to a shadow-filled roof a hundred metres above your head. The air here is hot and musty and has a vile taste that makes you cough, but other than that you could almost imagine you are being steered along a canyon in the open air.||Rounding a bend in the river, you notice a series of stone doors set off a ledge high up in the right-hand wall of the tunnel. \"The cave tombs of the first ancestors,\" says the demon in the back of the boat when he sees where you are looking.||\"I expect you'll want to take a closer look,\" says the other demon and, without waiting for a reply, they row over to the side of the river and steady the canoe below the ledge.">
+<CONSTANT CHOICES261 <LTABLE "climb up to the tombs" "use magic to get up there" "you do not want to explore the tombs">>
+
 <ROOM STORY261
 	(DESC "261")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT261)
+	(CHOICES CHOICES261)
+	(DESTINATIONS <LTABLE STORY190 STORY213 STORY236>)
+	(REQUIREMENTS <LTABLE SKILL-AGILITY <LTABLE SKILL-SPELLS ROPE> NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT CHOICES262 <LTABLE "try one of your devious schemes" "pay for lodging if you have some money" "continue on westwards" "follow the river northwards">>
 
 <ROOM STORY262
 	(DESC "262")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(CHOICES CHOICES262)
+	(DESTINATIONS <LTABLE STORY308 STORY101 STORY008 STORY030>)
+	(REQUIREMENTS <LTABLE SKILL-CUNNING 0 NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-MONEY R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT263 "You trudge on through terrain consisting of bare bleached rocks swathed in stream rising from fissures in the ground. Wet gravel crunches underfoot. Sweat soaks your clothes, and the air is so hot that you can hardly breathe.||You see someone sprawled atop a boulder. He is a gangling figure with a weather beaten face and lazy heavy-lidded eyes. Your first impression is that he is asleep, but then he calls out in a sibilant voice, saying, \"You are Evening Star, are you not? I might know a secret or two that could help you find your brother, if you can give me an answer to this riddle. \"I'm a narrow fellow and I live in narrow spaces between the rocks. Born from a pebble, I'm as hard to catch as a flicker of lightning when my blood's up, but in the cool of night I'm as sedentary as a stalactite.\"||What answer will you give?">
+<CONSTANT CHOICES263 <LTABLE "answer 'A lizard.'" "'A dragonfly.'" "'Water.'" "none of the above">>
 
 <ROOM STORY263
 	(DESC "263")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT263)
+	(CHOICES CHOICES263)
+	(DESTINATIONS <LTABLE STORY376 STORY397 STORY010 STORY060>)
+	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT264 "You fall in with others who are travelling in a group for safety. Since the collapse of the great city there has been a wave of refugees from the north-west, many of them impoverished and desperate. It is no longer wise to travel the back roads unaccompanied.||Some of your companions make their farewells as they arrive at their homes, others join the group. You might be walking with up to a dozen other people at any one time, while on other stretches of the riverside path you travel alone. At such times you are keen for company, and when you see a peasant woman walking ahead you quicken your pace to catch up.||You soon begin to regret joining her, because there is something strange about her manner that gives you a feeling of disquiet despite the bright sunny morning. She peers constantly ahead of her with a dreamy expression, stumbling along as though half asleep. For the sake of conversation, you remark on the large clay pitcher she carries balanced upside-down on her shoulder. \"Isn't it easier to carry those on your head? That's what most peasants do.\"||Your question takes a while to sink in. When her answer comes it is a distracted murmur: \"Only if it's full... This isn't full...\"||You walk on for several minutes before saying, \"Why don't you switch it to your other shoulder? You'd find it less of a strain that way, I'm sure.\"||\"It's fine like this...\" She suddenly stops and turns to you with a drowsy smile. \"I think I'll rest in the shade of this tree. You'll wake until I wake up, won't you? It's too hot to walk in the middle of the day anyhow...\"||Before you can reply, she hunkers down by the side of the road -- still with the pitcher balanced carefully on her shoulder -- and her head slumps forward in sleep.">
+<CONSTANT CHOICES264 <LTABLE "stay here as the woman asked you to" "sneak a look under a pitcher" "leave before she wakes up">>
 
 <ROOM STORY264
 	(DESC "264")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT264)
+	(PRECHOICE STORY264-PRECHOICE)
+	(CHOICES STORY264)
+	(DESTINATIONS <LTABLE STORY100 STORY333 STORY356>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY264-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-FOLKLORE>
+		<STORY-JUMP ,STORY287>
+	)(<CHECK-CODEWORD ,CODEWORD-CALABASH>
+		<STORY-JUMP ,STORY310>
+	)>>
+
+<CONSTANT TEXT265 "The monster rushes forward, realizing too late that it has been tricked. Once out of the shade of the tree where it was resting, it is dazzled by the bright sunlight and can only flail back blindly as you step in to finish it. Even so, its clumsy blows strike you with staggering force.">
 
 <ROOM STORY265
 	(DESC "265")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT265)
+	(PRECHOICE STORY265-PRECHOICE)
+	(CONTINUE STORY288)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY265-PRECHOICE ("AUX" (DAMAGE 4))
+	<COND (<CHECK-SKILL ,SKILL-SWORDPLAY>
+		<SET DAMAGE 1>
+	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
+		<SET DAMAGE 2>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY265>>
+
+<CONSTANT TEXT266 "As you walk, you pass through bands of bright golden light interspersed by shadow. The flickering effect leaves you dazed and disoriented, so you are slow to react when something heavy slams into your back, forcing you down. You hear a deep resonant growl of a jaguar. Despite your fear, you struggle to rise. Hands -- or paws? -- fumble at your pack. You get to your feet in time to catch a fleeting glimpse of a large feline shape bounding off into the gloom.||You examine your possessions and find you have lost everything except for one item which you managed to hold on to. You have also been robbed of all your money.">
+<CONSTANT TEXT266-CONTINUED "Angrily you retrace your steps to the crossroads and select a different route">
+<CONSTANT CHOICES266 <LTABLE "follow the red path" "the white path" "the black path">>
 
 <ROOM STORY266
 	(DESC "266")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT266)
+	(PRECHOICE STORY266-PRECHOICE)
+	(CHOICES CHOICES266)
+	(DESTINATIONS <LTABLE STORY196 STORY243 STORY219>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY266-PRECHOICE ()
+	<COND (,RUN-ONCE
+		<LOSE-STUFF ,PLAYER ,LOST-BAG "item" 1 RESET-POSSESSIONS>
+		<SETG MONEY 0>
+		<MOVE ,ALL-MONEY ,PLAYER>
+		<UPDATE-STATUS-LINE>
+	)>
+	<CRLF>
+	<TELL TEXT266-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT267 "According to legend, the hero-twins called Forethought and Afterthought once travelled west across the great desert in search of the tunnel leading to the underworld. There they had to pass these four sentinels. They addressed each with due deference, calling the first Lord Skull, the second Lord Blood, the third Thunderbolt Laughter, and the fourth Grandfather of Darkness. Thus they finally penetrated of the underworld.||Make your you know the detail of the legend.">
 
 <ROOM STORY267
 	(DESC "267")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT267)
+	(CONTINUE STORY313)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT268 "The monster dips one of its necks close to the ground and swings it around behind your legs while another lunges towards your face.">
+<CONSTANT TEXT268-AGILITY "You jump back over the neck that is trying to trip you while simultaneously ducking the attack of the other">
+<CONSTANT TEXT268-CONTINUED "You caught A staggering blow and it is only by falling backwards that you avoid having your head torn off">
 
 <ROOM STORY268
 	(DESC "268")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT268)
+	(PRECHOICE STORY268-PRECHOICE)
+	(CONTINUE STORY222)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY268-PRECHOICE ()
+	<CRLF>
+	<COND (<CHECK-SKILL ,SKILL-AGILITY>
+		<TELL TEXT268-AGILITY>
+		<TELL ,PERIOD-CR>
+		<PUTP ,STORY268 ,P?DEATH F>
+		<STORY-JUMP ,STORY337>
+	)(ELSE
+		<TELL TEXT268-CONTINUED>
+		<TELL ,PERIOD-CR>
+		<TEST-MORTALITY 2 ,DIED-FROM-INJURIES ,STORY268>
+	)>>
+
+<CONSTANT TEXT269 "Stooping Eagle and his servant are led off across the courtyard towards a group of buildings. \"They will be our guests also, but in another part of the palace from you,\" says the chief of the courtiers, smiling to display a sharp set of teeth.||\"Do not worry, friend,\" Stooping Eagle calls back to you, \"we have only to persevere and our swords shall drink the fiend's blood eventually!\"||You would like to resists the courtiers, but there too many to fight in your weakened state. \"After five nights I will be taken to Necklace of Skulls?\" you ask. It occurs to you that five nights' rest will leave you all the fitter to deal with the wizard.||The chief courtier dips his head. \"Exactly. Our master lives in the inner precinct of the palace.\" He gestures with a thin hairy hand towards a pyramid that towers over the inner courtyard. The black colouring of the pyramid makes it look like a crack of the night sky that has lingered on after sunrise.||\"Take me to my quarters, then,\" you tell him.||The assembled courtiers give a high howling laugh at this. \"Not so fast,\" titters their chief when he has recovered himself. \"First you have to choose your route to our compound.\"">
 
 <ROOM STORY269
 	(DESC "269")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT269)
+	(CONTINUE STORY315)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT270 "The albino hound leaps forward with a savage bark as it sees you approach. Suddenly jumping back, you lure it out of the passage and into the bright sunshine, where its weak eyes are blinded by the glare. Making sure to keep up a stream of taunts so that it can hear you, you double around and race back towards the unguarded tunnel.||The hound lopes after you, furiously intent on rending your flesh in its powerful jaws. Dazzled, it does not see you stop on one side of the tunnel entrance. You toss a pebble into the open tunnel and the hound, hearing this, bounds off along it thinking you are still in full flight.||The arch of the tunnel shudders and gives way, burying the hound under a mass of falling masonry. Once the dust clears there is no sign of it. You go along to the passage previously guarded by the hound and make your way through to the inner courtyard, where you find the courtiers already waiting for you.||\"Clever,\" remarks the chief courtier. \"You'll need more tricks like that if you're going to get through the real tests, though.\"">
 
 <ROOM STORY270
 	(DESC "270")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT270)
+	(CONTINUE STORY431)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY271
