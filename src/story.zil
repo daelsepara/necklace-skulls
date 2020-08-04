@@ -101,6 +101,8 @@
 	<PUTP ,STORY272 ,P?DEATH T>
 	<PUTP ,STORY273 ,P?DEATH T>
 	<PUTP ,STORY276 ,P?DEATH T>
+	<PUTP ,STORY281 ,P?DEATH T>
+	<PUTP ,STORY285 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -3044,7 +3046,7 @@
 	(CONTINUE STORY339)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT192 "Your are invited to join King Cloud Jaguar and the nobles of his court in the steam-bath adjoining the palace. This is a domed room which is entered through an aperture so low that each bather has to crawl through on hands and knees.||Inside are rows of stone benches, and the middle of the floor is taken up by a pit filled with pebbles which have been warmed earlier in a fire until they are red-hot. Servants brings pitchers of scented water which sizzles on contact with the hot pebbles, releasing clouds of steam that make the sweat pour from your skin. At first you can hardly stand to draw a breath, but gradually you get used to the sweltering heat and start to enjoy the cleansing feeling. An old nobleman nudges you and hands you some herbs. \"Rub these on your body,\" he grunts. \"Most invigorating!\"||">
+<CONSTANT TEXT192 "Your are invited to join King Cloud Jaguar and the nobles of his court in the steam-bath adjoining the palace. This is a domed room which is entered through an aperture so low that each bather has to crawl through on hands and knees.||Inside are rows of stone benches, and the middle of the floor is taken up by a pit filled with pebbles which have been warmed earlier in a fire until they are red-hot. Servants brings pitchers of scented water which sizzles on contact with the hot pebbles, releasing clouds of steam that make the sweat pour from your skin. At first you can hardly stand to draw a breath, but gradually you get used to the sweltering heat and start to enjoy the cleansing feeling. An old nobleman nudges you and hands you some herbs. \"Rub these on your body,\" he grunts. \"Most invigorating!\"">
 <CONSTANT TEXT192-CONTINUED "You regain vitality owing to the restorative effect of the herbs and the steam-bath. You also get the chance to ask about the next day's festivities, and you are told that this is the anniversary of the old king's death. When Cloud Jaguar learns of your quest, he is very impressed by your bravery. \"The pillaging of the Great City will have dire consequences,\" he says. \"I have heard tales of demons and werewolves ransacking the temples. Perhaps you can find out the truth on the matter.\"||You bow respectfully. \"I will try, your Majesty.\"||\"You will spend the night in the shrine atop my father's pyramid,\" he continues. \"A tube connects the shrine to the tomb chamber. If it is the will of the gods, my father's spirit may appear to you and offer guidance.\"||You cannot refuse without giving offence. Whatever you think of meeting the late king's ghost, you must do as Cloud Jaguar has commanded. You spend the rest of the day in a mood of excitement tinged with dread, and at nightfall you are taken up to the top of the pyramid and left alone to await the ghost's appearance">
 
 <ROOM STORY192
@@ -4332,90 +4334,85 @@
 	(TYPES <LTABLE R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT281 "You are surrounded by guards and any attempt to fight must be hampered by the throng of people crowding around the pit. As you lash out, the obsidian teeth of a guard's sword bit deeply into the flesh of your side.||\"Be careful!\" commands the high priest. \"The Rain God will be angered if we damage his sacrifice!\"||Shoving one of the guards aside, you manage to struggle to the brink of the pit. The high priest steps back nervously as he sees the look of desperation in your eyes, raising his ritual knife to defend himself. The guards have regrouped and are spreading out to capture you.||You are losing blood from the wound you have taken.">
+<CONSTANT CHOICES281 <LTABLE "surrender" "fight on" "leap into the sacred well">>
+
 <ROOM STORY281
 	(DESC "281")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT281)
+	(PRECHOICE STORY281-PRECHOICE)
+	(CHOICES CHOICES281)
+	(DESTINATIONS <LTABLE STORY327 STORY051 STORY235>)
+	(TYPES THREE-NONES)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY281-PRECHOICE ()
+	<COND (,RUN-ONCE <TEST-MORTALITY 3 DIED-FROM-INJURIES ,STORY281>)>>
+
+<CONSTANT TEXT282 "Your talent for stealth seems heightened in this otherworldly realm. You creep forward as noiselessly as a shadow. Gruesome slime coats the rough stone walls and the smell is almost unbearable, but you reach the chamber and stoop to inspect the item that caught your eye. It is a bowl of polished stone bearing the insignia of the Creator God, who gave life to all things, and you need no special senses to recognize the aura of divine magic. This can only be the fabled Chalice of Life in which the gods mixed the brew that spawned mankind.||You slip quietly back to the boat and gesture for the demons to convey you on.">
 
 <ROOM STORY282
 	(DESC "282")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT282)
+	(CONTINUE STORY258)
+	(ITEM CHALICE-OF-LIFE)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT283 "Circular marks are scored into the stone of the ledge. To anyone else they would mean nothing, but you realize that the slabs must be built to swivel on a central axis. Searching, your deft fingers soon find a concealed catch which unlocks the slab. With a grinding noise it revolves to reveal the darkened interior of the tomb.||Something moves within it. At first a sense of dread stirs the hairs on the nape of your neck, but it is no horrific walking corpse that emerges from the hole // just a snake. You are almost relieved; at least this is a natural foe, although a deadly one. But then you see it is no ordinary snake. Its hood is enlarged to form translucent oval wings which flap slowly, carrying it on the warm updraught with a sinister gliding motion. Its iridescent scales make it resemble an obsidian idol, but there is no mistaking the living menace in those beady eyes and thin flickering tongue.">
+<CONSTANT CHOICES283 <LTABLE "try closing with the snake to fight it using either" "or" "shoot it" "cast a protective enchantment" "use the" "give up any hope of looting the tomb and climb back down to the canoe while you still can">>
 
 <ROOM STORY283
 	(DESC "283")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT283)
+	(CHOICES CHOICES283)
+	(DESTINATIONS <LTABLE STORY375 STORY375 STORY352 STORY394 STORY413 STORY167>)
+	(REQUIREMENTS <LTABLE SKILL-SWORDPLAY SKILL-UNARMED-COMBAT SKILL-TARGETING SKILL-CHARMS MAN-OF-GOLD NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-SKILL R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT284 "You bring some water back in your cupped hands. It is green with pond scum and smells like bile, so you are not surprised when the little fellow turns his long nose up at it. But then he clasps your arm and explains in a weak voice. \"It's not water I need, friend, but nice warm blood. Will you let me have drop or two of yours? If not, I fear I'm doomed to end my days here in this cold ditch.\"">
+<CONSTANT CHOICES284 <LTABLE "let him drink some of your blood" "shake free of his grip and continue on your way">>
 
 <ROOM STORY284
 	(DESC "284")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT284)
+	(CHOICES CHOICES284)
+	(DESTINATIONS <LTABLE STORY395 STORY307>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT285 "You must select an item from your possessions to give.">
 
 <ROOM STORY285
 	(DESC "285")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT285)
+	(PRECHOICE STORY285-PRECHOICE)
+	(CONTINUE STORY078)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY285-PRECHOICE ("AUX" (GIVE-LIST NONE) (RESULT 0) (ITEMS 0) (GIFT NONE))
+	<SET GIVE-LIST <LTABLE NONE NONE NONE NONE NONE NONE NONE NONE>>
+	<SET ITEMS <COUNT-CONTAINER ,PLAYER>>
+	<COND (<G? .ITEMS 0>
+		<PUTP ,STORY285 ,P?DEATH F>
+		<DO (I 1 .ITEMS)
+			<PUT .GIVE-LIST .I <GET-ITEM .I ,PLAYER>>
+		>
+		<PUT .GIVE-LIST 0 .ITEMS>
+		<REPEAT ()
+			<SET RESULT <GIVE-FROM-LIST .GIVE-LIST UNABLE-TO-PART UNWILLING-TO-PART 1 NONE ,PLAYER>>
+			<COND (<EQUAL? .RESULT GIVE-GIVEN> <RETURN>)>
+			<EMPHASIZE "The King will insist on a gift!">
+		>
+		<SET GIFT <FIRST? ,GIVEBAG>>
+		<COND (<EQUAL? .GIFT ,MAN-OF-GOLD ,JADE-SWORD ,GOLD-DIADEM> <STORY-JUMP ,STORY192>)>
+		<COND (<EQUAL? .GIFT ,OWL> <STORY-JUMP ,STORY055>)>
+	)(ELSE
+		<CRLF>
+		<TELL "Having nothing to give, you are forced to abandon your quest" ,PERIOD-CR>
+	)>>
 
 <ROOM STORY286
 	(DESC "286")
