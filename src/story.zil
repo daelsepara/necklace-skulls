@@ -100,6 +100,7 @@
 	<PUTP ,STORY268 ,P?DEATH T>
 	<PUTP ,STORY272 ,P?DEATH T>
 	<PUTP ,STORY273 ,P?DEATH T>
+	<PUTP ,STORY276 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -393,16 +394,16 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT007 "You hear a sound. It is quiet and unsettling. It sounded like a rattling intake of breath in a dry dead throat. You have the sudden impression that something has become aware of your presence here. Something is watching you.||You look back. The tunnel behind the boat is now filled with ochre mist that hangs in the air in long sparkling veils. As you watch, you see the cloud getting thicker as more mist seeps out of the edges of the rock tombs.||The demon in the back of the canoe also takes a glance back. He pauses stock-still for a moment, then explodes into frantic action. Paddling furiously, he yells to the other demon, \"They've woken up! Let's get out of here!\"||Too late. The ochre cloud suddenly comes rushing forward as though blown by a blast of wind. The boat is completely enveloped. The demons are obviously expecting trouble and do not wait around. \"Abandon ship!\" you hear the one in the prow yelling, and then two heavy splashes can be heard as they jump overboard.||Phantom figures loom out of the mist, pressing their skeletal faces close to yours and clutching at you with thin fingers of yellow bone. You are rigid with terror; you cannot even find the breath to scream. The mist sends a chill deep into you that no fire will ever be able to warm again.|||The mist retreats as rapidly as it appeared, drawing back in long wisps into the rock tombs like smoke being sucked back into a row of pipes. But the danger is not over. Without the two oarsmen, your canoe is being carried out of control by the river current.">
-<CONSTANT CHOICES007 <LTABLE "use a" "otherwise">>
+<CONSTANT CHOICES007 <LTABLE "use" "use a" "otherwise">>
 
 <ROOM STORY007
 	(DESC "007")
 	(STORY TEXT007)
 	(PRECHOICE STORY007-PRECHOICE)
 	(CHOICES CHOICES007)
-	(DESTINATIONS <LTABLE STORY099 STORY214>)
-	(REQUIREMENTS <LTABLE ROPE NONE>)
-	(TYPES <LTABLE R-SKILL R-NONE>)
+	(DESTINATIONS <LTABLE STORY076 STORY099 STORY214>)
+	(REQUIREMENTS <LTABLE SKILL-SEAFARING ROPE NONE>)
+	(TYPES <LTABLE R-SKILL R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY007-PRECHOICE ()
@@ -410,7 +411,6 @@
 		<EMPHASIZE "Your maximum Life Points is permanently reduced by 2.">
 		<SETG MAX-LIFE-POINTS <- ,MAX-LIFE-POINTS 2>>
 		<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
-		<COND (<CHECK-SKILL ,SKILL-SEAFARING> <STORY-JUMP ,STORY076>)>
 	)>>
 
 <CONSTANT TEXT008 "As you go west, the land rises and becomes drier. You leave behind the lush forest, trekking first through windswept moorland and then dusty gulches lined with sparse bracken.||Ashaka is a hilltop citadel with palaces set on high terraces cut into the mountainside. It stares down across the scattered farming communities it rules, like an eagle glowering atop a cactus. As you start up the red-paved road that wends up to the citadel, you pass a small man who is bent and toothless with age. \"Going up to Ashaka, are you?\" he cackles. \"They'll be pleased!\"||\"Why is that?\" you ask.||He puts a finger to one nostril and snorts a gobbet of mucus onto the ground. \"They're after sacrifices,\" he says. \"Priests reckon the gods are annoyed. Must be bloody furious, if you ask me!\"||\"Eh?\" You are puzzled.||He fixes you with a canny stare. \"The Great City -- it's been sacked by dog-men from the western desert. It's going to take heap of sacrifices to get the gods to rebuild it, hah!\"||What he says is inconvenient if true, since you were relying on getting provisions in Ashaka.">
@@ -570,20 +570,16 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT020 "There is a raft moored beside the jetty. It starts to move of its own accord once you have climbed aboard and cast off. You are conveyed across the lake. You are shivering because of the deep chill in the air here. The waters stirs sluggishly in the raft's wake, as though on the point of freezing.||Green light seeps into the sky, which you now see resembles the roof of an unimaginably vast cavern. Perhaps you are gazing up the bedrock on which the living world rests. The notion sends a shudder through your whole body.||Your journey seems to take hours. Other than the faint sloshing of water past the sides of the raft, there is dead silence. At last you catch sight of something ahead. It is a steep pyramid built in the middle of the lake, with steps leading right up from the water to a shrine at the top.||The raft drifts to a halt beside the steps. You are puzzled. Is this the journey's end? Here, surrounded by leagues of water in all directions?">
+<CONSTANT CHOICES020 <LTABLE "use" "or" "otherwise">>
 
 <ROOM STORY020
 	(DESC "020")
 	(STORY TEXT020)
-	(PRECHOICE STORY020-PRECHOICE)
-	(CONTINUE STORY058)
+	(CHOICES CHOICES020)
+	(DESTINATIONS <LTABLE STORY012 STORY035 STORY058>)
+	(REQUIREMENTS <LTABLE SKILL-CUNNING SKILL-CHARMS NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
-
-<ROUTINE STORY020-PRECHOICE ()
-	<COND (<CHECK-SKILL ,SKILL-CUNNING>
-		<STORY-JUMP ,STORY012>
-	)(<CHECK-SKILL ,SKILL-CHARMS>
-		<STORY-JUMP ,STORY035>
-	)>>
 
 <CONSTANT TEXT021 "You soon discover that it is possible to dig a tunnel throughout the sand underneath the barrier of flame. It is the work of just a few minutes to return Jade Thunder's wand to him.||\"I wonder why I never thought of that,\" he muses.\"When you have matchless magical power, why bother with ingenuity?\" you suggest.||He sucks his teeth and gives you a narrow look. \"Oh yes.\"">
 
@@ -635,19 +631,16 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT025 "The causeway to Yashuna is an arrow-straight road of packed limestone raised on stone blocks above the level of the countryside. As you walk, you scan the swaying fields of maize, the orchards and ranks of cotton plants that stretch off as far as the eye can see. Low stone walls mark the irrigation channels that ensure as much water as possible reaches the crops at this arid time of year. Peasant dwellings are scattered here and there across the countryside: oval single-storey buildings with sharply peaked roofs of dry thatch. It makes you thirsty just to watch the peasants at their back-breaking work, gathering cotton in long sacks under the sweltering sun.||A dusty grove of papaya trees overhangs the causeway. Your mouth waters as you look at them. Surely on one would mind if you took just one papaya? As you reach up to pick one of the fruits, there is a sudden flurry of movement from the bole of the tree. You go rigid, and a thrill of clammy fear chills you despite the heat of the day. Poised atop the fruit is a tarantula! Its huge black forelimbs are resting on your fingers, and you can see the wet coating of venom on its fangs.">
-<CONSTANT CHOICES025 <LTABLE "jerk your hand away quickly" "slowly reach around with your other hand to seize the tarantula from behind">>
+<CONSTANT CHOICES025 <LTABLE "use" "jerk your hand away quickly" "slowly reach around with your other hand to seize the tarantula from behind">>
 
 <ROOM STORY025
 	(DESC "025")
 	(STORY TEXT025)
-	(PRECHOICE STORY025-PRECHOICE)
 	(CHOICES CHOICES025)
-	(DESTINATIONS <LTABLE STORY071 STORY094>)
-	(TYPES TWO-NONES)
+	(DESTINATIONS <LTABLE STORY048 STORY071 STORY094>)
+	(REQUIREMENTS <LTABLE SKILL-WILDERNESS-LORE NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
-
-<ROUTINE STORY025-PRECHOICE ()
-	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE> <STORY-JUMP ,STORY048>)>>
 
 <CONSTANT TEXT026 "With infinite care you delve into the gloomy hole and deftly remove the gold diadem. Clinging to the side of the tree, you clean off the moss and muck and examine your prize. It is a circlet such as a king or high priest might wear upon his row, patterned with holy sigils and bearing the cruciform symbol of the World Tree in inlaid plaques of jade. Such an item could fetch you a fortune in any market in the world.||Climbing back down to the ground, you sense the stabai hovering close beside you, bending heir elongated skulls closer as they admire your find. \"It is a great treasure, as we promised,\" says one with a trace of envy in her voice. \"Now return our shawl.\"||\"When I'm safely out of these woods, then I'll consider it,\" you snap back. \"Not before.\"">
 
@@ -702,20 +695,16 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT030 "Nachan is the busy hub of trade up and down the river, so there are hundreds of boats bobbing up and down at the jetty waiting to unload their wares. You wend your way between bales of grain, fruit, feathers, jade and animal pelts. Most of the trader's vessels are dug-out canoes, but you see one crescent-shaped boat constructed of interwoven reeds. You guess that the owner is not from the wooded country upriver, but must be a native of the fens which lie between here and the coast. Seeing you approach, he straightens up from the task of loading clay pots aboard the boat and winces as he rubs his aching back.||\"Good morning,\" you say to him. \"If you're going downriver, I wonder if you have room for a passenger?\"||He looks you up and down. \"If you have two cacao to spare.\"||\"Two cacao!\" you cry in outrage. \"That is an exorbitant sum. I will offer--\"||The fenman holds up his hand to interrupt you. \"Haggling is pointless,\" he says. \"You would take up as much space as two large pitchers, and the profit I make on each pitcher is one cacao. Consequently you must pay a fee of two cacao to compensate me for my loss of earnings if I take you aboard.\"">
-<CONSTANT CHOICES030 <LTABLE "pay him" "else make your way north on foot">>
+<CONSTANT CHOICES030 <LTABLE "use" "pay him" "else make your way north on foot">>
 
 <ROOM STORY030
 	(DESC "030")
 	(STORY TEXT030)
-	(PRECHOICE STORY030-PRECHOICE)
 	(CHOICES CHOICES030)
-	(DESTINATIONS <LTABLE STORY355 STORY264>)
-	(REQUIREMENTS <LTABLE 2 NONE>)
-	(TYPES <LTABLE R-MONEY R-NONE>)
+	(DESTINATIONS <LTABLE STORY332 STORY355 STORY264>)
+	(REQUIREMENTS <LTABLE SKILL-SEAFARING 2 NONE>)
+	(TYPES <LTABLE R-SKILL R-MONEY R-NONE>)
 	(FLAGS LIGHTBIT)>
-
-<ROUTINE STORY030-PRECHOICE ()
-	<COND (<CHECK-SKILL ,SKILL-SEAFARING> <STORY-JUMP ,STORY332>)>>
 
 <CONSTANT TEXT031 "The folktales of heroes who have ventured into the underworld are as fresh in your mind now as when they were first told to you in infancy. You know that on no account must you part with the bead until you reach the crossroads where four coloured paths meet. The two demons are just tying to trick you. You make curt gestures of dismissal and turn away from them.">
 
@@ -735,12 +724,17 @@
 
 <CONSTANT TEXT033 "You walk into the jaws of the dragon and descend the long tunnel of his throat until the only light is a dim flicker in the gloom far behind you. Hot gases bubble up out of the chambers of his stomach, forcing you to hold your hand over your face as you proceed.||It gets hotter. You cannot see much of your surroundings, but you reckon that you must now be passing through the dragons bowels. This is the part of his body that lies in the lava at the bottom of the canyon. Such intense temperatures obviously do not bother the dragon, but you are getting weaker by the minute. You stagger on, head swimming from the stinking gases and the burning heat.">
 <CONSTANT TEXT033-CONTINUED "You realize that at last the passage is beginning to slop upwards again. You are climbing out of the canyon, towards the dragon's other head. Sure enough , the awful heat gradually subsides. When you reach the top of your gruelling ascent, however, a further shock awaits you. The dragon's hind and jaws are closed. You are trapped in here.">
+<CONSTANT CHOICES033 <LTABLE "use" "or" "a">>
 <CONSTANT TEXT033-END "Your days will end in the maw of the the dragon">
 
 <ROOM STORY033
 	(DESC "033")
 	(STORY TEXT033)
 	(PRECHOICE STORY033-PRECHOICE)
+	(CHOICES CHOICES033)
+	(DESTINATIONS <LTABLE STORY439 STORY429 STORY125>)
+	(REQUIREMENTS <LTABLE SKILL-SPELLS SKILL-CUNNING CHILLI-PEPPERS>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-ITEM>)
 	(DEATH T)
 	(FLAGS LIGHTBIT)>
 
@@ -750,13 +744,7 @@
 		<CRLF>
 		<TELL TEXT033-CONTINUED>
 		<TELL ,PERIOD-CR>
-		<COND (<CHECK-SKILL ,SKILL-SPELLS>
-			<STORY-JUMP ,STORY439>
-		)(<CHECK-SKILL ,SKILL-CUNNING>
-			<STORY-JUMP ,STORY428>
-		)(<CHECK-ITEM ,CHILLI-PEPPERS>
-			<STORY-JUMP ,STORY125>
-		)(ELSE
+		<COND (<NOT <OR <CHECK-SKILL ,SKILL-SPELLS> <CHECK-SKILL ,SKILL-CUNNING> <CHECK-ITEM ,CHILLI-PEPPERS>>>
 			<CRLF>
 			<TELL TEXT033-END>
 			<TELL ,PERIOD-CR>
@@ -1063,19 +1051,16 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT055 "The King is put in a foul temper because of your paltry gift. A group of royal guards emerge from the palace brandishing hard wooden staves and demand to know if you are the one who has insulted the King by presenting him with a one-legged owl.">
-<CONSTANT CHOICES055 <LTABLE "fight the guards" "make no attempt to resist">>
+<CONSTANT CHOICES055 <LTABLE "use" "fight the guards" "make no attempt to resist">>
 
 <ROOM STORY055
 	(DESC "055")
 	(STORY TEXT055)
-	(PRECHOICE STORY055-PRECHOICE)
 	(CHOICES CHOICES055)
-	(DESTINATIONS <LTABLE STORY102 STORY124>)
-	(TYPES TWO-NONES)
+	(DESTINATIONS <LTABLE STORY032 STORY102 STORY124>)
+	(REQUIREMENTS <LTABLE SKILL-CUNNING NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
-
-<ROUTINE STORY055-PRECHOICE ()
-	<COND (<CHECK-SKILL ,SKILL-CUNNING> <STORY-JUMP ,STORY032>)>>
 
 <CONSTANT TEXT056 "When you answered the riddle, the bead slipped out from under your tongue and fell to the ground. You drop to your knees and start frantically fumbling around for it, then you catch sight of it rolling towards a fissure in the rock. You make a desperate lunge, but your fingers close on thin air. The jade bead rolls into the fissure and is lost to view.">
 
@@ -1090,28 +1075,16 @@
 	<COND (<CHECK-ITEM ,JADE-BEAD> <LOSE-ITEM ,JADE-BEAD>)>>
 
 <CONSTANT TEXT057 "Leaving while the creature is asleep would do no good. It would only come looking for you after dark. You must deal with it now.">
-<CONSTANT TEXT057-CONTINUED "Your only option is to do battle with the creature">
-<CONSTANT CHOICES057 <LTABLE "attack it now while it is still attached to its host" "wait until nightfall">>
+<CONSTANT CHOICES057 <LTABLE "use" "or" "battle with the creature: attack it now while it is still attached to its host" "wait until nightfall">>
 
 <ROOM STORY057
 	(DESC "057")
 	(STORY TEXT057)
-	(PRECHOICE STORY057-PRECHOICE)
 	(CHOICES CHOICES057)
-	(DESTINATIONS <LTABLE STORY104 STORY100>)
-	(TYPES TWO-NONES)
+	(DESTINATIONS <LTABLE STORY377 STORY011 STORY104 STORY100>)
+	(REQUIREMENTS <LTABLE SKILL-CUNNING SKILL-SPELLS NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
-
-<ROUTINE STORY057-PRECHOICE ()
-	<COND (<CHECK-SKILL ,SKILL-CUNNING>
-		<STORY-JUMP ,STORY377>
-	)(<CHECK-SKILL ,SKILL-SPELLS>
-		<STORY-JUMP ,STORY011>
-	)(ELSE
-		<CRLF>
-		<TELL TEXT057-CONTINUED>
-		<TELL ,PERIOD-CR>
-	)>>
 
 <CONSTANT TEXT058 "Perhaps you will find the answers to your questions in the shrine. You climb to the top of the steps, pausing for a moment at the threshold of the shrine. The entrance is a block of shadow, dingy with foreboding. But you have no choice. Bowing as every mortal must when in the presence of the gods, you go inside.||It is a shrine to God of the Pole Star, as you can tell immediately by the striped glyphs on the altar. He is the celestial guide whom all travellers pray to when they have lost their way. You doubt if anyone has ever needed his help as much as you do now.">
 <CONSTANT CHOICES058 <LTABLE "offer" "your own lifeblood">>
@@ -1282,20 +1255,16 @@
 	<IF-ALIVE TEXT068-CONTINUED>>
 
 <CONSTANT TEXT069 "Cliffs rise in front of you, and you make your way along them until you find a long shoulder of rock by which you are able to scale to the top.||You have gone only a little further when you hear a distant keening noise. It sounds like the wind, but you do not feel even a breath of air in the sultry stillness. Then you notice half a dozen long plumes of dust moving along the ground in your direction. Above each dust-plume is a dark twisting funnel of air. Whirlwinds -- and they are bearing straight down on you. Superstitious dread crawls up your spine. You recall tales of the demons of the desert, who rip men limb from limb with the fury of their whirlwinds.">
-<CONSTANT CHOICES069 <LTABLE "use a wand" "stand ready to fight the demons off" "run back towards the cliffs">>
+<CONSTANT CHOICES069 <LTABLE "use" "use a wand" "stand ready to fight the demons off" "run back towards the cliffs">>
 
 <ROOM STORY069
 	(DESC "069")
 	(STORY TEXT069)
-	(PRECHOICE STORY069-PRECHOICE)
 	(CHOICES CHOICES069)
-	(DESTINATIONS <LTABLE STORY092 STORY115 STORY137>)
-	(REQUIREMENTS <LTABLE SKILL-SPELLS NONE NONE>)
-	(TYPES <LTABLE R-SKILL R-NONE R-NONE>)
+	(DESTINATIONS <LTABLE STORY345 STORY092 STORY115 STORY137>)
+	(REQUIREMENTS <LTABLE SKILL-FOLKLORE SKILL-SPELLS NONE NONE>)
+	(TYPES <LTABLE R-NONE R-SKILL R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
-
-<ROUTINE STORY069-PRECHOICE ()
-	<COND (<CHECK-SKILL ,SKILL-FOLKLORE> <STORY-JUMP ,STORY345>)>>
 
 <CONSTANT TEXT070 "\"I can give no easy answer, my lady,\" you tell the Matriarch. \"I do not wish to shirk my duty to the clan that has nurtured me, but neither can I ignore the demands of my heart. I must go in search of my brother, since I cannot rest until I know whether he is alive or dead.\"||She heaves a deep sigh, more of resignation than disapproval. \"I know you could not be dissuaded,\" she says. \"You have your late father's impetuosity. Morning Star shared that same quality. It is the mark of a hero -- but beware, Evening Star, for it can also get you killed.\"||\"I understand. I have your permission to undertake this quest, then?\"||\"You have.\" She produces a letter and hands it to you. \"Take this to the town of Balak on the northern coast. Ask there for a girl named Midnight Bloom. She is a distant cousin of yours. Present her with this letter, which will introduce you and request her assistance in your quest.\"||\"How can she assist me?\" you ask, taking the letter.||\"She is skilled in coastal trade, and will convey you by ship to Tahil. May the gods watch over you, Evening Star.\"||You rise and bow, as you leave, your heart is full of excitement.">
 
@@ -2148,20 +2117,16 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT127 "You turn away and push your way out of the crowd. There are those who say it is a great honour to be chosen for sacrifice, but you have no desire to witness the death of the two young people so soon after your own bereavement.||You journey north until the causeway ends. Dusty tracks fringed with scrubland carry you the rest of the way to the coast. A farmer directs you to the village of Balak. You pass through the streets, pace quickening as you catch the enticing smell of salt spray on the air. You emerge from between two high-roofed houses and there is the sea spread out in front of you, glittering under a cloudless blue sky.">
+<CONSTANT CHOICES127 <LTABLE "use" "or" "otherwise">>
 
 <ROOM STORY127
 	(DESC "127")
 	(STORY TEXT127)
-	(PRECHOICE STORY127-PRECHOICE)
-	(CONTINUE STORY158)
+	(CHOICES CHOICES127)
+	(DESTINATIONS <LTABLE STORY370 STORY391 STORY158>)
+	(REQUIREMENTS <LTABLE LETTER-OF-INTRODUCTION SKILL-SEAFARING NONE>)
+	(TYPES <LTABLE R-ITEM R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
-
-<ROUTINE STORY127-PRECHOICE ()
-	<COND (<CHECK-ITEM ,LETTER-OF-INTRODUCTION>
-		<STORY-JUMP ,STORY370>
-	)(<CHECK-SKILL ,SKILL-SEAFARING>
-		<STORY-JUMP ,STORY391>
-	)>>
 
 <CONSTANT TEXT128 "You now realize that drinking from the well would have enabled you to see the occupants of the Deathlands as normal folk, but without that magic you must see them as they truly are in the eyes of the living: skeletal remains encrusted with teeming mould. Before you succumb to blind panic, you raise your wand and cast an enchantment of illusion over your own vision, allowing you to see them as they were in life. Now you can converse with them without a feeling of terror.">
 
@@ -2214,20 +2179,16 @@
 	<LOSE-ITEM ,MAN-OF-GOLD>>
 
 <CONSTANT TEXT132 "The following evening you are shown into the House of Cold, where sparkling sheets of ice encase the walls and long icicles form pillars from floor to ceiling. Your breath curls like smoke in the freezing air as you stand shivering and watch the courtiers swing the heavy door shut.">
+<CONSTANT CHOICES132 <LTABLE "use" "or" "otherwise">>
 
 <ROOM STORY132
 	(DESC "132")
 	(STORY TEXT132)
-	(PRECHOICE STORY132-PRECHOICE)
-	(CONTINUE STORY178)
+	(CHOICES CHOICES132)
+	(DESTINATIONS <LTABLE STORY155 STORY319 STORY178>)
+	(REQUIREMENTS <LTABLE <LTABLE STONE LUMP-OF-CHARCOAL> FIREBRAND NONE>)
+	(TYPES <LTABLE R-ALL R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
-
-<ROUTINE STORY132-PRECHOICE ()
-	<COND (<AND <CHECK-ITEM ,STONE> <CHECK-ITEM ,LUMP-OF-CHARCOAL>>
-		<STORY-JUMP ,STORY155>
-	)(<CHECK-ITEM ,FIREBRAND>
-		<STORY-JUMP ,STORY319>
-	)>>
 
 <CONSTANT TEXT133 "He lunges into you as you try to get past. It is clearly a foul but from the way the courtiers are baying for blood you suspect the normal rules do not apply.">
 <CONSTANT CHOICES133 <LTABLE "either run towards the enemy defensive player" "stand where you are and hope your partner can get the ball to you">>
@@ -2797,16 +2758,16 @@
 
 <CONSTANT TEXT173 "You reach the circle of light and plunge through, relieved to discover that you have emerged into open air. It is cold here, but nothing like the deadly cold of the lake.||You wring out your clothes and look around you. The water of the lake is suspended eerily about two metres above your head, forming a roof over this strange world that extends far off into the distance. On the horizon hangs a glaring ball of white light which sends its low rays slanting across the land. The light shines straight into your eyes giving you a headache. You raise one hand to shield yourself from the glare.||Now you notice that you are standing at a crossroads.">
 <CONSTANT TEXT173-JADE "You remember that you were advised to keep the jade bead under your tongue until you reached a crossroads. You can take it out of your mouth, and choose to discard it altogether">
-<CONSTANT TEXT173-CONTINUED "You must pick a direction:">
-<CONSTANT CHOICES173 <LTABLE "take the white road" "the red road" "the black road" "the yellow road">>
+<CONSTANT CHOICES173 <LTABLE "use" "or" "pick a direction: take the white road" "the red road" "the black road" "the yellow road">>
 
 <ROOM STORY173
 	(DESC "173")
 	(STORY TEXT173)
 	(PRECHOICE STORY173-PRECHOICE)
 	(CHOICES CHOICES173)
-	(DESTINATIONS <LTABLE STORY243 STORY196 STORY219 STORY266>)
-	(TYPES FOUR-NONES)
+	(DESTINATIONS <LTABLE STORY289 STORY312 STORY243 STORY196 STORY219 STORY266>)
+	(REQUIREMENTS <LTABLE SKILL-FOLKLORE SKILL-SPELLS NONE NONE NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-NONE R-NONE R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY173-PRECHOICE ()
@@ -2821,11 +2782,6 @@
 				<LOSE-ITEM ,JADE-BEAD>
 			)>
 		)>
-	)>
-	<COND (<CHECK-SKILL ,SKILL-FOLKLORE>
-		<STORY-JUMP ,STORY289>
-	)(<CHECK-SKILL ,SKILL-SPELLS>
-		<STORY-JUMP ,STORY312>
 	)>>
 
 <CONSTANT TEXT174 "On a impulse you drop the jade bead into the well. As it falls into the water, it emits a gleam of gold-green light for an instant and then dissolves.">
@@ -3067,22 +3023,18 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT190 "The hard veins of luminous crystal running through the cavern wall make fine handholds. You quickly ascend to the ledge and stand inspecting the tombs. Each is sealed by a massive slab of stone bearing an engraved image of the person buried within. At first glance they look too solid for you to have nay hope of gaining entry, but then you notice that there is one slab which already has a crack in it. Even better, you discover a hammer lying on the ledge. You estimate that it would be an hour's hard work to smash a way into the tomb.">
-<CONSTANT CHOICES190 <LTABLE "break the tomb open using the hammer" "use the" "decide against further exploration of the tombs: return to the canoe and continue on your way.
+<CONSTANT CHOICES190 <LTABLE "use" "break the tomb open using the hammer" "use the" "decide against further exploration of the tombs: return to the canoe and continue on your way.
 ">>
 
 <ROOM STORY190
 	(DESC "190")
 	(STORY TEXT190)
-	(PRECHOICE STORY190-PRECHOICE)
 	(CHOICES CHOICES190)
-	(DESTINATIONS <LTABLE STORY329 STORY306 STORY167>)
-	(REQUIREMENTS <LTABLE NONE MAN-OF-GOLD NONE>)
-	(TYPES <LTABLE R-NONE R-ITEM R-NONE>)
+	(DESTINATIONS <LTABLE STORY283 STORY329 STORY306 STORY167>)
+	(REQUIREMENTS <LTABLE SKILL-ROGUERY NONE MAN-OF-GOLD NONE>)
+	(TYPES <LTABLE R-SKILL R-NONE R-ITEM R-NONE>)
 	(ITEM HAMMER)
 	(FLAGS LIGHTBIT)>
-
-<ROUTINE STORY190-PRECHOICE ()
-	<COND (<CHECK-SKILL ,SKILL-ROGUERY> <STORY-JUMP ,STORY283>)>>
 
 <CONSTANT TEXT191 "Ordinarily you might try to seize the cobra before it strikes. You have heard of hunters doing this, and your own reflexes are as sharp as any man's. But at the moment your arms are trembling, muscles turned to jelly by the exertions of the past two hours. You could not rely on getting a firm grip.||The cobra is about to attack. It puts its head back, neck bracing for the lethal strike -- an action which momentarily blinds it. It is the one chance you will get, and you do not hesitate. You take a swift step closer and thrust your head forward with all your strength. There is aloud crack as your forehead slams into the cobra and crushes it back into the hard stone of the wall.||You reel back, stunned. The cobra drops limply to the floor and writhes there weakly until you recover your wits enough to stamp on it. Nursing a swelling bump on your head, you squeeze through into the tomb.">
 
@@ -3337,19 +3289,16 @@
 	<IF-ALIVE TEXT206-CONTINUED>>
 
 <CONSTANT TEXT207 "Your head is pounding and it feels as though a rough rope has been used to scour your throat. You recognize the symptoms of dehydration. Without water, you will die.||You find three plants that might yield the moisture you need. The first is a large barrel-shaped cactus with a milky sap. The second is a clump of rough spiky leaves with a single long stalk growing up from the centre. The last is another cactus, paler in colour than the first, comprising many flattened bulbous segments with squashy fruits.">
-<CONSTANT CHOICES207 <LTABLE "get moisture from the barrel cactus" "the spiky-leafed plant" "the bulbous cactus" "you think none of these plants will help you">>
+<CONSTANT CHOICES207 <LTABLE "use" "get moisture from the barrel cactus" "the spiky-leafed plant" "the bulbous cactus" "you think none of these plants will help you">>
 
 <ROOM STORY207
 	(DESC "207")
 	(STORY TEXT207)
-	(PRECHOICE STORY207-PRECHOICE)
 	(CHOICES CHOICES207)
-	(DESTINATIONS <LTABLE STORY253 STORY276 STORY299 STORY322>)
-	(TYPES FOUR-NONES)
+	(DESTINATIONS <LTABLE STORY230 STORY253 STORY276 STORY299 STORY322>)
+	(REQUIREMENTS <LTABLE SKILL-WILDERNESS-LORE NONE NONE NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-NONE R-NONE R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
-
-<ROUTINE STORY207-PRECHOICE ()
-	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE> <STORY-JUMP ,STORY230>)>>
 
 <CONSTANT TEXT208-MAGIC-POTION "It can be used once during your adventure. It will restore 5 lost Life Points, up to the limit set your your initial Life Points score. Press 'D' to drink it">
 <CONSTANT TEXT208-GREEN-MIRROR "It can be used once -- and only once -- at any point in your adventure before deciding which you will choose. (Press 'M' to use it)">
@@ -4316,89 +4265,71 @@
 		)>
 	)>>
 
+<CONSTANT TEXT276 "You get water from the bush by biting the tips off the hard sharp-tipped leaves and sucking the moisture out of them. It is barely enough to slake your thirst. You head on a cross the barren and blistered rocks, knowing that your ordeal will continue for many gruelling days yet.">
+
 <ROOM STORY276
 	(DESC "276")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT276)
+	(PRECHOICE STORY276-PRECHOICE)
+	(CONTINUE STORY152)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY276-PRECHOICE ()
+	<TEST-MORTALITY 2 DIED-OF-THIRST ,STORY276>>
+
+<CONSTANT TEXT277 "The high priest of the Death God is a portly short-sighted man wrapped in a black kilt. White paint is daubed in streaks around his belly as if to represent the fleshless ribcage of a corpse -- though you cannot help smiling as you reflect how his own ribs are so well covered. His head-dress is a rather intimidating effigy of a skull without its lower jaw, with long earpieces of jointed fingerbones hanging on neither side of his rotund face, but the priest removes this as soon as you are both seated in the shade of the outer shrine.||\"I have come to you for advice,\" you begin by saying, \"I must undertake a journey to the west in search of my brother, Morning Star\"||He wipes a slick of sweat off his brow with one plump hand. \"I have heard the story. Only one man has entered the great desert and left it alive -- the veteran who accompanied your brother. What makes you think you will fare better?\"||\"One man survived. Why shouldn't I\"||The priest shakes his head. \"He was one man from an expedition of thirty. Did you not hear his account of the perils of the desert -- the devil-driven sands, the monstrous serpents?\"||\"Then you counsel me to stay here in Koba? To abandon my quest?\"||He casts a quick gaze towards the shadowy archway leading to the inner shrine. \"The advice of the god is not so easily obtained. Are you willing to make an offering?\"">
+<CONSTANT CHOICES277 <LTABLE "pay him" "you cannot spare the money and must bid the priest farewell and see about getting supplies for the trip">>
 
 <ROOM STORY277
 	(DESC "277")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT277)
+	(CHOICES CHOICES277)
+	(DESTINATIONS <LTABLE STORY408 STORY093>)
+	(REQUIREMENTS <LTABLE 5 NONE>)
+	(TYPES <LTABLE R-MONEY R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT278 "On and on through the forest, the glowing figure leads you a madcap chase until your heart is pounding and your breath comes in raw sobs. Creepers hang across your path, but you dash them aside and race on. Sweat plasters your clothes to your skin. You catch your foot on a root and stumble, only to leap up again and stagger after your elusive quarry.||At last you emerge into a clearing beside a stream where you give a breathless cry of triumph. The girl has stopped at the bank of the stream. She stands with her back to you, shawl drawn around her golden body, her head bowed as if in passive acceptance that she can go no further.||A final burst of effort carries you across the clearing, even though your legs feel like clay. The girl turns and favours you with a sweet smile. Then she breaks apart into hundreds of motes of dazzling light. Gasping for breath, you accidentally inhale one of the motes of light and feel an insectoid buzzing as you swallow it. A firefly. The 'girl' you were chasing was just a swarm of fireflies!||Spluttering violently in a vain attempt to cough up the firefly you've just breathed in, you flail about and by blind luck your fingers close on the shawl. You feel someone is trying to tug it out of your hand, but the convulsive coughing makes you cling on tight.">
 
 <ROOM STORY278
 	(DESC "278")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT278)
+	(PRECHOICE STORY278-PRECHOICE)
+	(CONTINUE STORY324)
+	(CODEWORD CODEWORD-IGNIS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY278-PRECHOICE ()
+	<CRLF>
+	<TELL "Keep the shawl?">
+	<COND (<YES?>
+		<TAKE-ITEM ,SHAWL>
+		<STORY-JUMP ,STORY302>
+	)>>
+
+<CONSTANT TEXT279 "You must have wandered far to the south of your original route. But which way is north? The leaf canopy virtually covers the sky, giving you few clues about which way you should go.">
+<CONSTANT CHOICES279 <LTABLE "use" "or" "otherwise">>
 
 <ROOM STORY279
 	(DESC "279")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT279)
+	(CHOICES CHOICES279)
+	(DESTINATIONS <LTABLE STORY441 STORY075 STORY326>)
+	(REQUIREMENTS <LTABLE SKILL-WILDERNESS-LORE SKILL-CHARMS NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT280 "You set out in the early morning. A cool wind whips spindrift in your face and fills the taut white wing of the sail. The trader calls to his two young sons, who scramble along the vessel like monkeys making adjustments to the course. Soon the prow is chopping the sea aside as you steer out of sight of land with the sun at your backs.||\"Shouldn't we keep the coast in sight?\" you ask.||\"Not a bit of it!\" bellows the trader over the crash of the surf. \"The sun is enough to guide our way, for any seafarer with a pinch of salt in his blood.\"||\"Father...\" says one of the sons, tugging the hem of his kilt.||\"Not now, lad,\" mutters his father, scanning the western horizon as he moves the tiller.||\"But, Father...\" insists the other boy.||You turn to see what they are looking at. A longship filled with fierce warriors is bearing down at you out of the north-east. As they get nearer, you see their black tunics and the turquoise beads that blaze at their wrists and throats. White face-paint gives them the appearance of hungry ghosts, and the raised spears make their intentions clear. Pirates!">
+<CONSTANT CHOICES280 <LTABLE "use" "or" "otherwise">>
 
 <ROOM STORY280
 	(DESC "280")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT280)
+	(CHOICES CHOICES280)
+	(DESTINATIONS <LTABLE STORY274 STORY297 STORY320>)
+	(REQUIREMENTS <LTABLE SKILL-SPELLS SKILL-TARGETING NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY281
