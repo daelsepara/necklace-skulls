@@ -96,6 +96,8 @@
 	<PUTP ,STORY328 ,P?DEATH T>
 	<PUTP ,STORY333 ,P?DEATH T>
 	<PUTP ,STORY353 ,P?DEATH T>
+	<PUTP ,STORY360 ,P?DEATH T>
+	<PUTP ,STORY362 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DRINK-POTION-KEY-CAPS !\D>
@@ -114,6 +116,7 @@
 <CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope with the situation.">
 <CONSTANT ALL-POSSESSIONS "You lost all your possessions.">
 <CONSTANT TEXT-BEAD "You remember to slip the jade bead under your tongue as advised">
+<CONSTANT VITALITY-RESTORED  "Your vitality has been restored">
 
 <GLOBAL IMMORTAL F>
 <GLOBAL BLESSING-WAR-GOD F>
@@ -396,6 +399,13 @@
 		<COND (.DAMAGE <TEST-MORTALITY .QUANTITY DIED-OF-HUNGER .STORY>)>
 	)>
 	<UPDATE-STATUS-LINE>>
+
+<ROUTINE RESTORE-VITALITY ()
+	<COND (<L? ,LIFE-POINTS ,MAX-LIFE-POINTS>
+		<EMPHASIZE VITALITY-RESTORED>
+		<SETG LIFE-POINTS ,MAX-LIFE-POINTS>
+		<UPDATE-STATUS-LINE>
+	)>>
 
 <CONSTANT TEXT "This story has not been written yet.">
 
@@ -956,6 +966,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY042-PRECHOICE ()
+	<START-RITUAL-BALL> 
 	<COND (<CHECK-CODEWORD ,CODEWORD-POKTAPOK> <STORY-JUMP ,STORY065>)>>
 
 <CONSTANT TEXT043 "To your own astonishment as much as anyone else's, the blood ball soars up and unerringly passes through the stone ring set in the middle of the wall. A howl of disbelief rises from the watching courtiers. They sound like hounds at the baying of the moon.||Your brother rushes over to join you. \"Can you feel it, Evening Star?\" he says excitedly. \"The tingle of magic on the air?\"||He is right. In some strange way your victory worked a spell which now empowers you both with an invigorating surge of energy.">
@@ -973,10 +984,7 @@
 
 <ROUTINE STORY043-PRECHOICE ()
 	<COND (,RUN-ONCE
-		<COND (<L? ,LIFE-POINTS ,MAX-LIFE-POINTS>
-			<EMPHASIZE "You are restored to full health.">
-			<SETG LIFE-POINTS ,MAX-LIFE-POINTS>
-		)>
+		<RESTORE-VITALITY>
 		<COND (<G? <COUNT-CONTAINER ,LOST-SKILLS> 0>
 			<CRLF>
 			<TELL "You regained: ">
@@ -5343,11 +5351,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY348-PRECHOICE ()
-	<COND (<L? ,LIFE-POINTS ,MAX-LIFE-POINTS>
-		<EMPHASIZE "Your vitality has been restored">
-		<SETG LIFE-POINTS ,MAX-LIFE-POINTS>
-	)>
-	<UPDATE-STATUS-LINE>>
+	<RESTORE-VITALITY>>
 
 <CONSTANT TEXT349 "Lord Skull rocks his bulbous head and gives a groan of distress at being greeted incorrectly. Etiquette is obviously very important to these demons, because he also clouts you hard across the eyes as punishment. You reel back stunned, waiting for your vision to clear. It does so only partially: you can still sea, but not so clearly as before.||You retreat sullenly out of the sentinel's presence. The curse he has laid on you makes no difference. You have sworn to avenge your brother, and nothing short of death will stop you.">
 
@@ -5518,175 +5522,130 @@
 		<COND (<OR <CHECK-SKILL ,SKILL-SWORDPLAY> <CHECK-ITEM ,FLINT-KNIFE> <CHECK-ITEM ,SPEAR>> <STORY-JUMP ,STORY429>)>
 	)>>
 
+<CONSTANT TEXT361 "You advance into the passage and start to examine the perplexing structure of wooden beams. The trick is to clear enough of them out of the way so as to be able to get past, but without bringing the whole passage down on top of you. It is like a child's puzzle, only this is a puzzle with a deadly twist.||You select one of the beams and dislodge it. As you haul it out of position, there is a crack and a thin trickle of plaster dust sifts down from the roof of the passage. You look up in alarm, heart skipping a beat, but the roof holds. This time">
+<CONSTANT CHOICES361 <LTABLE "use" "a wand" "perhaps you could try using the" "otherwise">>
+
 <ROOM STORY361
 	(DESC "361")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT361)
+	(CHOICES CHOICES361)
+	(DESTINATIONS <LTABLE STORY086 STORY109 STORY131 STORY154>)
+	(REQUIREMENTS <LTABLE SKILL-ROGUERY SKILL-SPELLS MAN-OF-GOLD NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT362 "The albino hound is so intent on reaching you and closing its jaws on your windpipe that it does not realize you are luring it back into the open. The moment it rushes out under the colonnade, the sunshine forces it to screw up its weak eyes. When you see it is dazzled, you feel more confident about closing in to do battle.">
+<CONSTANT TEXT362-CONTINUED "You finally manage to force the hound down with your foot on its throat and administer the death-blow. Then you make your way along the passage it was guarding to the inner courtyard, where you find the courtiers already waiting for you. The chief courtier looks at you with a surprise, as though he did not expect you to win through.||\"About your cousin --\"||\"Yes?\" he says, peering back along the tunnel with a puzzled frown.||\"Hes dog meat.\"">
 
 <ROOM STORY362
 	(DESC "362")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT362)
+	(PRECHOICE STORY362-PRECHOICE)
+	(CONTINUE STORY431)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY362-PRECHOICE ("AUX" (DAMAGE 3))
+	<COND (<CHECK-SKILL ,SKILL-SWORDPLAY>
+		<SET DAMAGE 1>
+	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
+		<SET DAMAGE 2>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY362>
+	<IF-ALIVE TEXT362-CONTINUED>>
+
+<CONSTANT TEXT363 "The ball contest requires two participants on each side. \"Am I to face this challenge alone?\" you cry out angrily.||Necklace of Skulls' voice rustles from the depths of his shrine. It sounds like a whisper, but is loud enough to carry right along the arena. \"The man you befriended on the journey here. He shall fight beside you.\"||Hearing a footstep behind you, you glance back to see Stooping Eagle approaching through the skeletal gate. \"Evening Star!\" he says, glad to see that you too have survived the ordeals set by the courtiers. He touches his sword. \"Where is the wizard? I am eager to see if his blood is red and clean like other men's, or flows like foul sewage!\"||You gesture to the pyramid at the far end of the arena. \"He awaits us there. But first we must prove ourselves in the contest.\"||He nods and leans closer to whisper in your ear. \"I know something of the strategy of the ball contest. Begin boldly so as to unsettle your opponents, then allow their leading player past you and drive deep towards the enemy defence.\"||\"Well,\" you say with a shrug, \"it's as good a plan as any.\"">
 
 <ROOM STORY363
 	(DESC "363")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT363)
+	(CONTINUE STORY042)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT364 "Your partner darts forward and succeeds in intercepting the ball. You see that he cannot keep possession for long with the enemy attacking player dogging his every move. \"Send it over here!\" you yell at him.">
 
 <ROOM STORY364
 	(DESC "364")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT364)
+	(PRECHOICE STORY364-PRECHOICE)
+	(CONTINUE STORY423)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY364-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-SHADE>
+		<STORY-JUMP ,STORY385>
+	)(<CHECK-CODEWORD ,CODEWORD-ANGEL>
+		<STORY-JUMP ,STORY405>
+	)>>
+
+<CONSTANT TEXT365 "Leaving the battle behind, you hurry on until the stars begin to drown in the limpid haze heralding a new day. As the sun's heat grows stifling, you find shelter beneath a sand-blasted spar of rock where you rest until night comes again. Then you gather your belongings and set out again by moonlight. Your mouth feels as dry as the endless wastes surrounding you.">
 
 <ROOM STORY365
 	(DESC "365")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT365)
+	(PRECHOICE STORY365-PRECHOICE)
+	(CONTINUE STORY438)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY365-PRECHOICE ()
+	<COND (<CHECK-ITEM ,WATERSKIN> <STORY-JUMP ,STORY303>)>>
+
+<CONSTANT TEXT366 "Cowering under the trees at the back of the beach you find a very old man. His clothing is ragged, but the few scraps of adornment that he retains indicate a person of wealth and prestige. This impression is confirmed when he opens his mouth, saying, \"If you have come to kill me, I pray that you do so quickly, at least.\"||\"We haven't come to kill you,\" you reply, extending your hand in friendship.||He returns a hopeful smile. \"I am Jade Thunder, once a great wizard. A contest with my arch-rival brought me to this desolate spot, and here we fought our last battle. I slew him, but with his dying breath he sealed my wand within a barrier of fire and now I cannot use my magic to return home.\"||You go with hi to a spot further up the beach. Great magic has obviously been at work here, impossibly warping the trees and leaving the coconuts with silent staring faces. The sand underfoot has a dozen colours. In the centre of the clearing, a circle of crackling green flame surrounds a wand.||To help Jade recover his wand:">
+<CONSTANT CHOICES366 <LTABLE "try" "cast spells with your own wand" "use the" "just walk boldly into the flames" "decide against helping him">>
 
 <ROOM STORY366
 	(DESC "366")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT366)
+	(CHOICES CHOICES366)
+	(DESTINATIONS <LTABLE STORY021 STORY435 STORY045 STORY068 STORY437>)
+	(REQUIREMENTS <LTABLE SKILL-CUNNING SKILL-SPELLS MAN-OF-GOLD NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-ITEM R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT367 "\"In times gone by, heretics and madmen were cast out from the town by this gate,\" says one of the guards. \"As they went, some would scratch pictures of what they expected to find in the far west.\"||\"That's why it's called the Gate of Exiles,\" says the other man. \"I reckon you must be one of the few people who've taken this route by choice.\"||\"I didn't have a choice,\" you say.||Taking up your pack, you walk out into the waiting desert.">
 
 <ROOM STORY367
 	(DESC "367")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT367)
+	(CONTINUE STORY407)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT368 "He flings the the ball against the slanting wall of the arena and it bounces towards you.. Leaping up with all your strength, you manage to strike it a glancing blow with your arm. A moment of stinging pain is followed by numbness, and the ball thuds to the court at your feet.||\"No, no!\" says the priest, stepping forward to retrieve the ball. \"You have to judge the angle of impact perfectly, otherwise you end up bruised and the ball goes nowhere.\"||He demonstrates, swinging his hips for momentum a she slams his muscular forearm against the ball. It goes careering across the arena to ricochet off the side wall. This time you manage to intercept it, sending it skidding back along the slant of the wall towards the priest.||\"You've got the hang of it now,\" he says some time later, leaning on his knees to get his breath back. \"The object is to keep the ball from touching the ground. It represents the sun, you see, so it has to stay aloft or else it's 'eclipse', meaning you lose a point.\"||You toss the ball up and catch it, enjoying the contest now you know more about it. \"And what about the stone rings at the top of the wall?\"||\"Ah!\" says the priest. \"If you can get the ball through the ring then you've scored a 'sunrise' and you win outright. But it's not easy as it looks, believe me.\"||You stare up at the ring. It is tree man-heights off the ground and barely wider than the ball itself. \"But it doesn't look at all easy!\"||The priest grins. \"Precisely.\"||It is now getting late. Thanking the priest, you make your way back home. Tomorrow you will set out in search of your brother.">
 
 <ROOM STORY368
 	(DESC "368")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT368)
+	(CONTINUE STORY389)
+	(CODEWORD CODEWORD-POKTAPOK)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT369 "You make a great show of folding the shawl and tucking it tightly under your arm. \"You've lured me far off the beaten track and caused me to inhale an insect!\" you say aloud, feeling somewhat foolish since you cannot see the creatures you are addressing.||\"Merely a prank,\" says the eerie voice at your shoulder. \"Give us back our shawl, and we'll lead you back to the path without delay.\"||\"Better yet,\" offers another of the stabai, \"we know of a great treasure hidden near by. If we take you to it, will you return the shawl?\"||You know better than to hand the shawl back before they have completed their part of any bargain. Even then, it might be wise to retain it in case they try to cause you further trouble. You decide to make no firm promises for now.">
+<CONSTANT CHOICES369 <LTABLE "ask them to show you the treasure" "insist on being led back to the trail you were following before">>
 
 <ROOM STORY369
 	(DESC "369")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT369)
+	(CHOICES CHOICES369)
+	(DESTINATIONS <LTABLE STORY409 STORY390>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT370 "Midnight Bloom proves to be a briskly efficient young woman with a vivacious smile. A jade necklace inlaid with flecks of gold sets off her deep coppery tan to good effect. She reads the letter given to you by the Matriarch and nods, saying, \"Many traders are reluctant to go as far as Tahil now, because the collapse of the Great City has left bands of brigands roaming unchecked in the region. But luckily I shall be sailing there in a week's time, to tie up some loose ends in the clan's business.\"||You spend a restful week in Balak at the house of your relatives here.">
+<CONSTANT TEXT370-CONTINUED "At last Midnight Bloom comes to tell you that preparations are complete. Tomorrow you set sail for Tahil">
 
 <ROOM STORY370
 	(DESC "370")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT370)
+	(PRECHOICE STORY370-PRECHOICE)
+	(CONTINUE STORY182)
+	(CODEWORD CODEWORD-SAKBE)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY370-PRECHOICE ()
+	<RESTORE-VITALITY>
+	<CRLF>
+	<TELL TEXT370-CONTINUED>
+	<TELL ,PERIOD-CR>>
 
 <ROOM STORY371
 	(DESC "371")
