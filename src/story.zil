@@ -14,16 +14,20 @@
 <CONSTANT MAGIC-MIRROR-KEY-CAPS !\M>
 <CONSTANT MAGIC-MIRROR-KEY !\m>
 
+<ROUTINE DRINK-POTION ()
+	<CRLF>
+	<TELL "Drink magic potion?">
+	<COND (<YES?>
+		<SETG LIFE-POINTS <+ ,LIFE-POINTS 5>>
+		<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
+		<REMOVE ,MAGIC-POTION>
+	)>>
+
 <ROUTINE SPECIAL-INTERRUPT-ROUTINE (KEY)
 	<COND (<EQUAL? .KEY DRINK-POTION-KEY-CAPS DRINK-POTION-KEY>
 		<COND (<CHECK-ITEM ,MAGIC-POTION>
-			<CRLF><CRLF>
-			<TELL "Drink magic potion?">
-			<COND (<YES?>
-				<SETG LIFE-POINTS <+ ,LIFE-POINTS 5>>
-				<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
-				<REMOVE ,MAGIC-POTION>
-			)>
+			<CRLF>
+			<DRINK-POTION>
 			<RTRUE>
 		)>
 	)(<EQUAL? .KEY MAGIC-MIRROR-KEY-CAPS MAGIC-MIRROR-KEY>
@@ -45,6 +49,7 @@
 	<SETG TICKS 0>
 	<SETG CROSS 0>
 	<SETG IMMORTAL F>
+	<SETG BLESSING-WAR-GOD F>
 	<SETG DONATION 0>
 	<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY275>
 	<PUT <GETP ,STORY048 ,P?DESTINATIONS> 1 ,STORY117>
@@ -113,6 +118,9 @@
 	<PUTP ,STORY299 ,P?DEATH T>
 	<PUTP ,STORY311 ,P?DEATH T>
 	<PUTP ,STORY316 ,P?DEATH T>
+	<PUTP ,STORY319 ,P?DEATH T>
+	<PUTP ,STORY320 ,P?DEATH T>
+	<PUTP ,STORY328 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -147,20 +155,7 @@
 <CONSTANT DIED-FROM-INJURIES "You died from your injuries">
 <CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope with the situation.">
 <CONSTANT ALL-POSSESSIONS "You lost all your possessions.">
-
-<ROUTINE ADD-QUANTITY (OBJECT "OPT" AMOUNT CONTAINER "AUX" QUANTITY CURRENT)
-	<COND (<NOT .OBJECT> <RETURN>)>
-	<COND (<NOT .CONTAINER> <SET CONTAINER ,PLAYER>)>
-	<COND (<NOT .AMOUNT> <SET AMOUNT 1>)>
-	<COND (<EQUAL? .CONTAINER ,PLAYER>
-		<DO (I 1 .AMOUNT)
-			<TAKE-ITEM .OBJECT>
-		>
-	)(ELSE
-		<SET CURRENT <GETP .OBJECT ,P?QUANTITY>>
-		<SET QUANTITY <+ .CURRENT .AMOUNT>>
-		<PUTP .OBJECT ,P?QUANTITY .QUANTITY>
-	)>>
+<CONSTANT TEXT-BEAD "You remember to slip the jade bead under your tongue as advised">
 
 <OBJECT LOST-SKILLS
 	(DESC "skills lost")
@@ -183,6 +178,7 @@
 <GLOBAL TICKS 0>
 <GLOBAL CROSS 0>
 <GLOBAL IMMORTAL F>
+<GLOBAL BLESSING-WAR-GOD F>
 
 <ROUTINE LOSE-STUFF (CONTAINER LOST-CONTAINER ITEM "OPT" MAX ACTION "AUX" (COUNT 0) ITEMS)
 	<COND (<NOT .MAX> <SET MAX 1>)>
@@ -241,11 +237,12 @@
 
 <ROUTINE TEST-MORTALITY (DAMAGE MESSAGE "OPT" STORY)
 	<COND (<NOT .STORY> <SET STORY ,HERE>)>
-	<COND (<NOT ,IMMORTAL>
-		<LOSE-LIFE .DAMAGE .MESSAGE .STORY>
-	)(ELSE
-		<PREVENT-DEATH .STORY>
-	)>>
+	<COND (,IMMORTAL <PREVENT-DEATH .STORY> <RETURN>)>
+	<COND (,BLESSING-WAR-GOD
+		<TELL CR "Use the Blessing of The War God to prevent the loss of " N .DAMAGE " life points?">
+		<COND (<YES?> <PREVENT-DEATH .STORY> <SETG BLESSING-WAR-GOD F> <RETURN>)>
+	)>
+	<LOSE-LIFE .DAMAGE .MESSAGE .STORY>>
 
 <ROUTINE ORACLE ("OPT" STORY "AUX" DESTINATIONS COUNT CHOICES)
 	<COND (<NOT <CHECK-ITEM ,GREEN-MIRROR>> <RETURN>)>
@@ -4474,7 +4471,7 @@
 	(TYPES <LTABLE R-NONE R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT287 "All signs are that the woman is a victim of one of the parasitical monsters that people call nightcrawlers. These are disembodied heads that latch onto a human host, sinking tendrils deep into the flesh that allow them to control their victim like a puppet. By day they prefer to  shield themselves from the sun, which no doubt explains the overturned pitcher on the woman's shoulder. After nightfall they detach from the host and go gliding about in search of blood to feed on.||You know that salt prevents the night-crawler from fixing onto its prey.">
+<CONSTANT TEXT287 "All signs are that the woman is a victim of one of the parasitical monsters that people call nightcrawlers. These are disembodied heads that latch onto a human host, sinking tendrils deep into the flesh that allow them to control their victim like a puppet. By day they prefer to shield themselves from the sun, which no doubt explains the overturned pitcher on the woman's shoulder. After nightfall they detach from the host and go gliding about in search of blood to feed on.||You know that salt prevents the night-crawler from fixing onto its prey.">
 
 <ROOM STORY287
 	(DESC "287")
@@ -4724,7 +4721,6 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT304 "From what your friend the old soothsayer told you, it is unwise to speak once you enter the underworld. You had better cast your spells now, while you still can.||\"Allow me a moment to compose myself,\" you say to the high priest.||\"It is irregular...\"||\"I am about to meet a god,\" you point out.||Stepping away a few paces, you murmur the words of an incantation which renders your body as buoyant as wood. You gaze down into the depths of the well. At least now you can be sure of not drowning -- but if this is truly the entrance to the underworld, there will be other dangers which you cannot yet even guess at.||You turn to the assembled crowd and announce, \"I am ready.\"||You are led to a shrine at the western edge of the hole. From here, a steep flight of steps descends towards a platform covered with the hieratic glyphs of the afterlife. A vest of golden plaques is fastened across your chest and the high priest places a tall helmet of gold and copper on your head. The burden of so much metal makes you stoop. These artifacts are beyond price, since gold is not found in this part of the world. It is a lavish offering to the Rain God, but it also serves a secondary purpose: the great weight ensures you will be carried deep under the water.||-several junior priests come forward with dishes of blue dye, which they use to paint spirals across your face and limbs. \"Thus you are consecrated to the Rain God,\" they explain. \"Go now into the other world, and carry our plea for rain to refresh the arid fields.\"">
-<CONSTANT TEXT304-BEAD "You remember to slip the jade bead under your tongue as advised">
 <CONSTANT TEXT304-CONTINUED "Then you descend to the platform overlooking the well and prepare yourself for the most uncanny voyage anyone could every attempt: a leap into the underworld">
 
 <ROOM STORY304
@@ -4737,7 +4733,7 @@
 <ROUTINE STORY304-PRECHOICE ()
 	<CRLF>
 	<COND (<CHECK-ITEM ,JADE-BEAD>
-		<TELL TEXT304-BEAD>
+		<TELL TEXT-BEAD>
 		<TELL ,PERIOD-CR>
 		<CRLF>
 	)>
@@ -4876,7 +4872,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT315 "You are taken to the back wall of the courtyard, where colonnade gives respite from the intense sun. Beneath a frieze patterned like a rattlesnake's skin, four archways lead on from here to the next courtyard of the palace. The courtiers give you wide grins and invite you to make a choice.||You look into the first archway. A short flight of steps leads up to the edge of a pit about two metres across. The purpose of the steps is apparently to ensure that you cannot take a running jump. The bottom of the pit is filled with smoking coals.||Beyond the next archway is a tunnel blocked by an artful tangle of wooden beams, some of which seem to be shoring up the walls. \"The trick there is to remove the right combination of beams in the right order,\" says the chief courtier, leaning over your shoulder. \"You want to clear enough space to get past without causing the tunnel to collapse.\"||The third route is a passage with no obstacles -- just a triangular vault leading through to the next courtyard. then you notice the sigils inscribed along the corbels of the vault: sigils indicating calamity and catastrophe. Is the vault designed to cave in when someone walks along it?||The passage beyond the last archway is guarded by a large pallid hound with narrow pink eyes. It greets you with a threatening growl as you poke your head around the corner, but makes no move to attack. \"My second cousin twice removed,\" says the chief courtier in your ear. \"Nasty temper. His bite's worse than his bark, of course.\"||It is time for you to decide.">
-<CONSTANT CHOICES315 <LTABLE "cross the pit" "attempt to clear the blocked tunnel" "walk along  the unguarded tunnel" "brave the albino hound">>
+<CONSTANT CHOICES315 <LTABLE "cross the pit" "attempt to clear the blocked tunnel" "walk along the unguarded tunnel" "brave the albino hound">>
 
 <ROOM STORY315
 	(DESC "315")
@@ -4967,174 +4963,146 @@
 	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY320>
 	<IF-ALIVE TEXT320-CONTINUED>>
 
+<CONSTANT TEXT321 "Shakalla is a walled town whose hard sun-baked streets are the colour of hot ash. At this time of day, the place is deserted. Those who have not fled in fear have retreated to the cool interiors of their houses, seeking refuge from the midday sun. You see a few faces peering from the narrow doorways as you go past. A dog lies stretched in the shade of a shop's awning, panting with the heat.">
+<CONSTANT CHOICES321 <LTABLE "enter the shop" "carry on to the west gate of the town">>
+
 <ROOM STORY321
 	(DESC "321")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT321)
+	(CHOICES CHOICES321)
+	(DESTINATIONS <LTABLE STORY344 STORY325>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT322 "You become weaker and weaker. Finally you collapse and lie stretched out on the hard sun-blistered ground, too weak to rise. You feel like one who has been chosen for sacrifice to the gods, spread-eagled and helpless. Your eyes are stinging. You stare up at the sky, which first blackens until it is like ink, then explodes in a hazy burst of light. Now you are weightless, dropping down an endless tunnel that leads into the bowels of the earth...||And so you die, far out in the cruel desert with only the vultures to witness your last agonized moments. Perhaps you will be reunited with your brother in the afterlife -- but only the gods can say.">
 
 <ROOM STORY322
 	(DESC "322")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT322)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT323 "\"A generous donation.\" The high priest puts the money into his belt-pouch. \"I shall see that a ritual of benediction is performed for you at the temple tomorrow morning. You will carry the blessing of the god.">
+<CONSTANT TEXT323-BLESS "The blessing of the War God means that you can ignore any one injury taken at any point of your choice during the adventure. Remember that it only works once.">
+<CONSTANT TEXT323-CONTINUED "How about a spot of ball practice?\" suggests the high priest">
+<CONSTANT CHOICES323 <LTABLE "join him for a practice bout in the arena" "you had better get on with the rest of your preparations for the journey">>
 
 <ROOM STORY323
 	(DESC "323")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT323)
+	(PRECHOICE STORY323-PRECHOICE)
+	(CHOICES CHOICES323)
+	(DESTINATIONS <LTABLE STORY368 STORY093>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY323-PRECHOICE ()
+	<COND (,RUN-ONCE <SETG BLESSING-WAR-GOD T>)>
+	<EMPHASIZE TEXT323-BLESS>
+	<CRLF>
+	<TELL TEXT323-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT324 "You gaze around. All directions present you with the same vista: trees stand like stone sentinels draped in moss-coloured gloom. Great nets of creepers are strung between their heavy boughs. There are not even any sounds of wildlife to disturb the hoary solitude of the ancient woods. You are thoroughly lost.">
 
 <ROOM STORY324
 	(DESC "324")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT324)
+	(PRECHOICE STORY324-PRECHOICE)
+	(CONTINUE STORY118)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY324-PRECHOICE ()
+	<COND (<CHECK-ITEM ,MAGIC-POTION> <DRINK-POTION>)>
+	<COND (<L? ,LIFE-POINTS ,MAX-LIFE-POINTS>
+		<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
+			<STORY-JUMP ,STORY072>
+		)(ELSE
+			<STORY-JUMP ,STORY095>
+		)>
+	)>>
+
+<CONSTANT TEXT325 "A low tunnel in the wall around the town forms the west gate. Crouching as you make your way along the tunnel, you notice rough scrawlings in the stone. One shows a man with the tail and claws of a scorpion: another is a four-headed dragon.||Two guards armed with spear stand at the far end of the tunnel, staring nervously out across the desert. As they hear you come up, they glance at you and one says, \"Here's a traveller who isn't afraid to take the Gate of Exiles!\"||Beyond, in the bright sunshine, lies the desert you must cross. The bleak stony landscape of crags and dusty gullies stretches off into a haze of heat along the horizon. A path leads from the gate, but it peters out beside a large boulder ten paces away.">
+<CONSTANT CHOICES325 <LTABLE "question the guards about the markings on the tunnel walls" "or the nearby boulder" "you can simply set out in the desert">>
 
 <ROOM STORY325
 	(DESC "325")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT325)
+	(CHOICES CHOICES325)
+	(DESTINATIONS <LTABLE STORY367 STORY388 STORY407>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT326 "You follow a game trail that forks beside a high moss-caked boulder. Sunlight slants down through chinks in the foliage, teasing you with inadequate clues as to your bearing.">
+<CONSTANT CHOICES326 <LTABLE "go left" "take the right-hand fork">>
 
 <ROOM STORY326
 	(DESC "326")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT326)
+	(CHOICES CHOICES326)
+	(DESTINATIONS <LTABLE STORY412 STORY348>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT327 "You are led to a shrine at the western edge of the hole. From here, a steep flight of steps descends towards a platform covered with the hieratic glyphs of the afterlife. You will soon walk down those steps and, after reaching the platform, plunge far down into the dark waters below.||A vest of golden plaques is fastened across your chest and the high priest places a tall helmet of gold and copper on your head. The burden of so much metal makes you stoop. These artifacts are beyond price since gold is not found in this part of the world. It is a lavish offering to the Rain God, but it also serves a secondary purpose: the great weight ensures you will be carried deep under the water.||Several junior priests come forward with dishes of blue dye, which they use to paint spirals across your face and limbs. \"Thus you are consecrated to the Rain God,\" they explain. \"Go now into the other world, and carry our plea for rain to refresh the arid fields!\"">
+<CONSTANT TEXT327-CONTINUED "Then you descend to the platform overlooking the well and prepare yourself for the most uncanny voyage anyone could ever attempt: a leap into the underworld">
+<CONSTANT CHOICES327 <LTABLE "use a wand" "or an amulet" "employ" "or use" "or" "otherwise">>
 
 <ROOM STORY327
 	(DESC "327")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT327)
+	(PRECHOICE STORY327-PRECHOICE)
+	(CHOICES CHOICES327)
+	(DESTINATIONS <LTABLE STORY411 STORY189 STORY371 STORY392 STORY005 STORY028>)
+	(REQUIREMENTS <LTABLE SKILL-SPELLS SKILL-CHARMS SKILL-CUNNING SKILL-SEAFARING BLOWGUN NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-SKILL R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY327-PRECHOICE ()
+	<CRLF>
+	<COND (<CHECK-ITEM ,JADE-BEAD> <TELL TEXT-BEAD> <TELL ,PERIOD-CR> <CRLF>)>
+	<TELL TEXT327-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT328 "You cannot suppress a scream as their wet stubby fingers clutch at you. It is like a scene from your worst nightmares. Striking out blindly, you stumble along the tunnel. You feel their shells crack under your frantic blows, but then a slimy hand presses over your face and you reel under a hail of punches. Ichor spurts into your eyes as you drive a deep blow hard into your eyes as you drive a deep blow hard into one of the creatures, and its eerie keening wail evokes a feeling of unendurable horror.">
 
 <ROOM STORY328
 	(DESC "328")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT328)
+	(PRECHOICE STORY328-PRECHOICE)
+	(CONTINUE STORY258)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY328-PRECHOICE ("AUX" (DAMAGE 0))
+	<COND (<CHECK-SKILL ,SKILL-SWORDPLAY>
+		<SET DAMAGE 3>
+	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
+		<SET DAMAGE 4>
+	)(ELSE
+		<EMPHASIZE "There is nothing you can do to prevent yourself being overwhelmed and slain.">
+		<RETURN>
+	)>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY328>>
+
+<CONSTANT TEXT329 "You were optimistic. It takes you nearly two hours to smash a hole large enough to squeeze through. As you stand on the ledge, panting with exhaustion and with sweat pouring off your body, there is a movement from inside the tomb.||Out of the hole slithers a flying cobra. Its hood is vastly extended to form translucent oval wings which beat slowly, carrying the snake forward through the air with venatic precision. Its iridescent scales and hood make it seem like a polished stone effigy, but there is no mistaking the living menace in its glittering golden eyes and flickering forked tongue.||After the hours spent pounding away at the slab, your shoulders are aching and you can barely lift your arms. There is no way you could climb back down to the canoe right now. The cobra swoops higher, arching its head as it hovers just above you. You must think of something quickly, or you will fall prey to its lethal bite.">
+<CONSTANT CHOICES329 <LTABLE "cast a protective enchantment" "use" "use" "otherwise">>
 
 <ROOM STORY329
 	(DESC "329")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT329)
+	(CHOICES CHOICES329)
+	(DESTINATIONS <LTABLE STORY394 STORY191 STORY413 STORY145>)
+	(REQUIREMENTS <LTABLE SKILL-CHARMS SKILL-UNARMED-COMBAT MAN-OF-GOLD NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT330 "By the time you return with a little of the river water cupped in your hands, the strange dwarfish man has disappeared. Presumably he has crawled off into the reeds. You scan the bleak landscape, straining your ears for the sound of someone sloshing through the wet mud, but to no avail. He looked so weak that he could not get far, but you are not keen to go wading off the path in search of him. At least you know that you tried to help.">
 
 <ROOM STORY330
 	(DESC "330")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT330)
+	(CONTINUE STORY373)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY331
