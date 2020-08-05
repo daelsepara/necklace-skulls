@@ -111,6 +111,8 @@
 	<PUTP ,STORY296 ,P?DEATH T>
 	<PUTP ,STORY298 ,P?DEATH T>
 	<PUTP ,STORY299 ,P?DEATH T>
+	<PUTP ,STORY311 ,P?DEATH T>
+	<PUTP ,STORY316 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -143,7 +145,7 @@
 <CONSTANT DIED-OF-THIRST "You go mad from thirst">
 <CONSTANT KILLED-AT-ONCE "You are killed at once">
 <CONSTANT DIED-FROM-INJURIES "You died from your injuries">
-<CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope better with the thirst">
+<CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope with the situation.">
 <CONSTANT ALL-POSSESSIONS "You lost all your possessions.">
 
 <ROUTINE ADD-QUANTITY (OBJECT "OPT" AMOUNT CONTAINER "AUX" QUANTITY CURRENT)
@@ -233,11 +235,16 @@
 		<MOVE .SKILL ,LOST-SKILLS>
 	)>>
 
-<ROUTINE TEST-MORTALITY (DAMAGE MESSAGE STORY)
+<ROUTINE PREVENT-DEATH ("OPT" STORY)
+	<COND (<NOT .STORY> <SET STORY ,HERE>)>
+	<COND (<GETP .STORY ,P?DEATH> <PUTP .STORY ,P?DEATH F>)>>
+
+<ROUTINE TEST-MORTALITY (DAMAGE MESSAGE "OPT" STORY)
+	<COND (<NOT .STORY> <SET STORY ,HERE>)>
 	<COND (<NOT ,IMMORTAL>
 		<LOSE-LIFE .DAMAGE .MESSAGE .STORY>
 	)(ELSE
-		<PUTP .STORY ,P?DEATH F>
+		<PREVENT-DEATH .STORY>
 	)>>
 
 <ROUTINE ORACLE ("OPT" STORY "AUX" DESTINATIONS COUNT CHOICES)
@@ -353,7 +360,7 @@
 				)>
 			)(<G=? .CONSUMED .QUANTITY>
 				<EMPHASIZE "You were able to eat your fill">
-				<PUTP .STORY ,P?DEATH F>
+				<PREVENT-DEATH .STORY>
 			)(ELSE
 				<TEST-MORTALITY <- .QUANTITY .CONSUMED> DIED-OF-HUNGER .STORY>
 			)>
@@ -675,7 +682,7 @@
 			<LOSE-ITEM ,WATERSKIN>
 		)>
 	)(ELSE
-		<PUTP ,STORY022 ,P?DEATH F>
+		<PREVENT-DEATH ,STORY022>
 		<STORY-JUMP ,STORY322>
 	)>>
 
@@ -1170,7 +1177,7 @@
 
 <ROUTINE STORY058-PRECHOICE ()
 	<COND (<OR <CHECK-ITEM ,INCENSE> <IS-ALIVE 1>>
-		<PUTP ,STORY058 ,P?DEATH F>
+		<PREVENT-DEATH ,STORY058>
 	)(ELSE
 		<PUTP ,STORY058 ,P?DEATH T>
 		<EMPHASIZE "You have nothing to offer.">
@@ -1565,7 +1572,7 @@
 
 <ROUTINE STORY085-PRECHOICE ()
 	<COND (<OR <CHECK-SKILL ,SKILL-WILDERNESS-LORE> <CHECK-ITEM ,WATERSKIN>>
-		<PUTP ,STORY085 ,P?DEATH F>
+		<PREVENT-DEATH ,STORY085>
 	)(ELSE
 		<TEST-MORTALITY 1 DIED-OF-THIRST ,STORY085>
 	)>
@@ -2277,7 +2284,7 @@
 <ROUTINE STORY133-PRECHOICE ()
 	<COND (,RUN-ONCE
 		<COND (<CHECK-SKILL ,SKILL-AGILITY>
-			<PUTP ,STORY133 ,P?DEATH F>
+			<PREVENT-DEATH ,STORY133>
 		)(ELSE
 			<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY133>
 		)>
@@ -3003,7 +3010,7 @@
 		<CRLF>
 		<TELL TEXT184-RATION>
 		<TELL ,PERIOD-CR>
-		<PUT ,STORY184 ,P?DEATH F>
+		<PREVENT-DEATH ,STORY184>
 	)(ELSE
 		<TEST-MORTALITY 2 DIED-OF-THIRST ,STORY184>
 	)>
@@ -3336,7 +3343,7 @@
 	<COND (.FISHED
 		<TELL TEXT205-FISH>
 		<TELL ,PERIOD-CR>
-		<PUTP ,STORY205 ,P?DEATH F>
+		<PREVENT-DEATH ,STORY205>
 		<SETG LIFE-POINTS ,MAX-LIFE-POINTS>
 	)(ELSE
 		<TELL TEXT205-POISONING>
@@ -3490,7 +3497,7 @@
 
 <ROUTINE STORY216-PRECHOICE ()
 	<COND (<CHECK-CODEWORD ,CODEWORD-ZOTZ>
-		<PUTP ,STORY216 ,P?DEATH F>
+		<PREVENT-DEATH ,STORY216>
 	)(ELSE
 		<CRLF>
 		<TELL TEXT216-END>
@@ -4197,7 +4204,7 @@
 	<COND (<CHECK-SKILL ,SKILL-AGILITY>
 		<TELL TEXT268-AGILITY>
 		<TELL ,PERIOD-CR>
-		<PUTP ,STORY268 ,P?DEATH F>
+		<PREVENT-DEATH ,STORY268>
 		<STORY-JUMP ,STORY337>
 	)(ELSE
 		<TELL TEXT268-CONTINUED>
@@ -4244,7 +4251,7 @@
 <ROUTINE STORY272-PRECHOICE ("AUX" (DAMAGE 2))
 	<COND (<CHECK-SKILL ,SKILL-AGILITY> <SET DAMAGE 1>)>
 	<COND (<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
-		<PUTP ,STORY272 ,P?DEATH F>
+		<PREVENT-DEATH ,STORY272>
 		<EMPHASIZE TEXT272-DEFLECT>
 	)(ELSE
 		<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY272>
@@ -4437,7 +4444,7 @@
 	<SET GIVE-LIST <LTABLE NONE NONE NONE NONE NONE NONE NONE NONE>>
 	<SET ITEMS <COUNT-CONTAINER ,PLAYER>>
 	<COND (<G? .ITEMS 0>
-		<PUTP ,STORY285 ,P?DEATH F>
+		<PREVENT-DEATH ,STORY285>
 		<DO (I 1 .ITEMS)
 			<PUT .GIVE-LIST .I <GET-ITEM .I ,PLAYER>>
 		>
@@ -4509,7 +4516,7 @@
 <ROUTINE STORY290-PRECHOICE ("AUX" COUNT)
 	<SET COUNT <COUNT-POSSESSIONS>>
 	<COND (<G? .COUNT 0>
-		<PUTP ,STORY290 ,P?DEATH F>
+		<PREVENT-DEATH ,STORY290>
 		<COND (<G? .COUNT 1>
 			<LOSE-STUFF ,PLAYER ,LOST-BAG "item" <- .COUNT 1> RESET-POSSESSIONS>
 		)(ELSE
@@ -4602,7 +4609,7 @@
 		<TELL ,PERIOD-CR>
 		<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY295>
 	)(ELSE
-		<PUTP ,STORY295 ,P?DEATH F>
+		<PREVENT-DEATH ,STORY295>
 	)>>
 
 <CONSTANT TEXT296 "Necklace of Skulls towers over you, his grotesque head looming like a pallid mushroom against the deep blue bowl of the heavens. His sword descends in a jagged sweep, and you throw yourself to one side. You hear it clash against the stone steps. At the same time as fighting you physically, he also uses his magic -- unleashing tendrils of poisonous gas from his throat and enchanting the skulls hanging at his chest so that they strain on their cords to snap at.">
@@ -4650,7 +4657,7 @@
 		<TELL TEXT298-HUNT>
 		<TELL ,PERIOD-CR>
 		<EMPHASIZE "You were able to hunt for food.">
-		<PUTP ,STORY298 ,P?DEATH F>
+		<PREVENT-DEATH ,STORY298>
 	)(ELSE
 		<TELL TEXT298-EAT>
 		<TELL ,PERIOD-CR>
@@ -4818,175 +4825,147 @@
 	<DELETE-CODEWORD ,CODEWORD-CALABASH>
 	<COND (<CHECK-ITEM ,PARCEL-OF-SALT> <STORY-JUMP ,STORY034>)>>
 
+<CONSTANT TEXT311 "You roll forward, carrying yourself and your hideous foe to the ground. It emits a gurgle of vaunting glee as it presses the stump of its neck against your shoulder, trying to drive its vampiric tendrils into your flesh and make you its willing host.">
+<CONSTANT TEXT311-END "You have no defence against the creature's malign magic and you are doomed to become its next victim">
+
 <ROOM STORY311
 	(DESC "311")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT311)
+	(PRECHOICE STORY311-PRECHOICE)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY311-PRECHOICE ()
+	<COND (<OR <CHECK-SKILL ,SKILL-CHARMS> <CHECK-CODEWORD ,CODEWORD-SALVATION>>
+		<PREVENT-DEATH ,STORY311>
+		<STORY-JUMP ,STORY357>
+	)(ELSE
+		<CRLF>
+		<TELL TEXT311-END>
+		<TELL ,PERIOD-CR>
+	)>>
+
+<CONSTANT TEXT312 "You set your wand down on the ground in the middle of the crossroads and spin it, meanwhile uttering the words of a divining spell. It comes to rest pointing along the black path. That is the route you must take to reach the Deathlands.">
 
 <ROOM STORY312
 	(DESC "312")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT312)
+	(CONTINUE STORY219)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT313 "You approach the first of the sentinels. Seeing you, he leans forward on his granite throne and taps your shoulder with a sceptre carved from a human thighbone. \"Where are your manners?\" he thunders. His voice sounds like a shriek of an eagle in the instant of seizing its prey.||What name will you greet him by?">
+<CONSTANT CHOICES313 <LTABLE "answer \"Lord Blood\"" "\"Thunderbolt Laughter\"" "\"Grandfather of Darkness\"" "\"Lord Skull\"">>
 
 <ROOM STORY313
 	(DESC "313")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT313)
+	(CHOICES CHOICES313)
+	(DESTINATIONS <LTABLE STORY401 STORY380 STORY359 STORY014>)
+	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT314 "Again you avoid the monster's bites by a hair's breadth. Spitting with fury at its failure to trap you, it slithers forward with all four necks extended.||Decide your next move.">
+<CONSTANT CHOICES314 <LTABLE "continue to jump away from the hydra" "rush in to strike a blow" "try a feint">>
 
 <ROOM STORY314
 	(DESC "314")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT314)
+	(CHOICES CHOICES314)
+	(DESTINATIONS <LTABLE STORY360 STORY381 STORY419>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT315 "You are taken to the back wall of the courtyard, where colonnade gives respite from the intense sun. Beneath a frieze patterned like a rattlesnake's skin, four archways lead on from here to the next courtyard of the palace. The courtiers give you wide grins and invite you to make a choice.||You look into the first archway. A short flight of steps leads up to the edge of a pit about two metres across. The purpose of the steps is apparently to ensure that you cannot take a running jump. The bottom of the pit is filled with smoking coals.||Beyond the next archway is a tunnel blocked by an artful tangle of wooden beams, some of which seem to be shoring up the walls. \"The trick there is to remove the right combination of beams in the right order,\" says the chief courtier, leaning over your shoulder. \"You want to clear enough space to get past without causing the tunnel to collapse.\"||The third route is a passage with no obstacles -- just a triangular vault leading through to the next courtyard. then you notice the sigils inscribed along the corbels of the vault: sigils indicating calamity and catastrophe. Is the vault designed to cave in when someone walks along it?||The passage beyond the last archway is guarded by a large pallid hound with narrow pink eyes. It greets you with a threatening growl as you poke your head around the corner, but makes no move to attack. \"My second cousin twice removed,\" says the chief courtier in your ear. \"Nasty temper. His bite's worse than his bark, of course.\"||It is time for you to decide.">
+<CONSTANT CHOICES315 <LTABLE "cross the pit" "attempt to clear the blocked tunnel" "walk along  the unguarded tunnel" "brave the albino hound">>
 
 <ROOM STORY315
 	(DESC "315")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT315)
+	(CHOICES CHOICES315)
+	(DESTINATIONS <LTABLE STORY338 STORY361 STORY382 STORY420>)
+	(TYPES FOUR-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT316 "Your dart tears into the hound's flank, leaving a raw bloody gash. It whines and shrinks back, only to leap forward without warning when you move to get past it along the tunnel. You feel a stab of pain as its teeth tear a hunk of flesh out of your thigh, but you stagger on regardless.">
+<CONSTANT TEXT316-CONTINUED "You emerge into the inner courtyard to find the courtiers already there waiting for you. \"You're a blowgunner, eh?\" says the chief courtier. \"Well, I'm afraid you'll find the creatures who serve Necklace of Skulls are less easy to intimidate than your average deer.\"">
 
 <ROOM STORY316
 	(DESC "316")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT316)
+	(PRECHOICE STORY316-PRECHOICE)
+	(CONTINUE STORY431)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY316-PRECHOICE ()
+	<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY316>
+	<IF-ALIVE TEXT316-CONTINUED>>
+
+<CONSTANT TEXT317 "You squint in the shimmering glare of the sun, but your eyes cannot make out any shape within the black void of the shrine entrance. The soot-coloured pillars give its darkened interior the look of a fleshless mouth. Again Necklace of Skull's voice rolls along the avenue, each syllable driving like a grave-cool gust of wind through the blistering desert heat. \"Your brother came here before you.\"||Red rage seethes in your heart. \"That's right, you --\"||The sorcerer's words continue, unperturbed by your outburst. \"He played the ritual ball contest and he lost. His life was forfeit. Now you will play for the same stakes. Behold your antagonists.\" Two long rivulets of shadow flow out of the shrine and down the pyramid steps, looking like spreading pools of black blood against the ebon stone. Reaching the bottom, they rise up in obscenely palpitating columns which gradually take solid form. Human form. Confronting you now are your opponents in the ball contest: two creatures of living shadow fashioned by the sorcerer's magic.">
 
 <ROOM STORY317
 	(DESC "317")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT317)
+	(PRECHOICE STORY317-PRECHOICE)
+	(CONTINUE STORY384)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY317-PRECHOICE ()
+	<COND (<CHECK-ITEM ,BROTHERS-SKULL>
+		<STORY-JUMP ,STORY340>
+	)(<CHECK-CODEWORD ,CODEWORD-ANGEL>
+		<STORY-JUMP ,STORY363>
+	)>>
+
+<CONSTANT TEXT318 "You bear down on the enemy defensive player. Glancing back you see that the far shadow man has reached the far end of the arena, where your partner has managed to intercept the ball and get possession. You shout for him to bounce it along the wall towards you.">
 
 <ROOM STORY318
 	(DESC "318")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT318)
+	(PRECHOICE STORY318-PRECHOICE)
+	(CONTINUE STORY405)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY318-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-SHADE> <STORY-JUMP ,STORY405>)>>
+
+<CONSTANT TEXT319 "You manage to get the firebrand alight. It gives a little warmth, but not much. You spend a miserable night shivering in the icy draughts blowing through the House of Cold.">
 
 <ROOM STORY319
 	(DESC "319")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT319)
+	(PRECHOICE STORY319-PRECHOICE)
+	(CONTINUE STORY212)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY319-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
+		<PREVENT-DEATH ,STORY319>
+		<EMPHASIZE NATURAL-HARDINESS>
+	)(ELSE
+		<TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY319>
+	)>>
+
+<CONSTANT TEXT320 "The pirates' vessel bumps against yours and they come swarming over the side like ants. You cannot understand their yammering war-cries, for they are not of your people but come from a land beyond the northern sea. Their white-rimmed eyes hold a look that means the same in any language, though. It is the look of fury and hate.||You fight with desperate strength knowing that you are fighting not just for your own life but also for the trader and his young sons.">
+<CONSTANT TEXT320-CONTINUED "You finally force the pirates to retreat to their own vessel and sail off.">
 
 <ROOM STORY320
 	(DESC "320")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT320)
+	(PRECHOICE STORY320-PRECHOICE)
+	(CONTINUE STORY343)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY320-PRECHOICE ("AUX" (DAMAGE 9))
+	<COND (<CHECK-SKILL ,SKILL-SWORDPLAY>
+		<SET DAMAGE 3>
+	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
+		<SET DAMAGE 5>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY320>
+	<IF-ALIVE TEXT320-CONTINUED>>
 
 <ROOM STORY321
 	(DESC "321")
