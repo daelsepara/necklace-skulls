@@ -45,6 +45,7 @@
 	<SETG TICKS 0>
 	<SETG CROSS 0>
 	<SETG IMMORTAL F>
+	<SETG DONATION 0>
 	<PUT <GETP ,STORY008 ,P?DESTINATIONS> 1 ,STORY275>
 	<PUT <GETP ,STORY048 ,P?DESTINATIONS> 1 ,STORY117>
 	<PUT <GETP ,STORY060 ,P?DESTINATIONS> 3 ,STORY194>
@@ -109,6 +110,7 @@
 	<PUTP ,STORY295 ,P?DEATH T>
 	<PUTP ,STORY296 ,P?DEATH T>
 	<PUTP ,STORY298 ,P?DEATH T>
+	<PUTP ,STORY299 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -295,10 +297,16 @@
 	>
 	<RETURN .COUNT>>
 
-<ROUTINE DONATE-CACAO ("AUX" DONATION)
+<GLOBAL DONATION 0>
+
+<ROUTINE DONATE-CACAO ("AUX" AMOUNT)
 	<COND (<AND ,RUN-ONCE <G? ,MONEY 0>>
-		<SET DONATION <GET-NUMBER "Make a donation for the god's benison" 0 ,MONEY>>
-		<COND (<G? .DONATION 0> <CHARGE-MONEY .DONATION>)>
+		<SETG DONATION 0>
+		<SET AMOUNT <GET-NUMBER "Make a donation for the god's benison" 0 ,MONEY>>
+		<COND (<G? .AMOUNT 0>
+			<CHARGE-MONEY .AMOUNT>
+			<SETG DONATION .AMOUNT>
+		)>
 	)>>
 
 <ROUTINE DELETE-CODEWORD (CODEWORD)
@@ -4681,87 +4689,64 @@
 
 <ROOM STORY301
 	(DESC "301")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY301-EVENTS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY301-EVENTS ()
+	<COND (<G? ,DONATION 4> <RETURN ,STORY323>)>
+	<RETURN ,STORY346>>
+
+<CONSTANT TEXT302 "The effort of trying to regurgitate the firefly leaves your eyes watering, but to no avail. Before you can blink away the tears, you realize someone is trying to pull the shawl out of your grip. You have the impression of someone very tall and unbelievably thin, like a human stick insect. The face is as pale as sap, and the naked skin exudes a sweet smell like tree bark and honey.||You wipe your eyes and look again. At first you think the figure is gone, but then there is a flicker of movement at the edge of your vision. Whirling, you catch a brief glimpse of two or three thin creatures. They dart away like pale green fishes to hang just behind your line of sight. By standing still you get an uncertain and unfocused view of them out of the corner of your eye. It dawns on you that there are many of them clustered noiselessly around the clearing, transient as sunbeams. They are the stabai -- the creatures of the wooded dells, who ply their magic to the discomfort of lone travellers like yourself.||\"You have our shawl,\" buzzes a soft forlorn voice in your ear. \"Won't you return it?\"">
+<CONSTANT CHOICES302 <LTABLE "use" "if not, decide whether to return the shawl to them" "keep it">>
 
 <ROOM STORY302
 	(DESC "302")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT302)
+	(CHOICES CHOICES302)
+	(DESTINATIONS <LTABLE STORY255 STORY347 STORY369>)
+	(REQUIREMENTS <LTABLE SKILL-FOLKLORE NONE NONE>)
+	(TYPES <LTABLE R-SKILL R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT303 "The sun rises again, flooding the sands with red-gold light. You are contemplating the need for shelter when, cresting a dune, you catch sight of it at long last -- the wizard's palace. Double ramparts surround a central courtyard where a high black pyramid rises like a blotch of midnight. The palace lies just ahead across a stretch of brown-gold sand. The dawn light makes it seem to shimmer like a mirage in the deep blue shadows between the dunes, but you know it is real.||Double doors swing open in the wall as you approach. Confronting you is a horde of men in ragged animal skins. Their long thin faces and downcast smiles give them a canine appearance. All of them bear stone axes which they lift when you walk through the palace gate -- not a gesture of impending violence, but just to warn you where you stand.||\"I have come,\" you say, \"to see Necklace of Skulls.\"||One of the men gives a bark of laughter. \"It's not as easy as that. Do you think our master sees every stray mongrel who wanders to his door? First you will have to pass five nights among us, his faithful courtiers. And before that you'll face another test: deciding which route to take to the inner courtyard.\"">
 
 <ROOM STORY303
 	(DESC "303")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT303)
+	(CONTINUE STORY315)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT304 "From what your friend the old soothsayer told you, it is unwise to speak once you enter the underworld. You had better cast your spells now, while you still can.||\"Allow me a moment to compose myself,\" you say to the high priest.||\"It is irregular...\"||\"I am about to meet a god,\" you point out.||Stepping away a few paces, you murmur the words of an incantation which renders your body as buoyant as wood. You gaze down into the depths of the well. At least now you can be sure of not drowning -- but if this is truly the entrance to the underworld, there will be other dangers which you cannot yet even guess at.||You turn to the assembled crowd and announce, \"I am ready.\"||You are led to a shrine at the western edge of the hole. From here, a steep flight of steps descends towards a platform covered with the hieratic glyphs of the afterlife. A vest of golden plaques is fastened across your chest and the high priest places a tall helmet of gold and copper on your head. The burden of so much metal makes you stoop. These artifacts are beyond price, since gold is not found in this part of the world. It is a lavish offering to the Rain God, but it also serves a secondary purpose: the great weight ensures you will be carried deep under the water.||-several junior priests come forward with dishes of blue dye, which they use to paint spirals across your face and limbs. \"Thus you are consecrated to the Rain God,\" they explain. \"Go now into the other world, and carry our plea for rain to refresh the arid fields.\"">
+<CONSTANT TEXT304-BEAD "You remember to slip the jade bead under your tongue as advised">
+<CONSTANT TEXT304-CONTINUED "Then you descend to the platform overlooking the well and prepare yourself for the most uncanny voyage anyone could every attempt: a leap into the underworld">
 
 <ROOM STORY304
 	(DESC "304")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT304)
+	(PRECHOICE STORY304-PRECHOICE)
+	(CONTINUE STORY411)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY304-PRECHOICE ()
+	<CRLF>
+	<COND (<CHECK-ITEM ,JADE-BEAD>
+		<TELL TEXT304-BEAD>
+		<TELL ,PERIOD-CR>
+		<CRLF>
+	)>
+	<TELL TEXT304-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT305 "Which of these will you use:">
+<CONSTANT CHOICES305 <LTABLE "use The" "a" "a" "otherwise you will have to fight">>
 
 <ROOM STORY305
 	(DESC "305")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT305)
+	(CHOICES CHOICES305)
+	(DESTINATIONS <LTABLE STORY351 STORY372 STORY393 STORY328>)
+	(REQUIREMENTS <LTABLE MAN-OF-GOLD PARCEL-OF-SALT FIREBRAND NONE>)
+	(TYPES <LTABLE R-ITEM R-ITEM R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY306
