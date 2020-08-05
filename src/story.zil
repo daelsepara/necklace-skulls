@@ -5647,174 +5647,105 @@
 	<TELL TEXT370-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
+<CONSTANT TEXT371 "There is a gasp form the crowd as they watch you jump over the edge. You know you must act quickly. Pulling off the helmet as you tumble down, you high it against you an instant before the lake surface comes rushing up, driving the air out of your lungs with its chilling embrace. You are surrounded by silence and watery gloom. The weight of gold drags you down, but you have managed to trap a pocket of air inside the helmet and you use this to breathe while unfastening the straps of the regalia. All the air is used up by the time you struggle free, and a red haze swims in front of your vision as you kick up towards the surface.||You reach fresh air to discover you are no longer at the bottom of the well. Instead of open sky, a cavern roof stretches overhead. A ghostly grey light emanates out of nowhere. Trudging up onto a a rocky ledge, you hear the sound of oars. A canoe is approaching. As it takes shape out of the shadows, you get a good look at the two occupants. They are like nothing you have ever seen outside your night-mares. Now you know you truly have plunged into the fabled river that leads between the world of the living and the world of the dead.">
+
 <ROOM STORY371
 	(DESC "371")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT371)
+	(CONTINUE STORY097)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT372 "Ripping open the packet, you scatter a handful of salt into the face of the closes snail-creature. It emits a ghastly whining cry and pulls back into its shell as the salt stings its sensitive flesh like acid.||You advance, casting more salt at any of the creatures that are bold enough to try to stop you. It is hard going, for they are clustered thickly in the tunnel and you are shuddering with terror by now, but at last you reach the canoe. Scattering the last of the salt back to deter pursuers, you jump into the canoe and gesture for the demonic oarsmen to cast off.">
 
 <ROOM STORY372
 	(DESC "372")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT372)
+	(PRECHOICE STORY372-PRECHOICE)
+	(CONTINUE STORY258)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY372-PRECHOICE ()
+	<LOSE-ITEM ,PARCEL-OF-SALT>>
+
+<CONSTANT TEXT373 "You continue westwards, trudging beneath the living world on a journey that will carry you to the lower reaches of the Deathlands. Any attempt to contemplate your bizarre situation threatens to bring on an attack of claustrophobic panic, so you try to think only of your quest for Morning Star. You swear you'll give that wizard cause to rue the day he chose to work his wiles on your brother.||All the light drains out of the sky, leaving a hot sulphurous darkness. A flicker of red light shows as a haze on the horizon, like glowing coals against the blackness. You head towards it.">
 
 <ROOM STORY373
 	(DESC "373")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT373)
+	(CONTINUE STORY080)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT374 "Not far away, down a backstreet close to the palace wall, you find a house with a plump young pig tethered outside. Listening at the window, you hear the occupants of the house rowdily enjoying a few cups of mead. You tiptoe back to the pig and, stifling its squeals, tuck it under your arms before returning to the palace gate. There, crouched out of sight around the corner of a building, you release the pig and give it a shove which carries it towards the guards.||The pig takes a few steps, gives a baffled grunt upon confronting the guards, then bolts past them. \"Grab it, lads!\" cries the guard in high spirits. \"What fine succulent feast it'll make tomorrow, eh?\"||Two or three of the guards go chasing off after the pig, and the others look on laughing at their comrades' antics. You sneak past while their backs are turned and make your way over to the pyramid of the dead king.">
 
 <ROOM STORY374
 	(DESC "374")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT374)
+	(CONTINUE STORY415)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT375 "The cobra hovers in the air, head swaying from side to side with the beat of its strange wings. The wings are lit up by the luminous veins of glassy rock shining from behind it, displaying dark spots which on a normal cobra would be the patterning of its hood. They look like huge black eyes hanging in the gloom.">
+<CONSTANT CHOICES375 <LTABLE "lunge forward and strike it at once" "wait until the cobra swoops in and then attempt a counterattack">>
 
 <ROOM STORY375
 	(DESC "375")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT375)
+	(CHOICES CHOICES375)
+	(DESTINATIONS <LTABLE STORY122 STORY145>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT376 "He receives your answer with a languid smile. You suddenly have a nasty feeling you have been tricked.">
 
 <ROOM STORY376
 	(DESC "376")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT376)
+	(PRECHOICE STORY376-PRECHOICE)
+	(CONTINUE STORY060)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY376-PRECHOICE ()
+	<COND (<CHECK-ITEM ,JADE-BEAD> <STORY-JUMP ,STORY056>)>>
+
+<CONSTANT TEXT377 "You hide behind some bushes and wait for the sun to set. As dusk descends, the pitcher tips over to reveal a second head perched on the sleeping woman's shoulder. It has long coiled hair, stark white flesh and a black slit of a mouth. Rolling its eyes, it gives vent to a thin shriek of annoyance at seeing no sign of you. Then its hair flicks out, twisting to form thin legs like a pond-skater's which it braces against the ground before pulling itself off its host's neck with a sucking noise.||You wait until it has gone loping off into the night in search of prey, then look along the river bank until you find what you need: a smooth rock about the size and shape of a head. Using mud to daub some facial features on this, you prop it on the sleeping woman's shoulder and drape it with reeds to resemble hair. Then you go back and hide in the bushes.||Hours pas before the monster returns, prancing out of the darkness on its thin stilt-like legs. On catching sight of another of its kind perched on its own host body, it gives a shriek like an enraged bird and hurls itself forward -- only to fall stunned when it bites hard on the 'interloper' and breaks its teeth. You rush out of cover, snatch up the creature, and stuff pebbles into its bloodied mouth. All it can do is writhe weakly and emit choking noises. You take it to the edge of the river and throw it in, where it sinks without a trace.">
 
 <ROOM STORY377
 	(DESC "377")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT377)
+	(CONTINUE STORY398)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT378 "Grabbing a long hunk of hair, you bunch your muscles and swing the gibbering head around in a swift arc. It strikes the tree with a noise like a melon splitting, and a loathsome torrent of ichor spills out of its broken skull as it drops heavily to the ground. You watch in disgust as its eyes roll up and it gives a last fetid gasp. The twitching tresses shrivel before your eyes, and the head withers rapidly to a desiccated lifeless shell.">
 
 <ROOM STORY378
 	(DESC "378")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT378)
+	(PRECHOICE STORY378-PRECHOICE)
+	(CONTINUE STORY398)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY378-PRECHOICE ()
+	<DELETE-CODEWORD ,CODEWORD-SALVATION>>
+
+<CONSTANT TEXT379 "Legend states that a rich man can only enter the afterlife if led there by a poor man. Judging by his regalia, the figure you saw walking ahead of you was rich, and he evidently did not get rid of his money when he passed the idol or the bowl would not be empty. The sensible thing to do would therefore be to get rid of all your money at this point.">
 
 <ROOM STORY379
 	(DESC "379")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT379)
+	(PRECHOICE STORY379-PRECHOICE)
+	(CONTINUE STORY259)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY379-PRECHOICE ()
+	<EMPHASIZE "You got rid of all your money">
+	<SETG MONEY 0>
+	<UPDATE-STATUS-LINE>>
+
+<CONSTANT TEXT380 "No expression shows on the hard mask-like face as you make your genuflection. There is no roar of rage to show he is affronted, nor flash of sullen anger in his eye. He only raises his sceptre slowly, as though to emphasize a point he is about to make .Then, before you have a chance to move, he brings the sceptre swishing down to split your skull open like a melon. It ends suddenly and horribly for you.">
 
 <ROOM STORY380
 	(DESC "380")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT380)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY381
