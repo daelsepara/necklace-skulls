@@ -4749,90 +4749,74 @@
 	(TYPES <LTABLE R-ITEM R-ITEM R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT306 "The Man of Gold comes to life in the warmth of your hands. You set him down on the ledge and he surveys the sealed tomb with a smile on his tiny sculpted features. You have no need to tell him what you want him to do. Striding forward, he batters at the slab with thunderous blows. You are amazed to see chips of stone fly away as he gradually tunnels a hole large enough for you to squeeze through. Then, his task completed, he turns and dives off into the river below.">
+<CONSTANT TEXT306-CONTINUED "A movement from inside the tomb makes you jump. Out of the hole slithers a cobra. It is no ordinary cobra: its hood is vastly extended to form translucent oval wings which beat slowly, carrying it through the air with a sinister gliding motion. With its iridescent scales it seems like a polished stone idol, but there is no mistaking the living menace in the glittering eyes and forked tongue">
+<CONSTANT CHOICES306 <LTABLE "retreat back down to the canoe" "close with the snake and fight it using either a sword" "or" "shoot it" "cast a protective enchantment">>
+
 <ROOM STORY306
 	(DESC "306")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT306)
+	(PRECHOICE STORY306-PRECHOICE)
+	(CHOICES CHOICES306)
+	(DESTINATIONS <LTABLE STORY167 STORY375 STORY375 STORY352 STORY394>)
+	(REQUIREMENTS <LTABLE NONE SKILL-SWORDPLAY SKILL-UNARMED-COMBAT SKILL-TARGETING SKILL-CHARMS>)
+	(TYPES <LTABLE R-NONE R-SKILL R-SKILL R-SKILL R-SKILL>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY306-PRECHOICE ()
+	<COND (<AND ,RUN-ONCE <CHECK-ITEM ,MAN-OF-GOLD>> <LOSE-ITEM ,MAN-OF-GOLD>)>
+	<CRLF>
+	<TELL TEXT306-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT307 "A bundle lies across the path ahead. Quickening your pace, you are startled when the 'bundle' suddenly raises its head. It is a dwarf with withered legs but very broad shoulders wrapped in a long black mantle. His large ears and upturned nose give him a grotesque appearance, and you are on the point of hurrying past when he raises a long imploring arm.||\"Please help me,\" he begs. \"I'm too weak to go on, and I'm terribly thirsty...\"">
+<CONSTANT CHOICES307 <LTABLE "go back to the river to fetch him some water" "gash your hand and let him drink some of your blood" "step over him and continue along the path without stopping">>
 
 <ROOM STORY307
 	(DESC "307")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT307)
+	(CHOICES CHOICES307)
+	(DESTINATIONS <LTABLE STORY330 STORY353 STORY373>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT308 "You discover that King Cloud Jaguar is sitting with his courtiers in the steam bath at the rear of the palace. Leaving your clothes and belongings in a bundle behind a wall, you mingle in among the servants and pick up a jar of water. Clad in only loin-cloth, there is nothing to draw attention to you when you enter the bath-house with downcast eyes and pour water onto the sizzling stones of the hearth.||The King and the nobles of his court sit naked on the benches of the bath-house, sweltering in the wreathes of herb-scented steam. \"Will you be communing with your late father tonight, your Majesty?\" you hear one of the nobles asking.||\"Of course!\" says the King gruffly. \"I must discover the import of recent events. The collapse of the Great City will have far-reaching consequences.\"||\"The astrologers have read the signs,\" puts in the King's vizier. \"The most auspicious time is the hour just before dawn. We shall ascend the pyramid and speak our questions into the spirit tube which leads to King Sky Shield's tomb. Perhaps you would like to accompany us, Lord Smoke Shell?\"||The noble who spoke first looks up with sudden alarm. \"Ah... er, that's most gracious, but I need my sleep if I'm to cope with all the excitement tomorrow. I'm not as young as I once was.\"||\"Nor as brave,\" says the King pointedly, provoking a gust of laughter at Smoke Shell's expense. You leave the bath-house and retrieve your belongings.">
+<CONSTANT CHOICES308 <LTABLE "seek lodging if you have some money" "continue on your journey either westwards" "north to the coast">>
 
 <ROOM STORY308
 	(DESC "308")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT308)
+	(CHOICES CHOICES308)
+	(DESTINATIONS <LTABLE STORY101 STORY008 STORY030>)
+	(REQUIREMENTS <LTABLE 0 NONE NONE>)
+	(TYPES <LTABLE R-MONEY R-NONE R-NONE>)
+	(CODEWORD CODEWORD-PSYCHODUCT)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT309 "You walk along the side of the canyon in search of the dragon Kawak. The sky slowly acquires a sullen red glare like the inside of a kiln. Through the clouds of gritty yellow vapour rising out of the depths, you begin to discern a rock outcropping just ahead. Then you take a step or two closer and you realize it is not a pile of boulders that you see resting at the lip of the chasm. It is a gigantic head.||Kawak's snout reminds you of the temple pyramids of your homeland, with its size and bright patterning of carmine and bone-white. His mouth stands open like an ominous gateway, tongue leading up like a templeøs stairway to where his eyes burn darkly under brows like shields of stone. You can see the immense curve of his body, as broad as a city plaza, arcing off into the distance towards the other side of the canyon. His claws resemble the prows of ocean-going canoes hanging over the edge of the precipice.||\"You wish to cross. To enter my mouth and pass into the world beyond.\" His voice is the sound of birth and death, the dull titanic roar that is more felt than heard. \"You must pay for your passage with a jade bead.">
+<CONSTANT CHOICES309 <LTABLE "let Kawak have the" "employ the" "or a" "try crossing via the line of stepping-stones formed by the tips of the rock spires">>
 
 <ROOM STORY309
 	(DESC "309")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT309)
+	(CHOICES CHOICES309)
+	(DESTINATIONS <LTABLE STORY033 STORY079 STORY170 STORY147>)
+	(REQUIREMENTS <LTABLE JADE-BEAD MAN-OF-GOLD BLOWGUN NONE>)
+	(TYPES <LTABLE R-LOSE-ITEM R-ITEM R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT310 "This situation reminds you unpleasantly of what the fenman told you about nightcrawlers. You find that you cannot even consider what might be hidden under the overturned pitcher without a shudder of horror. The fenman also said that salt will stop a nightcrawler from attaching itself to a victim.">
 
 <ROOM STORY310
 	(DESC "310")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT310)
+	(PRECHOICE STORY310-PRECHOICE)
+	(CONTINUE STORY057)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY310-PRECHOICE ()
+	<DELETE-CODEWORD ,CODEWORD-CALABASH>
+	<COND (<CHECK-ITEM ,PARCEL-OF-SALT> <STORY-JUMP ,STORY034>)>>
 
 <ROOM STORY311
 	(DESC "311")
