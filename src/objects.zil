@@ -35,6 +35,11 @@
 
 ; "Story Objects"
 
+<OBJECT BLANKET
+    (DESC "blanket")
+    (SYNONYM BLANKET)
+    (FLAGS TAKEBIT)>
+
 <OBJECT BROTHERS-SKULL
     (DESC "your brother's skull")
     (SYNONYM SKULL)
@@ -57,7 +62,13 @@
     (DESC "firebrand")
     (SYNONYM FIREBRAND)
     (FLAGS TAKEBIT)>
-    
+
+<OBJECT FLINT-KNIFE
+    (DESC "flint knife")
+    (SYNONYM KNIFE)
+    (ADJECTIVE FLINT)
+    (FLAGS TAKEBIT)>
+
 <OBJECT GOLD-DIADEM
     (DESC "gold diadem")
     (SYNONYM DIADEM)

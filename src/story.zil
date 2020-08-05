@@ -4,7 +4,7 @@
 <GLOBAL STARTING-POINT PROLOGUE>
 
 <CONSTANT BAD-ENDING "Your adventure ends here.">
-<CONSTANT GOOD-ENDING "You have found your brother! Now your journey home begins!">
+<CONSTANT GOOD-ENDING "Further adventure awaits.">
 
 <OBJECT CURRENCY (DESC "cacao")>
 <OBJECT VEHICLE (DESC "none")>
@@ -13,6 +13,8 @@
 <CONSTANT DRINK-POTION-KEY !\d>
 <CONSTANT MAGIC-MIRROR-KEY-CAPS !\M>
 <CONSTANT MAGIC-MIRROR-KEY !\m>
+<CONSTANT POINTS-KEY-CAPS !\P>
+<CONSTANT POINTS-KEY !\p>
 
 <ROUTINE DRINK-POTION ()
 	<CRLF>
@@ -21,6 +23,25 @@
 		<SETG LIFE-POINTS <+ ,LIFE-POINTS 5>>
 		<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
 		<REMOVE ,MAGIC-POTION>
+	)>>
+
+<GLOBAL RITUAL-BALL-STARTED F>
+<GLOBAL TICKS 0>
+<GLOBAL CROSS 0>
+
+<ROUTINE START-RITUAL-BALL ()
+	<SETG RITUAL-BALL-STARTED T>>
+
+<ROUTINE SHOW-SCORES ()
+	<COND (,RITUAL-BALL-STARTED
+		<CRLF>
+		<HLIGHT ,H-BOLD>
+		<TELL "Current Scores">
+		<HLIGHT 0>
+		<CRLF>
+		<CRLF>
+		<TELL "Your score: " N ,TICKS " points" CR>
+		<TELL "Opposition: " N ,CROSS "points" CR>
 	)>>
 
 <ROUTINE SPECIAL-INTERRUPT-ROUTINE (KEY)
@@ -35,6 +56,9 @@
 			<ORACLE>
 			<RTRUE>
 		)>
+	)(<EQUAL? .KEY POINTS-KEY-CAPS POINTS-KEY>
+		<SHOW-SCORES>
+		<RTRUE>
 	)>
 	<RFALSE>>
 
@@ -46,6 +70,7 @@
 
 <ROUTINE RESET-STORY ()
 	<RESET-TEMP-LIST>
+	<SETG RITUAL-BALL-STARTED F>
 	<SETG TICKS 0>
 	<SETG CROSS 0>
 	<SETG IMMORTAL F>
@@ -177,8 +202,6 @@
 	(ADJECTIVE LOST)
 	(FLAGS CONTBIT OPENBIT)>
 
-<GLOBAL TICKS 0>
-<GLOBAL CROSS 0>
 <GLOBAL IMMORTAL F>
 <GLOBAL BLESSING-WAR-GOD F>
 
@@ -3430,7 +3453,7 @@
 		)>
 	)>>
 
-<CONSTANT TEXT212 "You open your mouth to speak and jade the bead rolls out. It falls, bounces off the rock and disappears into the water with a tiny splash.||In the same moment, the tenebrous image of the Rain God leaps into sharp focus. You see him as clearly now as if all the sun's light were focused just where he is standing. Everything else goes plunging into darkness. Your vision is filled with the blazing presence of the divinity.||His face is far from human; you can see that now. He opens his hand in the traditional beneficent gesture of royalty throughout the ages, inviting you to speak.||\"O supreme lord...\"||You falter. How can you address a god?||Then you hear his voice inside your head, telling you that he knows why you have been sent. He accepts the sacrifice. Your life will buy the heavy rains needed to irrigate the crops.||You try to open your mouth to tell him more -- about your quest to find your brother, about the thirst for truth and for vengeance on the sorcerer in the western desert. But you are too drowsy. The dazzling radiance of the Rain Godøs aura is veiled by a wave of darkness. You relax, strangely content.||In the gloom of the underworld, a monstrous serpent contentedly laps up the last of your blood and dives beneath the water.">
+<CONSTANT TEXT212 "You open your mouth to speak and jade the bead rolls out. It falls, bounces off the rock and disappears into the water with a tiny splash.||In the same moment, the tenebrous image of the Rain God leaps into sharp focus. You see him as clearly now as if all the sun's light were focused just where he is standing. Everything else goes plunging into darkness. Your vision is filled with the blazing presence of the divinity.||His face is far from human; you can see that now. He opens his hand in the traditional beneficent gesture of royalty throughout the ages, inviting you to speak.||\"O supreme lord...\"||You falter. How can you address a god?||Then you hear his voice inside your head, telling you that he knows why you have been sent. He accepts the sacrifice. Your life will buy the heavy rains needed to irrigate the crops.||You try to open your mouth to tell him more -- about your quest to find your brother, about the thirst for truth and for vengeance on the sorcerer in the western desert. But you are too drowsy. The dazzling radiance of the Rain God's aura is veiled by a wave of darkness. You relax, strangely content.||In the gloom of the underworld, a monstrous serpent contentedly laps up the last of your blood and dives beneath the water.">
 
 <ROOM STORY212
 	(DESC "212")
@@ -4790,7 +4813,7 @@
 	(CODEWORD CODEWORD-PSYCHODUCT)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT309 "You walk along the side of the canyon in search of the dragon Kawak. The sky slowly acquires a sullen red glare like the inside of a kiln. Through the clouds of gritty yellow vapour rising out of the depths, you begin to discern a rock outcropping just ahead. Then you take a step or two closer and you realize it is not a pile of boulders that you see resting at the lip of the chasm. It is a gigantic head.||Kawak's snout reminds you of the temple pyramids of your homeland, with its size and bright patterning of carmine and bone-white. His mouth stands open like an ominous gateway, tongue leading up like a templeøs stairway to where his eyes burn darkly under brows like shields of stone. You can see the immense curve of his body, as broad as a city plaza, arcing off into the distance towards the other side of the canyon. His claws resemble the prows of ocean-going canoes hanging over the edge of the precipice.||\"You wish to cross. To enter my mouth and pass into the world beyond.\" His voice is the sound of birth and death, the dull titanic roar that is more felt than heard. \"You must pay for your passage with a jade bead.">
+<CONSTANT TEXT309 "You walk along the side of the canyon in search of the dragon Kawak. The sky slowly acquires a sullen red glare like the inside of a kiln. Through the clouds of gritty yellow vapour rising out of the depths, you begin to discern a rock outcropping just ahead. Then you take a step or two closer and you realize it is not a pile of boulders that you see resting at the lip of the chasm. It is a gigantic head.||Kawak's snout reminds you of the temple pyramids of your homeland, with its size and bright patterning of carmine and bone-white. His mouth stands open like an ominous gateway, tongue leading up like a temple's stairway to where his eyes burn darkly under brows like shields of stone. You can see the immense curve of his body, as broad as a city plaza, arcing off into the distance towards the other side of the canyon. His claws resemble the prows of ocean-going canoes hanging over the edge of the precipice.||\"You wish to cross. To enter my mouth and pass into the world beyond.\" His voice is the sound of birth and death, the dull titanic roar that is more felt than heard. \"You must pay for your passage with a jade bead.">
 <CONSTANT CHOICES309 <LTABLE "let Kawak have the" "employ the" "or a" "try crossing via the line of stepping-stones formed by the tips of the rock spires">>
 
 <ROOM STORY309
@@ -4901,6 +4924,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY317-PRECHOICE ()
+	<START-RITUAL-BALL>
 	<COND (<CHECK-ITEM ,BROTHERS-SKULL>
 		<STORY-JUMP ,STORY340>
 	)(<CHECK-CODEWORD ,CODEWORD-ANGEL>
@@ -5227,174 +5251,127 @@
 <ROUTINE STORY340-PRECHOICE ()
 	<COND (<CHECK-CODEWORD ,CODEWORD-ANGEL> <PUT <GETP ,STORY340 ,P?DESTINATIONS> 4 ,STORY363>)>>
 
+<CONSTANT TEXT341 "Without warning, the shadow creature suddenly stops dead and throws his leg out to trip you. You are taken by surprise, since no human opponent could act so fast.">
+<CONSTANT TEXT341-AGILE "You jump over his leg and whirl around, managing to block his attempt at scoring">
+<CONSTANT TEXT341-SCORE "He deflects the ball into the low-score zone">
+
 <ROOM STORY341
 	(DESC "341")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT341)
+	(PRECHOICE STORY341-PRECHOICE)
+	(CONTINUE STORY066)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY341-PRECHOICE ()
+	<CRLF>
+	<COND (<CHECK-SKILL ,SKILL-AGILITY>
+		<TELL TEXT341-AGILE>
+	)(ELSE
+		<TELL TEXT341-SCORE>
+		<SETG CROSS <+ ,CROSS 1>>
+	)>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT342 "You have defeated the sorcerer. His monstrous body topples onto the steps of his black pyramid and begins to seethe with putrid vapours. With the magic that sustained him unnaturally throughout the centuries now broken, Necklace of Skulls decomposes into dank grey dust.||The walls of the palace begin to stir. You can feel the ground trembling underfoot. You hurry back through the courtyard and out of the gates. After a dozen pace you cannot resist the urge to look back. The pyramid and surrounding buildings are sinking into the sand. In minutes they have vanished entirely, and there is no sign to show that this was the spot where Necklace of Skulls once dwelt among his bestial courtiers. You look around for the courtiers, but see only a pack of malnourished dogs slinking off amid the dunes.||It is over. You turn your face to the east. You have a long journey back to civilization. If only you had been able to save your brother...||You dismiss such thoughts with a shrug. It is too late for regrets. At least you avenged Morning Star's death and rid the world of an evil monster.||One of the dogs gives a howl. You look round, into the glowering darkness along the western horizon that marks the boundary of the Deathlands. That is where your brother is now.||You look east, then west again. Civilization -- or further adventure? Only you can decide which way your destiny beckons. This quest is ended, but perhaps further adventures still await you? The only limit is your own imagination.">
 
 <ROOM STORY342
 	(DESC "342")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT342)
+	(VICTORY T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT343 "You sail on until the sight of circling gulls tells you that land is near. You know that it cannot be mainland. As a green swathe of foliage appears in the distance you realize you have found the fabled Isle of the Iguana.||Getting closer, you find a coast of high cliffs which the sea has pounded into fanciful shapes. You sail under an arch of white rock and around a headland that reminds you of a serpent's mouth, arriving at last at a stretch of pebble-strewn beach.||\"We must be virtually due east of Tahil,\" you announce. \"Certainly by sailing with the rising sun at our back we'd soon reach the mainland.\" But even as you are saying this, your eyes are scanning the shore with avid curiosity.">
+<CONSTANT CHOICES343 <LTABLE "put in at the island" "sail on to Tahil">>
 
 <ROOM STORY343
 	(DESC "343")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT343)
+	(CHOICES CHOICES343)
+	(DESTINATIONS <LTABLE STORY366 STORY300>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT344 "Cool shade embraces you as you step into the shop's interior. Your eyes adjust to the darkness. You call for service. A man rouses himself from his siesta and comes forward, blinking sleepily at you where you stand in the sunlit doorway as though you were a spirit that had emerged from the afterlife.||\"I am journeying into the desert,\" you announce, to his obvious amazement. \"I'll need supplies.\"||He shows you the few items he has for sale in this impoverished town.">
 
 <ROOM STORY344
 	(DESC "344")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT344)
+	(PRECHOICE STORY344-PRECHOICE)
+	(CONTINUE STORY325)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY344-PRECHOICE ()
+	<MERCHANT <LTABLE WATERSKIN MAGIC-WAND FLINT-KNIFE BLOWGUN BLANKET> <LTABLE 4 16 1 3 2>>>
+
+<CONSTANT TEXT345 "The invisible demons of the desert are known to harness whirlwinds, which they ride pell-mell across the sand. It is said that on nights of the full moon they can even be seen crouched atop their captive whirlwinds -- translucent unhuman figures with their faces raised shrieking to the sky.||The moon is not full tonight, and you are glad. You have no wish to see these monsters. Your only desire is to get rid of them, and to do that you must exploit their one weakness: once in full pursuit of a victim, they cannot veer quickly off a straight line.">
 
 <ROOM STORY345
 	(DESC "345")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT345)
+	(CONTINUE STORY137)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT346 "The high priest looks disappointed, but seems to understand when you explain that you have barely enough to purchase the supplies you will need for the journey.||\"A coil of rope might not be a bad idea,\" he suggests. \"I've often found the rope to come in handy. Oh, and a decent sword of course -- assuming you know how to use one.\" He juggles the heavy rubber ball he's carrying from one hand to the other. \"What about a practice session in the arena before you head off?\"">
+<CONSTANT CHOICES346 <LTABLE "practice the ball contest with him" "get on with preparations for your journey">>
 
 <ROOM STORY346
 	(DESC "346")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT346)
+	(CHOICES CHOICES346)
+	(DESTINATIONS <LTABLE STORY368 STORY093>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT347 "No sooner have you released your tight grip on the shawl than it is snatched away. There is a whispered cry of exultation from all around. You have your only clear view of the stabaie as they shoot off into the distance like flickers of silent lightning, to be swallowed up by the gloom of the forest within moments. Silence fills the glade, and you realize you are alone in the heart of the wood.">
 
 <ROOM STORY347
 	(DESC "347")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT347)
+	(PRECHOICE STORY347-PRECHOICE)
+	(CONTINUE STORY324)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY347-PRECHOICE ()
+	<LOSE-ITEM ,SHAWL>>
+
+<CONSTANT TEXT348 "You come to a huge buttress which at first you mistake for a cliff. Only when you get closer do you see what it truly is, and the realization draws a gasp from your lips: \"A tree!\" A tree whose trunk is as thick and solid as a temple-pyramid. You look up. You cannot see the upper branches. It stretches right through the forest canopy, dwarfing even the biggest trees, seeming to reach right up through the clouds.||You know what it is. It can only be the World Tree, which according to fable supports the heavens. Awestruck, you reach out and touch it, discovering that the bark is tingling. It is alive with the rhythms of life throughout the world.||You rest under the World Tree for a while. It fills you with a sense of joy to be so close to the roots of all existence, stronger and more confident than before. Now there is no peril that seems too daunting for you to face.">
 
 <ROOM STORY348
 	(DESC "348")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT348)
+	(PRECHOICE STORY348-PRECHOICE)
+	(CONTINUE STORY412)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY348-PRECHOICE ()
+	<COND (<L? ,LIFE-POINTS ,MAX-LIFE-POINTS>
+		<EMPHASIZE "Your vitality has been restored">
+		<SETG LIFE-POINTS ,MAX-LIFE-POINTS>
+	)>
+	<UPDATE-STATUS-LINE>>
+
+<CONSTANT TEXT349 "Lord Skull rocks his bulbous head and gives a groan of distress at being greeted incorrectly. Etiquette is obviously very important to these demons, because he also clouts you hard across the eyes as punishment. You reel back stunned, waiting for your vision to clear. It does so only partially: you can still sea, but not so clearly as before.||You retreat sullenly out of the sentinel's presence. The curse he has laid on you makes no difference. You have sworn to avenge your brother, and nothing short of death will stop you.">
 
 <ROOM STORY349
 	(DESC "349")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT349)
+	(PRECHOICE STORY349-PRECHOICE)
+	(CONTINUE STORY336)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY349-PRECHOICE ()
+	<LOSE-SKILL ,SKILL-TARGETING>
+	<DELETE-CODEWORD ,CODEWORD-POKTAPOK>>
+
+<CONSTANT TEXT350 "You get your first glimpse of Yashuna on the afternoon of the following day. Like Koba, the tall temple pyramids of the city are visible for miles across the rolling countryside. As you approach the poorer dwellings at the outskirts of the city, you notice a large number of people milling towards the raised central complex which houses the temples and the palaces of the rich.||It seems to be market day.">
+<CONSTANT CHOICES350 <LTABLE "pay a visit to the market" "head north out of the city" "take the southern road towards the forest">>
 
 <ROOM STORY350
 	(DESC "350")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT350)
+	(CHOICES CHOICES350)
+	(DESTINATIONS <LTABLE STORY142 STORY120 STORY165>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY351
