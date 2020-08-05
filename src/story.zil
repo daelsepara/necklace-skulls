@@ -58,6 +58,7 @@
 	<PUT <GETP ,STORY091 ,P?DESTINATIONS> 2 ,STORY136>
 	<PUT <GETP ,STORY094 ,P?DESTINATIONS> 2 ,STORY063>
 	<PUT <GETP ,STORY133 ,P?DESTINATIONS> 2 ,STORY179>
+	<PUT <GETP ,STORY340 ,P?DESTINATIONS> 4 ,STORY363>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
 	<PUTP ,STORY022 ,P?DEATH T>
@@ -121,6 +122,7 @@
 	<PUTP ,STORY319 ,P?DEATH T>
 	<PUTP ,STORY320 ,P?DEATH T>
 	<PUTP ,STORY328 ,P?DEATH T>
+	<PUTP ,STORY333 ,P?DEATH T>
 	<RETURN>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
@@ -895,16 +897,8 @@
 <ROOM STORY039
 	(DESC "039")
 	(STORY TEXT039)
-	(PRECHOICE STORY039-PRECHOICE)
 	(CONTINUE STORY431)
 	(FLAGS LIGHTBIT)>
-
-<ROUTINE STORY039-PRECHOICE ()
-	<COND (<CHECK-ITEM ,BLOWGUN>
-		<LOSE-ITEM ,BLOWGUN>
-	)(<CHECK-ITEM ,SPEAR>
-		<LOSE-ITEM ,SPEAR>
-	)>>
 
 <CONSTANT TEXT040 "\"I have survived all the ordeals,\" you say to the courtiers, \"and now I demand to see your master -- the sorcerer Necklace of Skulls.\"||They watch you with smouldering eyes, but the cocksure sneering looks with which they first greeted you are gone now. By passing the five tests you have earned their respect -- perhaps even their fear. As they escort you to the gateway of bones at the rear of the courtyard, the chief courtier studies you with a long sidelong stare before saying, \"You have got further than any mortal I can remember. But our master will crush you as I might crack a flea between my fingernails.\"||With a hollow rattling noise, the great gates swing inwards to reveal an avenue whose walls slope outwards on either side of you. The black pyramid stands at the far end of the avenue, its steep flanks clad in a block of cold shade that defies the harsh sunlight. The courtiers scatter at a signal you do not hear, rushing off with loping gaits that betray their half-canine ancestry. Climbing stone staircases, they take up positions along the top of the sloping walls.||As you take a step forward along the avenue, you notice rings set hip on the side walls. It is like the arena in which the sacred ball contest is played, and those stone rings are the goals.||You round angrily on the chief courtier, who is still standing close at your shoulder. \"What is this?\" you shout. \"I haven't come to play games! You told me I was going to meet Necklace of Skulls at last!\"||\"I am here,\" echoes a sepulchral voice from the depths of the shrine atop the pyramid. \"Now let the game begin.\"">
 
@@ -5105,175 +5099,133 @@
 	(CONTINUE STORY373)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT331-SPEAK "Speak to the dead king's spirit?">
+<CONSTANT TEXT331-DECIDE "You decide what you will do the next morning:">
+<CONSTANT CHOICES331 <LTABLE "go west towards Ashaka" "go north to the coast" "stay in Nachan for the festival">>
+
 <ROOM STORY331
 	(DESC "331")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY331-PRECHOICE)
+	(CHOICES CHOICES331)
+	(DESTINATIONS <LTABLE STORY008 STORY030 STORY416>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY331-PRECHOICE ()
+	<COND (,RUN-ONCE
+		<CRLF>
+		<TELL TEXT331-SPEAK>
+		<COND (<YES?> <STORY-JUMP ,STORY328> <RETURN>)>
+	)>
+	<COND (,RUN-ONCE
+		<GAIN-LIFE 1>
+		<TELL CR "You recovered a bit of your vitality after a night's rest" ,PERIOD-CR>
+	)>
+	<CRLF>
+	<TELL TEXT331-DECIDE>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT332 "\"I notice you suffer from a bad back,\" you say to the fenman. \"May I ask why you don't rig a sail on your boat to save yourself the effort of rowing?\"||\"Do you know nothing about boats?\" he grumbles as he picks up another heavy pot. \"A vessel made of reeds is to flimsy to support the weight of a mast.\"||\"Use a double mast, so that the sail straddles the boat,\" you suggest. \"This would distribute the load more evenly. Also, why not treat the reeds with oil, which would make the hull more watertight?\"||\"With the price of oil today?\" he cries incredulously. \"Reeds cost next to nothing.\"||\"Ah, but think of the time it takes yo to make a new boat for each river trip. A hull treated with oil would soon repay the initial cost.\"||He stops what he is doing and looks at you with new interest. \"Anything else?\" he asks.||\"Yes. I see you are loading empty pots aboard your boat, presumably for sale downriver. Mead is plentiful in Nachan but not in the fens, so why not fill the pots with mead? It would take up no more space, but your profits would be enlarged by at least one fifth.\"||\"A fine idea,\" he admits, \"but the pots are heavy enough for my poor back already.\"||\"Exactly why you need a passenger who's willing to chip in a help,\" you answer in a trice. Convinced you are worth having along, he agrees to take you downriver for free.">
 
 <ROOM STORY332
 	(DESC "332")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT332)
+	(CONTINUE STORY355)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT333 "Lifting the pitcher, you are horrified to see a second head on the woman's shoulder. It has a long lank hair, white skin and ghastly black lips. As you stifle a gasp of horror, its eyes snap open and it gives a chilling screech. The woman''s arms lash out like a sleepwalker's dashing you backwards with astonishing strength.">
 
 <ROOM STORY333
 	(DESC "333")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT333)
+	(PRECHOICE STORY333-PRECHOICE)
+	(CONTINUE STORY104)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY333-PRECHOICE ()
+	<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY333>>
+
+<CONSTANT TEXT334 "The monster is impervious to your blows. More strands of long black hair wrap themselves around you. It is like fighting an octopus. You can do nothing to prevent it dragging itself closer until finally its jaws close on your windpipe. You feel yourself weakening, and then there is a crunching of cartilage and a pink spray of blood. Your blood.">
 
 <ROOM STORY334
 	(DESC "334")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT324)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT335 "\"You seek to enter the underworld,\" says the spirit. \"The way will not be easy. But I perceive your cause to be honourable, so I shall aid you.\"||You do not dare to answer. He goes on: \"You must place a jade bead under your tongue and keep it there until you reach the four paths, not speaking whatever the temptation. Once you are at the four paths, you may remove the bead from your mouth but you should retain it until you see a kapok tree. Before any of this you must cross Death Canyon, however. If you have no other option, seek the dragon Kawak who lies across the canyon with one of his two heads on either side. Others have passed through his jaws and emerged at the far end, and if you are dauntless you may be able to do this too.\"||There is deep silence after he finishes speaking. You wait with lowered gaze. It is not seemly to look upon even a living king unless invited to. Suddenly there is a flash and an immediate peal of thunder, followed by a deluge of heavy tropical rain.||You look up. King Sky Shield and the phantom snake have vanished, but the shrine is not as it was before. Now a pit has opened in the floor, revealing stairs down into the pyramid. It is your route to the underworld.">
+<CONSTANT CHOICES335 <LTABLE "venture down the steps" "leave the shrine and wait until morning to resume your journey overland to Ashaka" "downriver to the coast">>
 
 <ROOM STORY335
 	(DESC "335")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT335)
+	(CHOICES CHOICES335)
+	(DESTINATIONS <LTABLE STORY009 STORY008 STORY030>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT336 "You reach the end of the tunnel and emerge into the open under a bright blue sky. The sun of the upper world blazes high in the heavens -- a welcome change from the grey glare permeating the Deathlands, although you know that too long an exposure to its blistering rays may eventually leave you weak with thirst. Waves of heat rise around you off the baking sands of the great desert. Dunes stretch like the tops of clouds as far as the eye can see.||Near by, you see various items poking up out of the sand. They may be the grave goods of spirits who descended here to the Deathlands. A closer inspection uncovers a sword, a waterskin, and a copper-tipped spear.">
 
 <ROOM STORY336
 	(DESC "336")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT336)
+	(PRECHOICE STORY336-PRECHOICE)
+	(CONTINUE STORY152)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY336-PRECHOICE ()
+	<SELECT-FROM-LIST <LTABLE SWORD WATERSKIN SPEAR> 3 3>>
 
 <ROOM STORY337
 	(DESC "337")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY337-EVENTS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY337-EVENTS ()
+	<COND (<CHECK-ITEM ,SPEAR>
+		<RETURN ,STORY429>
+	)(<CHECK-SKILL ,SKILL-AGILITY>
+		<RETURN ,STORY222>
+	)>
+	<RETURN ,STORY402>>
+
+<CONSTANT TEXT338 "You step up to the edge of the pit. The smoke rising off the coals at the bottom is thick and choking. You can feel the waves of heat simmering up on the still air. The pit is not deep, but even so you would not relish falling in!">
+<CONSTANT CHOICES338 <LTABLE "use" "a" "or a" "otherwise">>
 
 <ROOM STORY338
 	(DESC "338")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT338)
+	(CHOICES CHOICES338)
+	(DESTINATIONS <LTABLE STORY016 STORY039 STORY039 STORY063>)
+	(REQUIREMENTS <LTABLE SKILL-AGILITY BLOWGUN SPEAR NONE>)
+	(TYPES <LTABLE R-SKILL R-LOSE-ITEM R-LOSE-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT339 "You find yourself in a narrow chamber. The air of the tomb is thick with the smell of old incense. In the faint light shining in from outside, you see an upright sarcophagus set against the far wall. Stylized features moulded into the sarcophagus lid suggest a woman in the raiment of a priestess. Then you notice that in her arms she carries two newborn children.||Curiosity gets the better of you. Dislodging the lid, you strain with all your strength and finally succeed in dragging it open. For an instant the face of a beautiful woman stares out at you, and you give a startled cry. She has two little children in her arms. All three seem only asleep, but then the air you have allowed into the sarcophagus unlocks the closed gates of time. The bodies cave in and crumble to dust in front of your eyes.">
+<CONSTANT CHOICES339 <LTABLE "loot the contents of the sarcophagus" "you had better climb back down to the canoe before the two demons get fed up with waiting">>
 
 <ROOM STORY339
 	(DESC "339")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT339)
+	(CHOICES CHOICES339)
+	(DESTINATIONS <LTABLE STORY427 STORY167>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT CHOICES340 <LTABLE "use a" "or the" "a wand" "otherwise">>
 
 <ROOM STORY340
 	(DESC "340")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY340-PRECHOICE)
+	(CHOICES CHOICES340)
+	(DESTINATIONS <LTABLE STORY404 STORY422 STORY018 STORY384>)
+	(REQUIREMENTS <LTABLE GOLD-DIADEM CHALICE-OF-LIFE SKILL-SPELLS NONE>)
+	(TYPES <LTABLE R-ITEM R-ITEM R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY340-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-ANGEL> <PUT <GETP ,STORY340 ,P?DESTINATIONS> 4 ,STORY363>)>>
 
 <ROOM STORY341
 	(DESC "341")
