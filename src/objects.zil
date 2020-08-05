@@ -172,6 +172,11 @@
     (ADJECTIVE PARCEL)
     (FLAGS TAKEBIT)>
 
+<OBJECT POLE
+    (DESC "pole")
+    (SYNONYM POLE)
+    (FLAGS TAKEBIT)>
+
 <OBJECT POT-OF-DYE
     (DESC "pot of dye")
     (SYNONYM DYE)

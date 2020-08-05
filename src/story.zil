@@ -9,59 +9,6 @@
 <OBJECT CURRENCY (DESC "cacao")>
 <OBJECT VEHICLE (DESC "none")>
 
-<CONSTANT DRINK-POTION-KEY-CAPS !\D>
-<CONSTANT DRINK-POTION-KEY !\d>
-<CONSTANT MAGIC-MIRROR-KEY-CAPS !\M>
-<CONSTANT MAGIC-MIRROR-KEY !\m>
-<CONSTANT POINTS-KEY-CAPS !\P>
-<CONSTANT POINTS-KEY !\p>
-
-<ROUTINE DRINK-POTION ()
-	<CRLF>
-	<TELL "Drink magic potion?">
-	<COND (<YES?>
-		<SETG LIFE-POINTS <+ ,LIFE-POINTS 5>>
-		<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
-		<REMOVE ,MAGIC-POTION>
-	)>>
-
-<GLOBAL RITUAL-BALL-STARTED F>
-<GLOBAL TICKS 0>
-<GLOBAL CROSS 0>
-
-<ROUTINE START-RITUAL-BALL ()
-	<SETG RITUAL-BALL-STARTED T>>
-
-<ROUTINE SHOW-SCORES ()
-	<COND (,RITUAL-BALL-STARTED
-		<CRLF>
-		<HLIGHT ,H-BOLD>
-		<TELL "Current Scores">
-		<HLIGHT 0>
-		<CRLF>
-		<CRLF>
-		<TELL "Your score: " N ,TICKS " points" CR>
-		<TELL "Opposition: " N ,CROSS "points" CR>
-	)>>
-
-<ROUTINE SPECIAL-INTERRUPT-ROUTINE (KEY)
-	<COND (<EQUAL? .KEY DRINK-POTION-KEY-CAPS DRINK-POTION-KEY>
-		<COND (<CHECK-ITEM ,MAGIC-POTION>
-			<CRLF>
-			<DRINK-POTION>
-			<RTRUE>
-		)>
-	)(<EQUAL? .KEY MAGIC-MIRROR-KEY-CAPS MAGIC-MIRROR-KEY>
-		<COND (<CHECK-ITEM ,GREEN-MIRROR>
-			<ORACLE>
-			<RTRUE>
-		)>
-	)(<EQUAL? .KEY POINTS-KEY-CAPS POINTS-KEY>
-		<SHOW-SCORES>
-		<RTRUE>
-	)>
-	<RFALSE>>
-
 <ROUTINE RESET-OBJECTS ()
 	<RESET-CONTAINER ,LOST-SKILLS>
 	<RESET-CONTAINER ,EAT-BAG>
@@ -148,7 +95,92 @@
 	<PUTP ,STORY320 ,P?DEATH T>
 	<PUTP ,STORY328 ,P?DEATH T>
 	<PUTP ,STORY333 ,P?DEATH T>
+	<PUTP ,STORY353 ,P?DEATH T>
 	<RETURN>>
+
+<CONSTANT DRINK-POTION-KEY-CAPS !\D>
+<CONSTANT DRINK-POTION-KEY !\d>
+<CONSTANT MAGIC-MIRROR-KEY-CAPS !\M>
+<CONSTANT MAGIC-MIRROR-KEY !\m>
+<CONSTANT POINTS-KEY-CAPS !\P>
+<CONSTANT POINTS-KEY !\p>
+
+<CONSTANT DIED-IN-COMBAT "You died in combat">
+<CONSTANT DIED-OF-HUNGER "You died of hunger and thirst">
+<CONSTANT DIED-GREW-WEAKER "You grow weaker and eventually died">
+<CONSTANT DIED-OF-THIRST "You go mad from thirst">
+<CONSTANT KILLED-AT-ONCE "You are killed at once">
+<CONSTANT DIED-FROM-INJURIES "You died from your injuries">
+<CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope with the situation.">
+<CONSTANT ALL-POSSESSIONS "You lost all your possessions.">
+<CONSTANT TEXT-BEAD "You remember to slip the jade bead under your tongue as advised">
+
+<GLOBAL IMMORTAL F>
+<GLOBAL BLESSING-WAR-GOD F>
+<GLOBAL RITUAL-BALL-STARTED F>
+<GLOBAL TICKS 0>
+<GLOBAL CROSS 0>
+<GLOBAL DONATION 0>
+
+<OBJECT LOST-SKILLS
+	(DESC "skills lost")
+	(SYNONYM SKILLS)
+	(ADJECTIVE LOST)
+	(FLAGS CONTBIT OPENBIT)>
+
+<OBJECT EAT-BAG
+	(DESC "stuff eaten")
+	(SYNONYM BAG)
+	(ADJECTIVE EAT)
+	(FLAGS CONTBIT OPENBIT)>
+
+<OBJECT LOST-BAG
+	(DESC "stuff lost")
+	(SYNONYM BAG)
+	(ADJECTIVE LOST)
+	(FLAGS CONTBIT OPENBIT)>
+
+<ROUTINE SPECIAL-INTERRUPT-ROUTINE (KEY)
+	<COND (<EQUAL? .KEY DRINK-POTION-KEY-CAPS DRINK-POTION-KEY>
+		<COND (<CHECK-ITEM ,MAGIC-POTION>
+			<CRLF>
+			<DRINK-POTION>
+			<RTRUE>
+		)>
+	)(<EQUAL? .KEY MAGIC-MIRROR-KEY-CAPS MAGIC-MIRROR-KEY>
+		<COND (<CHECK-ITEM ,GREEN-MIRROR>
+			<ORACLE>
+			<RTRUE>
+		)>
+	)(<EQUAL? .KEY POINTS-KEY-CAPS POINTS-KEY>
+		<SHOW-SCORES>
+		<RTRUE>
+	)>
+	<RFALSE>>
+
+<ROUTINE DRINK-POTION ()
+	<CRLF>
+	<TELL "Drink magic potion?">
+	<COND (<YES?>
+		<SETG LIFE-POINTS <+ ,LIFE-POINTS 5>>
+		<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
+		<REMOVE ,MAGIC-POTION>
+	)>>
+
+<ROUTINE START-RITUAL-BALL ()
+	<SETG RITUAL-BALL-STARTED T>>
+
+<ROUTINE SHOW-SCORES ()
+	<COND (,RITUAL-BALL-STARTED
+		<CRLF>
+		<HLIGHT ,H-BOLD>
+		<TELL "Current Scores">
+		<HLIGHT 0>
+		<CRLF>
+		<CRLF>
+		<TELL "Your score: " N ,TICKS " points" CR>
+		<TELL "Opposition: " N ,CROSS "points" CR>
+	)>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
 	<RESET-POSSESSIONS>
@@ -173,37 +205,6 @@
 	>
 	<RESET-OBJECTS>
 	<RESET-STORY>>
-
-<CONSTANT DIED-IN-COMBAT "You died in combat">
-<CONSTANT DIED-OF-HUNGER "You died of hunger and thirst">
-<CONSTANT DIED-GREW-WEAKER "You grow weaker and eventually died">
-<CONSTANT DIED-OF-THIRST "You go mad from thirst">
-<CONSTANT KILLED-AT-ONCE "You are killed at once">
-<CONSTANT DIED-FROM-INJURIES "You died from your injuries">
-<CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope with the situation.">
-<CONSTANT ALL-POSSESSIONS "You lost all your possessions.">
-<CONSTANT TEXT-BEAD "You remember to slip the jade bead under your tongue as advised">
-
-<OBJECT LOST-SKILLS
-	(DESC "skills lost")
-	(SYNONYM SKILLS)
-	(ADJECTIVE LOST)
-	(FLAGS CONTBIT OPENBIT)>
-
-<OBJECT EAT-BAG
-	(DESC "stuff eaten")
-	(SYNONYM BAG)
-	(ADJECTIVE EAT)
-	(FLAGS CONTBIT OPENBIT)>
-
-<OBJECT LOST-BAG
-	(DESC "stuff lost")
-	(SYNONYM BAG)
-	(ADJECTIVE LOST)
-	(FLAGS CONTBIT OPENBIT)>
-
-<GLOBAL IMMORTAL F>
-<GLOBAL BLESSING-WAR-GOD F>
 
 <ROUTINE LOSE-STUFF (CONTAINER LOST-CONTAINER ITEM "OPT" MAX ACTION "AUX" (COUNT 0) ITEMS)
 	<COND (<NOT .MAX> <SET MAX 1>)>
@@ -325,8 +326,6 @@
 		)>
 	>
 	<RETURN .COUNT>>
-
-<GLOBAL DONATION 0>
 
 <ROUTINE DONATE-CACAO ("AUX" AMOUNT)
 	<COND (<AND ,RUN-ONCE <G? ,MONEY 0>>
@@ -5374,175 +5373,150 @@
 	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT351 "The Man of Gold comes to life in your hands and jumps down to the ground. You have no need to explain your needs -- after one glance at the small-creatures, the little golden manikin leaps to the attack. His sharp blows crack their shells with ease and soon a path is cleared along the tunnel for you to dash back to the waiting canoe.">
+
 <ROOM STORY351
 	(DESC "351")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT351)
+	(PRECHOICE STORY351-PRECHOICE)
+	(CONTINUE STORY258)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY351-PRECHOICE ()
+	<LOSE-ITEM ,MAN-OF-GOLD>>
+
+<CONSTANT TEXT352 "You drop low as the cobra comes sailing through the air. It passes over your head, jaw snapping just inches from your flesh. Instinct warns you that the slightest scratch  from those long curved fangs would spell your death. You pivot on your heel as the cobra swings gracefully to hover out off the ledge, readying itself for another attack.||A single short puff sends a lethal dart deep into the cobra's head. You watch it drop into the river below. The demons in the canoe, seeing it fall, nod up at you with witless grins of encouragement.">
+<CONSTANT TEXT352-LOST "You realize that you have lost the jade bead. You check the blowgun but it is not there. You must have blown it out along with the dart!">
+<CONSTANT TEXT352-CONTINUED "The tomb yawns open beside you. Having so nearly died at the fangs of its guardian, you decide you might as well take a look inside. Perhaps there will be some treasures worth taking">
 
 <ROOM STORY352
 	(DESC "352")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT352)
+	(PRECHOICE STORY352-PRECHOICE)
+	(CONTINUE STORY339)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY352-PRECHOICE ()
+	<CRLF>
+	<COND (<CHECK-ITEM ,JADE-BEAD>
+		<TELL TEXT352-LOST>
+		<TELL ,PERIOD-CR>
+		<LOSE-ITEM ,JADE-BEAD>
+		<CRLF>
+	)>
+	<TELL TEXT352-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT353 "He opens a vein in the back of your hand using his long sharp fingernails, then laps eagerly at the blood. His tongue is rough and rasping at first, but soon the discomfort and the stinging of the wound begin to fade. You guess that there is something in his saliva that has a numbing effect.">
+<CONSTANT TEXT353-CONTINUED "The dwarf wipes his mouth fastidiously and gets to his feet. Once he is standing up he looks even more peculiar. Because of his stunted legs, his arms trail right down to the ground. \"You are most charitable,\" he says, grinning to reveal a snagged array of sharp little teeth. \"Rest assured that I'm not one to forget my obligations. Until we meet again, farewell!\"||So saying, he spreads his arms wide and executes a remarkable leap that carries him right over your head. His cloak flutters like a sail in the wind. Whirling around, you seen no sign of him in any direction. When you gaze up, there is just a distant black shape flying off into the grey sky.">
 
 <ROOM STORY353
 	(DESC "353")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT353)
+	(PRECHOICE STORY353-PRECHOICE)
+	(CONTINUE STORY373)
+	(CODEWORD CODEWORD-ZOTZ)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY353-PRECHOICE ()
+	<TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY353>
+	<IF-ALIVE TEXT353-CONTINUED>>
+
+<CONSTANT TEXT354 "The wall around the royal precinct is constructed of closely fitted blocks of smooth limestone. The builders even bowed it out slightly to make it more difficult to climb. You loiter casually at a corner until there is no one in sight, then brace yourself around the bend in the wall and pull yourself up.||The top of the wall tapers to a wedge which is rimmed with spikes of sharp obsidian, provoking a grin of admiration from you for the ingenuity of the royal architects. But none of these measures is enough to deter you. Swinging into a cartwheel, you vault over the top of the wall without touching the razor-edge of obsidian, dropping lightly to your feet on the other side.||A glance towards the gate confirms that the guards heard nothing: they are still gazing stolidly into the street outside. You slink away in the twilight and climb the steps of the pyramid.">
 
 <ROOM STORY354
 	(DESC "354")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT354)
+	(CONTINUE STORY415)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT355 "You spend a couple of pleasant days on the river, with nothing to do but watch the green banks slide past while you trail your fingers in the water and swap stories with the fenman. Like most people who travel widely, he has a fund of folktales with which to regale you.||\"I have enjoyed having you along,\" he says as he ties up his boat at a village, \"but now we have arrived at my home. The coast is only a few days' walk -- just follow the road which leads along the riverbank, and may the God of the Pole Star guide you safely on your quest.\"||\"Thank you,\" you reply, \"and may the God of the River see that you find good fortune in your business.\"||You have gone only a short distance when he calls out after you. \"Incidentally I should warn you that the fens are infested with nightcrawlers. I take it you know how to deal with such creatures?\"">
+<CONSTANT CHOICES355 <LTABLE "assure him that you are wise to such magical menaces" "perhaps you had better ask him to explain further">>
 
 <ROOM STORY355
 	(DESC "355")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT355)
+	(CHOICES CHOICES355)
+	(DESTINATIONS <LTABLE STORY264 STORY172>)
+	(REQUIREMENTS <LTABLE SKILL-FOLKLORE NONE>)
+	(TYPES <LTABLE R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT356 "You walk on until overtaken by nightfall and exhaustion. Sitting down under the spreading foliage of a calabash tree, you consider looking for a more comfortable place to spend the night. You have passed a few peasant huts among the canals lining your route, but at the moment you cannot see any glimmers of lamplight to indicate habitation. Since it is a warm and sultry night, you decide to sleep out in the open.||You are woken by something heavy falling on your shoulder. It is pitch dark. Your heart is thudding, your nerves taught with unreasoning fear. You hear a slurping sound and turn your head. A horrible inhuman face is pressed up close to yours. Its lips are slick with your blood, but that is not the worst of it. You see that the monstrous head is sprouting from your own shoulder, and then you start to scream.||You have come to a grisly end.">
 
 <ROOM STORY356
 	(DESC "356")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT356)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT357 "The head is unable to take control of you. Repulsed, it falls back with a snarl of icy rage. The enmeshing strands of hair go slack, but at best you have only a moment's respite before it resumes its attack.">
+<CONSTANT CHOICES357 <LTABLE "strike it with your fist" "dash it against the trunk of the nearest tree">>
 
 <ROOM STORY357
 	(DESC "357")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT357)
+	(CHOICES CHOICES357)
+	(DESTINATIONS <LTABLE STORY334 STORY378>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT358 "A knot unties itself and one of the gates swing open. No sooner have you gone through than it closes behind you. You proceed along a short tunnel to a chamber which is open on the far side, giving onto a ledge overlooking a river of foaming blood. You step out onto the ledge and look downriver. There is another ledge corresponding to the other doorway, and there you see the feather-robed noble who got here before you.||He points to two obsidian beams spanning the river to the far bank. At first you think they are bridges, but then you notice the shape. They are wedge-shaped, coming to a sharp edge on the upper surface. \"It would be difficult to keep one's balance on that,\" you call out to him.||\"That isn't the intention,\" says the noble. He holds up a pole with a hook on the end. \"I found this here on the ledge. Notice that there is a similar pole next to you.\"||You glance down. A pole like the one the noble is holding rests against the wall, and you pick it up.||\"You have a plan?\" you ask him.||He nods. \"If we extend our arms, we'll be able to hook the poles together. Then, leaning away from each other with our feet on the sloping outer surfaces of the obsidian beams, we'll be able to cross together.\"||The plan is ingenious. You agree to put it to the test, and by this means you are both able to get across the river of the blood to the far bank.">
 
 <ROOM STORY358
 	(DESC "358")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT358)
+	(PRECHOICE STORY358-PRECHOICE)
+	(CONTINUE STORY399)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY358-PRECHOICE ()
+	<CRLF>
+	<TELL "Retain " T ,POLE "?">
+	<COND (<YES?> <TAKE-ITEM ,POLE>)(ELSE <LOSE-ITEM ,POLE>)>>
+
+<CONSTANT TEXT359 "He listens to your greeting and gives a curt regal nod before waving you on towards the next sentinel. This one rubs his jaw as he looks at you. Then you notice with a shudder that his lower jaw is a bare of skin -- just a raw glistening mass of sinew and tendon. His eyes are like the gulf of stars on a cloudless night. How will you address him:">
+<CONSTANT CHOICES359 <LTABLE "address him: as Lord Thunderbolt Laughter" "Lord Blood" "Lord Skull">>
 
 <ROOM STORY359
 	(DESC "359")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT359)
+	(CHOICES CHOICES359)
+	(DESTINATIONS <LTABLE STORY037 STORY061 STORY107>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT360 "You reach the slope of the dune and stumble as you try to retreat up it. The hydra's nearest head gives a triumphant hiss and lances down towards you as you lie helpless.">
+<CONSTANT TEXT360-CHARMS "You are luck enough to have got a handful of sand which you throw in its face buying you the time to scrabble away unscathed">
+<CONSTANT TEXT360-BITE "Its bite inflicts some damage">
+<CONSTANT TEXT360-CONTINUED "You have no recourse but to attack now">
 
 <ROOM STORY360
 	(DESC "360")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT360)
+	(PRECHOICE STORY360-PRECHOICE)
+	(CONTINUE STORY402)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY360-PRECHOICE ()
+	<CRLF>
+	<COND (<CHECK-SKILL ,SKILL-CHARMS>
+		<TELL TEXT360-CHARMS>
+		<TELL ,PERIOD-CR>
+		<PREVENT-DEATH ,STORY360>
+	)(ELSE
+		<TELL TEXT360-BITE>
+		<TELL ,PERIOD-CR>
+		<TEST-MORTALITY 2 DIED-GREW-WEAKER ,STORY360>
+	)>
+	<COND (<IS-ALIVE>
+		<CRLF>
+		<TELL TEXT360-CONTINUED>
+		<TELL ,PERIOD-CR>
+		<COND (<OR <CHECK-SKILL ,SKILL-SWORDPLAY> <CHECK-ITEM ,FLINT-KNIFE> <CHECK-ITEM ,SPEAR>> <STORY-JUMP ,STORY429>)>
+	)>>
 
 <ROOM STORY361
 	(DESC "361")
