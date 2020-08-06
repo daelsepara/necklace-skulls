@@ -12,6 +12,10 @@
     (DESC "Cenote")
     (SYNONYM CENOTE)>
 
+<OBJECT CODEWORD-EB
+    (DESC "Eb")
+    (SYNONYM EB)>
+
 <OBJECT CODEWORD-IGNIS
     (DESC "Ignis")
     (SYNONYM IGNIS)>

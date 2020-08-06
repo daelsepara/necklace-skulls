@@ -3006,7 +3006,7 @@
 	(CONTINUE STORY406)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT183 "\"Well, what are you waiting for?\" snaps the lord. \"I told you to get out of the ship as my family and I will now be needing it. If you expect payment --\"||You leap out onto the quay, \"Payment? For this wretched craft?\" you cry in an incredulous tone. \"Why, it has nearly cost me my life three times since I left home!\"||\"It looks sturdy enough,\" he says dubiously.||\"Cursed is what it is! Cursed by a woodland imp who dwelt in the tree from which the vessel was built. And cursed am I for being foolish enough to set sail in such a vessel, for I lost my aunt and most of my belongings when it last capsized under me!\"||The Lord looks at the vessel, then at the swelling crowd of refugees. Superstitious fear is struggling with necessity in his mind. \"I'll take the risk,\" he decides.||\"You're a brave man and no mistake!\" you say with an admiring sigh. \"Still, I can't let you take the ship for nothing.\"||\"I'm not paying you,\" he says witheringly.||\"Of course not, sir. I'll pay you, for taking it off my hands.\" You reach for your money-pouch. \"I think -- well twenty cacao would be fair, considering the trouble it's given me...\"||That convinces him. He back away, dragging his family with him. \"Keep your money! We'll find another ship.\"||Bidding your travelling companions farewell, you set out towards Shakalla.">
+<CONSTANT TEXT183 "\"Well, what are you waiting for?\" snaps the lord. \"I told you to get out of the ship as my family and I will now be needing it. If you expect payment --\"||You leap out onto the quay, \"Payment? For this wretched craft?\" you cry in an incredulous tone. \"Why, it has nearly cost me my life three times since I left home!\"||\"It looks sturdy enough,\" he says dubiously.||\"Cursed is what it is! Cursed by a woodland imp who dwelt in the tree from which the vessel was built. And cursed am I for being foolish enough to set sail in such a vessel, for I lost my aunt and most of my belongings when it last capsized under me!\"||The Lord looks at the vessel, then at the swelling crowd of refugees. Superstitious fear is struggling with necessity in his mind. \"I'll take the risk,\" he decides.||\"You're a brave man and no mistake!\" you say with an admiring sigh. \"Still, I can't let you take the ship for nothing.\"||\"I'm not paying you,\" he says witheringly.||\"Of course not, sir. I'll pay you, for taking it off my hands.\" You reach for your money-pouch. \"I think -- well twenty cacao would be fair, considering the trouble it's given me...\"||That convinces him. He backs away, dragging his family with him. \"Keep your money! We'll find another ship.\"||Bidding your travelling companions farewell, you set out towards Shakalla.">
 
 <ROOM STORY183
 	(DESC "183")
@@ -5737,8 +5737,7 @@
 
 <ROUTINE STORY379-PRECHOICE ()
 	<EMPHASIZE "You got rid of all your money">
-	<SETG MONEY 0>
-	<UPDATE-STATUS-LINE>>
+	<SETG MONEY 0>>
 
 <CONSTANT TEXT380 "No expression shows on the hard mask-like face as you make your genuflection. There is no roar of rage to show he is affronted, nor flash of sullen anger in his eye. He only raises his sceptre slowly, as though to emphasize a point he is about to make .Then, before you have a chance to move, he brings the sceptre swishing down to split your skull open like a melon. It ends suddenly and horribly for you.">
 
@@ -5750,172 +5749,141 @@
 
 <ROOM STORY381
 	(DESC "381")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY381-EVENTS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY381-EVENTS()
+	<COND (<OR <CHECK-ITEM ,SWORD> <CHECK-ITEM ,HAMMER> <CHECK-ITEM ,FLINT-KNIFE>> <RETURN ,STORY429>)>
+	<RETURN ,STORY402>>
+
+<CONSTANT TEXT382 "You pause at the archway and look along the passage. It looks deceptively easy -- just half a dozen paces would take you to the far end, where you can see a dusty sun-bleached courtyard.||You take one cautious step. Another. Then there is an ominous creak from the lintel above, and a fine sift of rock dust falls from the passage roof...">
 
 <ROOM STORY382
 	(DESC "382")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT382)
+	(PRECHOICE STORY382-PRECHOICE)
+	(CONTINUE STORY224)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY382-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-CHARMS>
+		<STORY-JUMP ,STORY177>
+	)(<CHECK-SKILL ,SKILL-AGILITY>
+		<STORY-JUMP ,STORY201>
+	)>>
+
+<CONSTANT TEXT383 "You toss the ball into the hound's open jaws. It immediately crouches down on the ground and starts gnawing at the ball wagging its tail contentedly, and you are able to slip past unchallenged.||The courtiers are waiting for you in the inner courtyard. \"Ah, you fool,\" says the chief with a yelp of crowing laughter. \"You just wasted your best weapon!\"||\"Then I'll just have to try that much harder from now on, won't I?\" you reply.">
 
 <ROOM STORY383
 	(DESC "383")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT383)
+	(PRECHOICE STORY383-PRECHOICE)
+	(CONTINUE STORY431)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY383-PRECHOICE ()
+	<LOSE-ITEM ,HYDRA-BLOOD-BALL>>
+
+<CONSTANT TEXT384 "The ball contest requires two participants on each side. \"Am I to face these shadow beings alone?\" you cry out angrily.||Necklace of Skulls' voice rushes from the depths of his shrine. It is like a whisper that is somehow loud enough to carry right along the arena. \"You came here seeking your brother. He shall fight beside you.\"||A chill settles in the hot air for an instant. A figure has appeared beside you. You turn, not recognizing him at first. It is Morning Star, but there is a ghastly pallor to his skin and his eyes have a hollow look. His arm is pressed to his forehead in the gesture of the denizens of the Deathlands, who must forever shield their eyes from the glare of the sun beneath the world.||\"Evening Star,\" he says forlornly. \"I am so cold. The grave has scant comforts.\"||You must fight beside the ghost of your brother in a contest to the death.">
 
 <ROOM STORY384
 	(DESC "384")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT384)
+	(CONTINUE STORY042)
+	(CODEWORD CODEWORD-SHADE)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT385 "Your brother makes the best shot he can, but he is off balance and the ball goes wide. The enemy defensive player sees a chance and comes rushing in, trying to beat you to the ball.">
+<CONSTANT TEXT385-TICKS "You wrest possession from him and score a point.">
+<CONSTANT TEXT385-CROSS "He beats you to the ball and scores.">
 
 <ROOM STORY385
 	(DESC "385")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT385)
+	(PRECHOICE STORY385-PRECHOICE)
+	(CONTINUE STORY066)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY385-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-POKTAPOK>
+		<EMPHASIZE TEXT385-TICKS>
+		<SETG TICKS <+ ,TICKS 1>>
+	)(ELSE
+		<EMPHASIZE TEXT385-CROSS>
+		<SETG CROSS <+ ,CROSS 1>>
+	)>>
+
+<CONSTANT TEXT386 "Morning Star lobs the ball directly towards you. Timing your move perfectly, you hug it to your chest while substituting the blood ball.">
+<CONSTANT CHOICES386 <LTABLE "go for a standard scoring shot" "else risk everything on putting the ball through the stone ring and winning an instant victory">>
 
 <ROOM STORY386
 	(DESC "386")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT386)
+	(CHOICES CHOICES386)
+	(DESTINATIONS <LTABLE STORY405 STORY043>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT387-REPAIR "You repair the boat and set sail">
+<CONSTANT TEXT387-HELP "You are stranded unless you risk helping Jade Thunder">
+<CONSTANT CHOICES387 <LTABLE "use a wand" "or" "or the" "otherwise">>
 
 <ROOM STORY387
 	(DESC "387")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(PRECHOICE STORY387-PRECHOICE)
+	(CHOICES CHOICES387)
+	(DESTINATIONS <LTABLE STORY435 STORY021 STORY045 STORY068>)
+	(REQUIREMENTS <LTABLE SKILL-SPELLS SKILL-CUNNING MAN-OF-GOLD NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY387-PRECHOICE ()
+	<CRLF>
+	<COND (<CHECK-SKILL ,SKILL-SEAFARING>
+		<TELL "Repair the boat?">
+		<COND (<YES?>
+			<CRLF>
+			<TELL TEXT387-REPAIR>
+			<TELL ,PERIOD-CR>
+			<DELETE-CODEWORD ,CODEWORD-EB>
+			<STORY-JUMP ,STORY300>
+			<RETURN>
+		)>
+		<CRLF>
+	)>
+	<TELL TEXT387-HELP>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT388 "\"It is protection against the dust demons,\" explains one of the guards. \"They are invisible sprites who whip up whirlwinds and drive them like ravaging beasts onto those who travel in the desert.\"||You cast a brief glance at the boulder. \"Not much protection, surely? The demons could just steer their whirlwinds around it.\"||\"No,\" says the other man in a tone that suggests they tell this legend to every wayfarer, \"because dust demons can only travel in long straight paths. They can't turn easily.\"||\"Or so the priest Spitting Viper told us,\" chimes in the first man.||Bidding them farewell, you take up your pack and walk out into the waiting desert.">
 
 <ROOM STORY388
 	(DESC "388")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT388)
+	(CONTINUE STORY407)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT389 "You decide to set out early the next morning, before sunrise. This will spare your family from farewells. By lantern light in the chill grey predawn, you stand in the antechamber of your family's house and check your belongings for the journey. You are attended by only one servant, who silently fastens the straps of your pack. Your aunts have left out a parcel of maize cakes for you to eat on the road.||There is a knock on the outer door and the servant darts off to open it. Outside you see your friend the old soothsayer standing in the early twilight. You go out and greet him: \"Good morning. You came just in time to catch me. I'm about to set out.\"||\"I know,\" he says. \"I came to wish you luck. And to give you this. He holds up a jade bead.||You take it with a quizzical smile. \"What's this for?\"||\"There are some who'll tell you that the quickest route to Necklace of Skulls lies through the underworld. It is true, but that way is also fraught with peril and you will need certain safeguards if you hope to pass through in safety. Now, beads such as this are placed under the tongue of deceased nobles for them to use as currency in the afterlife. If you should enter the underworld, be sure to place the bead under your tongue and to keep it there until you reach the crossroads. Got that?\"||\"I suppose so,\" you say, not really following his drift at all. But you pocket the jade bead. As you set out along the road, you pause and glance back, adding, \"You were wrong about the dream. It seems my brother was dead after all.\"||He shrugs. \"Right... wrong... The world isn't quite that simple, Evening Star.\"||Bidding him farewell, you set off towards the edge of the city. Even at this early hour, traders are already carrying their wares to market. Out in the fields, moving shadows in the smoky blue twilight show that the farmers are hard at work. It is strange to think that you might never again see this great city of Koba, which has been your home since childhood.||You turn your gaze to the west, putting such thoughts out of your head. From now on, you must think only of the success of your quest.">
 
 <ROOM STORY389
 	(DESC "389")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT389)
+	(PRECHOICE STORY389-PRECHOICE)
+	(CONTINUE STORY025)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY389-PRECHOICE ()
+	<TAKE-ITEM ,MAIZE-CAKES>
+	<TAKE-ITEM ,JADE-BEAD>>
+
+<CONSTANT TEXT390 "The stabai flicker at the edges of your vision, thin elusive shards of paleness against the green-tinged shadows. They lead you on through silent glades surrounded by trees which stretch endlessly upwards as though supporting the sky. The moist heat of the jungle weighs upon you until you feel like a drowning man. Slogging on through the eerie silence, limbs aching with fatigue, you begin to suspect the stabai are not leading you to safety at all. What if their plan is to entice you deeper and deeper into the woods until you finally drop from hunger and exhaustion?">
+<CONSTANT CHOICES390 <LTABLE "dismiss the stabai and try to find your own way back to the trail" "return the shawl in the hope of gaining the stabai's goodwill" "continue to let them guide you">>
 
 <ROOM STORY390
 	(DESC "390")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT390)
+	(CHOICES CHOICES390)
+	(DESTINATIONS <LTABLE STORY324 STORY347 STORY168>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY391
