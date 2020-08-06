@@ -102,6 +102,8 @@
 	<PUTP ,STORY400 ,P?DEATH T>
 	<PUTP ,STORY419 ,P?DEATH T>
 	<PUTP ,STORY428 ,P?DEATH T>
+	<PUTP ,STORY431 ,P?DEATH T>
+	<PUTP ,STORY438 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DRINK-POTION-KEY-CAPS !\D>
@@ -117,10 +119,10 @@
 <CONSTANT DIED-OF-THIRST "You go mad from thirst">
 <CONSTANT KILLED-AT-ONCE "You are killed at once">
 <CONSTANT DIED-FROM-INJURIES "You died from your injuries">
-<CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope with the situation.">
+<CONSTANT NATURAL-HARDINESS "Your natural hardiness made you cope better with the situation.">
 <CONSTANT ALL-POSSESSIONS "You lost all your possessions.">
 <CONSTANT TEXT-BEAD "You remember to slip the jade bead under your tongue as advised">
-<CONSTANT VITALITY-RESTORED  "Your vitality has been restored">
+<CONSTANT VITALITY-RESTORED "Your vitality has been restored">
 
 <GLOBAL IMMORTAL F>
 <GLOBAL BLESSING-WAR-GOD F>
@@ -193,9 +195,9 @@
 	)>>
 
 <OBJECT FOES
-    (DESC "them")
-    (SYNONYM THEM)
-    (FLAGS NARTICLEBIT PLURALBIT PERSONBIT TOUCHBIT)>
+	(DESC "them")
+	(SYNONYM THEM)
+	(FLAGS NARTICLEBIT PLURALBIT PERSONBIT TOUCHBIT)>
 
 <ROUTINE SCORE-POINTS ("OPT" POINTS SIDE)
 	<COND (<NOT <ASSIGNED? POINTS>> <SET POINTS 1>)>
@@ -437,15 +439,14 @@
 	)>>
 
 <ROUTINE KEEP-ITEM (ITEM "OPT" JUMP)
-	<COND (<NOT <CHECK-ITEM .ITEM>>
-		<CRLF>
-		<TELL "Keep " T .ITEM "?">
-		<COND (<YES?>
-			<TAKE-ITEM .ITEM>
-			<COND (.JUMP <STORY-JUMP .JUMP>)>
-			<RTRUE>
-		)>
+	<CRLF>
+	<TELL "Keep " T .ITEM "?">
+	<COND (<YES?>
+		<COND (<NOT <CHECK-ITEM .ITEM>> <TAKE-ITEM .ITEM>)>
+		<COND (.JUMP <STORY-JUMP .JUMP>)>
+		<RTRUE>
 	)>
+	<COND (<CHECK-ITEM .ITEM> <LOSE-ITEM .ITEM>)>
 	<RFALSE>>
 
 <CONSTANT TEXT "This story has not been written yet.">
@@ -4445,7 +4446,7 @@
 	(ITEM CHALICE-OF-LIFE)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT283 "Circular marks are scored into the stone of the ledge. To anyone else they would mean nothing, but you realize that the slabs must be built to swivel on a central axis. Searching, your deft fingers soon find a concealed catch which unlocks the slab. With a grinding noise it revolves to reveal the darkened interior of the tomb.||Something moves within it. At first a sense of dread stirs the hairs on the nape of your neck, but it is no horrific walking corpse that emerges from the hole // just a snake. You are almost relieved; at least this is a natural foe, although a deadly one. But then you see it is no ordinary snake. Its hood is enlarged to form translucent oval wings which flap slowly, carrying it on the warm updraught with a sinister gliding motion. Its iridescent scales make it resemble an obsidian idol, but there is no mistaking the living menace in those beady eyes and thin flickering tongue.">
+<CONSTANT TEXT283 "Circular marks are scored into the stone of the ledge. To anyone else they would mean nothing, but you realize that the slabs must be built to swivel on a central axis. Searching, your deft fingers soon find a concealed catch which unlocks the slab. With a grinding noise it revolves to reveal the darkened interior of the tomb.||Something moves within it. At first a sense of dread stirs the hairs on the nape of your neck, but it is no horrific walking corpse that emerges from the hole -- just a snake. You are almost relieved; at least this is a natural foe, although a deadly one. But then you see it is no ordinary snake. Its hood is enlarged to form translucent oval wings which flap slowly, carrying it on the warm updraught with a sinister gliding motion. Its iridescent scales make it resemble an obsidian idol, but there is no mistaking the living menace in those beady eyes and thin flickering tongue.">
 <CONSTANT CHOICES283 <LTABLE "try closing with the snake to fight it using either" "or" "shoot it" "cast a protective enchantment" "use the" "give up any hope of looting the tomb and climb back down to the canoe while you still can">>
 
 <ROOM STORY283
@@ -5407,7 +5408,7 @@
 <ROUTINE STORY351-PRECHOICE ()
 	<LOSE-ITEM ,MAN-OF-GOLD>>
 
-<CONSTANT TEXT352 "You drop low as the cobra comes sailing through the air. It passes over your head, jaw snapping just inches from your flesh. Instinct warns you that the slightest scratch  from those long curved fangs would spell your death. You pivot on your heel as the cobra swings gracefully to hover out off the ledge, readying itself for another attack.||A single short puff sends a lethal dart deep into the cobra's head. You watch it drop into the river below. The demons in the canoe, seeing it fall, nod up at you with witless grins of encouragement.">
+<CONSTANT TEXT352 "You drop low as the cobra comes sailing through the air. It passes over your head, jaw snapping just inches from your flesh. Instinct warns you that the slightest scratch from those long curved fangs would spell your death. You pivot on your heel as the cobra swings gracefully to hover out off the ledge, readying itself for another attack.||A single short puff sends a lethal dart deep into the cobra's head. You watch it drop into the river below. The demons in the canoe, seeing it fall, nod up at you with witless grins of encouragement.">
 <CONSTANT TEXT352-LOST "You realize that you have lost the jade bead. You check the blowgun but it is not there. You must have blown it out along with the dart!">
 <CONSTANT TEXT352-CONTINUED "The tomb yawns open beside you. Having so nearly died at the fangs of its guardian, you decide you might as well take a look inside. Perhaps there will be some treasures worth taking">
 
@@ -6388,207 +6389,159 @@
 <ROUTINE STORY430-PRECHOICE ()
 	<KEEP-ITEM ,POLE>>
 
+<CONSTANT TEXT431 "This courtyard is surrounded by low grey walls that lie like borders of soot around a plaza ablaze in the blistering sunshine. In the far wall is a massive of intertwined human bones and skulls. \"They are the previous victims of our master,\" says the chief courtier with a leer when he sees you blanch. \"Soon your own bones will be added to that gate.\"||Ignoring him , you turn your attention to five windowless buildings standing in the wide plaza. \"And those?\" you ask.||They are the Five Houses of Destiny,\" he says. \"If you can pass one night in each, the gate will open. Then you will gaze on the countenance of Necklace of Skulls.\"||You wait through a long afternoon until the sun dips into a red hot shimmer along the western horizon. The heat of the day has left you giddy, but you do your best not to show it as the courtiers come to lead you to the first of the buildings. As they open the door, you are confronted by a wave of fiery heat as though from an open kiln. The interior of the building is a single stone hall with a blazing channel of smouldering charcoal set along it. Large stones warmed to red heat surround it. Sweat erupts from your pores as you are ushered inside.||\"This is the House of Fire,\" says the chief courtier. \"Have a good night. I'll come for you in the morning -- should you survive.\"||The door closes and you are left sealed within the House of Fire. Its smoky confines are swelteringly airless, and your only rest is not true sleep, but a listless swoon brought on by heat exhaustion.">
+
 <ROOM STORY431
 	(DESC "431")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT431)
+	(PRECHOICE STORY431-PRECHOICE)
+	(CONTINUE STORY403)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY431-PRECHOICE ()
+	<TEST-MORTALITY 2 DIED-GREW-WEAKER ,STORY431>>
+
+<CONSTANT TEXT432 "Your eyes can make out nothing in the inky darkness that enfolds you. As you squat down on the guano-spattered floor, there is a flap of leather wings and the first of the bats comes fluttering down towards you. You put an arm up to fend it away. Then suddenly you feel a tingle of cold alarm as you realize someone is standing beside you.||\"This mortal is under my protection,\" says a familiar voice. \"Return to your roosts. There will be no drinking of blood for any of you tonight.\"||The rustle of wings recedes into the rafters. You turn, straining to make out the stranger in the absolute dark. \"Who are you?\" you ask him.||\"A friend.\" He touches your arm reassuringly. \"You helped me once, now I am returning the favour. Go to sleep now. These bats are my subjects, and they will not dare harm you.\"||You enjoy a restful night.">
 
 <ROOM STORY432
 	(DESC "432")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT432)
+	(PRECHOICE STORY432-PRECHOICE)
+	(CONTINUE STORY041)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY432-PRECHOICE ()
+	<GAIN-LIFE 1>
+	<DELETE-CODEWORD ,CODEWORD-ZOTZ>>
+
+<CONSTANT TEXT433 "Your opponents have had enough. They abandon their home and go running off yelling, \"Flee! The lunatic will kill us all!\" You watch them splash through the verges of the pond and vanish into the curtain of undergrowth. You nod in satisfaction. It is only when you examine the roasting carcass on the fire that you discover you made a mistake. It is not a human baby they were cooking, but a monkey. So they were not cannibals after all. They must have been the jungle people that the hunter told you about.||A swift examination of the hut reveals a well-stocked larder containing a haunch of venison, three papaya, a bag of chilli peppers and a waterskin.">
+<CONSTANT TEXT433-CONTINUED "You decide against taking the roast monkey. You do not think you could bring yourself to eat anything that looks so much like a person. Now you had better leave before the jungle people return">
 
 <ROOM STORY433
 	(DESC "433")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT433)
+	(PRECHOICE STORY433-PRECHOICE)
+	(CONTINUE STORY118)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY433-PRECHOICE ()
+	<SELECT-FROM-LIST <LTABLE HAUNCH-OF-VENISON PAPAYA CHILLI-PEPPERS WATERSKIN> 4 4>
+	<CRLF>
+	<TELL TEXT433-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT434 "Exposed to the full heat of the sun, you know you would not last three days. You must rest in the shade in the daytime, travelling on at sunset. By keeping on the move, you can keep warm despite the night-time chill.||You slip a pebble in your mouth. Sucking it will stave of thirst. You must conserve your water if you are to survive.">
 
 <ROOM STORY434
 	(DESC "434")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT434)
+	(CONTINUE STORY046)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT435 "You cast a negation spell, causing the flames to peter out. Jade Thunder scrabbles forward across the sand and snatches up his wand with a great shout of joy. \"At last!\" he cries. \"Now let me show you what can be achieved by a Grand Adept of our most potent art.\"">
 
 <ROOM STORY435
 	(DESC "435")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT435)
+	(CONTINUE STORY091)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT436 "\"Easy to repay us,\" says one fellow, flashing his teeth in a broad white grin. He holds up the shawl you acquired earlier. \"The stabai cause us a lot of mischief. If we had their shawl, they wouldn't bother us.\"||After some haggling, the jungle people agree to offer you a haunch of venison in exchange for the shawl.">
+<CONSTANT TEXT436-CONTINUED "You are ready to set out. As you gather up your belongings, a youth who has been watching you keenly without joining the conversation sidles up to you. \"I could guide you out of the woods if you think you might get lost,\" he suggests. You are unsure how to take this offer. The jungle dwellers do not observe the same rules of hospitality as civilized people, and for all you know he might lead you into a trap">
+<CONSTANT CHOICES436 <LTABLE "let him guide you" "set out alone">>
 
 <ROOM STORY436
 	(DESC "436")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT436)
+	(PRECHOICE STORY436-PRECHOICE)
+	(CHOICES CHOICES436)
+	(DESTINATIONS <LTABLE STORY410 STORY118>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY436-PRECHOICE ()
+	<COND (,RUN-ONCE
+		<CRLF>
+		<TELL "Exchange " T ,SHAWL " with a " D ,HAUNCH-OF-VENISON "?">
+		<COND (<YES?>
+			<LOSE-ITEM ,SHAWL>
+			<TAKE-ITEM ,HAUNCH-OF-VENISON>
+		)>
+	)>
+	<CRLF>
+	<TELL TEXT436-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT437 "You set sail and continue your voyage west.">
 
 <ROOM STORY437
 	(DESC "437")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT437)
+	(EVENTS STORY437-EVENTS)
+	(CONTINUE STORY300)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY437-EVENTS ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-EB> <RETURN ,STORY387>)>
+	<RETURN ,STORY437>>
+
+<CONSTANT TEXT438 "The blistering heat is sapping your last reserves of strength. Your lips are dry cracked husks and your skin is covered in blackened blisters. You cannot endure for long.">
 
 <ROOM STORY438
 	(DESC "438")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT438)
+	(PRECHOICE STORY438-PRECHOICE)
+	(CONTINUE STORY303)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY438-PRECHOICE ("AUX" (HARDY F) (DAMAGE 2))
+	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
+		<SET DAMAGE 1>
+		<SET HARDY T>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-OF-THIRST ,STORY438>
+	<COND (<AND <IS-ALIVE> .HARDY>
+		<EMPHASIZE NATURAL-HARDINESS>
+	)>>
+
+<CONSTANT TEXT439 "You conjure a swarm of little green ants which follow the motion of your wand. Pointing to the dragon's tonsils, which dangle above you in the cavern of his mouth like a pair of giant gongs, you direct the ants to crawl up across them. The ticklish effect of thousands of tiny scuttling legs soon has the desired effect, and the dragon spits you out into the open with a gagging cough.||You get to your feet and wring the dragon's saliva out of your robes. It could have been worse: he might have thrown up. Kawak hangs at the lip of the canyon, glowering as he spits out ants like a man spitting papaya pips. You hurry off before he turns nasty.">
 
 <ROOM STORY439
 	(DESC "439")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT439)
+	(CONTINUE STORY263)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT440 "You smear yourself with the grease of the meat.">
+<CONSTANT TEXT440-CONTINUED "Steeling yourself, you walk down into the lake. The bitter cold bites at your flesh, but the insulating layer of deer fat protects you from the worst of it. Half stumbling, half floating, you descend the staircase towards a blaze of pulsating green light">
 
 <ROOM STORY440
 	(DESC "440")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT440)
+	(PRECHOICE STORY440-PRECHOICE)
+	(CONTINUE STORY173)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY440-PRECHOICE ()
+	<KEEP-ITEM ,HAUNCH-OF-VENISON>
+	<CRLF>
+	<TELL TEXT440-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT441 "You know that the terrain of the forest generally rises towards the south and west. On the basis of this, the direction of the woodland streams gives you at least a hint about which way to go to reach Nachan. You need to bear steadily left until you begin to see signs of human habitation.">
 
 <ROOM STORY441
 	(DESC "441")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT441)
+	(CONTINUE STORY326)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT442 "As you and your brother cross the courtyard and pass through the palace gates, you can feel the ground shaking under your feet. You reach a dune and turn to look back. The pyramid and surrounding buildings are sinking into the sand. In minutes they have vanished entirely, and there is no sign to show that this was ever the spot where Necklace of Skulls dwelt among his bestial courtiers. You look around for the courtiers, but see only a pack of malnourished dogs slinking off amid the dunes.||\"It's a long way home,\" says Morning Star. \"Fraught with danger every step of the way, I shouldn't wonder. Heat, thirst, sandstorms, poisonous snakes ...\" He says all this with a smile.||You smile too. \"After all we've been through, it'll seem like a picnic! Well brother, what are we waiting for?\"||And, turning your faces to the east, you set out across the drifting sands.">
 
 <ROOM STORY442
 	(DESC "442")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT442)
+	(VICTORY T)
 	(FLAGS LIGHTBIT)>
-
