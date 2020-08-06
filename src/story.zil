@@ -98,6 +98,7 @@
 	<PUTP ,STORY353 ,P?DEATH T>
 	<PUTP ,STORY360 ,P?DEATH T>
 	<PUTP ,STORY362 ,P?DEATH T>
+	<PUTP ,STORY395 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DRINK-POTION-KEY-CAPS !\D>
@@ -5164,7 +5165,7 @@
 	(CONTINUE STORY355)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT333 "Lifting the pitcher, you are horrified to see a second head on the woman's shoulder. It has a long lank hair, white skin and ghastly black lips. As you stifle a gasp of horror, its eyes snap open and it gives a chilling screech. The woman''s arms lash out like a sleepwalker's dashing you backwards with astonishing strength.">
+<CONSTANT TEXT333 "Lifting the pitcher, you are horrified to see a second head on the woman's shoulder. It has a long lank hair, white skin and ghastly black lips. As you stifle a gasp of horror, its eyes snap open and it gives a chilling screech. The woman's arms lash out like a sleepwalker's dashing you backwards with astonishing strength.">
 
 <ROOM STORY333
 	(DESC "333")
@@ -5886,175 +5887,129 @@
 	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT391 "You strike up a conversation with a trader whose boat looks impressively large and seaworthy. He is putting together a cargo of richly dyed cotton and woven feather head-dresses which he hopes to sell in Tahil.||\"Brigands and pirates abound since the fall of the Great City,\" he says. \"These are exciting times we live in. Many prefer to cower in safety close to home, but for a bold man there are fine profits to be made.\"||A few judicious remarks about the weather and the tides convince him that you would be a worthwhile person to have along on the voyage. He tells you to return in a week, when it will be time to set out.">
+
 <ROOM STORY391
 	(DESC "391")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT391)
+	(CONTINUE STORY205)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT392 "You know that your first priority must be to get out of the encumbering golden regalia as soon as you hit the water, otherwise it will drag you down to your doom. Your fingers have already found the straps as you dive off the platform. You hear a moan of awe from the onlookers which is soon snatched away by the rush of wind as you fall. Then you hit the water, and suddenly you are sinking through silent darkness.||Another person might panic, losing precious seconds, but you have been in this kind of scrape before. You made sure to take a good breath of air before going under, and you make use of that now to sustain you while you struggle free of the regalia. Discarding it, you watch it go drifting down until the yellow glints of metal are lost in the murk. It is a priceless treasure, but the loss of it gladdens your heart as you strike up through the cold green water.||Your head breaks the surface and you suck gratefully at the stale air of an underground cavern. There is no flicker of daylight. The sinkhole has vanished, and the only light is now an eldritch grey glow seeping from an unknown source. You guess that you have been carried to the outer fringes of the underworld. Stumbling up onto a pebble-strewn shore, you gaze out into the gloom and see a canoe coming towards you. Your guess is confirmed when you see the oarsmen. They are like no creatures of the mortal realm.">
 
 <ROOM STORY392
 	(DESC "392")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT392)
+	(CONTINUE STORY097)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT393 "You light the firebrand and thrust it straight into the face of the nearest of the creatures -- the one hanging on the rock directly above your head. It throws up its stubby arms with a sickening bleat of anguish and falls, dashing you to the ground and smothering the burning brand. Before you can struggle free and rise to your feet, the rest of the creatures have slithered forward and seized you in their slimy fingers. You try to fight, but there are too many of them. All you can do is scream in panic as they overwhelm you. You have come to a horrible end.">
 
 <ROOM STORY393
 	(DESC "393")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT393)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT394 "You complete the charm an instant before the cobra strikes. It comes sailing in and closes its jaws on your neck, but you feel barely more than a pinprick as the fangs glance harmlessly off your skin. The charm will keep you safe from its bite while you explore the tomb.">
+<CONSTANT TEXT394-JADE "The jade bead fell out of your mouth when you spoke the charm. You are too late to stop it rolling off the ledge and being lost in the water below">
 
 <ROOM STORY394
 	(DESC "394")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT394)
+	(PRECHOICE STORY394-PRECHOICE)
+	(CONTINUE STORY339)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY394-PRECHOICE ()
+	<COND (<CHECK-ITEM ,JADE-BEAD>
+		<CRLF>
+		<TELL TEXT394-JADE>
+		<TELL ,PERIOD-CR>
+		<LOSE-ITEM ,JADE-BEAD>
+	)>>
+
+<CONSTANT TEXT395 "The little man bites your wrist and sucks at it as though savouring the juice of a plum.">
+<CONSTANT TEXT395-CONTINUED "After a short while he looks up. Under the hook of his extraordinary nose, his mouth is curled into a tight smile. \"That's a rare act of kindness for a stranger to do,\" he says in his thin voice, leaping to his tiny feet with miraculous vigour. \"I won't soon forget it, I assure you. Oh, and let me give you a word of advice. Get rid of any money you've got once you reach the crossroads.\"||With that he darts off and is soon lost to view among the rushes. You are left to ponder the meaning of this strange encounter as you continue on your way.">
 
 <ROOM STORY395
 	(DESC "395")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT395)
+	(PRECHOICE STORY395-PRECHOICE)
+	(CONTINUE STORY307)
+	(CODEWORD CODEWORD-ZAZ)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY395-PRECHOICE ()
+	<TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY395>
+	<IF-ALIVE TEXT395-CONTINUED>>
+
+<CONSTANT TEXT396 "You crouch behind some sacks of grain and wait an hour or so until the streets are completely deserted. A few lights show from the palace windows. Beside the gate, a brazier flares in the night breeze. Other than that it is completely dark. When the moon shows as a misty patch of silver beyond the wooded hills to the east, you put your plan into action.||\"Brr, it's cold suddenly,\" remarks one of the guards at the gate.||One of his companions nods. \"Did you hear something just then?\" He casts a nervous glance over his shoulder. The pyramid-tomb of the dead king looms darkly against the pale halo of moonlight.||\"Now you come to mention it...\" says another, also looking back. Suddenly he gasps, eyes popping out of his head. \"By all the gods!\"||A parade of ghosts descends the steps of the pyramid. Their dead faces are formed on mist and moonbeams, and they move without sound across the courtyard. The guards are brave enough to face any foe of flesh and blood, but the sight of this host of spectres sends icy terror through their veins. Dropping their weapons, they run off into the night.||You watch them go, then step out from your hiding-place. As you cancel your illusion spell, the 'ghosts' dissolve into the darkness. You hurry across to the pyramid before the guards recover enough nerve to come slinking back.">
 
 <ROOM STORY396
 	(DESC "396")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT396)
+	(CONTINUE STORY415)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT397 "Your answer is greeted with a sneer and a hiss of laughter. It occurs to you that you may have been tricked.">
 
 <ROOM STORY397
 	(DESC "397")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT397)
+	(PRECHOICE STORY397-PRECHOICE)
+	(CONTINUE STORY060)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY397-PRECHOICE ()
+	<COND (<CHECK-ITEM ,JADE-BEAD> <STORY-JUMP ,STORY056>)>>
+
+<CONSTANT TEXT398 "The woman is in a deep trance, but you shake her until she comes out of it. She tells you that she is a sorceress who fell victim to the nightcrawler when she tried to exorcize it from the region. \"I can never repay my debt to you,\" she says, weeping with relief to be free of the noxious creature's control at last. \"When you get to the sea, follow the shore until you come to a giant stone idol which is buried up to its neck in the sand. This is the idol of an ancient god. Tell him the number of stars in the sky and he will speak to you.\"||\"How many stars are there?\"||She smiles. \"Tell him a hundred thousand million and seven. He wouldn't believe the true answer.\"||Bidding the woman farewell, you continue on your way.">
 
 <ROOM STORY398
 	(DESC "398")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT398)
+	(CONTINUE STORY417)
+	(CODEWORD CODEWORD-OLMEK)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT399 "The remorseless glare of the unearthly sun dazzles you both, forcing you to shield your eyes. Walking on, you come in sight of a kapok tree whose spreading branches poke up into the roof of water above the underworld. Several figures are resting in its shade.||As you press on towards the tree, you pass a well beside the road. Your companion pauses and fishes in his belt-pouch for jade bead, which he casts into the well. There is a glint of golden light from the water, and the noble pauses to take a drink.">
+<CONSTANT CHOICES399 <LTABLE "do the same" "not">>
 
 <ROOM STORY399
 	(DESC "399")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT399)
+	(CHOICES CHOICES399)
+	(DESTINATIONS <LTABLE STORY059 STORY083>)
+	(REQUIREMENTS <LTABLE JADE-BEAD NONE>)
+	(TYPES <LTABLE R-LOSE-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT400 "You louse your grip on the crumbling bark and go crashing down through the branches.">
+<CONSTANT TEXT400-AGILITY "You manage to break your fall by catching a stout strangler root">
+<CONSTANT TEXT400-CRASHED "The ground comes up to hit you with a crushing force">
+<CONSTANT TEXT400-CONTINUED "Struggling to your feet, you limp away before the creature can descend from its arboreal lair to pursue you. The stabai have flitted away, terrified of the creature's wrath. When you are safely away from the tree, you clean the muck off the diadem and hold it up in a shaft of sunlight. It is a gold circlet of the sort that sometimes adorn the heads of great nobles. Sacred symbols are stamped into the metal and there is a jade inlay in the fourfold shape of the World Tree, the source of life itself in the mythology of your people.">
 
 <ROOM STORY400
 	(DESC "400")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT400)
+	(PRECHOICE STORY400-PRECHOICE)
+	(CONTINUE STORY324)
+	(ITEM GOLD-DIADEM)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY400-PRECHOICE ("AUX" (DAMAGE 5))
+	<CRLF>
+	<COND (<CHECK-SKILL ,SKILL-AGILITY>
+		<SET DAMAGE 1>
+		<TELL TEXT400-AGILITY>
+	)(ELSE
+		<TELL TEXT400-CRASHED>
+	)>
+	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY400>
+	<IF-ALIVE TEXT400-CONTINUED>>
 
 <ROOM STORY401
 	(DESC "401")
