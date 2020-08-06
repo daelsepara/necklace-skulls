@@ -100,6 +100,7 @@
 	<PUTP ,STORY362 ,P?DEATH T>
 	<PUTP ,STORY395 ,P?DEATH T>
 	<PUTP ,STORY400 ,P?DEATH T>
+	<PUTP ,STORY419 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DRINK-POTION-KEY-CAPS !\D>
@@ -5678,7 +5679,7 @@
 	<TELL TEXT370-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
-<CONSTANT TEXT371 "There is a gasp form the crowd as they watch you jump over the edge. You know you must act quickly. Pulling off the helmet as you tumble down, you high it against you an instant before the lake surface comes rushing up, driving the air out of your lungs with its chilling embrace. You are surrounded by silence and watery gloom. The weight of gold drags you down, but you have managed to trap a pocket of air inside the helmet and you use this to breathe while unfastening the straps of the regalia. All the air is used up by the time you struggle free, and a red haze swims in front of your vision as you kick up towards the surface.||You reach fresh air to discover you are no longer at the bottom of the well. Instead of open sky, a cavern roof stretches overhead. A ghostly grey light emanates out of nowhere. Trudging up onto a a rocky ledge, you hear the sound of oars. A canoe is approaching. As it takes shape out of the shadows, you get a good look at the two occupants. They are like nothing you have ever seen outside your night-mares. Now you know you truly have plunged into the fabled river that leads between the world of the living and the world of the dead.">
+<CONSTANT TEXT371 "There is a gasp form the crowd as they watch you jump over the edge. You know you must act quickly. Pulling off the helmet as you tumble down, you hug it against you an instant before the lake surface comes rushing up, driving the air out of your lungs with its chilling embrace. You are surrounded by silence and watery gloom. The weight of gold drags you down, but you have managed to trap a pocket of air inside the helmet and you use this to breathe while unfastening the straps of the regalia. All the air is used up by the time you struggle free, and a red haze swims in front of your vision as you kick up towards the surface.||You reach fresh air to discover you are no longer at the bottom of the well. Instead of open sky, a cavern roof stretches overhead. A ghostly grey light emanates out of nowhere. Trudging up onto a a rocky ledge, you hear the sound of oars. A canoe is approaching. As it takes shape out of the shadows, you get a good look at the two occupants. They are like nothing you have ever seen outside your night-mares. Now you know you truly have plunged into the fabled river that leads between the world of the living and the world of the dead.">
 
 <ROOM STORY371
 	(DESC "371")
@@ -6161,174 +6162,125 @@
 	(CONTINUE STORY160)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT411 "The high priest watches the sun decline across the treetops to the west. \"The moment has arrived,\" he intones to the waiting crowd. \"This ambassador will bear our message to the Rain God.\"||You stare down. A gulf of dozen man-heights separates you from the grim watery gate of the afterlife. Even with your spell in force, you cannot suppress a qualm as you step out into space.||The gasp of the crowd is lost in the rush of wind as you go plummeting down. The white root-tangled walls of the sinkhole flicker past your vision. An instant later there is an icy impact and then darkness and eeriness surround you.||If not for your magic, the golden regalia you are wearing would bear you down to a watery grave. You struggle free of the fastenings and allow the vest of gold plaques to sink out of sight in the murk, but you keep the golden helmet tucked under your arm as you go shooting up towards the surface.">
+<CONSTANT TEXT411-CONTINUED "You break the surface like a log bobbing up out of the depths. There is a weak glow here, but it is not daylight. You are no longer at the bottom of the sinkhole, but in a vast underground cavern. You stagger up onto a rocky shore before your spell can wear off.||The sound of oars reaches your ears. Approaching you across the lake comes a long canoe crewed by two weird figures that seem to have strayed out of a feverish dream">
+
 <ROOM STORY411
 	(DESC "411")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT411)
+	(PRECHOICE STORY411-PRECHOICE)
+	(CONTINUE STORY097)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY411-PRECHOICE ()
+	<CRLF>
+	<TELL "Retain " T ,GOLDEN-HELMET "?">
+	<COND (<YES?> <TAKE-ITEM ,GOLDEN-HELMET>)>
+	<CRLF>
+	<TELL TEXT411-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT412 "The path reaches a shallow brook. Midges cloud the damp gloomy air. In the branches high above, a macaw dips its long yellow beak to peer at you.">
+<CONSTANT CHOICES412 <LTABLE "go straight across the brook" "go left along the bank" "go right">>
 
 <ROOM STORY412
 	(DESC "412")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT412)
+	(CHOICES CHOICES412)
+	(DESTINATIONS <LTABLE STORY029 STORY006 STORY052>)
+	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT413 "The warmth of your grip awakens the spark of life in the golden manikin. Dropping from your hand to the ledge, it takes in the situation with a single haughty glance. You wonder how anything so small could help against the flying cobra, but the Man of God was fashioned by a god and is far more powerful than you could imagine. As the cobra comes swooping to attack you, the Man of Gold leaps up and seizes its tail, dragging it down to the ledge. The struggle is brief. After casting the lifeless body into the river, the Man of Gold makes a gesture of farewell and then dives off the ledge itself. You hear it fall with a short heavy splash, and by the time you look over the edge it has sunk without a trace.||\"That was handy, having that little figurine,\" calls up one of the demonic oarsmen.||The other chimes in with: \"Too bad you couldn't keep it. He is right.">
 
 <ROOM STORY413
 	(DESC "413")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT413)
+	(PRECHOICE STORY413-PRECHOICE)
+	(CONTINUE STORY339)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY413-PRECHOICE ()
+	<LOSE-ITEM ,MAN-OF-GOLD>>
+
+<CONSTANT TEXT414 "The knot on one of the gates unties itself. The gate swings open to let you enter, then closes behind you. At the end of a short tunnel you find a chamber which is open on the far side, giving onto a ledge overlooking a river of foaming blood. A man stands on the ledge, and you recognize him as the feather-robed noble you saw on the causeway outside.||He points to an obsidian beam spanning the river to the far bank. At first you think it is a bridge, but when you step out onto the ledge for a closer look you see that it is wedge-shaped, coming to a sharp edge on its upper surface. \"It would be difficult to keep one's balance on that,\" you remark drily.||\"That isn't the intention,\" says the noble. He holds up a pole with a hook on the end. \"I found this here on the ledge. Notice that there is a similar pole on the other ledge yonder.\"||You look upriver. There is indeed another ledge with an identical beam a few metres away, presumably where you would have come out if you had gone through the other doorway. A pole like the one the noble is holding rests there.||\"Eventually a poor man will arrive,\" he says. \"He will emerge on the other ledge, at which time he and I will reach out and hook our poles together. Then, leaning out and walking on the sloping surface of the obsidian beams, we will be able to cross together.\"||\"Ingenious!\" you say. But you are thinking about how you will get across.">
+<CONSTANT CHOICES414 <LTABLE "use" "or" "or" "otherwise">>
 
 <ROOM STORY414
 	(DESC "414")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT414)
+	(CHOICES CHOICES414)
+	(DESTINATIONS <LTABLE STORY418 STORY430 STORY221 STORY013>)
+	(REQUIREMENTS <LTABLE SKILL-AGILITY SKILL-ROGUERY SKILL-SEAFARING NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT415 "The shrine at the top of the pyramid is a small dark chamber fronted by a portico supported by strong square pillars. You can see the mouth of the spirit tube, fashioned in the shape of a slim snake. You know that the hollow tube extends all the way down through the interior of the pyramid to the tomb chamber deep in its heart. It is an eerie feeling to think that when you speak into the tube your words echo down into the ear of the dead king.||You keep a lone vigil long into the night. As the moon reaches its zenith, there is a soft soughing of wind up the spirit tube. Suddenly you realize you are unable to move. You will not admit to fear, but you are struck with awe to see a long curl of glowing green mist ooze out of the mouth of the tube. It hangs there in the shadows of the shrine, slowly curling in the air, gradually coming into focus in the form of a translucent snake. As you watch, the snake opens its jaws and the head of a man pushes into view, extruding from inside the snake's body until he has entirely emerged except for his left leg, which remains within its throat. He is a glistening red colour, as though covered in fresh blood, and as nude as a newborn baby.||You bow your head humbly to the cold flagstones, knowing that this is the spirit of King Sky Shield.">
 
 <ROOM STORY415
 	(DESC "415")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT415)
+	(CONTINUE STORY335)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT416 "The festivities include ritual dance-dramas in which the participants mask themselves as beasts, gods and heroes from folklore. Accompanied by flutes and the throbbing beat of immense wooden drums, they swirl across the plaza in front of the temples, enacting the deeds of such mythic figures as the hero-twins Forethought and Afterthought.||At one point the twins take part in a ball contest and Afterthought succeeds in hurling the ball through the stone hoop on the side of the court. This provokes shouts of praise from spectators at the back of the crowd, but you are close to the front and can see that the apparently difficult shot was made with the help of string tied to the ball.||\"Huh!\" snorts a woman standing next to you. \"He'd never have made the shot otherwise. I've never seen it done for real in all the contests I've watched.\"||The woman's son tugs at her skirt. He wants to know why the act of scoring in the ball contest has given him victory over his foes, the Lords of Death. \"That's because it's more than a game,\" you hear her saying. \"It's also a sacred ritual. You'll understand when you're older.\"||The afternoon wears on with much feasting and jollity. By evening you are happy to lie down in the plaza and drift off to sleep as the sultry night unfolds its canopy of stars. Tomorrow you must decide:">
+<CONSTANT CHOICES416 <LTABLE "continue overland to Ashaka" "go downriver to the coast">>
 
 <ROOM STORY416
 	(DESC "416")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT416)
+	(CHOICES CHOICES416)
+	(DESTINATIONS <LTABLE STORY008 STORY030>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT417 "You leave the fenlands and continue north. Arriving at last at the coast, you go to the edge of the sea and watch the setting sun gouge streaks of blood across a jade-grey sky.">
+<CONSTANT CHOICES417 <LTABLE "set off walking along the coast towards Tahil" "try to get a passage on a ship">>
 
 <ROOM STORY417
 	(DESC "417")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT417)
+	(PRECHOICE STORY417-PRECHOICE)
+	(CHOICES CHOICES417)
+	(DESTINATIONS <LTABLE STORY228 STORY251>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY417-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-OLMEK> <STORY-JUMP ,STORY260>)>>
+
+<CONSTANT TEXT418 "\"You can wait for a poor man to show up if you like,\" you say to the noble, \"but I don't have the patience for that.\"||\"Wait!\" he cries as you step out onto the beam. \"You'll fall into the river and be drowned!\"||But he has reckoned without your extraordinary sense of balance. You run along the thin edge of the beam like a tightrope walker and leap off safely on the far bank. Glancing back, you wave to him, saying flippantly, \"I'm an expert. Don't try it yourself.\"">
 
 <ROOM STORY418
 	(DESC "418")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT418)
+	(CONTINUE STORY036)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT419 "One of the heads flinches back as you fake a lunge towards it, but then you are caught a glancing blow by one of the others which sends you reeling off across the sand. Your blood drenches the ground underfoot.">
 
 <ROOM STORY419
 	(DESC "419")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT419)
+	(PRECHOICE STORY419-PRECHOICE)
+	(CONTINUE STORY222)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY419-PRECHOICE ("AUX" (DAMAGE 2))
+	<COND (<OR <CHECK-SKILL ,SKILL-SWORDPLAY> <CHECK-SKILL ,SKILL-TARGETING> <CHECK-SKILL ,SKILL-UNARMED-COMBAT>> <SET DAMAGE 1>)>
+	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY419>>
+
+<CONSTANT TEXT420 "The hound's hot glowering gaze burns in the brutal white wedge of its face. It looks as strong as a jaguar, but with the jaguar's easygoing disposition. As it sees you take a step into the passage, its jaws begin to slaver and it gives a rasping snarl.">
+<CONSTANT CHOICES420 <LTABLE "use" "a blowgun" "rely on" "use" "fight the beast">>
 
 <ROOM STORY420
 	(DESC "420")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT420)
+	(CHOICES CHOICES420)
+	(DESTINATIONS <LTABLE STORY247 STORY316 STORY270 STORY383 STORY293>)
+	(REQUIREMENTS <LTABLE SKILL-FOLKLORE SKILL-TARGETING SKILL-CUNNING HYDRA-BLOOD-BALL NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY421
