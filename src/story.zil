@@ -101,6 +101,7 @@
 	<PUTP ,STORY395 ,P?DEATH T>
 	<PUTP ,STORY400 ,P?DEATH T>
 	<PUTP ,STORY419 ,P?DEATH T>
+	<PUTP ,STORY428 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DRINK-POTION-KEY-CAPS !\D>
@@ -434,6 +435,18 @@
 		<SETG LIFE-POINTS ,MAX-LIFE-POINTS>
 		<UPDATE-STATUS-LINE>
 	)>>
+
+<ROUTINE KEEP-ITEM (ITEM "OPT" JUMP)
+	<COND (<NOT <CHECK-ITEM .ITEM>>
+		<CRLF>
+		<TELL "Keep " T .ITEM "?">
+		<COND (<YES?>
+			<TAKE-ITEM .ITEM>
+			<COND (.JUMP <STORY-JUMP .JUMP>)>
+			<RTRUE>
+		)>
+	)>
+	<RFALSE>>
 
 <CONSTANT TEXT "This story has not been written yet.">
 
@@ -866,7 +879,7 @@
 	(STORY TEXT033)
 	(PRECHOICE STORY033-PRECHOICE)
 	(CHOICES CHOICES033)
-	(DESTINATIONS <LTABLE STORY439 STORY429 STORY125>)
+	(DESTINATIONS <LTABLE STORY439 STORY428 STORY125>)
 	(REQUIREMENTS <LTABLE SKILL-SPELLS SKILL-CUNNING CHILLI-PEPPERS>)
 	(TYPES <LTABLE R-SKILL R-SKILL R-ITEM>)
 	(DEATH T)
@@ -1479,11 +1492,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY076-PRECHOICE ()
-	<CRLF>
-	<TELL "Take the " D ,PADDLE "?">
-	<COND (<YES?>
-		<TAKE-ITEM ,PADDLE>
-	)>>
+	<KEEP-ITEM ,PADDLE>>
 
 <CONSTANT TEXT077-WELCOMED "You are naturally recognized and welcomed as a noble of Koba">
 <CONSTANT TEXT077-EXPERT "You are granted an audience">
@@ -1866,9 +1875,7 @@
 
 <ROUTINE STORY099-PRECHOICE ()
 	<LOSE-ITEM ,ROPE>
-	<CRLF>
-	<TELL "Keep the paddle?">
-	<COND (<YES?> <TAKE-ITEM ,PADDLE>)>>
+	<KEEP-ITEM ,PADDLE>>
 
 <CONSTANT TEXT100 "The woman dozes until the long red rays of late afternoon are drawing back across the treetops. Suddenly her arms jerk up as though on strings, seizing the pitcher and lifting it to reveal a second head is superficially humanoid, there is no mistaking it for any human face with its staring bloodshot eyes and black slit of a mouth.|||Long black hair uncoils like tendrils from the monstrous head. Some of the tresses are up to two metres long, and you watch in revulsion as they form into thin matted stalks which remind you of an insect's legs. These probe the ground, preparing to support the creature's weight, and then with a grisly sucking sound the head pulls itself free of the sleeping woman's neck. As soon as it sets eyes on you it gives a gurgle of ghoulish glee and comes scuttling forward on its limbs of twisted hair. It uses some of these to propel itself up level with your face, snapping at your neck with its sharp chisel-shaped teeth while other strands of hair snake out to encircle your wrists. You cannot use a weapon now even if you have one; this struggle will be fought at close quarters.">
 
@@ -2398,12 +2405,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY138-PRECHOICE ()
-	<CRLF>
-	<TELL "Take " T ,MAN-OF-GOLD "?">
-	<COND (<YES?>
-		<TAKE-ITEM ,MAN-OF-GOLD>
-		<STORY-JUMP ,STORY093>
-	)(ELSE
+	<COND (<NOT <KEEP-ITEM ,MAN-OF-GOLD ,STORY093>>
 		<CRLF>
 		<TELL "You decided to choose from the rest of the treasures" ,PERIOD-CR>
 	)>>
@@ -2451,15 +2453,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY140-PRECHOICE ()
-	<COND (,RUN-ONCE
-		<COND (<NOT <CHECK-ITEM ,CHALICE-OF-LIFE>>
-			<CRLF>
-			<TELL "Take " T ,CHALICE-OF-LIFE "?">
-			<COND (<YES?>
-				<TAKE-ITEM ,CHALICE-OF-LIFE>
-			)>
-		)>
-	)>
+	<COND (,RUN-ONCE <KEEP-ITEM ,CHALICE-OF-LIFE>)>
 	<CRLF>
 	<TELL TEXT140-CONTINUED>
 	<TELL ,PERIOD-CR>>
@@ -3511,10 +3505,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY213-PRECHOICE ()
-	<COND (<AND ,RUN-ONCE <NOT <CHECK-ITEM ,HAMMER>>>
-		<TELL CR "Take " T ,HAMMER "?">
-		<COND (<YES?> <TAKE-ITEM ,HAMMER>)>
-	)>>
+	<COND (<AND ,RUN-ONCE <NOT <CHECK-ITEM ,HAMMER>>> <KEEP-ITEM ,HAMMER>)>>
 
 <CONSTANT TEXT214 "You try to paddle the canoe, but the current is too strong. You are borne helplessly on to an underground waterfall and flung out as the canoe goes plunging over the brink. Something strikes your head. There is a blaze of painful light, then darkness as you go under the surface. You drift down towards the river bed, dimly aware that your life ebbing away with the thin trickle of air bubbles rising from your slack jaw.">
 
@@ -4403,12 +4394,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY278-PRECHOICE ()
-	<CRLF>
-	<TELL "Keep the shawl?">
-	<COND (<YES?>
-		<TAKE-ITEM ,SHAWL>
-		<STORY-JUMP ,STORY302>
-	)>>
+	<KEEP-ITEM ,SHAWL ,STORY302>>
 
 <CONSTANT TEXT279 "You must have wandered far to the south of your original route. But which way is north? The leaf canopy virtually covers the sky, giving you few clues about which way you should go.">
 <CONSTANT CHOICES279 <LTABLE "use" "or" "otherwise">>
@@ -5508,9 +5494,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY358-PRECHOICE ()
-	<CRLF>
-	<TELL "Retain " T ,POLE "?">
-	<COND (<YES?> <TAKE-ITEM ,POLE>)(ELSE <LOSE-ITEM ,POLE>)>>
+	<COND (<NOT <KEEP-ITEM ,POLE>> <LOSE-ITEM ,POLE>)>>
 
 <CONSTANT TEXT359 "He listens to your greeting and gives a curt regal nod before waving you on towards the next sentinel. This one rubs his jaw as he looks at you. Then you notice with a shudder that his lower jaw is a bare of skin -- just a raw glistening mass of sinew and tendon. His eyes are like the gulf of stars on a cloudless night. How will you address him:">
 <CONSTANT CHOICES359 <LTABLE "address him: as Lord Thunderbolt Laughter" "Lord Blood" "Lord Skull">>
@@ -6069,12 +6053,8 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY403-PRECHOICE ()
-	<CRLF>
-	<TELL "Take " T ,LUMP-OF-CHARCOAL "?">
-	<COND (<YES?> <TAKE-ITEM ,LUMP-OF-CHARCOAL>)>
-	<CRLF>
-	<TELL "Take " T ,STONE "?">
-	<COND (<YES?> <TAKE-ITEM ,STONE>)>
+	<KEEP-ITEM ,LUMP-OF-CHARCOAL>
+	<KEEP-ITEM ,STONE>
 	<CRLF>
 	<TELL TEXT403-CONTINUED>
 	<CRLF>>
@@ -6173,9 +6153,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY411-PRECHOICE ()
-	<CRLF>
-	<TELL "Retain " T ,GOLDEN-HELMET "?">
-	<COND (<YES?> <TAKE-ITEM ,GOLDEN-HELMET>)>
+	<KEEP-ITEM ,GOLDEN-HELMET>
 	<CRLF>
 	<TELL TEXT411-CONTINUED>
 	<TELL ,PERIOD-CR>>
@@ -6283,175 +6261,132 @@
 	(TYPES <LTABLE R-SKILL R-SKILL R-SKILL R-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
 
+<CONSTANT TEXT421 "The owl is a natural predator of the bats. It perches on your shoulder and scans the dim vaults of the hall, its luminous eyes drinking up even the faintest glimmer of light. You feel reassured that, even through your own senses are helpless in the darkness, the owl remains alert and watchful. Any bat who dared to descend from its roost would meet a sticky end. They seem to know this, and despite the rank stench of the place you are able to get a restful night's sleep.">
+
 <ROOM STORY421
 	(DESC "421")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT421)
+	(PRECHOICE STORY421-PRECHOICE)
+	(CONTINUE STORY041)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY421-PRECHOICE ()
+	<GAIN-LIFE 1>>
+
+<CONSTANT TEXT422 "You take out the chalice and hold it reverentially in your hands. If it is indeed Chalice of Life, it is the same bowl in which the Supreme God gave birth to mankind. Praying that it still has some power to work miracles, you set the chalice on the ground and place your brother's skull within.||The sun's golden rays blaze down, catching in an incandescent cusp on the rim of the chalice. A stream of heavy vapour rapidly boils up, and within seconds you can no longer make out the skull within its pool of gold mist. The mist rises up into a swirling column about two metres high and hangs there above the chalice, shining with an inner core of light.||A brief gust of wind stirs and dissipates the mist. The last strands are blown away and you stare incredulously for a long moment before giving a great shout of joy. Your brother is standing there in front of you -- alive again!||\"Morning Star!\" As two of you embrace, there is a crackle of energy and you feel the injuries and fatigue of the last few weeks burned away by life-giving magic.||\"It is good to see you, Evening Star,\" says your brother, smiling as he hugs you to him.||\"And you.\" You point towards the brooding shrine overlooking the ball contest arena. \"Now, brother, let's show that sorcerer our true mettle!\"">
 
 <ROOM STORY422
 	(DESC "422")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT422)
+	(PRECHOICE STORY422-PRECHOICE)
+	(CONTINUE STORY042)
+	(CODEWORD CODEWORD-VENUS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY422-PRECHOICE ()
+	<DELETE-CODEWORD ,CODEWORD-ANGEL>
+	<GAIN-LIFE 4>>
 
 <ROOM STORY423
 	(DESC "423")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(EVENTS STORY423-EVENTS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY423-EVENTS ()
+	<COND (<CHECK-ITEM ,HYDRA-BLOOD-BALL> <RETURN ,STORY386>)>
+	<RETURN ,STORY405>>
+
+<CONSTANT TEXT424 "\"The goddess oversees the tides,\" says the priest, accepting your gift with a heavy-lidded smile. \"Betake yourself to the town of Balak. Do not put to sea at once; wait a week before you set sail. Stay close to shore if you wish to avoid a hazardous adventure.\"||You wait for more, but he seems to have finished speaking. \"You haven't even mentioned the western desert,\" you say in a tone verging on indignation.||\"I have given my advice on that. There is just one think I might add: seek the blood that is like sap.\"||You suck your teeth. \"Enigmatic,\" you comment drily.||\"If it's clarity you're after, consult a merchant.\"||Somewhat disgruntled, you retreat down the temple steps. You would have preferred to proudly turn your back on the smug priest, but custom forbids you to avert your face from any shrine as you leave it for fear of offending the deity within. Also, these temple steps are alarmingly steep; descending backwards is less nerve-wracking.">
 
 <ROOM STORY424
 	(DESC "424")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT424)
+	(CONTINUE STORY093)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT425 "You hold out the shawl, allowing the scaly talons to catch hold of it. The arm withdraws into the hole and there is a pause while the unseen creature examines what it has got. \"This is a stabai shawl!\" cries a voice full of insensate rage. \"A curse be upon you, you crafty stabai! May fungus infect your limbs and sickness burrow into your bodies. You'll not escape lightly for this outrage.\"||The stabai utter moans of dismay and melt away into the distance, alarmed by the monster's threats. For your part, you descend swiftly and quietly to examine your prize. Cleaning away the coating of muck, you discover it to be a circlet such as a nobleman or high priest might wear upon his brow. It is patterned with sacred glyphs and bears the cruciform symbol of the World Tree in inlaid plaques of jade. It is literally worth a king's ransom.">
 
 <ROOM STORY425
 	(DESC "425")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT425)
+	(PRECHOICE STORY425-PRECHOICE)
+	(CONTINUE STORY324)
+	(ITEM GOLD-DIADEM)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY425-PRECHOICE ()
+	<LOSE-ITEM ,SHAWL>>
+
+<CONSTANT TEXT426 "Not far off, a young priestess is overseeing the work of a group of artisans. Out of curiosity you stroll over and see that they are decorating a temple wall with an overlay of stucco. Apprentices trowel the plaster into place and then senior artisans work with the speed and assurance of past masters, sculpting images of heroes, princes and gods as the priestess directs. Then, while the stucco is still damp, a second team steps in with pots of dye and applies bright colours. You can only marvel at the skill of the men's work.||The figures depicted in the frieze looks so startlingly vivid that you could almost imagine them coming to life and stepping out of the stucco.">
+<CONSTANT CHOICES426 <LTABLE "go over and talk to the priestess" "find a place to stay" "seek an audience with the King of Nachan">>
 
 <ROOM STORY426
 	(DESC "426")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT426)
+	(CHOICES CHOICES426)
+	(DESTINATIONS <LTABLE STORY054 STORY101 STORY077>)
+	(REQUIREMENTS <LTABLE NONE 0 NONE>)
+	(TYPES <LTABLE R-NONE R-MONEY R-NONE>)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT427 "Covering your mouth and nose, you sift through the mouldered remains. You find a shell necklace and an ivory ring adorning the corpse as jewellery. Inside the shattered remnants of the mouth rests a jade bead intended for the dead woman's soul to purchase its passage into the afterlife. Her babies have no such beads -- conventional lore says that they are too young to have souls. You feel sad for them, seeing the tiny skeletons clutched so hopelessly to the mother's dead breast. Even across the gulf of centuries, it is a scene poignant with deep tragedy.||In front of the sarcophagus you now notice a funerary lamp. It still has little incense inside it.">
+<CONSTANT TEXT427-CONTINUED "The two demons utter a stream of coarse remarks as you climb back down, annoyed at having been kept waiting. You ignore them. Your experience in the tomb has left you feeling melancholy and haunted">
 
 <ROOM STORY427
 	(DESC "427")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT427)
+	(PRECHOICE STORY427-PRECHOICE)
+	(CONTINUE STORY167)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY427-PRECHOICE ("AUX" (COUNT 4) LOOT)
+	<SET LOOT <LTABLE SHELL-NECKLACE IVORY-RING INCENSE JADE-BEAD>>
+	<COND (<CHECK-ITEM ,JADE-BEAD> <SET COUNT 3>)>
+	<PUT .LOOT 0 .COUNT>
+	<SELECT-FROM-LIST .LOOT .COUNT .COUNT>
+	<CRLF>
+	<TELL TEXT427-CONTINUED>
+	<TELL ,PERIOD-CR>>
+
+<CONSTANT TEXT428 "You glance up. In the gloomy vault of the dragon's throat, giant tonsils hang like a pair of gongs. You can just reach one of the tonsils by standing on tiptoe. You start to tickle it, and soon the dragon gives a gagging cough and spits you out -- along with a torrent of bilious vomit which burns your skin.">
+<CONSTANT TEXT428-CONTINUED "You slowly get to your feet. Kawak's face at this end is blunter, with bulbous white eyes and long tusks. He sees you grimace at the stink of the vomit and remarks in a rumbling voice: \"Be thankful I didn't eat you alive.\"||Nodding, you press on deeper towards the Deathlands.">
 
 <ROOM STORY428
 	(DESC "428")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT428)
+	(PRECHOICE STORY428-PRECHOICE)
+	(CONTINUE STORY263)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY428-PRECHOICE ()
+	<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY428>
+	<IF-ALIVE TEXT428-CONTINUED>>
+
+<CONSTANT TEXT429 "Your thrust skewers the hydra at the junction of its four necks. A ghastly multiple shriek splits the air. You are jerked off its feet by its death-throes and its blood gushes out into your face. It snaps feebly at you, but you cling on and sink the weapon deeper until finally it gives a last spasm and fall lifeless.||As you withdraw the weapon, a large drop of its green life-fluid oozes out of the wound and falls to the ground, congealing to form a rubbery ball such as one might use in the ritual ball contest of your people.">
 
 <ROOM STORY429
 	(DESC "429")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT429)
+	(PRECHOICE STORY429-PRECHOICE)
+	(CONTINUE STORY038)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY429-PRECHOICE ()
+	<KEEP-ITEM ,HYDRA-BLOOD-BALL>
+	<COND (<CHECK-CODEWORD ,CODEWORD-ANGEL> <STORY-JUMP ,STORY015>)>>
+
+<CONSTANT TEXT430 "\"We might wait for ever for a poor man to show up,\" you say. \"My quest demands rather more urgency than that.\"||So saying, you retrace your steps to the wooden gate. It is now sealed again by the convoluted knot, but with your dexterity it is the work of a moment to untie it. Returning outside, you untie the knot on the other gate and hurry through the other ledge, where you pick up the hooked pole lying there. Putting the nobleman's plan into operation, the two of you slowly cross the twin beams, putting your weight onto the hooked poles to counterbalance one another.||The torrent of blood churns beneath you. One slip and you would both be borne away to your doom. But at last you reach the far bank and step onto firm dry land. With a sigh of relief, the noble casts his pole into the river. You might wish to keep yours.">
 
 <ROOM STORY430
 	(DESC "430")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT430)
+	(PRECHOICE STORY430-PRECHOICE)
+	(CONTINUE STORY399)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY430-PRECHOICE ()
+	<KEEP-ITEM ,POLE>>
 
 <ROOM STORY431
 	(DESC "431")

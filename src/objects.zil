@@ -21,11 +21,6 @@
     (REQUIRES SKILL-SPELLS)
     (FLAGS TAKEBIT)>
 
-<OBJECT SPEAR
-    (DESC "spear")
-    (SYNONYM SPEAR)
-    (FLAGS TAKEBIT)>
-
 <OBJECT SWORD
     (DESC "sword")
     (SYNONYM SWORD)
@@ -107,6 +102,12 @@
     (DESC "incense")
     (SYNONYM INCENSE)
     (FLAGS TAKEBIT VOWELBIT)>
+
+<OBJECT IVORY-RING
+    (DESC "ivory ring")
+    (SYNONYM RING)
+    (ADJECTIVE IVORY)
+    (FLAGS TAKEBIT)>
 
 <OBJECT JADE-BEAD
     (DESC "jade bead")
@@ -208,6 +209,17 @@
 <OBJECT SHAWL
     (DESC "shawl")
     (SYNONYM SHAWL)
+    (FLAGS TAKEBIT)>
+
+<OBJECT SHELL-NECKLACE
+    (DESC "shell necklace")
+    (SYNONYM NECKLACE)
+    (ADJECTIVE SHELL)
+    (FLAGS TAKEBIT)>
+
+<OBJECT SPEAR
+    (DESC "spear")
+    (SYNONYM SPEAR)
     (FLAGS TAKEBIT)>
 
 <OBJECT STONE
