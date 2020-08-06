@@ -3,8 +3,8 @@
 <GLOBAL CHARACTERS-ENABLED T>
 <GLOBAL STARTING-POINT PROLOGUE>
 
-<CONSTANT BAD-ENDING "Your adventure ends here.">
-<CONSTANT GOOD-ENDING "Further adventure awaits.">
+<CONSTANT BAD-ENDING "Your adventure ends here.|">
+<CONSTANT GOOD-ENDING "Further adventure awaits.|">
 
 <OBJECT CURRENCY (DESC "cacao")>
 <OBJECT VEHICLE (DESC "none")>
@@ -99,6 +99,7 @@
 	<PUTP ,STORY360 ,P?DEATH T>
 	<PUTP ,STORY362 ,P?DEATH T>
 	<PUTP ,STORY395 ,P?DEATH T>
+	<PUTP ,STORY400 ,P?DEATH T>
 	<RETURN>>
 
 <CONSTANT DRINK-POTION-KEY-CAPS !\D>
@@ -172,10 +173,12 @@
 	)>>
 
 <ROUTINE START-RITUAL-BALL ()
-	<SETG RITUAL-BALL-STARTED T>>
+	<SETG RITUAL-BALL-STARTED T>
+	<EMPHASIZE "The ritual ball contest has started. Press 'P' any time to view current scores.">>
 
 <ROUTINE SHOW-SCORES ()
 	<COND (,RITUAL-BALL-STARTED
+		<CRLF>
 		<CRLF>
 		<HLIGHT ,H-BOLD>
 		<TELL "Current Scores">
@@ -183,8 +186,31 @@
 		<CRLF>
 		<CRLF>
 		<TELL "Your score: " N ,TICKS " points" CR>
-		<TELL "Opposition: " N ,CROSS "points" CR>
+		<TELL "Opposition: " N ,CROSS " points" CR>
+		<PRESS-A-KEY>
 	)>>
+
+<OBJECT FOES
+    (DESC "them")
+    (SYNONYM THEM)
+    (FLAGS NARTICLEBIT PLURALBIT PERSONBIT TOUCHBIT)>
+
+<ROUTINE SCORE-POINTS ("OPT" POINTS SIDE)
+	<COND (<NOT <ASSIGNED? POINTS>> <SET POINTS 1>)>
+	<COND (<NOT <ASSIGNED? SIDE>> <SET SIDE ,PLAYER>)>
+	<COND (<EQUAL? .SIDE ,PLAYER>
+		<SETG TICKS <+ ,TICKS .POINTS>>
+	)(ELSE
+		<SETG CROSS <+ ,CROSS .POINTS>>
+	)>
+	<HLIGHT ,H-BOLD>
+	<TELL CR "Your ">
+	<COND (<EQUAL? .SIDE ,PLAYER> <TELL "side scores ">)(ELSE <TELL "foes score ">)>
+	<PRINTN .POINTS>
+	<TELL " point">
+	<COND (<G? .POINTS 1> <TELL "s">)>
+	<TELL ,PERIOD-CR>
+	<HLIGHT 0>>
 
 <ROUTINE RESET-UNIVERSE ("AUX" (POSSESSIONS NONE) (COUNT 0) (SKILL NONE) (REQUIREMENT NONE))
 	<RESET-POSSESSIONS>
@@ -1641,7 +1667,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY089-PRECHOICE ()
-	<SETG TICKS <+ ,TICKS 2>>
+	<SCORE-POINTS 2 ,PLAYER>
 	<COND (<G? ,TICKS 6>
 		<STORY-JUMP ,STORY134>
 	)(<OR <CHECK-CODEWORD ,CODEWORD-SHADE> <CHECK-CODEWORD ,CODEWORD-ANGEL>>
@@ -2011,13 +2037,12 @@
 	<COND (<IS-ALIVE>
 		<CRLF>
 		<COND (<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
-			<TELL "You get possession of the ball and send it bouncing against the end zone, scoring a point">
-			<SETG TICKS <+ ,TICKS 1>>
+			<TELL "You get possession of the ball and send it bouncing against the end zone, scoring a point" ,PERIOD-CR>
+			<SCORE-POINTS 1 ,PLAYER>
 		)(ELSE
-			<TELL "Your opponent gets the ball and scores a point">
-			<SETG CROSS <+ ,CROSS 1>>
+			<TELL "Your opponent gets the ball and scores a point" ,PERIOD-CR>
+			<SCORE-POINTS 1 ,FOES>
 		)>
-		<TELL ,PERIOD-CR>
 	)>>
 
 <CONSTANT TEXT112 "You slam the ball against the side wall then run backwards into the middle of the arena, keeping your eye on it as it bounces. A blow with your wrist sends it spinning up to strike the low-score zone, giving your team another point. It ricochets towards your opponents, who eagerly seize possession.">
@@ -2958,7 +2983,7 @@
 	)>>
 
 <CONSTANT TEXT179 "The ball bounces towards your partner, who slams it across the arena in your direction.">
-<CONSTANT TEXT179-HIGH "You bat it up into a high-scoring zone: you score two points">
+<CONSTANT TEXT179-HIGH "You bat it up into a high-scoring zone">
 <CONSTANT TEXT179-LOW "You go for a safer shot but you still get one point">
 
 <ROOM STORY179
@@ -2976,8 +3001,8 @@
 	)(ELSE
 		<TELL TEXT179-LOW>
 	)>
-	<SETG ,TICKS <+ ,TICKS .SCORED>>
-	<TELL ,PERIOD-CR>>
+	<TELL ,PERIOD-CR>
+	<SCORE-POINTS .SCORED ,PLAYER>>
 
 <CONSTANT TEXT180 "You walk on until you reach the tree. The figures seated there are of macabre appearance: living skeletons whose bones are green with algae. Roots and soil clump their joints, and you can see snakes burrowing between the bars of their ribcages One raises a grinning skull-face to greet you. As it does, a butterfly opens wings of scarlet and gold across its emerald brow. If you saw such a sight in one of the murals on a temple wall, you might be moved to admire its uncanny beauty. Faced with such a thing in stark reality, however, you find yourself jumping back in fright. You hurry past without acknowledging the skeleton's welcoming gestures.">
 
@@ -3320,7 +3345,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY203-PRECHOICE ()
-	<SETG CROSS <+ ,CROSS 1>>>
+	<SCORE-POINTS 1 ,FOES>>
 
 <CONSTANT TEXT204 "You place a dart directly between his cobwebby eyes. It would kill any mortal man, but Necklace of Skulls has endured for a thousand years. The sorcery he used to prolong his life turned him into a creature halfway between life and death. He reels back, giving vent to a roar of anguish that sounds like the sky being ripped in two, and pulls the dart out of his bloodless flesh.||You race up the pyramid steps towards him, ducking as he sends a fountain of ultraviolet fire streaming from his fingertips. It scorches your flesh. A direct hit would have charred you to the bone.">
 <CONSTANT TEXT204-CONTINUED "Before he has time for another spell, you have closed with him for the final battle">
@@ -4260,7 +4285,7 @@
 
 <CONSTANT TEXT272 "The onrushing figure looks just like a black rip in the air and makes no sound as he runs, but the impact when he hits you is like having a tree-branch swung into your midriff.">
 <CONSTANT TEXT272-DEFLECT "You deflect the blow and was not wounded.">
-<CONSTANT TEXT272-CONTINUED "While you stagger back recovering your balance, your opponent sends the ball sailing against the high-score zone for two points.">
+<CONSTANT TEXT272-CONTINUED "While you stagger back recovering your balance, your opponent sends the ball sailing against the high-score zone">
 
 <ROOM STORY272
 	(DESC "272")
@@ -4278,8 +4303,12 @@
 	)(ELSE
 		<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY272>
 	)>
-	<IF-ALIVE TEXT272-CONTINUED>
-	<SETG CROSS <+ ,CROSS 2>>>
+	<COND (<IS-ALIVE>
+		<CRLF>
+		<TELL TEXT272-CONTINUED>
+		<TELL ,PERIOD-CR>
+		<SCORE-POINTS 2 ,FOES>
+	)>>
 
 <CONSTANT TEXT273 "As you race along the arena and up the steps of the pyramid, Necklace of Skulls conjures down a storm of blazing meteors.">
 <CONSTANT TEXT273-AGILITY "You move too fast for him. ">
@@ -4624,7 +4653,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY295-PRECHOICE ()
-	<SET CROSS <+ ,CROSS 1>>
+	<SCORE-POINTS 1 ,FOES>
 	<COND (<NOT <CHECK-SKILL ,SKILL-CHARMS>>
 		<CRLF>
 		<TELL TEXT295-CHARMS>
@@ -5274,11 +5303,12 @@
 	<CRLF>
 	<COND (<CHECK-SKILL ,SKILL-AGILITY>
 		<TELL TEXT341-AGILE>
+		<TELL ,PERIOD-CR>
 	)(ELSE
 		<TELL TEXT341-SCORE>
-		<SETG CROSS <+ ,CROSS 1>>
-	)>
-	<TELL ,PERIOD-CR>>
+		<TELL ,PERIOD-CR>
+		<SCORE-POINTS 1 ,FOES>
+	)>>
 
 <CONSTANT TEXT342 "You have defeated the sorcerer. His monstrous body topples onto the steps of his black pyramid and begins to seethe with putrid vapours. With the magic that sustained him unnaturally throughout the centuries now broken, Necklace of Skulls decomposes into dank grey dust.||The walls of the palace begin to stir. You can feel the ground trembling underfoot. You hurry back through the courtyard and out of the gates. After a dozen pace you cannot resist the urge to look back. The pyramid and surrounding buildings are sinking into the sand. In minutes they have vanished entirely, and there is no sign to show that this was the spot where Necklace of Skulls once dwelt among his bestial courtiers. You look around for the courtiers, but see only a pack of malnourished dogs slinking off amid the dunes.||It is over. You turn your face to the east. You have a long journey back to civilization. If only you had been able to save your brother...||You dismiss such thoughts with a shrug. It is too late for regrets. At least you avenged Morning Star's death and rid the world of an evil monster.||One of the dogs gives a howl. You look round, into the glowering darkness along the western horizon that marks the boundary of the Deathlands. That is where your brother is now.||You look east, then west again. Civilization -- or further adventure? Only you can decide which way your destiny beckons. This quest is ended, but perhaps further adventures still await you? The only limit is your own imagination.">
 
@@ -5808,10 +5838,10 @@
 <ROUTINE STORY385-PRECHOICE ()
 	<COND (<CHECK-CODEWORD ,CODEWORD-POKTAPOK>
 		<EMPHASIZE TEXT385-TICKS>
-		<SETG TICKS <+ ,TICKS 1>>
+		<SCORE-POINTS 1 ,PLAYER>
 	)(ELSE
 		<EMPHASIZE TEXT385-CROSS>
-		<SETG CROSS <+ ,CROSS 1>>
+		<SCORE-POINTS 1 ,FOES>
 	)>>
 
 <CONSTANT TEXT386 "Morning Star lobs the ball directly towards you. Timing your move perfectly, you hug it to your chest while substituting the blood ball.">
@@ -6011,174 +6041,124 @@
 	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY400>
 	<IF-ALIVE TEXT400-CONTINUED>>
 
+<CONSTANT TEXT401 "You greet the sentinel by name. He receives your greeting with barely a change in expression. Only in a narrowing of those burning eyes and a drooping of the chiselled lips do you begin to sense your error.||His sceptre flashes out without warning, shattering your breast-bone and drinking through into your heart. Impaled, you give a last spasm before death congeals on your features. You have met your doom.">
+
 <ROOM STORY401
 	(DESC "401")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT401)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT402 "You have no weapon strong enough to penetrate the monster's scaly hide. Snarling at your impudence in attacking it, it envelops you in its four necks like a ma closing his fist on a gnat. Fangs sharper than flakes of obsidian sink deep into your flesh and it raises your bloody carcass aloft to the night sky with a great shriek of inhuman glee. You sold your life valiantly, but you failed.">
 
 <ROOM STORY402
 	(DESC "402")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT402)
+	(DEATH T)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT403 "The intense fire has burned down to a sullen cindery glow by daybreak. You are dimly aware of the door being swung open, and you begin to crawl feebly across the floor towards the flow of cool morning air. In doing so, your hand brushes against a large lump of charcoal which must have fallen out of the fire during the night. You also notice that one of the round stones which formed the sides of the fire-trough has worked itself loose. It is still warm to the touch, but not unbearably so.">
+<CONSTANT TEXT403-CONTINUED "\"Come along,\" snaps the chief courtier impatiently. He sends in a couple of his men, who drag you outside. Staring down at you as your strength returns, he says nastily: \"Did you have a pleasant night?\"||\"Very comfortable,\" you mutter through parched lips. \"What's next?\"||\"Next,\" e says, \"is the House of Bats.\"">
 
 <ROOM STORY403
 	(DESC "403")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT403)
+	(PRECHOICE STORY403-PRECHOICE)
+	(CONTINUE STORY225)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY403-PRECHOICE ()
+	<CRLF>
+	<TELL "Take " T ,LUMP-OF-CHARCOAL "?">
+	<COND (<YES?> <TAKE-ITEM ,LUMP-OF-CHARCOAL>)>
+	<CRLF>
+	<TELL "Take " T ,STONE "?">
+	<COND (<YES?> <TAKE-ITEM ,STONE>)>
+	<CRLF>
+	<TELL TEXT403-CONTINUED>
+	<CRLF>>
+
+<CONSTANT TEXT404 "The symbol on the diadem represents the World Tree, the source of all birth and regeneration. Now you can feel it throbbing in your hand, its magical energy sending tingling sparks through your fingers. You carefully set your brother's skull on the dusty ground in front of you and place the diadem over its brow.||Sunlight splashes on the rim of the diadem, growing into a blinding cusp of unbearable intensity. The courtiers look away with a moan of awe, and the two shadow men shrink back against the flanks of their creator's pyramid. Narrowing your eyes, you peer into the heart of the glow and there you witness -- a miracle.||The glow fades. Your brother is standing before you, fully restored, grinning like a demigod with the diadem on his brow. It takes you a moment before the wave of dizzying joy passes enough for you to speak: \"Morning Star!\"||\"It is good to see you!\" says your brother, coming forward to hug you. As the two of you touch, there is a crackle of energy and you feel the injuries and fatigue of the last few weeks burned away by life-giving magic.||\"I feared you were lost for ever.\" You point towards the brooding shrine overlooking the ball contest arena. \"Now, brother, let's show that sorcerer our true mettle!\"">
 
 <ROOM STORY404
 	(DESC "404")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT404)
+	(PRECHOICE STORY404-PRECHOICE)
+	(CONTINUE STORY042)
+	(CODEWORD CODEWORD-VENUS)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY404-PRECHOICE ()
+	<GAIN-LIFE 4>
+	<DELETE-CODEWORD ,CODEWORD-ANGEL>>
+
+<CONSTANT TEXT405 "You swing your elbow up in a perfectly judge blow that hits the ball high up against the scoring zone.">
 
 <ROOM STORY405
 	(DESC "405")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT405)
+	(PRECHOICE STORY405-PRECHOICE)
+	(CONTINUE STORY066)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY405-PRECHOICE ("AUX" (SCORE 1))
+	<COND (<CHECK-CODEWORD ,CODEWORD-POKTAPOK> <SET SCORE 2>)>
+	<SCORE-POINTS .SCORE ,PLAYER>>
+
+<CONSTANT TEXT406 "The storm blows itself out towards dawn, leaving you all shaking with exhaustion. You look around. Unbroken sea surrounds you. The only clue to your course is the sun boiling its way through a bank of low cloud across the horizon, but the sight of circling gulls tells you that land is near. You know that it cannot be the mainland. As a green swathe of foliage appears in the distance, you realize you have found the fabled Isle of the Iguana.||Getting closer, you find a coast of high cliffs which the sea has pounded into fanciful shapes. You sail under an arch of white rock and around a headland that reminds you of a serpent's mouth, arriving at last at a stretch of pebble-strewn beach.||\"The ship was badly damaged in the storm,\" says one of the sailors, pointing to the water collecting in the bottom of the hull. 2We must put in here for repairs.\"">
 
 <ROOM STORY406
 	(DESC "406")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT406)
+	(CONTINUE STORY366)
+	(CODEWORD CODEWORD-EB)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT407 "The sun looks like a funnel of flame in the shimmering oven of the sky. Through the soles of your sandals, the rock and sand feel as hot as cinders. The air seems thick with dust, but at nightfall the temperature plummets and you are chilled by a strong breeze.">
+<CONSTANT CHOICES407 <LTABLE "travel by day" "by night">>
 
 <ROOM STORY407
 	(DESC "407")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT407)
+	(PRECHOICE STORY407-PRECHOICE)
+	(CHOICES CHOICES407)
+	(DESTINATIONS <LTABLE STORY022 STORY046>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY407-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE> <STORY-JUMP ,STORY434>)>>
+
+<CONSTANT TEXT408 "The high priest winds a white cloth across your eyes and leads you through to the inner shrine. A deep chill abides here; the thick stone blocks of the Death God's temple walls are never warmed by the sun. The sweet tarry smell of incense hangs in the air. You feel a hand on your shoulder, guiding you to kneel.||A long period of utter silence ensues. You did not hear the high priest withdraw from the chamber, but you gradually become sure that he has left you here alone. You dare not remove the blindfold; to gaze directly on the holy of holies would drive you instantly insane.||A whispering slithers slowly out of the silence. At first you take it for a trick of your unsettle imagination, but by straining your ears you begin to make out words. \"The way to the west lies through the underworld,\" the whispering tells you. \"Go to the city of Yashuna. North of the city lies a sacred well which is the entrance to the underworld. Take this path, which is dangerous but swift, and you will emerge at the western rim of the world. From there it is but a short journey back through the desert to your goal.\"||The whispers fade, drowned out by the thudding of your heart. Frozen with terror at the words of the god, yo crouch motionless on the cold flagstones. The cloying scent of incense grows almost unbearable.||Suddenly a hand touches your shoulder. After the initial jolt of alarm, you allow yourself to be led out onto the portico of the temple, where the blindfold is removed. You blink in the dazzling sunlight. You feel as weak as a baby and the smell of incense clings to your clothes. After the cool of the shrine, the heat of the afternoon sun makes you feel slightly sick.||The podgy priest is looking up into your eyes. \"You head the voice of the god,\" he says simply.">
 
 <ROOM STORY408
 	(DESC "408")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT408)
+	(CONTINUE STORY093)
+	(CODEWORD CODEWORD-CENOTE)
 	(FLAGS LIGHTBIT)>
+
+<CONSTANT TEXT409 "The stabai guide you through the forest to a tall tree which has had the vitality leeched out of it by a strangler fig. The roots of the strangler enclose the decomposing trunk like a crusty scab. A barely glimpsed arm directs your attention to a hole some way up the side of the tree. \"There,\" announces the fluting voice of the stabai. \"The treasure is inside the dying tree-trunk.\"||The strangler's roots make it an easy climb. The stabai effortlessly keep pace with you. From somewhere amid the branches you hear them urging you to return the shawl. \"Not yet,\" you reply. \"First I'll take a look at this treasure.\"||\"But then you will return the shawl?\" they whine.||Your foot slips but you steady yourself in the crook of a branch. It is a long way to the ground. No doubt the stabai are hoping you will break your neck, and their distractions are not helping. \"I'm making no promises,\" you tell them irritably.||Pulling yourself up level with the hold, you peer inside. It looks dank and rotten. There is a smell like mushrooms -- sickly sweet, a heady aroma. But as your eyes penetrate the darkness, you see that the stabai did not lie. Just within reach glitters a solid gold diadem.">
+<CONSTANT CHOICES409 <LTABLE "reach in and take the diadem" "else climb back down and get the stabai to lead you out of the woods">>
 
 <ROOM STORY409
 	(DESC "409")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT409)
+	(PRECHOICE STORY409-PRECHOICE)
+	(CHOICES CHOICES409)
+	(DESTINATIONS <LTABLE STORY049 STORY390>)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY409-PRECHOICE ()
+	<COND (<CHECK-SKILL ,SKILL-ROGUERY> <STORY-JUMP ,STORY026>)>>
+
+<CONSTANT TEXT410 "The lad is as good as his word, and takes you along an obscure track that leads towards the edge of the forest. As you walk, he tells you of his people, whose task is to guard the World Tree.||\"Who appointed you to this sacred duty?\" you ask, hiding a smile because you do not believe such an outrageous claim.||\"It was the God of Gods, who at the dawn of time created our ancestors from whom came all men,\" he says. His sing-song intonation suggests he is reciting the words of his tribal shaman. But what he says next makes you pause for thought: \"You're going to Nachan? My father went there once, in the time of the old king. I hear there is a passage into the underworld.\"||Interested, you ply him with questions but he knows nothing more. At last he points along a lightly wooded lane. \"Follow this path and you will soon reach the outside world,\" he says.||Thanking him, you say good-bye and set out along the lane.">
 
 <ROOM STORY410
 	(DESC "410")
-	(STORY TEXT)
-	(EVENTS NONE)
-	(PRECHOICE NONE)
-	(CHOICES NONE)
-	(DESTINATIONS NONE)
-	(REQUIREMENTS NONE)
-	(TYPES NONE)
-	(CONTINUE NONE)
-	(ITEM NONE)
-	(CODEWORD NONE)
-	(COST 0)
-	(DEATH F)
-	(VICTORY F)
+	(STORY TEXT410)
+	(CONTINUE STORY160)
 	(FLAGS LIGHTBIT)>
 
 <ROOM STORY411
