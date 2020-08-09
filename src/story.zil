@@ -417,23 +417,23 @@
 				<EMPHASIZE "You were able to eat your fill">
 				<PREVENT-DEATH .STORY>
 			)(ELSE
-				<TEST-MORTALITY <- .QUANTITY .CONSUMED> DIED-OF-HUNGER .STORY>
+				<TEST-MORTALITY <- .QUANTITY .CONSUMED> ,DIED-OF-HUNGER .STORY>
 			)>
 			<COND (.JUMP <STORY-JUMP .JUMP>)>
 		)(.DAMAGE
-			<TEST-MORTALITY .QUANTITY DIED-OF-HUNGER .STORY>
+			<TEST-MORTALITY .QUANTITY ,DIED-OF-HUNGER .STORY>
 		)>
 	)(ELSE
 		<CRLF>
 		<TELL "... But you have nothing to eat">
 		<TELL ,PERIOD-CR>
-		<COND (.DAMAGE <TEST-MORTALITY .QUANTITY DIED-OF-HUNGER .STORY>)>
+		<COND (.DAMAGE <TEST-MORTALITY .QUANTITY ,DIED-OF-HUNGER .STORY>)>
 	)>
 	<UPDATE-STATUS-LINE>>
 
 <ROUTINE RESTORE-VITALITY ()
 	<COND (<L? ,LIFE-POINTS ,MAX-LIFE-POINTS>
-		<EMPHASIZE VITALITY-RESTORED>
+		<EMPHASIZE ,VITALITY-RESTORED>
 		<SETG LIFE-POINTS ,MAX-LIFE-POINTS>
 		<UPDATE-STATUS-LINE>
 	)>>
@@ -448,8 +448,6 @@
 	)>
 	<COND (<CHECK-ITEM .ITEM> <LOSE-ITEM .ITEM>)>
 	<RFALSE>>
-
-<CONSTANT TEXT "This story has not been written yet.">
 
 <CONSTANT PROLOGUE-TEXT "Last night you dreamed you saw your brother again. He was walking through a desert, his sandals scuffing up plumes of sooty black sand from the low endless dunes. It seemed you were hurrying to catch him up, but the sand slipped away under your feet and you could make no headway up the slop. You heard your own voice call his name: \"Morning Star!\" But muffled by distance, the words went rolling off the sky unheeded.||You struggled on. Cresting the dune, you saw your brother standing close by, staring at something in his hands. Your heart thudded with relief as you stumbled through the dream towards him. But even as your hand reached out for his shoulder, a sense of dread was growing like a storm cloud to blot out any joy. You saw the object Morning Star was holding: an obsidian mirror. You leaned forward and gazed at the face of your brother reflected in the dark green glass.||Your twin brother's face was the face of a skull.|||The soothsayer nods as you finish recounting the dream. He plays idly with his carved stone prophecy-markers, pouring them from one hand to the other with a light rattling sound.||\"Today is the day of Lamat,\" he says in his thin old voice. \"And the symbol of Lamat is the death's head. On this day, the morning-star has ended its cycle and will not be visible in the heavens for ninety days, when it will reappear as the evening-star. The meaning of the dream is therefore that in the absence of your brother it falls to you, Evening Star to fulfil his duties.\"||You cannot resist a smile, even though the ominous import of the dream weighs heavily on your soul. \"So it only concerns the importance of duty? I wonder if my clan elders have been speaking to you?\"||The soothsayer snorts and casts the prophecy-markers back into his bag with a pretence of indignation, but he has too good a heart to overlook your concern for your brother. Turning at the door, he adds, \"The King gave Morning Star a great honour when he made him his ambassador. But it is no less honourable to stay at home and help with the affairs of one's clan. You are young, Evening Star; your chance for glory will come.\"||\"Do the prophecy-makers also tell you that?\"||He rattles the bag. \"These? They're just for show; it's the two old stones on either side of my nose that tell me everything I need to know about the future!\" He points to his eyes and hobbles out in a gale of wheezing laughter.||You lean back, feeling the cool of the stone wall press against your bare shoulders. The soothsayer intended to set your mind at rest, but you have shared a bond with Morning Star since the two of you were born. To be troubled by such a dream is not, you feel sure, a mere quirk of the imagination. Somehow you sense that something terrible has befallen your brother.||You are still brooding an hour later when a servant comes scurrying into the room. \"There is news of Lord Morning Star's expedition...\" he begins, almost too frightened of your reaction to blurt out the words.||You are on your feet in an instant. \"What news?\"||The servant bows. \"The Council of Nobles is holding an emergency session. The rumour... I have heard a rumour that only a single member of the expedition returned alive.\"||Pausing only to draw on your cloak, you hurry outside and head along the street towards the city centre. All around you sprawl the tall thatched roofs of the city, spreading out towards the distant fields. Each clan or group of families has its own dwellings of stone or mud-brick, according to status. These rest upon raised platforms above the level of the street, their height determined again by status. But not even the most exalted noble has a home to match the grand dwellings of the gods, which you now see towering ahead of you atop their immense pyramids. They shimmer with the colours of fresh blood and polished bone in the noonday sunlight, covered with demonic carvings which stare endlessly down across the city of Koba.||The central plaza of the city is a blaze of white stone in the sunshine. Quickening your step, you approach the amphitheatre where the Council of Nobles is meeting. As you step under the arch of the entrance, your way is barred by two burly warriors of the King's guard, each armed with an obsidian-edged sword. \"You may not enter.\"||\"I am Evening Star. The ambassador is my brother. Has he returned to Koba?\"||One of them peers at you, recognition trickling like cold honey into his gaze. \"I know you now. Morning Star has not returned, no.\"||The other says, \"Look, I suppose you'd better go in. One of the ambassador's retinue came back this morning. He's telling the Council what happened.\"||You walk in to the amphitheatre and numbly find a seat. You can hardly take in the guard's words; they sit like stones in your head, impossible to accept. Can it be true? Your twin brother -- dead?||A man you recognize as one of Morning Star's veteran warriors stands in the centre of the amphitheatre, giving his report. The seats on either side are crowded with the lords and ladies of Koba, each face a picture of grave deliberation. At the far end is the King himself, resplendent in a turquoise mantle of quetzal feathers, his throne carved to resemble the open jaws of some titanic monster on whose tongue he seems to sit like the very decree of the gods.||\"...arrived at the Great City,\" the veteran is saying. \"We found it ransacked -- the temples torn down, whole palaces burned. Some poor wretches still live there, eking out a stark existence in the ruins, but it is like the carcass of a beast who lies with a death-wound. Whenever we asked how this destruction had come about, we received the same reply: werewolves from the land of the dead, beyond the west, had descended from the desert and slain all the Great City's defenders in a single night of carnage.\"||There is a murmuring at this. The Great City had endured for centuries before Koba was even built. The King raises his hand for silence. \"What was Lord Morning Star's decision when he heard this?\"||\"Majesty, he led us into the desert. He believed it his duty to uncover the truth of the matter and report it to you. After many days of trekking almost all our water was used up. We had faced monsters along the way, and many of us bore grievous injuries. Then we came to a place like a royal palace, but entirely deserted except for dogs and owls. We camped outside the walls there, and on the next day Morning Star told us he had dreamed of a sorcerer called Necklace of Skulls who dwelt within the palace. He said he would enter and find out if this sorcerer had sent the werewolves to destroy the Great City. We watched him enter the portals of the palace, and we waited for his return for eight days, but he did not emerge. Then we began the long march back here to Koba, but sickness and the creatures of the desert gradually took their toll, and I alone remain to tell the tale.\"||The King rises to his feet. \"Morning Star must be considered slain by this sorcerer. His mission shall not be recorded as a failure, since he died attempting to carry out his duty. Prayers shall be said for the safe journey of his soul through the underworld. This meeting is ended.\"||The others file out in groups, heads bent together in urgent debate. For most of them the veteran's report carried that special thrill of a distant alarm. A great but far-off city reduced to ruin; a disaster from halfway across the world. Cataclysmic news, but an event comfortingly remote from the day to day affairs at home. A matter for the noblemen to worry over when they sit with their cigars at night. The reverberations of a toppling temple in the Great City will be heard here in Koba as no more than the droning discussions of old men.||For you it is different. Left alone in the amphitheatre, you sit like a figure of clay, eerily detached from your own turbulent emotions. Fractured images and words whirl through your stunned brain. Morning Star is dead. Your twin brother, lost for ever...||A single sudden thought of burning clarity impels you to your feet. In that instant you seem to see your destiny unrolling in front of you like along straight carpet. You turn your face to the west, eyes narrowing in the glare of the declining sun.||Your brother might not be dead. There is only one place you can learn the truth.||You must journey to the western desert, to the palace of the sorcerer called Necklace of Skulls.">
 
@@ -520,7 +518,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY004-PRECHOICE ()
-	<TEST-MORTALITY 1 DIED-OF-HUNGER ,STORY004>>
+	<TEST-MORTALITY 1 ,DIED-OF-HUNGER ,STORY004>>
 
 <CONSTANT TEXT005 "You steel your nerves and leap over the edge. The water rushes up to meet you, enfolding you in a silent icy embrace. The shock of impact drives the air out of your lungs and you start to fail wildly as you go under. The weight of your gold regalia drags you down, and as you fumble with the straps it becomes obvious that you will run out of air long before you can get free.||Then you remember your blowgun. Thrusting up through the water with it, you pierce the glimmering pane of light that marks the surface and blow into the other end until you have forced water out and can draw down a mouthful of fresh air. Using the blowgun as a breathing tube buys you the time you need to struggle out of the encumbering regalia and swim up to safety.||The moment your head breaks the surface you know you are no longer at the bottom of the sacred well. Instead of the open sky overhead, there is just the roof of a large cavern. Grey light trickles from an unseen source.||A familiar sound echoes off the surrounding rocks. You turn to see a canoe being slowly paddled towards you. But the two oarsmen are like no others on earth...">
 
@@ -596,7 +594,7 @@
 		<EMPHASIZE "You lodged the jade bead under your tongue as the spirit advised you.">
 	)>
 	<CRLF>
-	<TELL TEXT009>
+	<TELL ,TEXT009>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT010 "He pretends to listen with interest to your confident reply, but then gives a great whoop of mocking laughter. You realize he lied -- he knows nothing that can help you in your quest.">
@@ -640,7 +638,7 @@
 
 <ROUTINE STORY013-PRECHOICE ()
 	<COND (<NOT <OR <CHECK-SKILL ,SKILL-SWORDPLAY> <CHECK-SKILL ,SKILL-UNARMED-COMBAT>>>
-		<TEST-MORTALITY 1 DIED-IN-COMBAT ,STORY013>
+		<TEST-MORTALITY 1 ,DIED-IN-COMBAT ,STORY013>
 	)>
 	<IF-ALIVE TEXT013-CONTINUED>>
 
@@ -688,7 +686,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY017-PRECHOICE ()
-	<TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY017>
+	<TEST-MORTALITY 1 ,DIED-GREW-WEAKER ,STORY017>
 	<IF-ALIVE TEXT017-CONTINUED>>
 
 <CONSTANT TEXT018 "You set the skull gently on the dusty ground and take a few paces back, raising your wand.||Necklace of Skulls sees what you are planning and speaks in protest from the inner recesses of his shrine: \"You cannot resurrect him. You do not have that power.\"||\"Raw determination is the basis of all magic,\" you counter. \"My love for my brother will bring him back.\"||This is the hardest spell you will ever cast. For almost an hour you continue the chant. The wolfish courtiers do not intervene, fearing your power. For his part, Necklace of Skulls is happy to indulge you. He wants to see you fail. You are determined to disappoint him.||Searingly bright light envelops the skull like a phosphoric bubble from which long green sparks go crawling out along the ground. The wand grows hoot in your hand as it channels more magical force than it was ever intended to contain. At last you know you can do no more. Hoarsely uttering the last syllables of the spell, you slump to your knees.||There is a gasp from the watching courtiers, a howl of spite from the sorcerer. You look up. An hour of staring into the heart of the spell-glare has left a flickering after-image across your vision, but you are sure you can see something stirring. It looks like a man. He rises to his feet and steps towards you. You rub your eyes, then a familiar voice brings tears of joy to them. \"Evening Star,\" he says. Your brother is alive once more!||You have used up all your sorcery in working this miracle.">
@@ -749,7 +747,7 @@
 
 <ROUTINE STORY022-PRECHOICE ()
 	<COND (<CHECK-ITEM ,WATERSKIN>
-		<TEST-MORTALITY 2 DIED-OF-THIRST ,STORY022>
+		<TEST-MORTALITY 2 ,DIED-OF-THIRST ,STORY022>
 		<COND (<IS-ALIVE>
 			<EMPHASIZE "You waterskin has been emptied.">
 			<LOSE-ITEM ,WATERSKIN>
@@ -814,7 +812,7 @@
 		<STORY-JUMP ,STORY436>
 	)(ELSE
 		<CRLF>
-		<TELL TEXT027-CONTINUED>
+		<TELL ,TEXT027-CONTINUED>
 		<TELL ,PERIOD-CR>
 	)>>
 
@@ -829,7 +827,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY028-PRECHOICE ()
-	<TEST-MORTALITY 3 DIED-GREW-WEAKER ,STORY028>>
+	<TEST-MORTALITY 3 ,DIED-GREW-WEAKER ,STORY028>>
 
 <CONSTANT TEXT029 "You push through a bank of ferns and pause to get your breath back. You have been walking for hours in the sweltering heat. Moisture trickles down off the leaf canopy, but you cannot even tell if it is rain or just condensation. If only you could get a clear look at the sky, you might be able to tell which way to go.">
 <CONSTANT CHOICES029 <LTABLE "decide to head left from here" "go right" "go straight on">>
@@ -887,14 +885,14 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY033-PRECHOICE ()
-	<TEST-MORTALITY 5 DIED-GREW-WEAKER ,STORY033>
+	<TEST-MORTALITY 5 ,DIED-GREW-WEAKER ,STORY033>
 	<COND (<IS-ALIVE>
 		<CRLF>
-		<TELL TEXT033-CONTINUED>
+		<TELL ,TEXT033-CONTINUED>
 		<TELL ,PERIOD-CR>
 		<COND (<NOT <OR <CHECK-SKILL ,SKILL-SPELLS> <CHECK-SKILL ,SKILL-CUNNING> <CHECK-ITEM ,CHILLI-PEPPERS>>>
 			<CRLF>
-			<TELL TEXT033-END>
+			<TELL ,TEXT033-END>
 			<TELL ,PERIOD-CR>
 			<PUTP ,STORY033 ,P?DEATH T>
 		)>
@@ -1073,7 +1071,7 @@
 	)(<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
 		<SET DAMAGE <- .DAMAGE 1>>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-OF-THIRST ,STORY046>
+	<TEST-MORTALITY .DAMAGE ,DIED-OF-THIRST ,STORY046>
 	<COND (<IS-ALIVE>
 		<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
 			<EMPHASIZE "Your knowledge of WILDERNESS LORE made you tougher than most people.">
@@ -1138,7 +1136,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY050-PRECHOICE ()
-	<EMPHASIZE ALL-POSSESSIONS>
+	<EMPHASIZE ,ALL-POSSESSIONS>
 	<RESET-POSSESSIONS>
 	<MOVE ,ALL-MONEY ,PLAYER>>
 
@@ -1153,7 +1151,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY051-PRECHOICE ()
-	<TEST-MORTALITY 2 DIED-GREW-WEAKER ,STORY051>>
+	<TEST-MORTALITY 2 ,DIED-GREW-WEAKER ,STORY051>>
 
 <CONSTANT TEXT052 "A sense of panic begins to well up, churning your thoughts into a confused mixture of fact and fancy. You begin to imagine that you have strayed into the underworld and that the mighty trees surrounding you are no more than the smallest subterranean roots of the fabled Ceiba tree that supports the heavens. You jump in alarm at every tiny sound of scurrying insects or fluttering wings. If you cannot find your way out of the forest soon, our only fate will be madness followed by a slow torturing death by starvation.">
 <CONSTANT CHOICES052 <LTABLE "bear of to the right" "continue in the direction you have been waling up till now" "decide to go left">>
@@ -1259,7 +1257,7 @@
 <ROUTINE STORY059-PRECHOICE ()
 	<GAIN-LIFE 2>
 	<CRLF>
-	<TELL TEXT059-CONTINUED>
+	<TELL ,TEXT059-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT060 "The stranger leaps up into the air, displaying a long thin body like a streak of lightning. Suddenly you realize you are not looking at a man at all, but a large iguana. It crouches on the rock, gives you a last lingering glare, and then goes darting off into the mist.||You trudge on, and gradually the mist breaks up to reveal that the path has become a raised stone causeway which snakes down towards a jetty in the distance. Beyond lies an endless green lake. An icy breeze blows in off the water, making you shiver. As you make your way along the causeway, you notice writhing movement under the thin veils of mist that still lie in the hollows. You stoop for a closer look, then recoil in disgust as you realize that the ground off the causeway consists of filth and mud infested with thousands of maggots.||\"You don't like my pets?\"||You look up. A bizarre creature is waiting for you a little way down the causeway. You could have sworn it wasn't there a moment before. It has a large globular body supported on three strong clawed legs. Its eyes are bright narrow slits, and as it watches you it runs its tongue greedily across its lips. You realize that to reach the jetty you will have to get past that monster -- or else wade through the mass of wriggling maggots.">
@@ -1298,7 +1296,7 @@
 	<EMPHASIZE "You lose all skills except one.">
 	<LOSE-SKILLS 1>
 	<CRLF>
-	<TELL TEXT061-CONTINUED>
+	<TELL ,TEXT061-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT062 "He gives a wild shriek of rage and drives both knives towards your breast. The attack is so fast that you have no time even to flinch. At the last instant, the sentinel pulls his blows so that instead of impaling you the tips of the blades just prick your skin. You gulp and look down. Two bright drops of blood are trickling down your chest. This is not a normal injury, however. The wounds inflicted by Lord Blood's knives can never be healed.">
@@ -1312,7 +1310,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY062-PRECHOICE ()
-	<TEST-MORTALITY 2 DIED-FROM-INJURIES ,STORY062>
+	<TEST-MORTALITY 2 ,DIED-FROM-INJURIES ,STORY062>
 	<COND (<IS-ALIVE>
 		<SETG MAX-LIFE-POINTS <- ,MAX-LIFE-POINTS 2>>
 		<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
@@ -1330,7 +1328,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY063-PRECHOICE ()
-	<TEST-MORTALITY 3 DIED-FROM-INJURIES ,STORY063>
+	<TEST-MORTALITY 3 ,DIED-FROM-INJURIES ,STORY063>
 	<IF-ALIVE TEXT063-CONTINUED>>
 
 <CONSTANT TEXT064 "You wedge yourself into a corner of the hall and watch the hovering knives. As they come sweeping towards you, you tear off a hunk of meat and throw it to them. They fall on it, shredding it quickly with stabbing blows, then retreat to float around in the centre of the hall. After a while they start to approach, and again you are able to distract them with a scrap of meat.||This continues throughout the knight. You get no sleep but at least you have kept the enchanted knives from your flesh. You have used up the last of the haunch of venison and are waiting nervously for the next assault of the knives, when they suddenly drop lifeless to the floor with the advent of morning.||The courtiers cannot disguise their ill temper when they open the door to find you unscathed. \"Your luck runs out tonight,\" snaps one. \"That's when you must enter the House of cold.\"">
@@ -1389,7 +1387,7 @@
 
 <ROUTINE STORY068-PRECHOICE ("AUX" (DAMAGE 7))
 	<COND (<CHECK-SKILL ,SKILL-CHARMS> <SET DAMAGE 3>)>
-	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY068>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY068>
 	<IF-ALIVE TEXT068-CONTINUED>>
 
 <CONSTANT TEXT069 "Cliffs rise in front of you, and you make your way along them until you find a long shoulder of rock by which you are able to scale to the top.||You have gone only a little further when you hear a distant keening noise. It sounds like the wind, but you do not feel even a breath of air in the sultry stillness. Then you notice half a dozen long plumes of dust moving along the ground in your direction. Above each dust-plume is a dark twisting funnel of air. Whirlwinds -- and they are bearing straight down on you. Superstitious dread crawls up your spine. You recall tales of the demons of the desert, who rip men limb from limb with the fury of their whirlwinds.">
@@ -1458,7 +1456,7 @@
 	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
 		<SET DAMAGE 4>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY073>>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY073>>
 
 <CONSTANT TEXT074 "You glance back to reassure yourself that the demons are not going to abandon you here. \"We will wait,\" says one with a raw-gummed leer.||\"Take your time,\" cackles the other, nodding in grisly encouragement.||You brace yourself on the edge of the crevice and peer within. As your eyes adjust to the darkness, you see a narrow tunnel leading to a chamber inside the rock. Something gleams dully in the grey light. The smell is of rotting things: dank leaf mould and stagnant slime.">
 <CONSTANT CHOICES074 <LTABLE "return to the canoe" "sneak into the tunnel" "enter into the tunnel">>
@@ -1510,12 +1508,12 @@
 <ROUTINE STORY077-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
 		<CRLF>
-		<TELL TEXT077-WELCOMED>
+		<TELL ,TEXT077-WELCOMED>
 		<TELL ,PERIOD-CR>
 		<STORY-JUMP ,STORY192>
 	)(<CHECK-CODEWORD ,CODEWORD-POKTAPOK>
 		<CRLF>
-		<TELL TEXT077-EXPERT>
+		<TELL ,TEXT077-EXPERT>
 		<TELL ,PERIOD-CR>
 		<STORY-JUMP ,STORY215>
 	)>>
@@ -1539,7 +1537,7 @@
 		<STORY-JUMP ,STORY331>
 	)(ELSE
 		<CRLF>
-		<TELL TEXT078-CONTINUED>
+		<TELL ,TEXT078-CONTINUED>
 		<TELL ,PERIOD-CR>
 	)>>
 
@@ -1633,7 +1631,7 @@
 	<COND (<OR <CHECK-SKILL ,SKILL-WILDERNESS-LORE> <CHECK-ITEM ,WATERSKIN>>
 		<PREVENT-DEATH ,STORY085>
 	)(ELSE
-		<TEST-MORTALITY 1 DIED-OF-THIRST ,STORY085>
+		<TEST-MORTALITY 1 ,DIED-OF-THIRST ,STORY085>
 	)>
 	<IF-ALIVE TEXT085-CONTINUED>>
 
@@ -1730,9 +1728,9 @@
 <ROUTINE STORY092-PRECHOICE ()
 	<COND (,RUN-ONCE
 		<COND (<CHECK-SKILL ,SKILL-CHARMS>
-			<TEST-MORTALITY 2 KILLED-AT-ONCE ,STORY092>
+			<TEST-MORTALITY 2 ,KILLED-AT-ONCE ,STORY092>
 		)(ELSE
-			<EMPHASIZE KILLED-AT-ONCE>
+			<EMPHASIZE ,KILLED-AT-ONCE>
 		)>
 	)>>
 
@@ -1763,10 +1761,10 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY094-PRECHOICE ()
-	<COND (,RUN-ONCE <TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY094>)>
+	<COND (,RUN-ONCE <TEST-MORTALITY 1 ,DIED-GREW-WEAKER ,STORY094>)>
 	<COND (<IS-ALIVE>
 		<CRLF>
-		<TELL TEXT094-CONTINUED>
+		<TELL ,TEXT094-CONTINUED>
 		<TELL ,PERIOD-CR>
 		<COND (,RUN-ONCE
 			<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
@@ -1930,7 +1928,7 @@
 	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
 		<SET DAMAGE 5>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY102>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY102>
 	<IF-ALIVE TEXT102-SURVIVED>>
 
 <CONSTANT TEXT103 "\"Wait!\"||All eyes turn in your direction. The high priest scowls, \"Who is this outsider who dares to interrupt the sacred rite?\"||\"Release them,\" you say, ignoring him. \"I shall carry your petition into the underworld.\"||The priest strides over, pressing his face inches from yours with a look of black fury. \"You? Why should I let you undertake this journey?\"||\"Because I was sent here by a god.\"||He has no answer to that. For a moment his mouth works silently, ready to frame a protest, but he has already seen the light of truth in your eyes. Stepping back, he gives a nod and the young couple are set free.">
@@ -1991,7 +1989,7 @@
 	<EMPHASIZE "You lose all skills except one.">
 	<LOSE-SKILLS 1>
 	<CRLF>
-	<TELL TEXT107-CONTINUED>
+	<TELL ,TEXT107-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT108 "You get the servant to help you build a mound of sand roughly as long as a man's body. On top of this you sprinkle some of the dead warrior's blood, then you cover it with his jaguar-skin cloak and place his sword on top of this. At one end you carefully set his severed head. The dead eyes stare up at the stars.||\"What are you going to do?\" says the servant in a frightened voice||\"His spirit has but recently departed\" you reply as you take up your wand. \"I shall recall it and so rekindle the spark of life.\" So you begin what you know will be the hardest incantation of your life. For hours you continue the chant, never faltering, continually tracing occult designs in the sand around the head. The moon is dipping low across the dunes when you hoarsely utter the last syllables of the spell and slump to the ground in exhaustion.||There is a groan, but not from your lips. You look up to see the fallen warrior rising, the body beneath the cloak transformed from gore-soaked sand to living flesh and blood.||\"Master,\" you hear the servant saying, \"this kind magician brought you back from the dead.\"||\"Nonsense!\" scoffs the warrior. \"I must have been knocked out for a while, that's all.\"||He comes over and helps you to your feet. You have used up all your sorcery in a final miracle.">
@@ -2028,7 +2026,7 @@
 
 <ROUTINE STORY110-PRECHOICE ("AUX" (DAMAGE 2))
 	<COND (<CHECK-SKILL ,SKILL-AGILITY> <SET DAMAGE 1>)>
-	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY110>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY110>
 	<IF-ALIVE TEXT110-CONTINUED>>
 
 <CONSTANT TEXT111 "You slam into him. For a creature formed of living shadow, he feels very solid.">
@@ -2105,7 +2103,7 @@
 		)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
 			<SET DAMAGE 2>
 		)>
-		<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY115>
+		<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY115>
 		<IF-ALIVE TEXT115-CONTINUED>
 	)>>
 
@@ -2192,7 +2190,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY121-PRECHOICE ()
-	<COND (,RUN-ONCE <TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY121>)>
+	<COND (,RUN-ONCE <TEST-MORTALITY 1 ,DIED-FROM-INJURIES ,STORY121>)>
 	<IF-ALIVE TEXT121-CONTINUED>>
 
 <CONSTANT TEXT122 "You lash out with lightning speed, pinning the snake's head against the cliff-face before it can dodge. It writhes, hissing angrily and slapping the stone with its muscular coils, but is powerless to break free. You apply increasing pressure to its neck until it goes limp and drops to fall with a heavy plop in the river below.||You peer into the tomb. The darkness seems to rustle with unseen threats, but you know that it is just a figment of your imagination. You have dealt with the tomb guardian. Now you are eager to see if there is any treasure to be had.">
@@ -2225,7 +2223,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY124-PRECHOICE ()
-	<TEST-MORTALITY 2 DIED-FROM-INJURIES ,STORY124>>
+	<TEST-MORTALITY 2 ,DIED-FROM-INJURIES ,STORY124>>
 
 <CONSTANT TEXT125 "Scattering the chillies onto the dragon's tongue has the desired effect. He opens his mouth and spits you out with a great bellow of pain and surprise. You scrabble off to a safe distance before turning to watch his anguished attempts to wipe his tongue clean against the clifftop.||Kawak's rear head has blunt face with upcurving tusks and pallid globular eyes. He glowers at you and speaks with difficulty because of his burning tongue, saying, \"If you attempt to return this way, I shall devour you.\"||Bearing this warning in mind, you hurry onwards.">
 
@@ -2281,7 +2279,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY129-PRECHOICE ()
-	<TEST-MORTALITY 2 DIED-FROM-INJURIES ,STORY129>
+	<TEST-MORTALITY 2 ,DIED-FROM-INJURIES ,STORY129>
 	<COND (<IS-ALIVE>
 		<SETG MAX-LIFE-POINTS <- ,MAX-LIFE-POINTS 2>>
 		<COND (<G? ,LIFE-POINTS ,MAX-LIFE-POINTS> <SETG LIFE-POINTS ,MAX-LIFE-POINTS>)>
@@ -2342,7 +2340,7 @@
 		<COND (<CHECK-SKILL ,SKILL-AGILITY>
 			<PREVENT-DEATH ,STORY133>
 		)(ELSE
-			<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY133>
+			<TEST-MORTALITY 1 ,DIED-FROM-INJURIES ,STORY133>
 		)>
 	)>
 	<COND (<IS-ALIVE>
@@ -2437,7 +2435,7 @@
 		<EMPHASIZE "You do not have enough money for that.">
 	)>
 	<CRLF>
-	<TELL TEXT139-CONTINUED>
+	<TELL ,TEXT139-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT140 "You steady yourself against the rough stone walls, only to recoil with a gasp of disgust. The brief contact has left an unpleasant coating of slime on your hands. You hurriedly wipe it away on your cloak. The stench grows stronger with each step you take until it is almost unbearable. You feel sick, but you manage to reach the chamber and stoop to inspect the item that caught your eye. It is a bowl of polished stone incised with the emblem of the Creator God, who gave life to all things. You need no special sense to recognize the aura of divine magic. This can only be the fabled Chalice of Life in which the gods brewed the primordial potion that birthed the ancestors of mankind.">
@@ -2456,7 +2454,7 @@
 <ROUTINE STORY140-PRECHOICE ()
 	<COND (,RUN-ONCE <KEEP-ITEM ,CHALICE-OF-LIFE>)>
 	<CRLF>
-	<TELL TEXT140-CONTINUED>
+	<TELL ,TEXT140-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT141 "A grip of iron closes on your arm and you are dragged bodily into the black pit inside the tree. A musky stench makes you reel as you a are pinned against a wall of moss and decaying wood. The creature's body is covered with rough scales and it begins to strangle you with remorseless strength. You can do nothing to save yourself, and your last thought is of the gold diadem clutched in your hand. You batter it against the creature in a futile struggle, bending the soft metal with no care for its value now. You will be the richest corpse in the forest.">
@@ -2568,13 +2566,13 @@
 
 <ROUTINE STORY150-PRECHOICE ("AUX" (DAMAGE 2))
 	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE> <SET DAMAGE 1>)>
-	<TEST-MORTALITY .DAMAGE DIED-GREW-WEAKER ,STORY150>
+	<TEST-MORTALITY .DAMAGE ,DIED-GREW-WEAKER ,STORY150>
 	<COND (<IS-ALIVE>
 		<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
 			<EMPHASIZE "Your hardiness inures you to the extreme cold.">
 		)>
 		<CRLF>
-		<TELL TEXT150-CONTINUED>
+		<TELL ,TEXT150-CONTINUED>
 		<TELL ,PERIOD-CR>
 	)>>
 
@@ -2649,9 +2647,9 @@
 <ROUTINE STORY156-PRECHOICE ()
 	<CRLF>
 	<COND (<CHECK-CODEWORD ,CODEWORD-POKTAPOK>
-		<TELL TEXT155-WIN>
+		<TELL ,TEXT155-WIN>
 	)(ELSE
-		<TELL TEXT155-LOSE>
+		<TELL ,TEXT155-LOSE>
 	)>
 	<TELL ,PERIOD-CR>
 	<COND (<CHECK-CODEWORD ,CODEWORD-SHADE> <STORY-JUMP ,STORY203>)>>
@@ -2748,11 +2746,11 @@
 		<SET ARMED T>
 		<SET DAMAGE 1>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY164>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY164>
 	<COND (<IS-ALIVE>
 		<COND (.ARMED <EMPHASIZE TEXT164-ARMED>)>
 		<CRLF>
-		<TELL TEXT164-CONTINUED>
+		<TELL ,TEXT164-CONTINUED>
 		<CRLF>
 		<COND (<CHECK-SKILL ,SKILL-AGILITY>
 			<COND (<CHECK-SKILL ,SKILL-CHARMS>
@@ -2762,7 +2760,7 @@
 			)>
 		)>
 		<CRLF>
-		<TELL TEXT-END>
+		<TELL ,TEXT-END>
 		<TELL ,PERIOD-CR>
 	)>>
 
@@ -2792,7 +2790,7 @@
 	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
 		<SET DAMAGE 3>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY166>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY166>
 	<IF-ALIVE TEXT166-CONTINUED>>
 
 <CONSTANT TEXT167 "The two demons continue their senseless chortling as they paddle you away form the rock tombs. It is a if they share some private joke -- and you have the unpleasant feeling that the joke is at your expense.">
@@ -2823,7 +2821,7 @@
 		<SET HERBAL T>
 		<SET DAMAGE 2>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-GREW-WEAKER ,STORY168>
+	<TEST-MORTALITY .DAMAGE ,DIED-GREW-WEAKER ,STORY168>
 	<COND (<IS-ALIVE>
 		<COND (.HERBAL <EMPHASIZE TEXT168-REMEDY>)>
 		<LOSE-ITEM ,SHAWL>
@@ -2895,7 +2893,7 @@
 	<COND (,RUN-ONCE
 		<COND (<CHECK-ITEM ,JADE-BEAD>
 			<CRLF>
-			<TELL TEXT173-JADE>
+			<TELL ,TEXT173-JADE>
 			<TELL ,PERIOD-CR>
 			<CRLF>
 			<TELL "Discard " T ,JADE-BEAD "?">
@@ -2966,15 +2964,15 @@
 		<SET RESILIENT T>
 		<SET DAMAGE 2>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-GREW-WEAKER ,STORY178>
+	<TEST-MORTALITY .DAMAGE ,DIED-GREW-WEAKER ,STORY178>
 	<COND (<IS-ALIVE>
 		<COND (.RESILIENT
 			<CRLF>
-			<TELL TEXT178-RESILIENCE>
+			<TELL ,TEXT178-RESILIENCE>
 			<TELL ,PERIOD-CR>
 		)>
 		<CRLF>
-		<TELL TEXT178-CONTINUED>
+		<TELL ,TEXT178-CONTINUED>
 		<TELL ,PERIOD-CR>
 	)>>
 
@@ -2993,9 +2991,9 @@
 	<CRLF>
 	<COND (<CHECK-SKILL ,SKILL-AGILITY>
 		<SET SCORED 2>
-		<TELL TEXT179-HIGH>
+		<TELL ,TEXT179-HIGH>
 	)(ELSE
-		<TELL TEXT179-LOW>
+		<TELL ,TEXT179-LOW>
 	)>
 	<TELL ,PERIOD-CR>
 	<SCORE-POINTS .SCORED ,PLAYER>>
@@ -3051,15 +3049,15 @@
 <ROUTINE STORY184-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
 		<CRLF>
-		<TELL TEXT184-RATION>
+		<TELL ,TEXT184-RATION>
 		<TELL ,PERIOD-CR>
 		<PREVENT-DEATH ,STORY184>
 	)(ELSE
-		<TEST-MORTALITY 2 DIED-OF-THIRST ,STORY184>
+		<TEST-MORTALITY 2 ,DIED-OF-THIRST ,STORY184>
 	)>
 	<COND (<IS-ALIVE>
 		<CRLF>
-		<TELL TEXT184-CONTINUED>
+		<TELL ,TEXT184-CONTINUED>
 		<TELL ,PERIOD-CR>
 		<LOSE-ITEM ,WATERSKIN>
 	)>>
@@ -3095,7 +3093,7 @@
 		<COND (<EQUAL? .RESULT GIVE-GIVEN> <RETURN>)>
 	>
 	<CRLF>
-	<TELL TEXT186-CONTINUED>
+	<TELL ,TEXT186-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT187 "Your dart brings down a small brocket of deer. It is scarcely bigger than a dog, but enough to assuage your hunger and leave you with a good haunch of venison to consume later.">
@@ -3178,7 +3176,7 @@
 <ROUTINE STORY192-PRECHOICE ()
 	<GAIN-LIFE 2>
 	<CRLF>
-	<TELL TEXT192-CONTINUED>
+	<TELL ,TEXT192-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT193 "With a long bound, you launch yourself from the edge of the canyon onto the first of the spires of rock. Only now do you discover that it is red hot, but you remain undaunted. Careless of the long drop that surrounds you on all sides, you fall into an easy leaping gait which carries you from one spire to the next without pause. You have reached the far side of the canyon even before the heat of the rock can start to scorch your shoes.">
@@ -3206,7 +3204,7 @@
 	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
 		<SET DAMAGE 3>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY194>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY194>
 	<IF-ALIVE TEXT194-CONTINUED>>
 
 <CONSTANT TEXT195 "Despite your horror of the macabre creature, you force yourself to close with it in a desperate effort to the end the fight quickly. Its black maw drops open in a triumphant hiss as it lifts its host body's limbs to grapple with you. You are alarmed by the force in its blows: the poor woman it is attached to is being forced to do its bedding with a strength beyond human endurance.">
@@ -3225,7 +3223,7 @@
 	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
 		<SET DAMAGE 3>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY195>>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY195>>
 
 <CONSTANT TEXT196 "You start out along the road, relieved at the fact that this leaves the dazzling sun of the underworld at your back. You trudge on for hours. For more than hours. Time begins to have no meaning. It seems you are waling on sand, illuminated by a ruddy glow. Your pulse sounds like the roar of the tide. The redness becomes a deep gloomy haze. You feel you can hardly breathe. Each step weighs you down, but you struggle onward towards a blaze of light...||You awaken with a sobbing intake of breath. You are back in your clanhouse in Koba. You have returned through time and space to the start of your adventure. You have a chance to begin again, forewarned by your previous mistakes.">
 
@@ -3252,10 +3250,10 @@
 	<GAIN-LIFE 2>
 	<CRLF>
 	<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
-		<TELL TEXT197-NOBLE>
+		<TELL ,TEXT197-NOBLE>
 		<STORY-JUMP ,STORY106>
 	)(ELSE
-		<TELL TEXT197-BEGONE>
+		<TELL ,TEXT197-BEGONE>
 	)>
 	<TELL ,PERIOD-CR>>
 
@@ -3282,11 +3280,11 @@
 		<SET HARDY T>
 		<SET DAMAGE 1>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-OF-THIRST ,STORY199>
+	<TEST-MORTALITY .DAMAGE ,DIED-OF-THIRST ,STORY199>
 	<COND (<IS-ALIVE>
 		<COND (.HARDY
 			<CRLF>
-			<TELL NATURAL-HARDINESS>
+			<TELL ,NATURAL-HARDINESS>
 			<TELL ,PERIOD-CR>
 		)>
 	)>>
@@ -3355,10 +3353,10 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY204-PRECHOICE ()
-	<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY204>
+	<TEST-MORTALITY 1 ,DIED-FROM-INJURIES ,STORY204>
 	<COND (<IS-ALIVE>
 		<CRLF>
-		<TELL TEXT204-CONTINUED>
+		<TELL ,TEXT204-CONTINUED>
 		<TELL ,PERIOD-CR>
 		<COND (<CHECK-CODEWORD ,CODEWORD-VENUS> <STORY-JUMP ,STORY240>)>
 	)>>
@@ -3384,14 +3382,14 @@
 	)>
 	<CRLF>
 	<COND (.FISHED
-		<TELL TEXT205-FISH>
+		<TELL ,TEXT205-FISH>
 		<TELL ,PERIOD-CR>
 		<PREVENT-DEATH ,STORY205>
 		<SETG LIFE-POINTS ,MAX-LIFE-POINTS>
 	)(ELSE
-		<TELL TEXT205-POISONING>
+		<TELL ,TEXT205-POISONING>
 		<TELL ,PERIOD-CR>
-		<TEST-MORTALITY 1 DIED-OF-HUNGER ,STORY205>
+		<TEST-MORTALITY 1 ,DIED-OF-HUNGER ,STORY205>
 	)>>
 
 <CONSTANT TEXT206 "Your sword lashes out, clattering loudly against the lord's. The crowd stares in excitement and horror as the two of you circle warily. You see the lord's wife draw her children protectively against her skirts. You lunge in close. Your opponent's sword comes up in a desperate parry that breaks splinters off its obsidian edge. He grunts as a red weal appears across his arm, but he responds with a clubbing upswing of the sword hilt that leaves you stunned.||The fight goes on, carrying you to and fro across quay. At last you score a mighty blow that slashes his hand knocking his sword into the water. He gives a snarl which is as much annoyance as pain, then pulls his family off into the crowd.||You are bleeding from several deep cuts.">
@@ -3406,7 +3404,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY206-PRECHOICE ()
-	<TEST-MORTALITY 2 DIED-IN-COMBAT ,STORY206>
+	<TEST-MORTALITY 2 ,DIED-IN-COMBAT ,STORY206>
 	<IF-ALIVE TEXT206-CONTINUED>>
 
 <CONSTANT TEXT207 "Your head is pounding and it feels as though a rough rope has been used to scour your throat. You recognize the symptoms of dehydration. Without water, you will die.||You find three plants that might yield the moisture you need. The first is a large barrel-shaped cactus with a milky sap. The second is a clump of rough spiky leaves with a single long stalk growing up from the centre. The last is another cactus, paler in colour than the first, comprising many flattened bulbous segments with squashy fruits.">
@@ -3433,9 +3431,9 @@
 
 <ROUTINE STORY208-PRECHOICE ("AUX" (COLON-SPACE ": "))
 	<CRLF>
-	<COND (<CHECK-ITEM ,MAGIC-POTION> <PRINT-CAP-OBJ ,MAGIC-POTION> <TELL .COLON-SPACE> <TELL TEXT208-MAGIC-POTION> <TELL ,PERIOD-CR>)>
-	<COND (<CHECK-ITEM ,GREEN-MIRROR> <PRINT-CAP-OBJ ,GREEN-MIRROR> <TELL .COLON-SPACE> <TELL TEXT208-GREEN-MIRROR> <TELL ,PERIOD-CR>)>
-	<COND (<CHECK-ITEM ,JADE-SWORD> <PRINT-CAP-OBJ ,JADE-SWORD> <TELL .COLON-SPACE> <TELL TEXT208-MAGIC-POTION> <TELL ,PERIOD-CR>)>>
+	<COND (<CHECK-ITEM ,MAGIC-POTION> <PRINT-CAP-OBJ ,MAGIC-POTION> <TELL .COLON-SPACE> <TELL ,TEXT208-MAGIC-POTION> <TELL ,PERIOD-CR>)>
+	<COND (<CHECK-ITEM ,GREEN-MIRROR> <PRINT-CAP-OBJ ,GREEN-MIRROR> <TELL .COLON-SPACE> <TELL ,TEXT208-GREEN-MIRROR> <TELL ,PERIOD-CR>)>
+	<COND (<CHECK-ITEM ,JADE-SWORD> <PRINT-CAP-OBJ ,JADE-SWORD> <TELL .COLON-SPACE> <TELL ,TEXT208-MAGIC-POTION> <TELL ,PERIOD-CR>)>>
 
 <CONSTANT TEXT209 "A sense of awe comes over you while walking through the green gloom that lies between the soaring tree-trunks of the forest. Dragonflies flash with the colours of copper, obsidian and gemstones as they dart in and out of the scattered beams of sunlight. Monkeys chitter unseen high above your head, crashing the thick foliage aside as they tumble from branch to branch. A dust-like swirling in the shadows is in fact the flight of countless tiny gnats. There is a hot perfumed dampness here: the rich odour of the forest floor rising to mingle with the scent that trickles down from brightly hued orchids. You pass huge fanciful growths of fungi which look like unearthly stones dropped by the gods.||A sparkle of bright light catches your eye. Standing some distance off, framed in the eternal twilight of the jungle like a jewel displayed on dark cloth, is a bewitching figure. She turns her face towards you and you give a gasp of surprise. Her features -- her whole body -- are suffused with a dazzling golden radiance that seems to shine from her very skin. With a musical laugh, she swirls her shawl up around her shoulders and starts to dance between the trees.">
 <CONSTANT CHOICES209 <LTABLE "pursue her" "not">>
@@ -3540,7 +3538,7 @@
 		<PREVENT-DEATH ,STORY216>
 	)(ELSE
 		<CRLF>
-		<TELL TEXT216-END>
+		<TELL ,TEXT216-END>
 		<TELL ,PERIOD-CR>
 	)>>
 
@@ -3574,7 +3572,7 @@
 		<STORY-JUMP ,STORY396>
 	)(ELSE
 		<CRLF>
-		<TELL TEXT218-CONTINUED>
+		<TELL ,TEXT218-CONTINUED>
 		<CRLF>
 		<COND (,RUN-ONCE <GAIN-LIFE 1>)>
 	)>>
@@ -3643,7 +3641,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY224-PRECHOICE ()
-	<TEST-MORTALITY 3 DIED-FROM-INJURIES ,STORY224>
+	<TEST-MORTALITY 3 ,DIED-FROM-INJURIES ,STORY224>
 	<IF-ALIVE TEXT224-CONTINUED>>
 
 <CONSTANT TEXT225 "You spend the day crouched in the meagre shade afforded by the walls of the courtyard. At sunset, the courtiers lead you to the second of the five windowless buildings. When they open the door, you can see nothing but blackness inside. A waft of acrid air touches your face as you step inside. You get the impression of a high-ceilinged hall whose dark recesses are filled by rustling and high-pitched squeaks. Something like dust brushes your face. You put up your fingers and run them through your hair, then grimace when you see what is falling from the roof: lice.||\"The bats are our master's second favourite pets, after ourselves. They are vampire bats, of course,\" says the chief courtier. He peers in and calls up to the rafters: \"Supper time, gentlemen!\" Then he leaves and the door is slammed shut, blotting out all light.">
@@ -3685,7 +3683,7 @@
 
 <ROUTINE STORY227-PRECHOICE ("AUX" (DAMAGE 8))
 	<COND (<CHECK-SKILL ,SKILL-CHARMS> <SET DAMAGE 4>)>
-	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY227>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY227>
 	<COND (<AND <IS-ALIVE> <CHECK-CODEWORD ,CODEWORD-VENUS>> <STORY-JUMP ,STORY442>)>>
 
 <CONSTANT TEXT228 "Following the sweep of the coastline, you press on into the north-west. You subsist on fruit and fish for a week or so until finally you arrive at the great port of Tahil. The streets are crowded with refugees, all pouring towards the quayside in the hope of finding passage on a ship going east.||You make your way through the press of frightened people and past the great temples and townhouses which now lie deserted. The causeway to the west is empty apart from a few forlorn stragglers and those who have fallen crippled by the wayside.||\"Turn back!\" cautions a starving beggar as he passes you on the causeway. \"Monsters are coming out of the western desert to slay us all!\"||\"No,\" you reply without looking back, \"I'm going to slay them.\"">
@@ -3717,7 +3715,7 @@
 		)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
 			<SET DAMAGE 2>
 		)>
-		<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY229>
+		<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY229>
 	)>
 	<IF-ALIVE TEXT229-CONTINUED>>
 
@@ -3732,7 +3730,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY230-PRECHOICE ()
-	<TEST-MORTALITY 1 DIED-OF-THIRST ,STORY230>>
+	<TEST-MORTALITY 1 ,DIED-OF-THIRST ,STORY230>>
 
 <CONSTANT TEXT231 "The high priest of the War God is a grizzled old soldier, sturdy in spite of his years. You find him at the arena practising the ball contest which is both a sport and a sacred ritual for your people. Clad in heavy protective padding, he swipes at the rubber ball with his forearms and knees, now and again running up along the slanting walls of the arena to drive the ball towards the goal: a stone ring set high up off the arena floor. You watch for a while, marvelling at his strength and grace. Each impact of the ball costs him an effort which can be heard in his grunts and gasps, but he plays on despite the heat of the afternoon, which has sent many a younger man off to a siesta.||At last he concludes his practice. Pulling off his protective helmet, he wipes back his sweat-soaked greying hair and walks towards you. \"So you're Evening Star,\" he says, clasping your hand. \"Going after your brother, are you? Good, I admire that! Sort that damned sorcerer out, eh?\"||It is not the custom of your people to be so direct, and is manner leaves you discomposed. \"Um... your ball practice was very impressive,\" you say lamely.||\"For someone of my age, you were going to say?\" He laughs heartily. \"Well, I prefer a bit of killing, if the truth be told, but Koba's not at war with anyone at the moment. Now, as to this quest of yours -- I take it you'll be going by the land route? Take the causeway as far as Yashuna, then turn south and head cross-country of Nachan. There's fine deer to be had in the forest, I can tell you. You are taking all this in, aren't you?\"||\"Er, yes.\"||\"Good. Now, watch out for the stabai when you're in the forest. They're sort of magical nymphs -- can be mischievous, or downright nasty. After Nachan you'll head up through the mountains to the western desert. Make sure you've got a waterskin, by the way, or you won't survive two days in the desert. Do you want to make an offering to the god?||An offering might bring you good fortune on your journey.">
 
@@ -3758,7 +3756,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY232-PRECHOICE ()
-	<COND (,RUN-ONCE <TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY232>)>
+	<COND (,RUN-ONCE <TEST-MORTALITY 1 ,DIED-FROM-INJURIES ,STORY232>)>
 	<IF-ALIVE TEXT232-CONTINUED>>
 
 <CONSTANT TEXT233 "Crouching hidden behind a bank of ferns, you wait patiently until a rabbit comes hopping past. It squats with ears pricked up and nose twitching, barely arm's length from your hiding place. You lob a stone over to the far side of the clearing, and the sudden noise startles the rabbit so that it rushes straight into your clutches. A quick twist ends its struggles, and soon you are roasting your catch over a fire. As you chew at the rangey meat, you reflect on how your artful ways are not only of use in the city.">
@@ -3800,9 +3798,9 @@
 		<TELL ,PERIOD-CR>
 	)>
 	<CRLF>
-	<TELL TEXT235>
+	<TELL ,TEXT235>
 	<TELL ,PERIOD-CR>
-	<TEST-MORTALITY 3 DIED-GREW-WEAKER ,STORY235>>
+	<TEST-MORTALITY 3 ,DIED-GREW-WEAKER ,STORY235>>
 
 <CONSTANT TEXT236 "A gust of wind carrying a rotting miasmal stench tells you that you are approaching the end of the tunnel. The demons steer along a side passage towards a patch of grey daylight, emerging under a sky the colour of wet limestone. This tributary of the river is barely more than a muddy trickle. The rank smell hangs over a dreary expanse of marshland which stretches off into the distance. No matter which way you look, all you can see is a landscape of sour white clay covered with scum-covered ponds and grey tufts of reeds.||You put in at a rotting wooden jetty and the demons wait for you to disembark. \"Hope you enjoyed the voyage,\" cackles one.||\"It's customary to show your appreciation,\" says the other as you clamber onto the jetty.||\"That's right!\" says the first as though it has only just occurred to him. \"Got a jade bead you could let us have?\"">
 
@@ -3834,12 +3832,12 @@
 <ROUTINE STORY237-PRECHOICE ()
 	<COND (<CHECK-ITEM ,JADE-BEAD>
 		<CRLF>
-		<TELL TEXT237-JADE-BEAD>
+		<TELL ,TEXT237-JADE-BEAD>
 		<TELL ,PERIOD-CR>
 		<LOSE-ITEM ,JADE-BEAD>
 	)>
 	<CRLF>
-	<TELL TEXT237>
+	<TELL ,TEXT237>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT238 "You join the queue of people waiting outside the palace in the hope of being granted an audience. When it comes to your turn, a snooty courtier soon makes it plain that you will have to bribe him if you want your gift taken to the King.">
@@ -3900,11 +3898,11 @@
 <ROUTINE STORY242-PRECHOICE ("AUX" (DAMAGE 2))
 	<COND (<CHECK-SKILL ,SKILL-AGILITY>
 		<CRLF>
-		<TELL TEXT242-AGILITY>
+		<TELL ,TEXT242-AGILITY>
 		<TELL ,PERIOD-CR>
 		<SET DAMAGE 1>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY242>>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY242>>
 
 <CONSTANT TEXT243 "The road leads you through a hazy realm. You pass by ranks of tall stately figures with bald elongated heads and cross-eyed expressions that make them seem introspective and wistful. You try to speak to them, to ask where you are, but they recede into the distance whenever you approach.||You cannot tell how long has passed when you find yourself back at the crossroads. Your memory is cloudy, and you realize that you have lost some of your expertise, along with other recollections.">
 <CONSTANT TEXT243-CONTINUED "One of the other paths must be the correct one.">
@@ -3963,10 +3961,10 @@
 		<SET HARDY T>
 		<SET DAMAGE 1>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-OF-THIRST ,STORY246>
+	<TEST-MORTALITY .DAMAGE ,DIED-OF-THIRST ,STORY246>
 	<COND (<AND <IS-ALIVE> .HARDY>
 		<CRLF>
-		<TELL NATURAL-HARDINESS>
+		<TELL ,NATURAL-HARDINESS>
 		<TELL ,PERIOD-CR>
 	)>>
 
@@ -4044,7 +4042,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY253-PRECHOICE ()
-	<TEST-MORTALITY 3 DIED-OF-THIRST ,STORY253>>
+	<TEST-MORTALITY 3 ,DIED-OF-THIRST ,STORY253>>
 
 <CONSTANT TEXT254 "The Moon Goddess has a small shrine off the northern edge of the temple plaza. You look up the pyramid steps to where the high priest awaits you, and he beckons for you to ascend. You compress your lips in annoyance; you had hoped he would come down to you. Even a small temple involves a steep climb.||As you make your way up the steps, you see stone effigies that depict the Nine Lords of the Night bearing the full moon up towards the shrine at the summit of the pyramid. The effigies are painted in the simple cream-gold hue of moonlight, with none of the bright daubings favoured by the other temples.||The high priest, too, has a manner quite unlike the priests of other gods. He wears a plain white robe, and a thin silver chain hangs around his waist. His smile of welcome seems modest and unaffected, but you sense a slight air of smugness behind the diffidently averted eyes. \"Good afternoon,\" he says. \"You must be Evening Star.\"||\"Let me get my breath back,\" you say, stooping as you reach the top of the steps. The baking sun on your back sends rivulets of sweat trickling off your brow. You glance down at the plaza twenty metres below. \"That's quite a climb.\"||The high priest smiles. \"You are out of condition.\"||You give him a wry look and sweep out your arm to indicate the flat landscape of fields and savannah surrounding the city. \"In these parts, only the holy get plenty of climbing practice. I've come to you for advice on my quest into the western desert.\"||\"Buy a waterskin.\"||You're unsure how to take that remark. You watch him, but the only trace that he might be joking is a sly curl of the lips. \"Is that all you have to suggest?\" you ask.||He glances at the shrine behind him. \"See this stucco? Flaking away, I'm afraid. The whole outer facade needs repairs.\"||In his roundabout way, he's asking for a donation.">
 <CONSTANT CHOICES254 <LTABLE "pay 1 cacao" "pay 2 cacao" "you are not prepared to make any donation and you need to hurry over to the market and spend your money on supplies instead">>
@@ -4193,7 +4191,7 @@
 	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
 		<SET DAMAGE 2>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY265>>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY265>>
 
 <CONSTANT TEXT266 "As you walk, you pass through bands of bright golden light interspersed by shadow. The flickering effect leaves you dazed and disoriented, so you are slow to react when something heavy slams into your back, forcing you down. You hear a deep resonant growl of a jaguar. Despite your fear, you struggle to rise. Hands -- or paws? -- fumble at your pack. You get to your feet in time to catch a fleeting glimpse of a large feline shape bounding off into the gloom.||You examine your possessions and find you have lost everything except for one item which you managed to hold on to. You have also been robbed of all your money.">
 <CONSTANT TEXT266-CONTINUED "Angrily you retrace your steps to the crossroads and select a different route">
@@ -4216,7 +4214,7 @@
 		<UPDATE-STATUS-LINE>
 	)>
 	<CRLF>
-	<TELL TEXT266-CONTINUED>
+	<TELL ,TEXT266-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT267 "According to legend, the hero-twins called Forethought and Afterthought once travelled west across the great desert in search of the tunnel leading to the underworld. There they had to pass these four sentinels. They addressed each with due deference, calling the first Lord Skull, the second Lord Blood, the third Thunderbolt Laughter, and the fourth Grandfather of Darkness. Thus they finally penetrated of the underworld.||Make your you know the detail of the legend.">
@@ -4242,12 +4240,12 @@
 <ROUTINE STORY268-PRECHOICE ()
 	<CRLF>
 	<COND (<CHECK-SKILL ,SKILL-AGILITY>
-		<TELL TEXT268-AGILITY>
+		<TELL ,TEXT268-AGILITY>
 		<TELL ,PERIOD-CR>
 		<PREVENT-DEATH ,STORY268>
 		<STORY-JUMP ,STORY337>
 	)(ELSE
-		<TELL TEXT268-CONTINUED>
+		<TELL ,TEXT268-CONTINUED>
 		<TELL ,PERIOD-CR>
 		<TEST-MORTALITY 2 ,DIED-FROM-INJURIES ,STORY268>
 	)>>
@@ -4294,11 +4292,11 @@
 		<PREVENT-DEATH ,STORY272>
 		<EMPHASIZE TEXT272-DEFLECT>
 	)(ELSE
-		<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY272>
+		<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY272>
 	)>
 	<COND (<IS-ALIVE>
 		<CRLF>
-		<TELL TEXT272-CONTINUED>
+		<TELL ,TEXT272-CONTINUED>
 		<TELL ,PERIOD-CR>
 		<SCORE-POINTS 2 ,FOES>
 	)>>
@@ -4320,11 +4318,11 @@
 		<SET DAMAGE 1>
 		<SET AGILE T>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY273>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY273>
 	<COND (<IS-ALIVE>
 		<CRLF>
-		<COND (.AGILE <TELL TEXT273-AGILITY>)>
-		<TELL TEXT273-CONTINUED>
+		<COND (.AGILE <TELL ,TEXT273-AGILITY>)>
+		<TELL ,TEXT273-CONTINUED>
 		<TELL ,PERIOD-CR>
 		<COND (<CHECK-CODEWORD ,CODEWORD-VENUS> <STORY-JUMP ,STORY240>)>
 	)>>
@@ -4370,7 +4368,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY276-PRECHOICE ()
-	<TEST-MORTALITY 2 DIED-OF-THIRST ,STORY276>>
+	<TEST-MORTALITY 2 ,DIED-OF-THIRST ,STORY276>>
 
 <CONSTANT TEXT277 "The high priest of the Death God is a portly short-sighted man wrapped in a black kilt. White paint is daubed in streaks around his belly as if to represent the fleshless ribcage of a corpse -- though you cannot help smiling as you reflect how his own ribs are so well covered. His head-dress is a rather intimidating effigy of a skull without its lower jaw, with long earpieces of jointed fingerbones hanging on neither side of his rotund face, but the priest removes this as soon as you are both seated in the shade of the outer shrine.||\"I have come to you for advice,\" you begin by saying, \"I must undertake a journey to the west in search of my brother, Morning Star\"||He wipes a slick of sweat off his brow with one plump hand. \"I have heard the story. Only one man has entered the great desert and left it alive -- the veteran who accompanied your brother. What makes you think you will fare better?\"||\"One man survived. Why shouldn't I\"||The priest shakes his head. \"He was one man from an expedition of thirty. Did you not hear his account of the perils of the desert -- the devil-driven sands, the monstrous serpents?\"||\"Then you counsel me to stay here in Koba? To abandon my quest?\"||He casts a quick gaze towards the shadowy archway leading to the inner shrine. \"The advice of the god is not so easily obtained. Are you willing to make an offering?\"">
 <CONSTANT CHOICES277 <LTABLE "pay him" "you cannot spare the money and must bid the priest farewell and see about getting supplies for the trip">>
@@ -4435,7 +4433,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY281-PRECHOICE ()
-	<COND (,RUN-ONCE <TEST-MORTALITY 3 DIED-FROM-INJURIES ,STORY281>)>>
+	<COND (,RUN-ONCE <TEST-MORTALITY 3 ,DIED-FROM-INJURIES ,STORY281>)>>
 
 <CONSTANT TEXT282 "Your talent for stealth seems heightened in this otherworldly realm. You creep forward as noiselessly as a shadow. Gruesome slime coats the rough stone walls and the smell is almost unbearable, but you reach the chamber and stoop to inspect the item that caught your eye. It is a bowl of polished stone bearing the insignia of the Creator God, who gave life to all things, and you need no special senses to recognize the aura of divine magic. This can only be the fabled Chalice of Life in which the gods mixed the brew that spawned mankind.||You slip quietly back to the boat and gesture for the demons to convey you on.">
 
@@ -4559,12 +4557,12 @@
 		<COND (<G? .COUNT 1>
 			<LOSE-STUFF ,PLAYER ,LOST-BAG "item" <- .COUNT 1> RESET-POSSESSIONS>
 		)(ELSE
-			<EMPHASIZE ALL-POSSESSIONS>
+			<EMPHASIZE ,ALL-POSSESSIONS>
 			<RESET-CONTAINER ,PLAYER>
 			<MOVE ,ALL-MONEY ,PLAYER>
 		)>
 	)(ELSE
-		<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY290>
+		<TEST-MORTALITY 1 ,DIED-FROM-INJURIES ,STORY290>
 		<COND (<IS-ALIVE> <EMPHASIZE TEXT290-FLESH>)>
 	)>>
 
@@ -4588,10 +4586,10 @@
 			<SET BLOCKED T>
 			<SET DAMAGE 2>
 		)>
-		<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY291>
+		<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY291>
 		<COND (<AND <IS-ALIVE> .BLOCKED>
 			<CRLF>
-			<TELL TEXT291-BLOCK>
+			<TELL ,TEXT291-BLOCK>
 			<TELL ,PERIOD-CR>
 		)>
 	)>>
@@ -4644,9 +4642,9 @@
 	<SCORE-POINTS 1 ,FOES>
 	<COND (<NOT <CHECK-SKILL ,SKILL-CHARMS>>
 		<CRLF>
-		<TELL TEXT295-CHARMS>
+		<TELL ,TEXT295-CHARMS>
 		<TELL ,PERIOD-CR>
-		<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY295>
+		<TEST-MORTALITY 1 ,DIED-FROM-INJURIES ,STORY295>
 	)(ELSE
 		<PREVENT-DEATH ,STORY295>
 	)>>
@@ -4665,7 +4663,7 @@
 	<COND (<CHECK-SKILL ,SKILL-SWORDPLAY> <SET DAMAGE <- .DAMAGE 2>>)>
 	<COND (<CHECK-SKILL ,SKILL-CHARMS> <SET DAMAGE <- .DAMAGE 2>>)>
 	<COND (<CHECK-SKILL ,SKILL-UNARMED-COMBAT> <SET DAMAGE <- .DAMAGE 2>>)>
-	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY296>>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY296>>
 
 <CONSTANT TEXT297 "Your first dart hits a pirate right between his white-rimmed eyes and he slumps over the side with a groan. The others react to this with screeches of rage, paddling furiously to catch up with your own vessel. By the time the gap has been closed to ten paces, you have slain two more of them with your blowgun and they are beginning to have second thoughts. When they see you slide another dart into the blowgun, they throw up their hands in a gesture of surrender and go veering off towards the horizon -- no doubt in search of easier pickings.">
 
@@ -4691,20 +4689,20 @@
 
 <ROUTINE STORY298-PRECHOICE ()
 	<CRLF>
-	<TELL TEXT298-TRAVEL>
+	<TELL ,TEXT298-TRAVEL>
 	<COND (<OR <CHECK-SKILL ,SKILL-TARGETING> <CHECK-SKILL ,SKILL-WILDERNESS-LORE>>
-		<TELL TEXT298-HUNT>
+		<TELL ,TEXT298-HUNT>
 		<TELL ,PERIOD-CR>
 		<EMPHASIZE "You were able to hunt for food.">
 		<PREVENT-DEATH ,STORY298>
 	)(ELSE
-		<TELL TEXT298-EAT>
+		<TELL ,TEXT298-EAT>
 		<TELL ,PERIOD-CR>
 		<EAT-PROVISIONS 2 STORY298 T>
 	)>
 	<COND (<IS-ALIVE>
 		<CRLF>
-		<TELL TEXT298-CONTINUED>
+		<TELL ,TEXT298-CONTINUED>
 		<TELL ,PERIOD-CR>
 	)>>
 
@@ -4719,7 +4717,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY299-PRECHOICE ()
-	<TEST-MORTALITY 4 DIED-OF-THIRST ,STORY299>>
+	<TEST-MORTALITY 4 ,DIED-OF-THIRST ,STORY299>>
 
 <CONSTANT TEXT300 "Two days' sailing brings you to Tahil, a busy trading settlement on the far coast. The others squint warily as they bring the vessel in to the harbour. You can see at once there is trouble here. Instead of the stacks of trade goods that would normally be piled up along the quayside at a port like this, there are milling crowds of refugees carrying everything they own on their backs.||As you tie up at the quay, a man whose elegant clothing marks him as a lord of the Great City comes striding towards you. \"I am commandeering your vessel,\" he says in a tone that brooks no disagreement.||Without waiting for a reply, he turns and beckons his wife and children to join him. A couple of servants scurry along behind them, struggling under the weight of the family's possessions.">
 <CONSTANT CHOICES300 <LTABLE "prevent his appropriation of the vessel by employing" "using" "a sword" "you are not bothered about him taking the vessel, you can just set out towards Shakalla">>
@@ -4775,11 +4773,11 @@
 <ROUTINE STORY304-PRECHOICE ()
 	<CRLF>
 	<COND (<CHECK-ITEM ,JADE-BEAD>
-		<TELL TEXT-BEAD>
+		<TELL ,TEXT-BEAD>
 		<TELL ,PERIOD-CR>
 		<CRLF>
 	)>
-	<TELL TEXT304-CONTINUED>
+	<TELL ,TEXT304-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT305 "Which of these will you use:">
@@ -4811,7 +4809,7 @@
 <ROUTINE STORY306-PRECHOICE ()
 	<COND (<AND ,RUN-ONCE <CHECK-ITEM ,MAN-OF-GOLD>> <LOSE-ITEM ,MAN-OF-GOLD>)>
 	<CRLF>
-	<TELL TEXT306-CONTINUED>
+	<TELL ,TEXT306-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT307 "A bundle lies across the path ahead. Quickening your pace, you are startled when the 'bundle' suddenly raises its head. It is a dwarf with withered legs but very broad shoulders wrapped in a long black mantle. His large ears and upturned nose give him a grotesque appearance, and you are on the point of hurrying past when he raises a long imploring arm.||\"Please help me,\" he begs. \"I'm too weak to go on, and I'm terribly thirsty...\"">
@@ -4879,7 +4877,7 @@
 		<STORY-JUMP ,STORY357>
 	)(ELSE
 		<CRLF>
-		<TELL TEXT311-END>
+		<TELL ,TEXT311-END>
 		<TELL ,PERIOD-CR>
 	)>>
 
@@ -4936,7 +4934,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY316-PRECHOICE ()
-	<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY316>
+	<TEST-MORTALITY 1 ,DIED-FROM-INJURIES ,STORY316>
 	<IF-ALIVE TEXT316-CONTINUED>>
 
 <CONSTANT TEXT317 "You squint in the shimmering glare of the sun, but your eyes cannot make out any shape within the black void of the shrine entrance. The soot-coloured pillars give its darkened interior the look of a fleshless mouth. Again Necklace of Skull's voice rolls along the avenue, each syllable driving like a grave-cool gust of wind through the blistering desert heat. \"Your brother came here before you.\"||Red rage seethes in your heart. \"That's right, you --\"||The sorcerer's words continue, unperturbed by your outburst. \"He played the ritual ball contest and he lost. His life was forfeit. Now you will play for the same stakes. Behold your antagonists.\" Two long rivulets of shadow flow out of the shrine and down the pyramid steps, looking like spreading pools of black blood against the ebon stone. Reaching the bottom, they rise up in obscenely palpitating columns which gradually take solid form. Human form. Confronting you now are your opponents in the ball contest: two creatures of living shadow fashioned by the sorcerer's magic.">
@@ -4981,9 +4979,9 @@
 <ROUTINE STORY319-PRECHOICE ()
 	<COND (<CHECK-SKILL ,SKILL-WILDERNESS-LORE>
 		<PREVENT-DEATH ,STORY319>
-		<EMPHASIZE NATURAL-HARDINESS>
+		<EMPHASIZE ,NATURAL-HARDINESS>
 	)(ELSE
-		<TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY319>
+		<TEST-MORTALITY 1 ,DIED-GREW-WEAKER ,STORY319>
 	)>>
 
 <CONSTANT TEXT320 "The pirates' vessel bumps against yours and they come swarming over the side like ants. You cannot understand their yammering war-cries, for they are not of your people but come from a land beyond the northern sea. Their white-rimmed eyes hold a look that means the same in any language, though. It is the look of fury and hate.||You fight with desperate strength knowing that you are fighting not just for your own life but also for the trader and his young sons.">
@@ -5003,7 +5001,7 @@
 	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
 		<SET DAMAGE 5>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY320>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY320>
 	<IF-ALIVE TEXT320-CONTINUED>>
 
 <CONSTANT TEXT321 "Shakalla is a walled town whose hard sun-baked streets are the colour of hot ash. At this time of day, the place is deserted. Those who have not fled in fear have retreated to the cool interiors of their houses, seeking refuge from the midday sun. You see a few faces peering from the narrow doorways as you go past. A dog lies stretched in the shade of a shop's awning, panting with the heat.">
@@ -5043,7 +5041,7 @@
 	<COND (,RUN-ONCE <SETG BLESSING-WAR-GOD T>)>
 	<EMPHASIZE TEXT323-BLESS>
 	<CRLF>
-	<TELL TEXT323-CONTINUED>
+	<TELL ,TEXT323-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT324 "You gaze around. All directions present you with the same vista: trees stand like stone sentinels draped in moss-coloured gloom. Great nets of creepers are strung between their heavy boughs. There are not even any sounds of wildlife to disturb the hoary solitude of the ancient woods. You are thoroughly lost.">
@@ -5103,8 +5101,8 @@
 
 <ROUTINE STORY327-PRECHOICE ()
 	<CRLF>
-	<COND (<CHECK-ITEM ,JADE-BEAD> <TELL TEXT-BEAD> <TELL ,PERIOD-CR> <CRLF>)>
-	<TELL TEXT327-CONTINUED>
+	<COND (<CHECK-ITEM ,JADE-BEAD> <TELL ,TEXT-BEAD> <TELL ,PERIOD-CR> <CRLF>)>
+	<TELL ,TEXT327-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT328 "You cannot suppress a scream as their wet stubby fingers clutch at you. It is like a scene from your worst nightmares. Striking out blindly, you stumble along the tunnel. You feel their shells crack under your frantic blows, but then a slimy hand presses over your face and you reel under a hail of punches. Ichor spurts into your eyes as you drive a deep blow hard into your eyes as you drive a deep blow hard into one of the creatures, and its eerie keening wail evokes a feeling of unendurable horror.">
@@ -5163,7 +5161,7 @@
 <ROUTINE STORY331-PRECHOICE ()
 	<COND (,RUN-ONCE
 		<CRLF>
-		<TELL TEXT331-SPEAK>
+		<TELL ,TEXT331-SPEAK>
 		<COND (<YES?> <STORY-JUMP ,STORY328> <RETURN>)>
 	)>
 	<COND (,RUN-ONCE
@@ -5171,7 +5169,7 @@
 		<TELL CR "You recovered a bit of your vitality after a night's rest" ,PERIOD-CR>
 	)>
 	<CRLF>
-	<TELL TEXT331-DECIDE>
+	<TELL ,TEXT331-DECIDE>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT332 "\"I notice you suffer from a bad back,\" you say to the fenman. \"May I ask why you don't rig a sail on your boat to save yourself the effort of rowing?\"||\"Do you know nothing about boats?\" he grumbles as he picks up another heavy pot. \"A vessel made of reeds is to flimsy to support the weight of a mast.\"||\"Use a double mast, so that the sail straddles the boat,\" you suggest. \"This would distribute the load more evenly. Also, why not treat the reeds with oil, which would make the hull more watertight?\"||\"With the price of oil today?\" he cries incredulously. \"Reeds cost next to nothing.\"||\"Ah, but think of the time it takes yo to make a new boat for each river trip. A hull treated with oil would soon repay the initial cost.\"||He stops what he is doing and looks at you with new interest. \"Anything else?\" he asks.||\"Yes. I see you are loading empty pots aboard your boat, presumably for sale downriver. Mead is plentiful in Nachan but not in the fens, so why not fill the pots with mead? It would take up no more space, but your profits would be enlarged by at least one fifth.\"||\"A fine idea,\" he admits, \"but the pots are heavy enough for my poor back already.\"||\"Exactly why you need a passenger who's willing to chip in a help,\" you answer in a trice. Convinced you are worth having along, he agrees to take you downriver for free.">
@@ -5193,7 +5191,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY333-PRECHOICE ()
-	<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY333>>
+	<TEST-MORTALITY 1 ,DIED-FROM-INJURIES ,STORY333>>
 
 <CONSTANT TEXT334 "The monster is impervious to your blows. More strands of long black hair wrap themselves around you. It is like fighting an octopus. You can do nothing to prevent it dragging itself closer until finally its jaws close on your windpipe. You feel yourself weakening, and then there is a crunching of cartilage and a pink spray of blood. Your blood.">
 
@@ -5290,10 +5288,10 @@
 <ROUTINE STORY341-PRECHOICE ()
 	<CRLF>
 	<COND (<CHECK-SKILL ,SKILL-AGILITY>
-		<TELL TEXT341-AGILE>
+		<TELL ,TEXT341-AGILE>
 		<TELL ,PERIOD-CR>
 	)(ELSE
-		<TELL TEXT341-SCORE>
+		<TELL ,TEXT341-SCORE>
 		<TELL ,PERIOD-CR>
 		<SCORE-POINTS 1 ,FOES>
 	)>>
@@ -5422,12 +5420,12 @@
 <ROUTINE STORY352-PRECHOICE ()
 	<CRLF>
 	<COND (<CHECK-ITEM ,JADE-BEAD>
-		<TELL TEXT352-LOST>
+		<TELL ,TEXT352-LOST>
 		<TELL ,PERIOD-CR>
 		<LOSE-ITEM ,JADE-BEAD>
 		<CRLF>
 	)>
-	<TELL TEXT352-CONTINUED>
+	<TELL ,TEXT352-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT353 "He opens a vein in the back of your hand using his long sharp fingernails, then laps eagerly at the blood. His tongue is rough and rasping at first, but soon the discomfort and the stinging of the wound begin to fade. You guess that there is something in his saliva that has a numbing effect.">
@@ -5443,7 +5441,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY353-PRECHOICE ()
-	<TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY353>
+	<TEST-MORTALITY 1 ,DIED-GREW-WEAKER ,STORY353>
 	<IF-ALIVE TEXT353-CONTINUED>>
 
 <CONSTANT TEXT354 "The wall around the royal precinct is constructed of closely fitted blocks of smooth limestone. The builders even bowed it out slightly to make it more difficult to climb. You loiter casually at a corner until there is no one in sight, then brace yourself around the bend in the wall and pull yourself up.||The top of the wall tapers to a wedge which is rimmed with spikes of sharp obsidian, provoking a grin of admiration from you for the ingenuity of the royal architects. But none of these measures is enough to deter you. Swinging into a cartwheel, you vault over the top of the wall without touching the razor-edge of obsidian, dropping lightly to your feet on the other side.||A glance towards the gate confirms that the guards heard nothing: they are still gazing stolidly into the street outside. You slink away in the twilight and climb the steps of the pyramid.">
@@ -5524,17 +5522,17 @@
 <ROUTINE STORY360-PRECHOICE ()
 	<CRLF>
 	<COND (<CHECK-SKILL ,SKILL-CHARMS>
-		<TELL TEXT360-CHARMS>
+		<TELL ,TEXT360-CHARMS>
 		<TELL ,PERIOD-CR>
 		<PREVENT-DEATH ,STORY360>
 	)(ELSE
-		<TELL TEXT360-BITE>
+		<TELL ,TEXT360-BITE>
 		<TELL ,PERIOD-CR>
-		<TEST-MORTALITY 2 DIED-GREW-WEAKER ,STORY360>
+		<TEST-MORTALITY 2 ,DIED-GREW-WEAKER ,STORY360>
 	)>
 	<COND (<IS-ALIVE>
 		<CRLF>
-		<TELL TEXT360-CONTINUED>
+		<TELL ,TEXT360-CONTINUED>
 		<TELL ,PERIOD-CR>
 		<COND (<OR <CHECK-SKILL ,SKILL-SWORDPLAY> <CHECK-ITEM ,FLINT-KNIFE> <CHECK-ITEM ,SPEAR>> <STORY-JUMP ,STORY429>)>
 	)>>
@@ -5568,7 +5566,7 @@
 	)(<CHECK-SKILL ,SKILL-UNARMED-COMBAT>
 		<SET DAMAGE 2>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-IN-COMBAT ,STORY362>
+	<TEST-MORTALITY .DAMAGE ,DIED-IN-COMBAT ,STORY362>
 	<IF-ALIVE TEXT362-CONTINUED>>
 
 <CONSTANT TEXT363 "The ball contest requires two participants on each side. \"Am I to face this challenge alone?\" you cry out angrily.||Necklace of Skulls' voice rustles from the depths of his shrine. It sounds like a whisper, but is loud enough to carry right along the arena. \"The man you befriended on the journey here. He shall fight beside you.\"||Hearing a footstep behind you, you glance back to see Stooping Eagle approaching through the skeletal gate. \"Evening Star!\" he says, glad to see that you too have survived the ordeals set by the courtiers. He touches his sword. \"Where is the wizard? I am eager to see if his blood is red and clean like other men's, or flows like foul sewage!\"||You gesture to the pyramid at the far end of the arena. \"He awaits us there. But first we must prove ourselves in the contest.\"||He nods and leans closer to whisper in your ear. \"I know something of the strategy of the ball contest. Begin boldly so as to unsettle your opponents, then allow their leading player past you and drive deep towards the enemy defence.\"||\"Well,\" you say with a shrug, \"it's as good a plan as any.\"">
@@ -5661,7 +5659,7 @@
 <ROUTINE STORY370-PRECHOICE ()
 	<RESTORE-VITALITY>
 	<CRLF>
-	<TELL TEXT370-CONTINUED>
+	<TELL ,TEXT370-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT371 "There is a gasp form the crowd as they watch you jump over the edge. You know you must act quickly. Pulling off the helmet as you tumble down, you hug it against you an instant before the lake surface comes rushing up, driving the air out of your lungs with its chilling embrace. You are surrounded by silence and watery gloom. The weight of gold drags you down, but you have managed to trap a pocket of air inside the helmet and you use this to breathe while unfastening the straps of the regalia. All the air is used up by the time you struggle free, and a red haze swims in front of your vision as you kick up towards the surface.||You reach fresh air to discover you are no longer at the bottom of the well. Instead of open sky, a cavern roof stretches overhead. A ghostly grey light emanates out of nowhere. Trudging up onto a a rocky ledge, you hear the sound of oars. A canoe is approaching. As it takes shape out of the shadows, you get a good look at the two occupants. They are like nothing you have ever seen outside your night-mares. Now you know you truly have plunged into the fabled river that leads between the world of the living and the world of the dead.">
@@ -5860,7 +5858,7 @@
 		<TELL "Repair the boat?">
 		<COND (<YES?>
 			<CRLF>
-			<TELL TEXT387-REPAIR>
+			<TELL ,TEXT387-REPAIR>
 			<TELL ,PERIOD-CR>
 			<DELETE-CODEWORD ,CODEWORD-EB>
 			<STORY-JUMP ,STORY300>
@@ -5868,7 +5866,7 @@
 		)>
 		<CRLF>
 	)>
-	<TELL TEXT387-HELP>
+	<TELL ,TEXT387-HELP>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT388 "\"It is protection against the dust demons,\" explains one of the guards. \"They are invisible sprites who whip up whirlwinds and drive them like ravaging beasts onto those who travel in the desert.\"||You cast a brief glance at the boulder. \"Not much protection, surely? The demons could just steer their whirlwinds around it.\"||\"No,\" says the other man in a tone that suggests they tell this legend to every wayfarer, \"because dust demons can only travel in long straight paths. They can't turn easily.\"||\"Or so the priest Spitting Viper told us,\" chimes in the first man.||Bidding them farewell, you take up your pack and walk out into the waiting desert.">
@@ -5940,7 +5938,7 @@
 <ROUTINE STORY394-PRECHOICE ()
 	<COND (<CHECK-ITEM ,JADE-BEAD>
 		<CRLF>
-		<TELL TEXT394-JADE>
+		<TELL ,TEXT394-JADE>
 		<TELL ,PERIOD-CR>
 		<LOSE-ITEM ,JADE-BEAD>
 	)>>
@@ -5958,7 +5956,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY395-PRECHOICE ()
-	<TEST-MORTALITY 1 DIED-GREW-WEAKER ,STORY395>
+	<TEST-MORTALITY 1 ,DIED-GREW-WEAKER ,STORY395>
 	<IF-ALIVE TEXT395-CONTINUED>>
 
 <CONSTANT TEXT396 "You crouch behind some sacks of grain and wait an hour or so until the streets are completely deserted. A few lights show from the palace windows. Beside the gate, a brazier flares in the night breeze. Other than that it is completely dark. When the moon shows as a misty patch of silver beyond the wooded hills to the east, you put your plan into action.||\"Brr, it's cold suddenly,\" remarks one of the guards at the gate.||One of his companions nods. \"Did you hear something just then?\" He casts a nervous glance over his shoulder. The pyramid-tomb of the dead king looms darkly against the pale halo of moonlight.||\"Now you come to mention it...\" says another, also looking back. Suddenly he gasps, eyes popping out of his head. \"By all the gods!\"||A parade of ghosts descends the steps of the pyramid. Their dead faces are formed on mist and moonbeams, and they move without sound across the courtyard. The guards are brave enough to face any foe of flesh and blood, but the sight of this host of spectres sends icy terror through their veins. Dropping their weapons, they run off into the night.||You watch them go, then step out from your hiding-place. As you cancel your illusion spell, the 'ghosts' dissolve into the darkness. You hurry across to the pyramid before the guards recover enough nerve to come slinking back.">
@@ -6020,11 +6018,11 @@
 	<CRLF>
 	<COND (<CHECK-SKILL ,SKILL-AGILITY>
 		<SET DAMAGE 1>
-		<TELL TEXT400-AGILITY>
+		<TELL ,TEXT400-AGILITY>
 	)(ELSE
-		<TELL TEXT400-CRASHED>
+		<TELL ,TEXT400-CRASHED>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY400>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY400>
 	<IF-ALIVE TEXT400-CONTINUED>>
 
 <CONSTANT TEXT401 "You greet the sentinel by name. He receives your greeting with barely a change in expression. Only in a narrowing of those burning eyes and a drooping of the chiselled lips do you begin to sense your error.||His sceptre flashes out without warning, shattering your breast-bone and drinking through into your heart. Impaled, you give a last spasm before death congeals on your features. You have met your doom.">
@@ -6057,7 +6055,7 @@
 	<KEEP-ITEM ,LUMP-OF-CHARCOAL>
 	<KEEP-ITEM ,STONE>
 	<CRLF>
-	<TELL TEXT403-CONTINUED>
+	<TELL ,TEXT403-CONTINUED>
 	<CRLF>>
 
 <CONSTANT TEXT404 "The symbol on the diadem represents the World Tree, the source of all birth and regeneration. Now you can feel it throbbing in your hand, its magical energy sending tingling sparks through your fingers. You carefully set your brother's skull on the dusty ground in front of you and place the diadem over its brow.||Sunlight splashes on the rim of the diadem, growing into a blinding cusp of unbearable intensity. The courtiers look away with a moan of awe, and the two shadow men shrink back against the flanks of their creator's pyramid. Narrowing your eyes, you peer into the heart of the glow and there you witness -- a miracle.||The glow fades. Your brother is standing before you, fully restored, grinning like a demigod with the diadem on his brow. It takes you a moment before the wave of dizzying joy passes enough for you to speak: \"Morning Star!\"||\"It is good to see you!\" says your brother, coming forward to hug you. As the two of you touch, there is a crackle of energy and you feel the injuries and fatigue of the last few weeks burned away by life-giving magic.||\"I feared you were lost for ever.\" You point towards the brooding shrine overlooking the ball contest arena. \"Now, brother, let's show that sorcerer our true mettle!\"">
@@ -6156,7 +6154,7 @@
 <ROUTINE STORY411-PRECHOICE ()
 	<KEEP-ITEM ,GOLDEN-HELMET>
 	<CRLF>
-	<TELL TEXT411-CONTINUED>
+	<TELL ,TEXT411-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT412 "The path reaches a shallow brook. Midges cloud the damp gloomy air. In the branches high above, a macaw dips its long yellow beak to peer at you.">
@@ -6248,7 +6246,7 @@
 
 <ROUTINE STORY419-PRECHOICE ("AUX" (DAMAGE 2))
 	<COND (<OR <CHECK-SKILL ,SKILL-SWORDPLAY> <CHECK-SKILL ,SKILL-TARGETING> <CHECK-SKILL ,SKILL-UNARMED-COMBAT>> <SET DAMAGE 1>)>
-	<TEST-MORTALITY .DAMAGE DIED-FROM-INJURIES ,STORY419>>
+	<TEST-MORTALITY .DAMAGE ,DIED-FROM-INJURIES ,STORY419>>
 
 <CONSTANT TEXT420 "The hound's hot glowering gaze burns in the brutal white wedge of its face. It looks as strong as a jaguar, but with the jaguar's easygoing disposition. As it sees you take a step into the passage, its jaws begin to slaver and it gives a rasping snarl.">
 <CONSTANT CHOICES420 <LTABLE "use" "a blowgun" "rely on" "use" "fight the beast">>
@@ -6346,7 +6344,7 @@
 	<PUT .LOOT 0 .COUNT>
 	<SELECT-FROM-LIST .LOOT .COUNT .COUNT>
 	<CRLF>
-	<TELL TEXT427-CONTINUED>
+	<TELL ,TEXT427-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT428 "You glance up. In the gloomy vault of the dragon's throat, giant tonsils hang like a pair of gongs. You can just reach one of the tonsils by standing on tiptoe. You start to tickle it, and soon the dragon gives a gagging cough and spits you out -- along with a torrent of bilious vomit which burns your skin.">
@@ -6361,7 +6359,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY428-PRECHOICE ()
-	<TEST-MORTALITY 1 DIED-FROM-INJURIES ,STORY428>
+	<TEST-MORTALITY 1 ,DIED-FROM-INJURIES ,STORY428>
 	<IF-ALIVE TEXT428-CONTINUED>>
 
 <CONSTANT TEXT429 "Your thrust skewers the hydra at the junction of its four necks. A ghastly multiple shriek splits the air. You are jerked off its feet by its death-throes and its blood gushes out into your face. It snaps feebly at you, but you cling on and sink the weapon deeper until finally it gives a last spasm and fall lifeless.||As you withdraw the weapon, a large drop of its green life-fluid oozes out of the wound and falls to the ground, congealing to form a rubbery ball such as one might use in the ritual ball contest of your people.">
@@ -6400,7 +6398,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY431-PRECHOICE ()
-	<TEST-MORTALITY 2 DIED-GREW-WEAKER ,STORY431>>
+	<TEST-MORTALITY 2 ,DIED-GREW-WEAKER ,STORY431>>
 
 <CONSTANT TEXT432 "Your eyes can make out nothing in the inky darkness that enfolds you. As you squat down on the guano-spattered floor, there is a flap of leather wings and the first of the bats comes fluttering down towards you. You put an arm up to fend it away. Then suddenly you feel a tingle of cold alarm as you realize someone is standing beside you.||\"This mortal is under my protection,\" says a familiar voice. \"Return to your roosts. There will be no drinking of blood for any of you tonight.\"||The rustle of wings recedes into the rafters. You turn, straining to make out the stranger in the absolute dark. \"Who are you?\" you ask him.||\"A friend.\" He touches your arm reassuringly. \"You helped me once, now I am returning the favour. Go to sleep now. These bats are my subjects, and they will not dare harm you.\"||You enjoy a restful night.">
 
@@ -6428,7 +6426,7 @@
 <ROUTINE STORY433-PRECHOICE ()
 	<SELECT-FROM-LIST <LTABLE HAUNCH-OF-VENISON PAPAYA CHILLI-PEPPERS WATERSKIN> 4 4>
 	<CRLF>
-	<TELL TEXT433-CONTINUED>
+	<TELL ,TEXT433-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT434 "Exposed to the full heat of the sun, you know you would not last three days. You must rest in the shade in the daytime, travelling on at sunset. By keeping on the move, you can keep warm despite the night-time chill.||You slip a pebble in your mouth. Sucking it will stave of thirst. You must conserve your water if you are to survive.">
@@ -6470,7 +6468,7 @@
 		)>
 	)>
 	<CRLF>
-	<TELL TEXT436-CONTINUED>
+	<TELL ,TEXT436-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT437 "You set sail and continue your voyage west.">
@@ -6501,9 +6499,9 @@
 		<SET DAMAGE 1>
 		<SET HARDY T>
 	)>
-	<TEST-MORTALITY .DAMAGE DIED-OF-THIRST ,STORY438>
+	<TEST-MORTALITY .DAMAGE ,DIED-OF-THIRST ,STORY438>
 	<COND (<AND <IS-ALIVE> .HARDY>
-		<EMPHASIZE NATURAL-HARDINESS>
+		<EMPHASIZE ,NATURAL-HARDINESS>
 	)>>
 
 <CONSTANT TEXT439 "You conjure a swarm of little green ants which follow the motion of your wand. Pointing to the dragon's tonsils, which dangle above you in the cavern of his mouth like a pair of giant gongs, you direct the ants to crawl up across them. The ticklish effect of thousands of tiny scuttling legs soon has the desired effect, and the dragon spits you out into the open with a gagging cough.||You get to your feet and wring the dragon's saliva out of your robes. It could have been worse: he might have thrown up. Kawak hangs at the lip of the canyon, glowering as he spits out ants like a man spitting papaya pips. You hurry off before he turns nasty.">
@@ -6527,7 +6525,7 @@
 <ROUTINE STORY440-PRECHOICE ()
 	<KEEP-ITEM ,HAUNCH-OF-VENISON>
 	<CRLF>
-	<TELL TEXT440-CONTINUED>
+	<TELL ,TEXT440-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
 <CONSTANT TEXT441 "You know that the terrain of the forest generally rises towards the south and west. On the basis of this, the direction of the woodland streams gives you at least a hint about which way to go to reach Nachan. You need to bear steadily left until you begin to see signs of human habitation.">
