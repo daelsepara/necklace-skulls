@@ -1399,7 +1399,7 @@
 	(CHOICES CHOICES069)
 	(DESTINATIONS <LTABLE STORY345 STORY092 STORY115 STORY137>)
 	(REQUIREMENTS <LTABLE SKILL-FOLKLORE SKILL-SPELLS NONE NONE>)
-	(TYPES <LTABLE R-NONE R-SKILL R-NONE R-NONE>)
+	(TYPES <LTABLE R-SKILL R-SKILL R-NONE R-NONE>)
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT070 "\"I can give no easy answer, my lady,\" you tell the Matriarch. \"I do not wish to shirk my duty to the clan that has nurtured me, but neither can I ignore the demands of my heart. I must go in search of my brother, since I cannot rest until I know whether he is alive or dead.\"||She heaves a deep sigh, more of resignation than disapproval. \"I know you could not be dissuaded,\" she says. \"You have your late father's impetuosity. Morning Star shared that same quality. It is the mark of a hero -- but beware, Evening Star, for it can also get you killed.\"||\"I understand. I have your permission to undertake this quest, then?\"||\"You have.\" She produces a letter and hands it to you. \"Take this to the town of Balak on the northern coast. Ask there for a girl named Midnight Bloom. She is a distant cousin of yours. Present her with this letter, which will introduce you and request her assistance in your quest.\"||\"How can she assist me?\" you ask, taking the letter.||\"She is skilled in coastal trade, and will convey you by ship to Tahil. May the gods watch over you, Evening Star.\"||You rise and bow, as you leave, your heart is full of excitement.">
