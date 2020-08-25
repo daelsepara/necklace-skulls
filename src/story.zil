@@ -33,9 +33,11 @@
 	<SET-DESTINATION ,STORY340 4 ,STORY384>
 	<PUTP ,STORY004 ,P?DEATH T>
 	<PUTP ,STORY013 ,P?DEATH T>
+	<PUTP ,STORY017 ,P?DEATH T>
 	<PUTP ,STORY022 ,P?DEATH T>
 	<PUTP ,STORY028 ,P?DEATH T>
 	<PUTP ,STORY033 ,P?DEATH T>
+	<PUTP ,STORY046 ,P?DEATH T>
 	<PUTP ,STORY051 ,P?DEATH T>
 	<PUTP ,STORY058 ,P?DEATH T>
 	<PUTP ,STORY062 ,P?DEATH T>
@@ -64,6 +66,7 @@
 	<PUTP ,STORY194 ,P?DEATH T>
 	<PUTP ,STORY195 ,P?DEATH T>
 	<PUTP ,STORY199 ,P?DEATH T>
+	<PUTP ,STORY204 ,P?DEATH T>
 	<PUTP ,STORY205 ,P?DEATH T>
 	<PUTP ,STORY206 ,P?DEATH T>
 	<PUTP ,STORY216 ,P?DEATH T>
@@ -585,6 +588,7 @@
 
 <ROOM STORY009
 	(DESC "009")
+	(STORY TEXT009)
 	(PRECHOICE STORY009-PRECHOICE)
 	(CONTINUE STORY080)
 	(CODEWORD CODEWORD-PAKAL)
@@ -886,18 +890,20 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY033-PRECHOICE ()
-	<TEST-MORTALITY 5 ,DIED-GREW-WEAKER ,STORY033>
-	<COND (<IS-ALIVE>
-		<CRLF>
-		<TELL ,TEXT033-CONTINUED>
-		<TELL ,PERIOD-CR>
-		<COND (<NOT <OR <CHECK-SKILL ,SKILL-SPELLS> <CHECK-SKILL ,SKILL-CUNNING> <CHECK-ITEM ,CHILLI-PEPPERS>>>
+	<COND (,RUN-ONCE
+		<TEST-MORTALITY 5 ,DIED-GREW-WEAKER ,STORY033>
+		<COND (<IS-ALIVE>
 			<CRLF>
-			<TELL ,TEXT033-END>
+			<TELL ,TEXT033-CONTINUED>
 			<TELL ,PERIOD-CR>
-			<PUTP ,STORY033 ,P?DEATH T>
+			<COND (<NOT <OR <CHECK-SKILL ,SKILL-SPELLS> <CHECK-SKILL ,SKILL-CUNNING> <CHECK-ITEM ,CHILLI-PEPPERS>>>
+				<CRLF>
+				<TELL ,TEXT033-END>
+				<TELL ,PERIOD-CR>
+				<PUTP ,STORY033 ,P?DEATH T>
+			)>
 		)>
-	)>>
+	)>
 
 <CONSTANT TEXT034 "You moisten a little salt and rub it onto your neck as a precaution. You do not need much, so you can retain the rest of the parcel in case you need it later.">
 
@@ -1275,12 +1281,10 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY060-PRECHOICE ()
-	<COND (,RUN-ONCE
-		<COND (<CHECK-ITEM ,JADE-BEAD>
-			<SET-DESTINATION ,STORY060 3 ,STORY148>
-		)(ELSE
-			<SET-DESTINATION ,STORY060 3 ,STORY194>
-		)>
+	<COND (<CHECK-ITEM ,JADE-BEAD>
+		<SET-DESTINATION ,STORY060 3 ,STORY148>
+	)(ELSE
+		<SET-DESTINATION ,STORY060 3 ,STORY194>
 	)>>
 
 <CONSTANT TEXT061 "Grey clouds of fury darken the black pools of the sentinel's eyes. He lets his gory mouth drop open in a long appalling howl of fury that sounds like the heavens cracking in two. You drop cowering to the ground, so terrified that every muscle in your body loses all strength.||At last, like a storm, the awful sound passes. You uncurl yourself and glance timidly up. The sentinel has lost interest in you, having voiced his displeasure. He is once more staring directly ahead across the passage, giving you no more attention than he would give to an insect.||Still dazed, you lope on along the passage. It is only now that you realize how the sentinel's howl has addled your wits.">
@@ -1425,12 +1429,10 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY071-PRECHOICE ()
-	<COND (,RUN-ONCE
-		<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
-			<SET-DESTINATION ,STORY071 1 ,STORY139>
-		)(ELSE
-			<SET-DESTINATION ,STORY071 1 ,STORY117>
-		)>
+	<COND (<CHECK-SKILL ,SKILL-ETIQUETTE>
+		<SET-DESTINATION ,STORY071 1 ,STORY139>
+	)(ELSE
+		<SET-DESTINATION ,STORY071 1 ,STORY117>
 	)>>
 
 <CONSTANT TEXT072 "A wave of dizziness warns you that your wound is becoming infected. You stop to gather puffballs. Their spores act as an antidote to fever. Finding a wild bees' nest, you mix the spores with honey to take away the dry noxious taste and gulp the mixture down. It is unpleasant, but it seems to do the trick.">
@@ -3538,6 +3540,7 @@
 	<COND (<CHECK-CODEWORD ,CODEWORD-ZOTZ>
 		<PREVENT-DEATH ,STORY216>
 	)(ELSE
+		<PUTP ,STORY216 ,P?DEATH T>
 		<CRLF>
 		<TELL ,TEXT216-END>
 		<TELL ,PERIOD-CR>
@@ -4878,6 +4881,7 @@
 		<PREVENT-DEATH ,STORY311>
 		<STORY-JUMP ,STORY357>
 	)(ELSE
+		<PUTP ,STORY311 ,P?DEATH T>
 		<CRLF>
 		<TELL ,TEXT311-END>
 		<TELL ,PERIOD-CR>
