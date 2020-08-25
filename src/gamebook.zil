@@ -681,6 +681,7 @@
     <COND (<L? ,LIFE-POINTS 1>
         <TELL .MSG>
         <SETG CONTINUE-TO-CHOICES F>
+        <PUTP .STORY ,P?DEATH T>
     )(ELSE
         <PUTP .STORY ,P?DEATH F>
         <TELL "You lost " N .DMG " Life Points">

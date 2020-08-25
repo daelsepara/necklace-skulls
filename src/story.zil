@@ -749,8 +749,8 @@
 	<COND (<CHECK-ITEM ,WATERSKIN>
 		<TEST-MORTALITY 2 ,DIED-OF-THIRST ,STORY022>
 		<COND (<IS-ALIVE>
-			<EMPHASIZE "You waterskin has been emptied.">
 			<LOSE-ITEM ,WATERSKIN>
+			<EMPHASIZE "You waterskin has been emptied.">
 		)>
 	)(ELSE
 		<PREVENT-DEATH ,STORY022>
