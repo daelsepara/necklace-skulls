@@ -903,7 +903,7 @@
 				<PUTP ,STORY033 ,P?DEATH T>
 			)>
 		)>
-	)>
+	)>>
 
 <CONSTANT TEXT034 "You moisten a little salt and rub it onto your neck as a precaution. You do not need much, so you can retain the rest of the parcel in case you need it later.">
 
