@@ -1694,7 +1694,7 @@
 	(CONTINUE STORY135)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT091 "Jade Thunder goes down to the water's edge and sweeps his wand in a grand magical gesture. The water immediately in front of him becomes as smooth and flat as a sheet of glass. You blink in amazement as the effect stretches off into the distance, leaving a glassy causeway through the waves.||You test your weight on the causeway. It is solid. \"Neat trick,\"you say, impressed.||\"I used to be quite famous in my heyday.\" Jade Thunder starts out along the causeway.||\"Can't I join you?\" you call after him.||\"Not on this path. But if you care to sail south to the mainland, look along the coast for a giant who's buried to his neck in the sand. He has been counting stars since the dawn of time. Tell him the true number, which is one hundred thousand million and seven, and he will grant you one wish.\"||You watch him walk of towards the horizon, then go to rejoin the others at the ship. You are amazed to discover that instead of the flimsy vessel in which you set sail, you now have a magnificent craft of green-lacquered kikche wood with magical sails that can never lose the wind. You climb aboard and put out to sea, but now you must decide.">
+<CONSTANT TEXT091 "Jade Thunder goes down to the water's edge and sweeps his wand in a grand magical gesture. The water immediately in front of him becomes as smooth and flat as a sheet of glass. You blink in amazement as the effect stretches off into the distance, leaving a glassy causeway through the waves.||You test your weight on the causeway. It is solid. \"Neat trick,\" you say, impressed.||\"I used to be quite famous in my heyday.\" Jade Thunder starts out along the causeway.||\"Can't I join you?\" you call after him.||\"Not on this path. But if you care to sail south to the mainland, look along the coast for a giant who's buried to his neck in the sand. He has been counting stars since the dawn of time. Tell him the true number, which is one hundred thousand million and seven, and he will grant you one wish.\"||You watch him walk of towards the horizon, then go to rejoin the others at the ship. You are amazed to discover that instead of the flimsy vessel in which you set sail, you now have a magnificent craft of green-lacquered kikche wood with magical sails that can never lose the wind. You climb aboard and put out to sea, but now you must decide.">
 <CONSTANT CHOICES091 <LTABLE "go east to Tahil" "south as the wizard suggested">>
 
 <ROOM STORY091
@@ -2380,7 +2380,7 @@
 	<COND (,RUN-ONCE <TAKE-ITEM ,BROTHERS-SKULL>)>
 	<COND (<CHECK-CODEWORD ,CODEWORD-SAKBE> <STORY-JUMP ,STORY300>)>>
 
-<CONSTANT TEXT136 "The trader is prepared to detour south just to drop you off, but then you will have to find your own way to Tahil. \"It wasn't in our original agreement, \"he reminds you. \"My business is in Tahil, not in the fens.\"">
+<CONSTANT TEXT136 "The trader is prepared to detour south just to drop you off, but then you will have to find your own way to Tahil. \"It wasn't in our original agreement,\" he reminds you. \"My business is in Tahil, not in the fens.\"">
 <CONSTANT CHOICES136 <LTABLE "agree to being set down on the mainland coast south of the Isle of the Iguana" "you would rather sail on to Tahil">>
 
 <ROOM STORY136
