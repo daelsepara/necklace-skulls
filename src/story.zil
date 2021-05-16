@@ -4124,10 +4124,14 @@
 <ROOM STORY260
 	(DESC "260")
 	(STORY TEXT260)
+	(PRECHOICE STORY260-PRECHOICE)
 	(CHOICES CHOICES260)
 	(DESTINATIONS <LTABLE STORY023 STORY113>)
 	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
+
+<ROUTINE STORY260-PRECHOICE ()
+	<COND (<CHECK-CODEWORD ,CODEWORD-OLMEK> <DELETE-CODEWORD ,CODEWORD-OLMEK>)>>
 
 <CONSTANT TEXT261 "Just when it seems certain that the canoe will get stuck in the passage, immuring you below the earth for ever, you realize that the gap is widening. The canoe drifts on into a vast tunnel through which runs a wide underground river. Misty blue light sparkles on the water and trickles across the glistening rock. It appears to emanate from veins of glassy stone which you can see running through the walls of the tunnel.||The demons manoeuvre their craft between a forest of stalagmites which protrude from the water like thin fangs. Once on the open river they begin to ply their oars with vigour, propelling the canoe amid whoops of crazed glee.||You gaze in awe at the wondrous sight surrounding you. The tunnel is far wider than any stream to be found in the dry countryside around Koba, with walls rising almost vertically to a shadow-filled roof a hundred metres above your head. The air here is hot and musty and has a vile taste that makes you cough, but other than that you could almost imagine you are being steered along a canyon in the open air.||Rounding a bend in the river, you notice a series of stone doors set off a ledge high up in the right-hand wall of the tunnel. \"The cave tombs of the first ancestors,\" says the demon in the back of the boat when he sees where you are looking.||\"I expect you'll want to take a closer look,\" says the other demon and, without waiting for a reply, they row over to the side of the river and steady the canoe below the ledge.">
 <CONSTANT CHOICES261 <LTABLE "climb up to the tombs" "use magic to get up there" "you do not want to explore the tombs">>
