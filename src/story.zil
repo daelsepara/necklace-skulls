@@ -508,7 +508,7 @@
 	(STORY TEXT003)
 	(CHOICES CHOICES003)
 	(DESTINATIONS <LTABLE STORY141 STORY164>)
-	(TYPES THREE-NONES)
+	(TYPES TWO-NONES)
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT004 "You are not sure which nuts and berries are safe to eat, but extreme hunger forces you to make do. You wash the berries down with water from a brook. The meal is meagre and unsatisfying, but at least it eases the pangs in your stomach. Even so, you realize that you cannot survive for long if you don't find your way back to civilization.">
@@ -6012,7 +6012,7 @@
 	(TYPES <LTABLE R-LOSE-ITEM R-NONE>)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT400 "You louse your grip on the crumbling bark and go crashing down through the branches.">
+<CONSTANT TEXT400 "You lose your grip on the crumbling bark and go crashing down through the branches.">
 <CONSTANT TEXT400-AGILITY "You manage to break your fall by catching a stout strangler root">
 <CONSTANT TEXT400-CRASHED "The ground comes up to hit you with a crushing force">
 <CONSTANT TEXT400-CONTINUED "Struggling to your feet, you limp away before the creature can descend from its arboreal lair to pursue you. The stabai have flitted away, terrified of the creature's wrath. When you are safely away from the tree, you clean the muck off the diadem and hold it up in a shaft of sunlight. It is a gold circlet of the sort that sometimes adorn the heads of great nobles. Sacred symbols are stamped into the metal and there is a jade inlay in the fourfold shape of the World Tree, the source of life itself in the mythology of your people.">
