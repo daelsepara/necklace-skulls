@@ -1039,7 +1039,9 @@
 			<TRANSFER-CONTAINER ,LOST-SKILLS ,SKILLS>
 		)>
 		<UPDATE-STATUS-LINE>
-	)>>
+	)>
+	<CRLF>
+	<TELL ,TEXT043-CONTINUED ,PERIOD-CR>>
 
 <CONSTANT TEXT044 "The giant adopts a look of furious concentration. He puffs out the huge boulders of his cheeks and screws his eyes tight. A rumbling groan escapes from the deep well of his throat, followed by a spluttering and a single cough like a lava plug being blown out of the ground.||He opens his mouth and there on his tongue lies a stone jar. \"What's that?\" you ask.||\"Ake it and thee,\" he replies.||\"I beg your pardon?\" you say, lifting the jar to examine it.||'I said, \"Take it and see,\"' he repeats impatiently. When he sees you grimace at the smell of the jar's contents, he adds: \"It's a healing drink. A magical recipe thousands of years old.\"||\"I think it's gone off!\"||\"No, it's supposed to smell like that,\" he says.||(The potion can be drunk once at any time to restore 5 lost Life Points by pressing 'D')">
 
