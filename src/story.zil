@@ -1161,7 +1161,7 @@
 	<TEST-MORTALITY 2 ,DIED-GREW-WEAKER ,STORY051>>
 
 <CONSTANT TEXT052 "A sense of panic begins to well up, churning your thoughts into a confused mixture of fact and fancy. You begin to imagine that you have strayed into the underworld and that the mighty trees surrounding you are no more than the smallest subterranean roots of the fabled Ceiba tree that supports the heavens. You jump in alarm at every tiny sound of scurrying insects or fluttering wings. If you cannot find your way out of the forest soon, our only fate will be madness followed by a slow torturing death by starvation.">
-<CONSTANT CHOICES052 <LTABLE "bear of to the right" "continue in the direction you have been waling up till now" "decide to go left">>
+<CONSTANT CHOICES052 <LTABLE "bear off to the right" "continue in the direction you have been walking up till now" "decide to go left">>
 
 <ROOM STORY052
 	(DESC "052")
