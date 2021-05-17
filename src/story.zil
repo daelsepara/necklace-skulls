@@ -2065,6 +2065,9 @@
 	(CONTINUE STORY181)
 	(FLAGS LIGHTBIT)>
 
+<ROUTINE STORY112-PRECHOICE ()
+	<SCORE-POINTS 1 ,PLAYER>>
+
 <CONSTANT TEXT113 "\"You have done me a service, and yet you ask no favour in return,\" rumbles the giant. \"Hence I shall bestow my gift: immortality.\"||You wait but nothing happens. You don't feel any different. You raise your hands; you still look the same. \"Is that it?\"||\"Yes. Now your natural lifespan is infinite.\"||\"My natural lifespan?\" you say. A point like this is worth getting exactly right.||\"You will never die a natural death,\" the giant clarifies.||You don't know what to say. \"Er... well, thank you.\" Uppermost in your thoughts is that adventurers rarely die natural deaths in any case.||\"Also, you cannot suffer gradual injury,\" adds the giant. \"A single fatal accident can kill you outright, but that is all.\"||That sounds better. As the giant said, the only thing that can now kill you is an overwhelming catastrophe like falling into a volcano.">
 
 <ROOM STORY113
