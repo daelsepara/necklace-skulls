@@ -874,7 +874,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT033 "You walk into the jaws of the dragon and descend the long tunnel of his throat until the only light is a dim flicker in the gloom far behind you. Hot gases bubble up out of the chambers of his stomach, forcing you to hold your hand over your face as you proceed.||It gets hotter. You cannot see much of your surroundings, but you reckon that you must now be passing through the dragons bowels. This is the part of his body that lies in the lava at the bottom of the canyon. Such intense temperatures obviously do not bother the dragon, but you are getting weaker by the minute. You stagger on, head swimming from the stinking gases and the burning heat.">
-<CONSTANT TEXT033-CONTINUED "You realize that at last the passage is beginning to slop upwards again. You are climbing out of the canyon, towards the dragon's other head. Sure enough , the awful heat gradually subsides. When you reach the top of your gruelling ascent, however, a further shock awaits you. The dragon's hind and jaws are closed. You are trapped in here.">
+<CONSTANT TEXT033-CONTINUED "You realize that at last the passage is beginning to slope upwards again. You are climbing out of the canyon, towards the dragon's other head. Sure enough, the awful heat gradually subsides. When you reach the top of your gruelling ascent, however, a further shock awaits you. The dragon's hind and jaws are closed. You are trapped in here.">
 <CONSTANT CHOICES033 <LTABLE "use" "or" "a">>
 <CONSTANT TEXT033-END "Your days will end in the maw of the the dragon">
 
