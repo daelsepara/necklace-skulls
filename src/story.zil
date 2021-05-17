@@ -1254,7 +1254,7 @@
 	)>>
 
 <CONSTANT TEXT059 "The drink proves cool and invigorating.">
-<CONSTANT TEXT059-CONTINUED "Your companion leads up to the kapok tree, where a group of nobles are resting under the canopy of foliage. They greet him cordially, but you are given a somewhat cooler reception until he explains how you helped him cross the river blood.||It is a relief to be out of the glaring light of the low underworld sun for a while. Out of the shade, you an see less fortunate souls moving to and fro with their hands pressed to their foreheads, squinting in the eternal sunshine. You settle down with your back to the tree and wait to hear what the nobles have to say">
+<CONSTANT TEXT059-CONTINUED "Your companion leads up to the kapok tree, where a group of nobles are resting under the canopy of foliage. They greet him cordially, but you are given a somewhat cooler reception until he explains how you helped him cross the river blood.||It is a relief to be out of the glaring light of the low underworld sun for a while. Out of the shade, you can see less fortunate souls moving to and fro with their hands pressed to their foreheads, squinting in the eternal sunshine. You settle down with your back to the tree and wait to hear what the nobles have to say">
 
 <ROOM STORY059
 	(DESC "059")
