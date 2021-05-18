@@ -3501,8 +3501,8 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT213 "With a wave of your wand and a muttered incantation, you animate the rope. Guiding it like a snake charmer, you impel it to rise up to the ledge above.">
-<CONSTANT TEXT213-JADE-BEAD "Unfortunately, the jade bead rolls out of your mouth while you are speaking the spell and is lost in the water;">
-<CONSTANT TEXT213-HAMMER "A tug on the rope confirms that it is taut. You climb up to the ledge without any trouble. The doors of the tombs are massive slabs of stone, each with a bas-relief carving of the occupant. At first glance they look impregnable, but then you notice that there is one slab which has a crack running right across it. Even better, you discover a hammer lying on the ledge. You estimate that it would be about an hour's hard work to smash a way into the tomb.">
+<CONSTANT TEXT213-JADE-BEAD "Unfortunately, the jade bead rolls out of your mouth while you are speaking the spell and is lost in the water">
+<CONSTANT TEXT213-HAMMER "A tug on the rope confirms that it is taut. You climb up to the ledge without any trouble. The doors of the tombs are massive slabs of stone, each with a bas-relief carving of the occupant. At first glance they look impregnable, but then you notice that there is one slab which has a crack running right across it. Even better, you discover a hammer lying on the ledge. You estimate that it would be about an hour's hard work to smash a way into the tomb">
 <CONSTANT CHOICES213 <LTABLE "smash the tomb open" "use the" "decide against violating the tombs and return to the canoe, continuing on your way">>
 
 <ROOM STORY213
@@ -3516,7 +3516,16 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY213-PRECHOICE ()
-	<COND (<AND ,RUN-ONCE <NOT <CHECK-ITEM ,HAMMER>>> <KEEP-ITEM ,HAMMER>)>>
+	<COND (,RUN-ONCE
+		<COND (<CHECK-CHECK-ITEM ,JADE-BEAD>
+			<TELL ,TEXT213-JADE-BEAD ,PERIOD-CR>
+			<LOSE-ITEM ,JADE-BEAD>
+		)>
+	)>
+	<TELL ,TEXT213-HAMMER ,PERIOD-CR>
+	<COND (<AND ,RUN-ONCE <NOT <CHECK-ITEM ,HAMMER>> <KEEP-ITEM ,HAMMER>>
+		<KEEP-ITEM ,HAMMER>
+	)>>
 
 <CONSTANT TEXT214 "You try to paddle the canoe, but the current is too strong. You are borne helplessly on to an underground waterfall and flung out as the canoe goes plunging over the brink. Something strikes your head. There is a blaze of painful light, then darkness as you go under the surface. You drift down towards the river bed, dimly aware that your life ebbing away with the thin trickle of air bubbles rising from your slack jaw.">
 
