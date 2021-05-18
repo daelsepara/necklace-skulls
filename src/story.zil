@@ -3492,7 +3492,7 @@
 		)>
 	)>>
 
-<CONSTANT TEXT212 "You open your mouth to speak and jade the bead rolls out. It falls, bounces off the rock and disappears into the water with a tiny splash.||In the same moment, the tenebrous image of the Rain God leaps into sharp focus. You see him as clearly now as if all the sun's light were focused just where he is standing. Everything else goes plunging into darkness. Your vision is filled with the blazing presence of the divinity.||His face is far from human; you can see that now. He opens his hand in the traditional beneficent gesture of royalty throughout the ages, inviting you to speak.||\"O supreme lord...\"||You falter. How can you address a god?||Then you hear his voice inside your head, telling you that he knows why you have been sent. He accepts the sacrifice. Your life will buy the heavy rains needed to irrigate the crops.||You try to open your mouth to tell him more -- about your quest to find your brother, about the thirst for truth and for vengeance on the sorcerer in the western desert. But you are too drowsy. The dazzling radiance of the Rain God's aura is veiled by a wave of darkness. You relax, strangely content.||In the gloom of the underworld, a monstrous serpent contentedly laps up the last of your blood and dives beneath the water.">
+<CONSTANT TEXT212 "You open your mouth to speak and the jade bead rolls out. It falls, bounces off the rock and disappears into the water with a tiny splash.||In the same moment, the tenebrous image of the Rain God leaps into sharp focus. You see him as clearly now as if all the sun's light were focused just where he is standing. Everything else goes plunging into darkness. Your vision is filled with the blazing presence of the divinity.||His face is far from human; you can see that now. He opens his hand in the traditional beneficent gesture of royalty throughout the ages, inviting you to speak.||\"O supreme lord...\"||You falter. How can you address a god?||Then you hear his voice inside your head, telling you that he knows why you have been sent. He accepts the sacrifice. Your life will buy the heavy rains needed to irrigate the crops.||You try to open your mouth to tell him more -- about your quest to find your brother, about the thirst for truth and for vengeance on the sorcerer in the western desert. But you are too drowsy. The dazzling radiance of the Rain God's aura is veiled by a wave of darkness. You relax, strangely content.||In the gloom of the underworld, a monstrous serpent contentedly laps up the last of your blood and dives beneath the water.">
 
 <ROOM STORY212
 	(DESC "212")
@@ -3525,7 +3525,8 @@
 	<TELL ,TEXT213-HAMMER ,PERIOD-CR>
 	<COND (<AND ,RUN-ONCE <NOT <CHECK-ITEM ,HAMMER>> <KEEP-ITEM ,HAMMER>>
 		<KEEP-ITEM ,HAMMER>
-	)>>
+	)>
+	<COND (<CHECK-SKILL ,SKILL-ROGUERY> <STORY-JUMP ,STORY283>)>>
 
 <CONSTANT TEXT214 "You try to paddle the canoe, but the current is too strong. You are borne helplessly on to an underground waterfall and flung out as the canoe goes plunging over the brink. Something strikes your head. There is a blaze of painful light, then darkness as you go under the surface. You drift down towards the river bed, dimly aware that your life ebbing away with the thin trickle of air bubbles rising from your slack jaw.">
 
