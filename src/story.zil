@@ -3684,7 +3684,7 @@
 	)>>
 
 <CONSTANT TEXT226 "Now it is the opposing team's turn to serve. They send the ball skidding along the side wall in a long arc, and the enemy offensive player comes towards you.">
-<CONSTANT CHOICES226 <LTABLE "move aside and let him past" "make a tackle" "retreat ahead of him">>
+<CONSTANT CHOICES226 <LTABLE "move aside and let him pass" "make a tackle" "retreat ahead of him">>
 
 <ROOM STORY226
 	(DESC "226")
