@@ -4254,7 +4254,7 @@
 
 <CONSTANT TEXT268 "The monster dips one of its necks close to the ground and swings it around behind your legs while another lunges towards your face.">
 <CONSTANT TEXT268-AGILITY "You jump back over the neck that is trying to trip you while simultaneously ducking the attack of the other">
-<CONSTANT TEXT268-CONTINUED "You caught A staggering blow and it is only by falling backwards that you avoid having your head torn off">
+<CONSTANT TEXT268-CONTINUED "You caught a staggering blow and it is only by falling backwards that you avoid having your head torn off">
 
 <ROOM STORY268
 	(DESC "268")
@@ -4329,7 +4329,7 @@
 	)>>
 
 <CONSTANT TEXT273 "As you race along the arena and up the steps of the pyramid, Necklace of Skulls conjures down a storm of blazing meteors.">
-<CONSTANT TEXT273-AGILITY "You move too fast for him. ">
+<CONSTANT TEXT273-AGILITY "You move too fast for him.">
 <CONSTANT TEXT273-CONTINUED "You close with your foe for the final battle">
 
 <ROOM STORY273
