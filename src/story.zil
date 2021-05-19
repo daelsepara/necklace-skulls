@@ -4993,7 +4993,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY318-PRECHOICE ()
-	<COND (<CHECK-CODEWORD ,CODEWORD-SHADE> <STORY-JUMP ,STORY405>)>>
+	<COND (<CHECK-CODEWORD ,CODEWORD-SHADE> <STORY-JUMP ,STORY385>)>>
 
 <CONSTANT TEXT319 "You manage to get the firebrand alight. It gives a little warmth, but not much. You spend a miserable night shivering in the icy draughts blowing through the House of Cold.">
 
