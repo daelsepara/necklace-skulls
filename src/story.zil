@@ -5540,7 +5540,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT360 "You reach the slope of the dune and stumble as you try to retreat up it. The hydra's nearest head gives a triumphant hiss and lances down towards you as you lie helpless.">
-<CONSTANT TEXT360-CHARMS "You are luck enough to have got a handful of sand which you throw in its face buying you the time to scrabble away unscathed">
+<CONSTANT TEXT360-CHARMS "You are lucky enough to have got a handful of sand which you throw in its face buying you the time to scrabble away unscathed">
 <CONSTANT TEXT360-BITE "Its bite inflicts some damage">
 <CONSTANT TEXT360-CONTINUED "You have no recourse but to attack now">
 
