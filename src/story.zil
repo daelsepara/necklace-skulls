@@ -5583,7 +5583,7 @@
 	(FLAGS LIGHTBIT)>
 
 <CONSTANT TEXT362 "The albino hound is so intent on reaching you and closing its jaws on your windpipe that it does not realize you are luring it back into the open. The moment it rushes out under the colonnade, the sunshine forces it to screw up its weak eyes. When you see it is dazzled, you feel more confident about closing in to do battle.">
-<CONSTANT TEXT362-CONTINUED "You finally manage to force the hound down with your foot on its throat and administer the death-blow. Then you make your way along the passage it was guarding to the inner courtyard, where you find the courtiers already waiting for you. The chief courtier looks at you with a surprise, as though he did not expect you to win through.||\"About your cousin --\"||\"Yes?\" he says, peering back along the tunnel with a puzzled frown.||\"Hes dog meat.\"">
+<CONSTANT TEXT362-CONTINUED "You finally manage to force the hound down with your foot on its throat and administer the death-blow. Then you make your way along the passage it was guarding to the inner courtyard, where you find the courtiers already waiting for you. The chief courtier looks at you with a surprise, as though he did not expect you to win through.||\"About your cousin --\"||\"Yes?\" he says, peering back along the tunnel with a puzzled frown.||\"He's dog meat.\"">
 
 <ROOM STORY362
 	(DESC "362")
