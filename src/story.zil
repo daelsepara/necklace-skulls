@@ -6021,7 +6021,7 @@
 	(CODEWORD CODEWORD-OLMEK)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT399 "The remorseless glare of the unearthly sun dazzles you both, forcing you to shield your eyes. Walking on, you come in sight of a kapok tree whose spreading branches poke up into the roof of water above the underworld. Several figures are resting in its shade.||As you press on towards the tree, you pass a well beside the road. Your companion pauses and fishes in his belt-pouch for jade bead, which he casts into the well. There is a glint of golden light from the water, and the noble pauses to take a drink.">
+<CONSTANT TEXT399 "The remorseless glare of the unearthly sun dazzles you both, forcing you to shield your eyes. Walking on, you come in sight of a kapok tree whose spreading branches poke up into the roof of water above the underworld. Several figures are resting in its shade.||As you press on towards the tree, you pass a well beside the road. Your companion pauses and fishes in his belt-pouch for a jade bead, which he casts into the well. There is a glint of golden light from the water, and the noble pauses to take a drink.">
 <CONSTANT CHOICES399 <LTABLE "do the same" "not">>
 
 <ROOM STORY399
@@ -6201,7 +6201,7 @@
 	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT413 "The warmth of your grip awakens the spark of life in the golden manikin. Dropping from your hand to the ledge, it takes in the situation with a single haughty glance. You wonder how anything so small could help against the flying cobra, but the Man of God was fashioned by a god and is far more powerful than you could imagine. As the cobra comes swooping to attack you, the Man of Gold leaps up and seizes its tail, dragging it down to the ledge. The struggle is brief. After casting the lifeless body into the river, the Man of Gold makes a gesture of farewell and then dives off the ledge itself. You hear it fall with a short heavy splash, and by the time you look over the edge it has sunk without a trace.||\"That was handy, having that little figurine,\" calls up one of the demonic oarsmen.||The other chimes in with: \"Too bad you couldn't keep it. He is right.">
+<CONSTANT TEXT413 "The warmth of your grip awakens the spark of life in the golden manikin. Dropping from your hand to the ledge, it takes in the situation with a single haughty glance. You wonder how anything so small could help against the flying cobra, but the Man of Gold was fashioned by a god and is far more powerful than you could imagine. As the cobra comes swooping to attack you, the Man of Gold leaps up and seizes its tail, dragging it down to the ledge. The struggle is brief. After casting the lifeless body into the river, the Man of Gold makes a gesture of farewell and then dives off the ledge itself. You hear it fall with a short heavy splash, and by the time you look over the edge it has sunk without a trace.||\"That was handy, having that little figurine,\" calls up one of the demonic oarsmen.||The other chimes in with: \"Too bad you couldn't keep it. He is right.">
 
 <ROOM STORY413
 	(DESC "413")
