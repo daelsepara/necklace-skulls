@@ -577,7 +577,7 @@
 
 <ROUTINE STORY008-PRECHOICE ()
 	<COND (,RUN-ONCE
-		<COND (<AND <CHECK-SKILL ,SKILL-SWORDPLAY> <CHECK-SKILL ,SKILL-ETIQUETTE>>
+		<COND (<OR <CHECK-SKILL ,SKILL-SWORDPLAY> <CHECK-SKILL ,SKILL-ETIQUETTE>>
 			<SET-DESTINATION ,STORY008 1 ,STORY252>
 		)(ELSE
 			<SET-DESTINATION ,STORY008 1 ,STORY275>
@@ -4244,7 +4244,7 @@
 	<TELL ,TEXT266-CONTINUED>
 	<TELL ,PERIOD-CR>>
 
-<CONSTANT TEXT267 "According to legend, the hero-twins called Forethought and Afterthought once travelled west across the great desert in search of the tunnel leading to the underworld. There they had to pass these four sentinels. They addressed each with due deference, calling the first Lord Skull, the second Lord Blood, the third Thunderbolt Laughter, and the fourth Grandfather of Darkness. Thus they finally penetrated of the underworld.||Make your you know the detail of the legend.">
+<CONSTANT TEXT267 "According to legend, the hero-twins called Forethought and Afterthought once travelled west across the great desert in search of the tunnel leading to the underworld. There they had to pass these four sentinels. They addressed each with due deference, calling the first Lord Skull, the second Lord Blood, the third Thunderbolt Laughter, and the fourth Grandfather of Darkness. Thus they finally penetrated of the underworld.||Make you know the details of the legend.">
 
 <ROOM STORY267
 	(DESC "267")
@@ -5011,7 +5011,8 @@
 		<EMPHASIZE ,NATURAL-HARDINESS>
 	)(ELSE
 		<TEST-MORTALITY 1 ,DIED-GREW-WEAKER ,STORY319>
-	)>>
+	)>
+	<IF-ALIVE "In the morning, you stumble gratefully out into the hot sunshine.">>
 
 <CONSTANT TEXT320 "The pirates' vessel bumps against yours and they come swarming over the side like ants. You cannot understand their yammering war-cries, for they are not of your people but come from a land beyond the northern sea. Their white-rimmed eyes hold a look that means the same in any language, though. It is the look of fury and hate.||You fight with desperate strength knowing that you are fighting not just for your own life but also for the trader and his young sons.">
 <CONSTANT TEXT320-CONTINUED "You finally force the pirates to retreat to their own vessel and sail off.">
@@ -6201,7 +6202,7 @@
 	(TYPES THREE-NONES)
 	(FLAGS LIGHTBIT)>
 
-<CONSTANT TEXT413 "The warmth of your grip awakens the spark of life in the golden manikin. Dropping from your hand to the ledge, it takes in the situation with a single haughty glance. You wonder how anything so small could help against the flying cobra, but the Man of Gold was fashioned by a god and is far more powerful than you could imagine. As the cobra comes swooping to attack you, the Man of Gold leaps up and seizes its tail, dragging it down to the ledge. The struggle is brief. After casting the lifeless body into the river, the Man of Gold makes a gesture of farewell and then dives off the ledge itself. You hear it fall with a short heavy splash, and by the time you look over the edge it has sunk without a trace.||\"That was handy, having that little figurine,\" calls up one of the demonic oarsmen.||The other chimes in with: \"Too bad you couldn't keep it. He is right.">
+<CONSTANT TEXT413 "The warmth of your grip awakens the spark of life in the golden manikin. Dropping from your hand to the ledge, it takes in the situation with a single haughty glance. You wonder how anything so small could help against the flying cobra, but the Man of Gold was fashioned by a god and is far more powerful than you could imagine. As the cobra comes swooping to attack you, the Man of Gold leaps up and seizes its tail, dragging it down to the ledge. The struggle is brief. After casting the lifeless body into the river, the Man of Gold makes a gesture of farewell and then dives off the ledge itself. You hear it fall with a short heavy splash, and by the time you look over the edge it has sunk without a trace.||\"That was handy, having that little figurine,\" calls up one of the demonic oarsmen.||The other chimes in with: \"Too bad you couldn't keep it.\"||He is right.">
 
 <ROOM STORY413
 	(DESC "413")
