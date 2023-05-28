@@ -415,7 +415,7 @@
 				<COND (<L? .CONSUMED .QUANTITY>
 					<GAIN-LIFE <- .QUANTITY .CONSUMED>>
 				)(ELSE
-					<GAIN-LIFE .QUANTITY>					
+					<GAIN-LIFE .QUANTITY>
 				)>
 			)(<G=? .CONSUMED .QUANTITY>
 				<EMPHASIZE "You were able to eat your fill">
@@ -1013,7 +1013,7 @@
 	(FLAGS LIGHTBIT)>
 
 <ROUTINE STORY042-PRECHOICE ()
-	<START-RITUAL-BALL> 
+	<START-RITUAL-BALL>
 	<COND (<CHECK-CODEWORD ,CODEWORD-POKTAPOK> <STORY-JUMP ,STORY065>)>>
 
 <CONSTANT TEXT043 "To your own astonishment as much as anyone else's, the blood ball soars up and unerringly passes through the stone ring set in the middle of the wall. A howl of disbelief rises from the watching courtiers. They sound like hounds at the baying of the moon.||Your brother rushes over to join you. \"Can you feel it, Evening Star?\" he says excitedly. \"The tingle of magic on the air?\"||He is right. In some strange way your victory worked a spell which now empowers you both with an invigorating surge of energy.">

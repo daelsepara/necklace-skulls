@@ -7,6 +7,6 @@ all: clean
 test: clean
 	zilf -w necklace.zil
 	zapf necklace.zap
-	
+
 clean:
 	rm -f *.xzap *.zap *.z?
