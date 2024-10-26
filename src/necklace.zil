@@ -1,4 +1,5 @@
-"Necklace of Skulls (ZIL)"
+; "Necklace of Skulls (ZIL)"
+; ---------------------------------------------------------------------------------------------
 
 <CONSTANT GAME-TITLE "||Necklace of Skulls">
 <CONSTANT GAME-DESCRIPTION "|Dave Morris (1993)||Implemented in ZIL by SD Separa (2020)|">
