@@ -1,4 +1,5 @@
-; "Codewords for Necklace of Skulls"
+; "codewords for Necklace of Skulls"
+; ---------------------------------------------------------------------------------------------
 
 <OBJECT CODEWORD-ANGEL
     (DESC "Angel")

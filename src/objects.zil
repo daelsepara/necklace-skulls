@@ -1,6 +1,8 @@
-; "Objects for Necklace of Skulls"
+; "objects for Necklace of Skulls"
+; ---------------------------------------------------------------------------------------------
 
-; Weapons
+; weapons
+; ---------------------------------------------------------------------------------------------
 <OBJECT BLOWGUN
     (DESC "blowgun")
     (SYNONYM PISTOL)
@@ -27,8 +29,8 @@
     (REQUIRES SKILL-SWORDPLAY)
     (FLAGS TAKEBIT)>
 
-; "Story Objects"
-
+; "story objects"
+; ---------------------------------------------------------------------------------------------
 <OBJECT BLANKET
     (DESC "blanket")
     (SYNONYM BLANKET)

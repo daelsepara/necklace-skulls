@@ -1,3 +1,6 @@
+; "Necklace of Skulls"
+; ---------------------------------------------------------------------------------------------
+
 <INSERT-FILE "gamebook">
 
 <GLOBAL STARTING-POINT PROLOGUE>
@@ -4379,7 +4382,7 @@
 	<COND (<G? .ITEMS 0>
 		<PREVENT-DEATH ,STORY285>
 		<DO (I 1 .ITEMS)
-			<PUT .GIVE-LIST .I <GET-ITEM .I ,PLAYER>>
+			<PUT .GIVE-LIST .I <GET-FROM-LIST .I ,PLAYER>>
 		>
 		<PUT .GIVE-LIST 0 .ITEMS>
 		<REPEAT ()
